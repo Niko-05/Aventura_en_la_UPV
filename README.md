@@ -1,1 +1,1 @@
-# Aventura_en_la_UPV
+Actividades de prácticas y demás documentos sobre el grado de Ingeniería Informática en la UPV
