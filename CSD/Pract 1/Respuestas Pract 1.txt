@@ -1,0 +1,20 @@
+Preguntas Piscina Tipo 0 (baño libre)
+--------------------------------------
+
+1- En los métodos de la piscina tipo 0 no se ha usado la palabra Synchronized al implementar los mismos. El método synchronized sirve para usar el lock implícito del objeto y sirve para garantizar exclusión mutua y evitar condiciones de carrera. Al no haber ninguna variable compartida que haya de ser modificada, no es posible que se de condición de carrera, lo que no afectaría el funcionamiento
+
+2- Como hemos mencionado, al no haber ninguna variable compartida, no se podría dar la llamada condición de carrera.
+
+3- 
+
+4- Cualquier instructor y cualquier niño pueden pasar de "resting" a "swimming" ya que, no existe ninguna condición que limite u obligue a los hilos "instructor" y "niño" a esperar.
+
+Preguntas Piscina Tipo 1 
+-------------------------
+
+Ejercicio 1.1
+> kidSwims(): Espera si no hay instructores nadando, no hay estado y no avisa a nadie
+> kidRests(): No espera a nada, no hay estado y avisa a instructores waiting to rest
+> instructorSwims(): No espera a nada, no hay estado y avisa a niños waiting to swim
+> instructorRests(): Espera si hay niños nadando, no hay estado y no avisa a nadie
+
