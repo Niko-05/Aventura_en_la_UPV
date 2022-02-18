@@ -5,6 +5,7 @@ public class Pool2 extends Pool{ //max kids/instructor
     int instructorsSwimming = 0;
     int KI = 0;
     public void init(int ki, int cap){KI = ki;}
+    
     public  synchronized void kidSwims() throws InterruptedException {
         while(kidsSwimming == KI  * instructorsSwimming){
             log.waitingToSwim();
@@ -26,8 +27,9 @@ public class Pool2 extends Pool{ //max kids/instructor
         notifyAll();
         log.swimming();
     }
+    
     public synchronized void instructorRests() throws InterruptedException {
-        while(kidsSwimming <= KI  * instructorsSwimming){
+        while(kidsSwimming != 0 || kidsSwimming == KI * instructorsSwimming){
             log.waitingToRest();
             wait();
         }
