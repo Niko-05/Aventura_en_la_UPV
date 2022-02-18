@@ -1,1 +1,6 @@
-git ad
+git status		consultar seguimiento
+git status -s		consultar solo no seguidos
+git add .		añade seguimiento		
+git commit -m "comen"	hacer un backup
+git push		subir
+git pull		bajar
