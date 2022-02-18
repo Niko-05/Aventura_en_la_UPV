@@ -1,0 +1,2 @@
+1- El valor está almacenada en memoria
+2- La opción d

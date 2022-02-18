@@ -27,7 +27,7 @@ public class Pool2 extends Pool{ //max kids/instructor
         log.swimming();
     }
     public synchronized void instructorRests() throws InterruptedException {
-        while(kidsSwimming > KI * instructorsSwimming){
+        while(kidsSwimming <= KI  * instructorsSwimming){
             log.waitingToRest();
             wait();
         }
