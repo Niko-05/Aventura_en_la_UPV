@@ -40,9 +40,9 @@ public class Pool4 extends Pool { //kids cannot enter if there are instructors w
     }
     
     public synchronized void instructorRests() throws InterruptedException {
+        instructorsWaiting++;
         while(kidsSwimming != 0 || kidsSwimming == KI * instructorsSwimming){
             log.waitingToRest();
-            instructorsWaiting++;
             wait();
         }
         instructorsSwimming--;
