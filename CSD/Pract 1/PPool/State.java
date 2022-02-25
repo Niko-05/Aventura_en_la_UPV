@@ -24,25 +24,25 @@ public class State {
             if (e[pos]>ant.e[pos] || (e[pos]==0 && ant.e[pos]==3) || 
                     (e[pos]==0 && ant.e[pos]==2) || (e[pos]==-2 && ant.e[pos]==0) ) resul = 0;
             else {
-                resul = -1;				
+                resul = -1;                
                 System.out.println("Encontrado error de transición en pos:"+ pos);
                 System.out.println(ant);
                 System.out.println(this);
-            }						
+            }                        
         } else if (dif>1) {
             resul = -1;
             System.out.println("Encontrado error de transición. Dif: " + dif);
             System.out.println(ant);
             System.out.println(this);
         }
-        return resul;		
+        return resul;        
     }
     public int test() {
         int MAX=K/I, CAP=(K+I)/2;
-        nk=0; 		for (int i=0; 	i<K;   	i++)   	if (e[i]>1) 	nk++;
-        ni=0; 		for (int i=K;	i<K+I; 	i++)   	if (e[i]>1) 	ni++;
-        int endedk=0; 	for (int i=0; 	i<K;   	i++)   	if (e[i]==-2) 	endedk++;
-        int endedi=0; 	for (int i=K; 	i<K+I; 	i++)   	if (e[i]==-2) 	endedi++;
+        nk=0;         for (int i=0;     i<K;       i++)       if (e[i]>1)     nk++;
+        ni=0;         for (int i=K;    i<K+I;     i++)       if (e[i]>1)     ni++;
+        int endedk=0;     for (int i=0;     i<K;       i++)       if (e[i]==-2)     endedk++;
+        int endedi=0;     for (int i=K;     i<K+I;     i++)       if (e[i]==-2)     endedi++;
         return (nk>0&&ni==0)?1
              : (nk>MAX*ni)?2
              : ((nk+ni)>CAP)?3

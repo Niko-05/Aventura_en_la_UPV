@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.FXMLDocumentController">
+   <children>
+      <Slider fx:id="hSlider" layoutX="100.0" layoutY="643.0" majorTickUnit="100.0" max="500.0" minorTickCount="100" prefHeight="14.0" prefWidth="500.0" showTickMarks="true" value="500.0" />
+      <Slider fx:id="vSlider" layoutX="45.0" layoutY="100.0" majorTickUnit="100.0" max="500.0" minorTickCount="100" orientation="VERTICAL" prefHeight="500.0" prefWidth="14.0" showTickMarks="true" value="500.0" />
+      <HBox alignment="BOTTOM_LEFT" layoutX="100.0" layoutY="100.0" prefHeight="500.0" prefWidth="500.0">
+         <children>
+            <Rectangle fx:id="miRectangulo" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="500.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+         </children>
+      </HBox>
+   </children>
+</Pane>

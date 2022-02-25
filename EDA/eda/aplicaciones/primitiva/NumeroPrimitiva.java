@@ -35,10 +35,12 @@ public class NumeroPrimitiva implements Comparable<NumeroPrimitiva> {
         NumeroPrimitiva otro;
         if(o instanceof NumeroPrimitiva){
             otro = (NumeroPrimitiva) o;
-            if(this.numero == otro.numero){
-                return true;
-            }else {
-                return false;
+            
+            return this.numero == otro.numero;
+            //if(this.numero == otro.numero){
+            //    return true;
+            //}else {
+            //    return false;
             }
         } else {
             return false;
