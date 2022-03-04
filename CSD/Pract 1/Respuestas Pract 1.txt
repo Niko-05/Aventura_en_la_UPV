@@ -35,8 +35,40 @@ Preguntas Piscina Tipo 2
 
 Ejercicio 2.1
 > kidSwims(): Espera si no hay instructores nadando y si el número de niños es 2 * número de instructores, modifica variable "kidsSwimming" y no avisa a nadie
->kidRests(): No espera a nadie, modifica variable "kidsSwimming" y avisa a instructores waiting to rest
->instructorSwims(): No espera a nadie, modifica variable "instructorsSwimming" y avisa a kids waiting to swim
->instructorRests(): Espera a que no haya kids en la piscina, modifica variable "instructorsSwimming" y no avisa a nadie
+> kidRests(): No espera a nadie, modifica variable "kidsSwimming" y avisa a instructores waiting to rest
+> instructorSwims(): No espera a nadie, modifica variable "instructorsSwimming" y avisa a kids waiting to swim
+> instructorRests(): Espera a que no haya kids en la piscina, modifica variable "instructorsSwimming" y no avisa a nadie
 
 
+1- No serviría, harían falta 2 variables de tipo int ya que no basta con que haya 1 instructor dentro de la piscina, es necesario que haya un máximo de 2 niños por instructor, con lo que hay que llevar la cuenta de cuantos instructores están dentro de la piscina
+
+2- Se  ha modificado los métodos kidSwims y instructorRest
+
+3- Sí, es necesario ya que así se notifica a los niños que están esperando para entrar (kidsWaitingToSwim) de que hay un nuevo instructor en la piscina
+
+
+Preguntas Piscina Tipo 3
+-------------------------
+
+Ejercicio 3.1
+> kidSwims(): Espera si no hay instructores, ya hay el número máximo de niños por instructor o si la piscina está llena, modifica las variables kidsSwimming y el contador de aforo de la piscina y no avisa a nadie
+> kidRest(): No espera a nadie, modifica kidsSwimming y aforo en la piscina y avisa a los instructores esperando para salir
+> instructorSwims(): Espera si se ha alcanzado el aforo máximo de la piscina, modifica aforo e instructorsSwimming y avisa a los niños esperando a nadar
+> instructorRest(): Espera si hay niños en la piscina y si el número de niños es el doble que de instructores en la piscina, modifica el aforo y la variable instructorsSwimming y no avisa a nadie
+
+1- Sí, es necesario implementar una variable que lleve a cabo el conteo del aforo, para no sobrepasar el límite de personas nadando
+
+2- No sabría decirlo
+
+Preguntas Piscina Tipo 4
+-------------------------
+
+Ejercicio 4.1
+> kidSwims(): Espera si no hay instructores, si algún instructor quiere salir, si el aforo está completo y si el número de niños por instructor es máximo, modifica las variables de aforo y kidsSwimming y no avisa a nadie
+> kidRest(): No espera a nadie, modifica variables de aforo y kidsSwimming y avisa a los instructores esperando para salir
+> instructorSwims(): Espera si el aforo es máximo, modifica variables de aforo y de instructorsSwimming y avisa a los niños esperando a nadar
+> instructorRest(): Espera si hay niños en la piscina y si el número de instructores nadando es la mitad de los niños nadando, modifica variables de aforo e instructores nadando, instructores esperando a descansar y avisa a los niños esperando a nadar
+
+1- Sí, se añade una variable de tipo int que cuenta el número de instructores que solicitan salir de la piscina, con el fín de no dejar entrar ningún niño a la piscina
+
+2- Se ha empleado al final de todos los métodos menos de kidSwims().

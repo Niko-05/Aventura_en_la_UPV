@@ -1,0 +1,39 @@
+Actividad 0
+-------------
+
+0.1- 
+
+N = 1 --> 10 interbloqueos
+N = 5 --> 10 interbloqueos
+N = 10 --> 10 interbloqueos
+
+0.2- El número de interbloqueos no se ve afectado por el valor del retardo
+
+
+
+Actividad 1
+-------------
+
+1- Hemos roto la condición de espera circular
+
+2- Sí, porque hemos roto una de las condiciones de coffman, haciendo imposible que se produzca un interbloqueo
+
+
+Actividad 2
+-------------
+
+1- Hemos roto las condiciones retención y espera y espera circular
+
+2- Hemos utilizado una mesa distinta ya que necesitabamos implementar el método takeLR, ilegal en la mesa original
+
+3- No, hemos implementado el filosofo BothOrNonePhilo para que ejecute su método takeLR
+
+
+Actividad 3
+------------
+
+1- Rompemos la condición de espera circular
+
+2- No, LimitedTable
+
+3- No, usado el LimitedPhilo 
