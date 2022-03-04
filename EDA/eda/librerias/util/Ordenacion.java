@@ -122,7 +122,8 @@ public class Ordenacion {
      * @param v  Sus elementos deben implementar la interfaz Comparable
      */
     public static <T extends Comparable<T>> void mergeSort2(T[] v) {
-        /*COMPLETAR*/
+        T[] aux = mergeSort2(v, 0, v.length - 1);
+        System.arraycopy(aux, 0, v, 0, v.length);
     }
     
     /**
@@ -136,13 +137,21 @@ public class Ordenacion {
      */
     @SuppressWarnings("unchecked")
     private static <T extends Comparable<T>> T[] mergeSort2(T[] v, int i, int f) {
-        if (i <= f) {
+        T[] res;
+        if (i + 1 == f) {
+            if (v[i].compareTo(v[f]) < 0)
+                res = (T[]) new Comparable[] {v[i], v[f]};
+            else
+                res = (T[]) new Comparable[] {v[f], v[i]};
+        } else if (i == f) {
+            res = (T[]) new Comparable[] {v[i]};
+        } else {
             int m = (i + f) / 2;
-            mergeSort2(v, i, m);
-            mergeSort2(v, m + 1, f);
-            merge2(v, v);
+            T[] v1 = mergeSort2(v, i, m);
+            T[] v2 = mergeSort2(v, m + 1, f);
+            res = merge2(v1, v2);
         }
-        
+        return res;
     }        
     
     /**
