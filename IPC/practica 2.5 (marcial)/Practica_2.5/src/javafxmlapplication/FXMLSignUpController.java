@@ -18,6 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.InputMethodEvent;
 
 
 /**
@@ -114,23 +116,53 @@ public class FXMLSignUpController implements Initializable {
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        errPass2.setVisible(false);
        
         validEmail = new SimpleBooleanProperty();
         validPassword = new SimpleBooleanProperty();   
         equalPasswords = new SimpleBooleanProperty();
         
-        validPassword.setValue(Boolean.TRUE);
-        validEmail.setValue(Boolean.TRUE);
-        equalPasswords.setValue(Boolean.TRUE);
+        validPassword.setValue(Boolean.FALSE);
+        validEmail.setValue(Boolean.FALSE);
+        equalPasswords.setValue(Boolean.FALSE);
        
+        botonCancelar.setOnAction( (event)->{
+        botonCancelar.getScene().getWindow().hide();
+        });
         
         
-        BooleanBinding validFields = Bindings.and(validEmail, validPassword)
-                 .and(equalPasswords);
-         
+        BooleanBinding validFields = Bindings.and(validEmail, equalPasswords);//.and(equalPasswords);
+        botonAceptar.disableProperty().bind(Bindings.not(validFields));
+        
+        MailField.focusedProperty().addListener((observable, oldV, newV) -> {
+            if(!newV){
+                if(!esCorreo(MailField.getText())){
+                errMail.setVisible(true);
+                validEmail.setValue(Boolean.FALSE);
+                }
+            } else {errMail.setVisible(false); validEmail.setValue(Boolean.TRUE);}
+        });
+        
+        PasswordField.focusedProperty().addListener((observable, oldV, newV) -> {
+            if(!newV){
+                if(!esContraseña(PasswordField.getText())){
+                errPass1.setVisible(true);
+                validPassword.setValue(Boolean.FALSE);
+                }
+            } else {errPass1.setVisible(false); validPassword.setValue(Boolean.TRUE);}
+        });
+        
+        PasswordField2.focusedProperty().addListener((observable, oldV, newV) -> {
+            if(!newV){
+                if(!(PasswordField.getText().equals(PasswordField2.getText()))){
+                errPass2.setVisible(true);
+                equalPasswords.setValue(Boolean.FALSE);
+                PasswordField.requestFocus();
+                PasswordField.textProperty().setValue("");
+                PasswordField2.textProperty().setValue("");
+                }
+            } else {errPass2.setVisible(false); equalPasswords.setValue(Boolean.TRUE);}
+        });
 
-        
 
     } 
     
@@ -195,6 +227,6 @@ public class FXMLSignUpController implements Initializable {
         }
 
     }
-   
+
     
 }
