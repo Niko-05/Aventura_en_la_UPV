@@ -1,0 +1,755 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2012, 2014, Oracle and/or its affiliates.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. Use is subject to license terms.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This file is available and licensed under the following license:<a name="line.5"></a>
+<span class="sourceLineNo">006</span> *<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * Redistribution and use in source and binary forms, with or without<a name="line.7"></a>
+<span class="sourceLineNo">008</span> * modification, are permitted provided that the following conditions<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * are met:<a name="line.9"></a>
+<span class="sourceLineNo">010</span> *<a name="line.10"></a>
+<span class="sourceLineNo">011</span> *  - Redistributions of source code must retain the above copyright<a name="line.11"></a>
+<span class="sourceLineNo">012</span> *    notice, this list of conditions and the following disclaimer.<a name="line.12"></a>
+<span class="sourceLineNo">013</span> *  - Redistributions in binary form must reproduce the above copyright<a name="line.13"></a>
+<span class="sourceLineNo">014</span> *    notice, this list of conditions and the following disclaimer in<a name="line.14"></a>
+<span class="sourceLineNo">015</span> *    the documentation and/or other materials provided with the distribution.<a name="line.15"></a>
+<span class="sourceLineNo">016</span> *  - Neither the name of Oracle Corporation nor the names of its<a name="line.16"></a>
+<span class="sourceLineNo">017</span> *    contributors may be used to endorse or promote products derived<a name="line.17"></a>
+<span class="sourceLineNo">018</span> *    from this software without specific prior written permission.<a name="line.18"></a>
+<span class="sourceLineNo">019</span> *<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS<a name="line.20"></a>
+<span class="sourceLineNo">021</span> * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR<a name="line.22"></a>
+<span class="sourceLineNo">023</span> * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT<a name="line.25"></a>
+<span class="sourceLineNo">026</span> * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY<a name="line.27"></a>
+<span class="sourceLineNo">028</span> * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<a name="line.28"></a>
+<span class="sourceLineNo">029</span> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<a name="line.30"></a>
+<span class="sourceLineNo">031</span> */<a name="line.31"></a>
+<span class="sourceLineNo">032</span>package com.oracle.javafx.scenebuilder.kit.editor.panel.library;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.oracle.javafx.scenebuilder.kit.editor.i18n.I18N;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.oracle.javafx.scenebuilder.kit.editor.panel.util.dialog.AbstractModalDialog;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.oracle.javafx.scenebuilder.kit.editor.panel.util.dialog.ErrorDialog;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.oracle.javafx.scenebuilder.kit.fxom.FXOMDocument;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import com.oracle.javafx.scenebuilder.kit.library.user.UserLibrary;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import com.oracle.javafx.scenebuilder.kit.library.util.JarExplorer;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import com.oracle.javafx.scenebuilder.kit.library.util.JarReport;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>import com.oracle.javafx.scenebuilder.kit.library.util.JarReportEntry;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>import java.io.File;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>import java.io.IOException;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>import java.net.MalformedURLException;<a name="line.44"></a>
+<span class="sourceLineNo">045</span>import java.net.URL;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>import java.net.URLClassLoader;<a name="line.46"></a>
+<span class="sourceLineNo">047</span>import java.nio.file.Files;<a name="line.47"></a>
+<span class="sourceLineNo">048</span>import java.nio.file.Path;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>import java.nio.file.Paths;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>import java.util.ArrayList;<a name="line.50"></a>
+<span class="sourceLineNo">051</span>import java.util.Collections;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>import java.util.Iterator;<a name="line.52"></a>
+<span class="sourceLineNo">053</span>import java.util.List;<a name="line.53"></a>
+<span class="sourceLineNo">054</span>import java.util.concurrent.ExecutionException;<a name="line.54"></a>
+<span class="sourceLineNo">055</span>import javafx.beans.property.BooleanProperty;<a name="line.55"></a>
+<span class="sourceLineNo">056</span>import java.util.stream.Stream;<a name="line.56"></a>
+<span class="sourceLineNo">057</span>import javafx.application.Platform;<a name="line.57"></a>
+<span class="sourceLineNo">058</span>import javafx.beans.value.ChangeListener;<a name="line.58"></a>
+<span class="sourceLineNo">059</span>import javafx.beans.value.ObservableValue;<a name="line.59"></a>
+<span class="sourceLineNo">060</span>import javafx.concurrent.Task;<a name="line.60"></a>
+<span class="sourceLineNo">061</span>import javafx.concurrent.WorkerStateEvent;<a name="line.61"></a>
+<span class="sourceLineNo">062</span>import javafx.event.ActionEvent;<a name="line.62"></a>
+<span class="sourceLineNo">063</span>import javafx.event.EventHandler;<a name="line.63"></a>
+<span class="sourceLineNo">064</span>import javafx.fxml.FXML;<a name="line.64"></a>
+<span class="sourceLineNo">065</span>import javafx.geometry.Bounds;<a name="line.65"></a>
+<span class="sourceLineNo">066</span>import javafx.scene.Group;<a name="line.66"></a>
+<span class="sourceLineNo">067</span>import javafx.scene.Node;<a name="line.67"></a>
+<span class="sourceLineNo">068</span>import javafx.scene.Scene;<a name="line.68"></a>
+<span class="sourceLineNo">069</span>import javafx.scene.control.ChoiceBox;<a name="line.69"></a>
+<span class="sourceLineNo">070</span>import javafx.scene.control.Label;<a name="line.70"></a>
+<span class="sourceLineNo">071</span>import javafx.scene.control.ListView;<a name="line.71"></a>
+<span class="sourceLineNo">072</span>import javafx.scene.control.ProgressIndicator;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>import javafx.scene.control.SplitPane;<a name="line.73"></a>
+<span class="sourceLineNo">074</span>import javafx.scene.control.ToggleButton;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>import javafx.scene.control.cell.CheckBoxListCell;<a name="line.75"></a>
+<span class="sourceLineNo">076</span>import javafx.scene.layout.Region;<a name="line.76"></a>
+<span class="sourceLineNo">077</span>import javafx.scene.layout.VBox;<a name="line.77"></a>
+<span class="sourceLineNo">078</span>import javafx.stage.Modality;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>import javafx.stage.Stage;<a name="line.79"></a>
+<span class="sourceLineNo">080</span>import javafx.stage.Window;<a name="line.80"></a>
+<span class="sourceLineNo">081</span>import javafx.stage.WindowEvent;<a name="line.81"></a>
+<span class="sourceLineNo">082</span>import javafx.util.Callback;<a name="line.82"></a>
+<span class="sourceLineNo">083</span><a name="line.83"></a>
+<span class="sourceLineNo">084</span>/**<a name="line.84"></a>
+<span class="sourceLineNo">085</span> *<a name="line.85"></a>
+<span class="sourceLineNo">086</span> */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>public class ImportWindowController extends AbstractModalDialog {<a name="line.87"></a>
+<span class="sourceLineNo">088</span><a name="line.88"></a>
+<span class="sourceLineNo">089</span>    final List&lt;File&gt; importFiles;<a name="line.89"></a>
+<span class="sourceLineNo">090</span>    private final LibraryPanelController libPanelController;<a name="line.90"></a>
+<span class="sourceLineNo">091</span>    Task&lt;List&lt;JarReport&gt;&gt; exploringTask = null;<a name="line.91"></a>
+<span class="sourceLineNo">092</span>    URLClassLoader importClassLoader;<a name="line.92"></a>
+<span class="sourceLineNo">093</span>    Node zeNode = new Label(I18N.getString("import.preview.unable"));<a name="line.93"></a>
+<span class="sourceLineNo">094</span>    double builtinPrefWidth;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>    double builtinPrefHeight;<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    private int numOfImportedJar;<a name="line.96"></a>
+<span class="sourceLineNo">097</span>    <a name="line.97"></a>
+<span class="sourceLineNo">098</span>    // At first we put in this collection the items which are already excluded,<a name="line.98"></a>
+<span class="sourceLineNo">099</span>    // basically all which are listed in the filter file.<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    // When constructing the list of items discovered in new jar file being imported<a name="line.100"></a>
+<span class="sourceLineNo">101</span>    // we uncheck already excluded items and remove them from the collection.<a name="line.101"></a>
+<span class="sourceLineNo">102</span>    // When the user clicks the Import button the collection might contain the<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    // items we retain from older import actions.<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    private List&lt;String&gt; alreadyExcludedItems = new ArrayList&lt;&gt;();<a name="line.104"></a>
+<span class="sourceLineNo">105</span><a name="line.105"></a>
+<span class="sourceLineNo">106</span>    public enum PrefSize {<a name="line.106"></a>
+<span class="sourceLineNo">107</span><a name="line.107"></a>
+<span class="sourceLineNo">108</span>        DEFAULT, TWO_HUNDRED_BY_ONE_HUNDRED, TWO_HUNDRED_BY_TWO_HUNDRED<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    };<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    <a name="line.110"></a>
+<span class="sourceLineNo">111</span>    @FXML<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    private VBox leftHandSidePart;<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>    @FXML<a name="line.114"></a>
+<span class="sourceLineNo">115</span>    private Label processingLabel;<a name="line.115"></a>
+<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">117</span>    @FXML<a name="line.117"></a>
+<span class="sourceLineNo">118</span>    ProgressIndicator processingProgressIndicator;<a name="line.118"></a>
+<span class="sourceLineNo">119</span><a name="line.119"></a>
+<span class="sourceLineNo">120</span>    @FXML<a name="line.120"></a>
+<span class="sourceLineNo">121</span>    ListView&lt;ImportRow&gt; importList = new ListView&lt;&gt;();<a name="line.121"></a>
+<span class="sourceLineNo">122</span><a name="line.122"></a>
+<span class="sourceLineNo">123</span>    @FXML<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    ChoiceBox&lt;String&gt; defSizeChoice;<a name="line.124"></a>
+<span class="sourceLineNo">125</span>    <a name="line.125"></a>
+<span class="sourceLineNo">126</span>    @FXML<a name="line.126"></a>
+<span class="sourceLineNo">127</span>    private Label sizeLabel;<a name="line.127"></a>
+<span class="sourceLineNo">128</span><a name="line.128"></a>
+<span class="sourceLineNo">129</span>    @FXML<a name="line.129"></a>
+<span class="sourceLineNo">130</span>    private SplitPane topSplitPane;<a name="line.130"></a>
+<span class="sourceLineNo">131</span>    <a name="line.131"></a>
+<span class="sourceLineNo">132</span>    @FXML<a name="line.132"></a>
+<span class="sourceLineNo">133</span>    Group previewGroup;<a name="line.133"></a>
+<span class="sourceLineNo">134</span>    <a name="line.134"></a>
+<span class="sourceLineNo">135</span>    @FXML<a name="line.135"></a>
+<span class="sourceLineNo">136</span>    Label numOfItemsLabel;<a name="line.136"></a>
+<span class="sourceLineNo">137</span>    <a name="line.137"></a>
+<span class="sourceLineNo">138</span>    @FXML<a name="line.138"></a>
+<span class="sourceLineNo">139</span>    Label classNameLabel;<a name="line.139"></a>
+<span class="sourceLineNo">140</span>    <a name="line.140"></a>
+<span class="sourceLineNo">141</span>    @FXML<a name="line.141"></a>
+<span class="sourceLineNo">142</span>    Label previewHintLabel;<a name="line.142"></a>
+<span class="sourceLineNo">143</span>    <a name="line.143"></a>
+<span class="sourceLineNo">144</span>    @FXML<a name="line.144"></a>
+<span class="sourceLineNo">145</span>    ToggleButton checkAllUncheckAllToggle;<a name="line.145"></a>
+<span class="sourceLineNo">146</span>    <a name="line.146"></a>
+<span class="sourceLineNo">147</span>    public ImportWindowController(LibraryPanelController lpc, List&lt;File&gt; files, Window owner) {<a name="line.147"></a>
+<span class="sourceLineNo">148</span>        super(ImportWindowController.class.getResource("ImportDialog.fxml"), I18N.getBundle(), owner); //NOI18N<a name="line.148"></a>
+<span class="sourceLineNo">149</span>        libPanelController = lpc;<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        importFiles = new ArrayList&lt;&gt;(files);<a name="line.150"></a>
+<span class="sourceLineNo">151</span>    }<a name="line.151"></a>
+<span class="sourceLineNo">152</span><a name="line.152"></a>
+<span class="sourceLineNo">153</span>    /*<a name="line.153"></a>
+<span class="sourceLineNo">154</span>     * Event handlers<a name="line.154"></a>
+<span class="sourceLineNo">155</span>     */<a name="line.155"></a>
+<span class="sourceLineNo">156</span>    /* TO BE SOLVED<a name="line.156"></a>
+<span class="sourceLineNo">157</span>     We have an issue with the exploration of SOME jar files.<a name="line.157"></a>
+<span class="sourceLineNo">158</span>     If e.g. you use sa-jdi.jar (take it in the JRE or JDK tree) then a NPE as<a name="line.158"></a>
+<span class="sourceLineNo">159</span>     the one below will be printed but cannot be caught in the code of this class.<a name="line.159"></a>
+<span class="sourceLineNo">160</span>     And from there we won't be able to exit from SB, whatever the action we take<a name="line.160"></a>
+<span class="sourceLineNo">161</span>     on the import window (Cancel or Import).<a name="line.161"></a>
+<span class="sourceLineNo">162</span>     Yes the window goes away but some thread refuse to give up.<a name="line.162"></a>
+<span class="sourceLineNo">163</span>     I noticed two non daemon threads:<a name="line.163"></a>
+<span class="sourceLineNo">164</span>     AWT-EventQueue-0<a name="line.164"></a>
+<span class="sourceLineNo">165</span>     AWT-Shutdown<a name="line.165"></a>
+<span class="sourceLineNo">166</span>    <a name="line.166"></a>
+<span class="sourceLineNo">167</span>     java.lang.NullPointerException<a name="line.167"></a>
+<span class="sourceLineNo">168</span>     at java.util.StringTokenizer.&lt;init&gt;(StringTokenizer.java:199)<a name="line.168"></a>
+<span class="sourceLineNo">169</span>     at java.util.StringTokenizer.&lt;init&gt;(StringTokenizer.java:221)<a name="line.169"></a>
+<span class="sourceLineNo">170</span>     at sun.jvm.hotspot.tools.jcore.PackageNameFilter.&lt;init&gt;(PackageNameFilter.java:41)<a name="line.170"></a>
+<span class="sourceLineNo">171</span>     at sun.jvm.hotspot.tools.jcore.PackageNameFilter.&lt;init&gt;(PackageNameFilter.java:36)<a name="line.171"></a>
+<span class="sourceLineNo">172</span>     at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)<a name="line.172"></a>
+<span class="sourceLineNo">173</span>     at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)<a name="line.173"></a>
+<span class="sourceLineNo">174</span>     at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)<a name="line.174"></a>
+<span class="sourceLineNo">175</span>     at java.lang.reflect.Constructor.newInstance(Constructor.java:414)<a name="line.175"></a>
+<span class="sourceLineNo">176</span>     at java.lang.Class.newInstance(Class.java:444)<a name="line.176"></a>
+<span class="sourceLineNo">177</span>     at sun.reflect.misc.ReflectUtil.newInstance(ReflectUtil.java:47)<a name="line.177"></a>
+<span class="sourceLineNo">178</span>     at javafx.fxml.FXMLLoader$InstanceDeclarationElement.constructValue(FXMLLoader.java:883)<a name="line.178"></a>
+<span class="sourceLineNo">179</span>     at javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:614)<a name="line.179"></a>
+<span class="sourceLineNo">180</span>     at javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2491)<a name="line.180"></a>
+<span class="sourceLineNo">181</span>     at javafx.fxml.FXMLLoader.load(FXMLLoader.java:2300)<a name="line.181"></a>
+<span class="sourceLineNo">182</span>     at com.oracle.javafx.scenebuilder.kit.library.util.JarExplorer.instantiateWithFXMLLoader(JarExplorer.java:83)<a name="line.182"></a>
+<span class="sourceLineNo">183</span>     at com.oracle.javafx.scenebuilder.kit.library.util.JarExplorer.exploreEntry(JarExplorer.java:117)<a name="line.183"></a>
+<span class="sourceLineNo">184</span>     at com.oracle.javafx.scenebuilder.kit.library.util.JarExplorer.explore(JarExplorer.java:43)<a name="line.184"></a>
+<span class="sourceLineNo">185</span>     at com.oracle.javafx.scenebuilder.kit.editor.panel.library.ImportWindowController$2.call(ImportWindowController.java:155)<a name="line.185"></a>
+<span class="sourceLineNo">186</span>     at com.oracle.javafx.scenebuilder.kit.editor.panel.library.ImportWindowController$2.call(ImportWindowController.java:138)<a name="line.186"></a>
+<span class="sourceLineNo">187</span>     at javafx.concurrent.Task$TaskCallable.call(Task.java:1376)<a name="line.187"></a>
+<span class="sourceLineNo">188</span>     at java.util.concurrent.FutureTask.run(FutureTask.java:262)<a name="line.188"></a>
+<span class="sourceLineNo">189</span>     at java.lang.Thread.run(Thread.java:724)<a name="line.189"></a>
+<span class="sourceLineNo">190</span>     */<a name="line.190"></a>
+<span class="sourceLineNo">191</span>    @Override<a name="line.191"></a>
+<span class="sourceLineNo">192</span>    protected void cancelButtonPressed(ActionEvent e) {<a name="line.192"></a>
+<span class="sourceLineNo">193</span>        if (exploringTask != null &amp;&amp; exploringTask.isRunning()) {<a name="line.193"></a>
+<span class="sourceLineNo">194</span>            exploringTask.setOnCancelled(new EventHandler&lt;WorkerStateEvent&gt;() {<a name="line.194"></a>
+<span class="sourceLineNo">195</span><a name="line.195"></a>
+<span class="sourceLineNo">196</span>                @Override<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                public void handle(WorkerStateEvent t) {<a name="line.197"></a>
+<span class="sourceLineNo">198</span>//                    System.out.println("Exploration of jar files has been cancelled"); //NOI18N<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                    getStage().close();<a name="line.199"></a>
+<span class="sourceLineNo">200</span>                }<a name="line.200"></a>
+<span class="sourceLineNo">201</span>            });<a name="line.201"></a>
+<span class="sourceLineNo">202</span>            exploringTask.cancel(true);<a name="line.202"></a>
+<span class="sourceLineNo">203</span>        } else {<a name="line.203"></a>
+<span class="sourceLineNo">204</span>            getStage().close();<a name="line.204"></a>
+<span class="sourceLineNo">205</span>        }<a name="line.205"></a>
+<span class="sourceLineNo">206</span>        <a name="line.206"></a>
+<span class="sourceLineNo">207</span>        exploringTask = null;<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        <a name="line.208"></a>
+<span class="sourceLineNo">209</span>        try {<a name="line.209"></a>
+<span class="sourceLineNo">210</span>            closeClassLoader();<a name="line.210"></a>
+<span class="sourceLineNo">211</span>        } catch (IOException ex) {<a name="line.211"></a>
+<span class="sourceLineNo">212</span>            showErrorDialog(ex);<a name="line.212"></a>
+<span class="sourceLineNo">213</span>        }<a name="line.213"></a>
+<span class="sourceLineNo">214</span>    }<a name="line.214"></a>
+<span class="sourceLineNo">215</span><a name="line.215"></a>
+<span class="sourceLineNo">216</span>    @Override<a name="line.216"></a>
+<span class="sourceLineNo">217</span>    protected void okButtonPressed(ActionEvent e) {<a name="line.217"></a>
+<span class="sourceLineNo">218</span>        exploringTask = null;<a name="line.218"></a>
+<span class="sourceLineNo">219</span>        getStage().close();<a name="line.219"></a>
+<span class="sourceLineNo">220</span>        <a name="line.220"></a>
+<span class="sourceLineNo">221</span>        try {<a name="line.221"></a>
+<span class="sourceLineNo">222</span>            closeClassLoader();<a name="line.222"></a>
+<span class="sourceLineNo">223</span>            libPanelController.copyFilesToUserLibraryDir(importFiles);<a name="line.223"></a>
+<span class="sourceLineNo">224</span>            UserLibrary userLib = ((UserLibrary) libPanelController.getEditorController().getLibrary());<a name="line.224"></a>
+<span class="sourceLineNo">225</span>            userLib.setFilter(getExcludedItems());<a name="line.225"></a>
+<span class="sourceLineNo">226</span>        } catch (IOException ex) {<a name="line.226"></a>
+<span class="sourceLineNo">227</span>            showErrorDialog(ex);<a name="line.227"></a>
+<span class="sourceLineNo">228</span>        } finally {<a name="line.228"></a>
+<span class="sourceLineNo">229</span>            alreadyExcludedItems.clear();<a name="line.229"></a>
+<span class="sourceLineNo">230</span>        }<a name="line.230"></a>
+<span class="sourceLineNo">231</span>    }<a name="line.231"></a>
+<span class="sourceLineNo">232</span><a name="line.232"></a>
+<span class="sourceLineNo">233</span>    @Override<a name="line.233"></a>
+<span class="sourceLineNo">234</span>    protected void actionButtonPressed(ActionEvent e) {<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        // NOTHING TO DO (no ACTION button)<a name="line.235"></a>
+<span class="sourceLineNo">236</span>    }<a name="line.236"></a>
+<span class="sourceLineNo">237</span><a name="line.237"></a>
+<span class="sourceLineNo">238</span>    /*<a name="line.238"></a>
+<span class="sourceLineNo">239</span>     * AbstractFxmlWindowController<a name="line.239"></a>
+<span class="sourceLineNo">240</span>     */<a name="line.240"></a>
+<span class="sourceLineNo">241</span>    @Override<a name="line.241"></a>
+<span class="sourceLineNo">242</span>    public void onCloseRequest(WindowEvent event) {<a name="line.242"></a>
+<span class="sourceLineNo">243</span>        cancelButtonPressed(null);<a name="line.243"></a>
+<span class="sourceLineNo">244</span>    }<a name="line.244"></a>
+<span class="sourceLineNo">245</span><a name="line.245"></a>
+<span class="sourceLineNo">246</span>    @Override<a name="line.246"></a>
+<span class="sourceLineNo">247</span>    public void controllerDidLoadContentFxml() {<a name="line.247"></a>
+<span class="sourceLineNo">248</span>        assert topSplitPane != null;<a name="line.248"></a>
+<span class="sourceLineNo">249</span>        // The SplitPane should not be visible from the beginning: only the progressing bar is initially visible.<a name="line.249"></a>
+<span class="sourceLineNo">250</span>        assert topSplitPane.isVisible() == false;<a name="line.250"></a>
+<span class="sourceLineNo">251</span>        assert processingLabel != null;<a name="line.251"></a>
+<span class="sourceLineNo">252</span>        assert processingProgressIndicator != null;<a name="line.252"></a>
+<span class="sourceLineNo">253</span>        assert sizeLabel != null;<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        assert previewGroup != null;<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        assert importList != null;<a name="line.255"></a>
+<span class="sourceLineNo">256</span>        assert defSizeChoice != null;<a name="line.256"></a>
+<span class="sourceLineNo">257</span>        assert numOfItemsLabel != null;<a name="line.257"></a>
+<span class="sourceLineNo">258</span>        assert leftHandSidePart != null;<a name="line.258"></a>
+<span class="sourceLineNo">259</span>        assert classNameLabel != null;<a name="line.259"></a>
+<span class="sourceLineNo">260</span>        assert previewHintLabel != null;<a name="line.260"></a>
+<span class="sourceLineNo">261</span>        assert checkAllUncheckAllToggle != null;<a name="line.261"></a>
+<span class="sourceLineNo">262</span>        <a name="line.262"></a>
+<span class="sourceLineNo">263</span>        // Setup dialog buttons<a name="line.263"></a>
+<span class="sourceLineNo">264</span>        setOKButtonVisible(true);<a name="line.264"></a>
+<span class="sourceLineNo">265</span>        setDefaultButtonID(ButtonID.OK);<a name="line.265"></a>
+<span class="sourceLineNo">266</span>        setShowDefaultButton(true);<a name="line.266"></a>
+<span class="sourceLineNo">267</span>        <a name="line.267"></a>
+<span class="sourceLineNo">268</span>        // Setup size choice box<a name="line.268"></a>
+<span class="sourceLineNo">269</span>        defSizeChoice.getItems().clear();<a name="line.269"></a>
+<span class="sourceLineNo">270</span>        // Care to have values in sync with definition of PrefSize<a name="line.270"></a>
+<span class="sourceLineNo">271</span>        defSizeChoice.getItems().addAll(I18N.getString("import.choice.builtin"),<a name="line.271"></a>
+<span class="sourceLineNo">272</span>                "200 x 100", "200 x 200"); //NOI18N<a name="line.272"></a>
+<span class="sourceLineNo">273</span>        defSizeChoice.getSelectionModel().selectFirst();<a name="line.273"></a>
+<span class="sourceLineNo">274</span>        defSizeChoice.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener&lt;Number&gt;() {<a name="line.274"></a>
+<span class="sourceLineNo">275</span><a name="line.275"></a>
+<span class="sourceLineNo">276</span>            @Override<a name="line.276"></a>
+<span class="sourceLineNo">277</span>            public void changed(ObservableValue&lt;? extends Number&gt; ov, Number t, Number t1) {<a name="line.277"></a>
+<span class="sourceLineNo">278</span>                assert t1 instanceof Integer;<a name="line.278"></a>
+<span class="sourceLineNo">279</span>                updateSize((Integer)t1);<a name="line.279"></a>
+<span class="sourceLineNo">280</span>            }<a name="line.280"></a>
+<span class="sourceLineNo">281</span>        });<a name="line.281"></a>
+<span class="sourceLineNo">282</span><a name="line.282"></a>
+<span class="sourceLineNo">283</span>        // Setup Select All / Unselect All toggle<a name="line.283"></a>
+<span class="sourceLineNo">284</span>        // Initially all items are Selected.<a name="line.284"></a>
+<span class="sourceLineNo">285</span>        checkAllUncheckAllToggle.selectedProperty().addListener(new ChangeListener&lt;Boolean&gt;() {<a name="line.285"></a>
+<span class="sourceLineNo">286</span><a name="line.286"></a>
+<span class="sourceLineNo">287</span>            @Override<a name="line.287"></a>
+<span class="sourceLineNo">288</span>            public void changed(ObservableValue&lt;? extends Boolean&gt; ov, Boolean t, Boolean t1) {<a name="line.288"></a>
+<span class="sourceLineNo">289</span>                if (t1) {<a name="line.289"></a>
+<span class="sourceLineNo">290</span>                    for (ImportRow row : importList.getItems()) {<a name="line.290"></a>
+<span class="sourceLineNo">291</span>                        row.setImportRequired(false);<a name="line.291"></a>
+<span class="sourceLineNo">292</span>                    }<a name="line.292"></a>
+<span class="sourceLineNo">293</span>                    checkAllUncheckAllToggle.setText(I18N.getString("import.toggle.checkall"));<a name="line.293"></a>
+<span class="sourceLineNo">294</span>                } else {<a name="line.294"></a>
+<span class="sourceLineNo">295</span>                    for (ImportRow row : importList.getItems()) {<a name="line.295"></a>
+<span class="sourceLineNo">296</span>                        row.setImportRequired(true);<a name="line.296"></a>
+<span class="sourceLineNo">297</span>                    }<a name="line.297"></a>
+<span class="sourceLineNo">298</span>                    checkAllUncheckAllToggle.setText(I18N.getString("import.toggle.uncheckall"));<a name="line.298"></a>
+<span class="sourceLineNo">299</span>                }<a name="line.299"></a>
+<span class="sourceLineNo">300</span>            }<a name="line.300"></a>
+<span class="sourceLineNo">301</span>        });<a name="line.301"></a>
+<span class="sourceLineNo">302</span>                <a name="line.302"></a>
+<span class="sourceLineNo">303</span>        setProcessing();<a name="line.303"></a>
+<span class="sourceLineNo">304</span>        <a name="line.304"></a>
+<span class="sourceLineNo">305</span>        // We do not want the list becomes larger when the window is made larger.<a name="line.305"></a>
+<span class="sourceLineNo">306</span>        // The way to make the list larger is to use the splitter.<a name="line.306"></a>
+<span class="sourceLineNo">307</span>        SplitPane.setResizableWithParent(leftHandSidePart, false);<a name="line.307"></a>
+<span class="sourceLineNo">308</span>        <a name="line.308"></a>
+<span class="sourceLineNo">309</span>        work();<a name="line.309"></a>
+<span class="sourceLineNo">310</span>    }<a name="line.310"></a>
+<span class="sourceLineNo">311</span><a name="line.311"></a>
+<span class="sourceLineNo">312</span>    /*<a name="line.312"></a>
+<span class="sourceLineNo">313</span>     * AbstractWindowController<a name="line.313"></a>
+<span class="sourceLineNo">314</span>     */<a name="line.314"></a>
+<span class="sourceLineNo">315</span>    @Override<a name="line.315"></a>
+<span class="sourceLineNo">316</span>    protected void controllerDidCreateStage() {<a name="line.316"></a>
+<span class="sourceLineNo">317</span>        getStage().setTitle(I18N.getString("import.window.title"));<a name="line.317"></a>
+<span class="sourceLineNo">318</span>        getStage().initModality(Modality.APPLICATION_MODAL);<a name="line.318"></a>
+<span class="sourceLineNo">319</span>    }<a name="line.319"></a>
+<span class="sourceLineNo">320</span><a name="line.320"></a>
+<span class="sourceLineNo">321</span>    /*<a name="line.321"></a>
+<span class="sourceLineNo">322</span>     * Private<a name="line.322"></a>
+<span class="sourceLineNo">323</span>     */<a name="line.323"></a>
+<span class="sourceLineNo">324</span>    <a name="line.324"></a>
+<span class="sourceLineNo">325</span>    private void closeClassLoader() throws IOException {<a name="line.325"></a>
+<span class="sourceLineNo">326</span>        if (importClassLoader != null) {<a name="line.326"></a>
+<span class="sourceLineNo">327</span>            importClassLoader.close();<a name="line.327"></a>
+<span class="sourceLineNo">328</span>        }<a name="line.328"></a>
+<span class="sourceLineNo">329</span>    }<a name="line.329"></a>
+<span class="sourceLineNo">330</span><a name="line.330"></a>
+<span class="sourceLineNo">331</span>    // This method returns a new list of File made of the union of the provided<a name="line.331"></a>
+<span class="sourceLineNo">332</span>    // one and jar files found in the user library dir.<a name="line.332"></a>
+<span class="sourceLineNo">333</span>    List&lt;File&gt; buildListOfAllFiles(List&lt;File&gt; importFiles) throws IOException {<a name="line.333"></a>
+<span class="sourceLineNo">334</span>        final List&lt;File&gt; res = new ArrayList&lt;&gt;(importFiles);<a name="line.334"></a>
+<span class="sourceLineNo">335</span>        String userLibraryDir = ((UserLibrary) libPanelController.getEditorController().getLibrary()).getPath();<a name="line.335"></a>
+<span class="sourceLineNo">336</span>        Path userLibraryPath = new File(userLibraryDir).toPath();<a name="line.336"></a>
+<span class="sourceLineNo">337</span><a name="line.337"></a>
+<span class="sourceLineNo">338</span>        Stream&lt;Path&gt; pathStream = Files.list(userLibraryPath);<a name="line.338"></a>
+<span class="sourceLineNo">339</span>        Iterator&lt;Path&gt; pathIterator = pathStream.iterator();<a name="line.339"></a>
+<span class="sourceLineNo">340</span>        while (pathIterator.hasNext()) {<a name="line.340"></a>
+<span class="sourceLineNo">341</span>            Path element = pathIterator.next();<a name="line.341"></a>
+<span class="sourceLineNo">342</span>            if (element.toString().endsWith(".jar")) { //NOI18N<a name="line.342"></a>
+<span class="sourceLineNo">343</span>//                    System.out.println("ImportWindowController::buildListOfAllFiles: Adding " + element); //NOI18N<a name="line.343"></a>
+<span class="sourceLineNo">344</span>                res.add(element.toFile());<a name="line.344"></a>
+<span class="sourceLineNo">345</span>            }<a name="line.345"></a>
+<span class="sourceLineNo">346</span>        }<a name="line.346"></a>
+<span class="sourceLineNo">347</span>        <a name="line.347"></a>
+<span class="sourceLineNo">348</span>        return res;<a name="line.348"></a>
+<span class="sourceLineNo">349</span>    }<a name="line.349"></a>
+<span class="sourceLineNo">350</span><a name="line.350"></a>
+<span class="sourceLineNo">351</span>    private void work() {<a name="line.351"></a>
+<span class="sourceLineNo">352</span>        exploringTask = new Task&lt;List&lt;JarReport&gt;&gt;() {<a name="line.352"></a>
+<span class="sourceLineNo">353</span><a name="line.353"></a>
+<span class="sourceLineNo">354</span>            @Override<a name="line.354"></a>
+<span class="sourceLineNo">355</span>            protected List&lt;JarReport&gt; call() throws Exception {<a name="line.355"></a>
+<span class="sourceLineNo">356</span>                final List&lt;JarReport&gt; res = new ArrayList&lt;&gt;();<a name="line.356"></a>
+<span class="sourceLineNo">357</span>                numOfImportedJar = importFiles.size();<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                // The classloader takes in addition all already existing<a name="line.358"></a>
+<span class="sourceLineNo">359</span>                // jar files stored in the user lib dir.<a name="line.359"></a>
+<span class="sourceLineNo">360</span>                final List&lt;File&gt; allFiles = buildListOfAllFiles(importFiles);<a name="line.360"></a>
+<span class="sourceLineNo">361</span>                final URLClassLoader classLoader = getClassLoaderForFiles(allFiles);<a name="line.361"></a>
+<span class="sourceLineNo">362</span>                int index = 1;<a name="line.362"></a>
+<span class="sourceLineNo">363</span>                for (File file : importFiles) {<a name="line.363"></a>
+<span class="sourceLineNo">364</span>                    if (isCancelled()) {<a name="line.364"></a>
+<span class="sourceLineNo">365</span>                        updateMessage(I18N.getString("import.work.cancelled"));<a name="line.365"></a>
+<span class="sourceLineNo">366</span>                        break;<a name="line.366"></a>
+<span class="sourceLineNo">367</span>                    }<a name="line.367"></a>
+<span class="sourceLineNo">368</span>                    updateMessage(I18N.getString("import.work.exploring", file.getName()));<a name="line.368"></a>
+<span class="sourceLineNo">369</span>//                    System.out.println("[" + index + "/" + max + "] Exploring file " + file.getName()); //NOI18N<a name="line.369"></a>
+<span class="sourceLineNo">370</span>                    final JarExplorer explorer = new JarExplorer(Paths.get(file.getAbsolutePath()));<a name="line.370"></a>
+<span class="sourceLineNo">371</span>                    final JarReport jarReport = explorer.explore(classLoader);<a name="line.371"></a>
+<span class="sourceLineNo">372</span>                    res.add(jarReport);<a name="line.372"></a>
+<span class="sourceLineNo">373</span>                    updateProgress(index, numOfImportedJar);<a name="line.373"></a>
+<span class="sourceLineNo">374</span>                    index++;<a name="line.374"></a>
+<span class="sourceLineNo">375</span>                }<a name="line.375"></a>
+<span class="sourceLineNo">376</span><a name="line.376"></a>
+<span class="sourceLineNo">377</span>                updateProgress(numOfImportedJar, numOfImportedJar);<a name="line.377"></a>
+<span class="sourceLineNo">378</span>                updateImportClassLoader(classLoader);<a name="line.378"></a>
+<span class="sourceLineNo">379</span>                return res;<a name="line.379"></a>
+<span class="sourceLineNo">380</span>            }<a name="line.380"></a>
+<span class="sourceLineNo">381</span>        };<a name="line.381"></a>
+<span class="sourceLineNo">382</span><a name="line.382"></a>
+<span class="sourceLineNo">383</span>        Thread th = new Thread(exploringTask);<a name="line.383"></a>
+<span class="sourceLineNo">384</span>        th.setDaemon(true);<a name="line.384"></a>
+<span class="sourceLineNo">385</span>        processingProgressIndicator.progressProperty().bind(exploringTask.progressProperty());<a name="line.385"></a>
+<span class="sourceLineNo">386</span><a name="line.386"></a>
+<span class="sourceLineNo">387</span>        // We typically enter this handler when dropping jar files such as<a name="line.387"></a>
+<span class="sourceLineNo">388</span>        // rt.jar from Java Runtime.<a name="line.388"></a>
+<span class="sourceLineNo">389</span>        exploringTask.setOnFailed(new EventHandler&lt;WorkerStateEvent&gt;() {<a name="line.389"></a>
+<span class="sourceLineNo">390</span><a name="line.390"></a>
+<span class="sourceLineNo">391</span>            @Override<a name="line.391"></a>
+<span class="sourceLineNo">392</span>            public void handle(WorkerStateEvent t) {<a name="line.392"></a>
+<span class="sourceLineNo">393</span>                // See in setOnSucceeded the explanation for the toFront below.<a name="line.393"></a>
+<span class="sourceLineNo">394</span>                getStage().toFront();<a name="line.394"></a>
+<span class="sourceLineNo">395</span>                updateNumOfItemsLabelAndSelectionToggleState();<a name="line.395"></a>
+<span class="sourceLineNo">396</span>            }<a name="line.396"></a>
+<span class="sourceLineNo">397</span>        });<a name="line.397"></a>
+<span class="sourceLineNo">398</span>        <a name="line.398"></a>
+<span class="sourceLineNo">399</span>        // We construct the import list only if exploration of jar files does well.<a name="line.399"></a>
+<span class="sourceLineNo">400</span>        // If Cancel is called during the construction of the list then the import<a name="line.400"></a>
+<span class="sourceLineNo">401</span>        // window is closed but the construction itself will continue up to the<a name="line.401"></a>
+<span class="sourceLineNo">402</span>        // end. Do we want to make it interruptible ?<a name="line.402"></a>
+<span class="sourceLineNo">403</span>        exploringTask.setOnSucceeded(new EventHandler&lt;WorkerStateEvent&gt;() {<a name="line.403"></a>
+<span class="sourceLineNo">404</span><a name="line.404"></a>
+<span class="sourceLineNo">405</span>            @Override<a name="line.405"></a>
+<span class="sourceLineNo">406</span>            public void handle(WorkerStateEvent t) {<a name="line.406"></a>
+<span class="sourceLineNo">407</span>                assert Platform.isFxApplicationThread();<a name="line.407"></a>
+<span class="sourceLineNo">408</span>                // This toFront() might not be necessary because import window is modal<a name="line.408"></a>
+<span class="sourceLineNo">409</span>                // and is chained to the document window. Anyway experience showed<a name="line.409"></a>
+<span class="sourceLineNo">410</span>                // we need it (FX 8 b106). This is suspicious, to be investigated ...<a name="line.410"></a>
+<span class="sourceLineNo">411</span>                // But more tricky is why toFront() is called here. Mind that when toFront()<a name="line.411"></a>
+<span class="sourceLineNo">412</span>                // is called while isShowing() returns false isn't effective: that's<a name="line.412"></a>
+<span class="sourceLineNo">413</span>                // why toFront called at the end of controllerDidCreateStage() or<a name="line.413"></a>
+<span class="sourceLineNo">414</span>                // controllerDidLoadContentFxml() wasn't an option. Below is the<a name="line.414"></a>
+<span class="sourceLineNo">415</span>                // earliest place it has been proven effective, at least on my machine.<a name="line.415"></a>
+<span class="sourceLineNo">416</span>                getStage().toFront();<a name="line.416"></a>
+<span class="sourceLineNo">417</span>                <a name="line.417"></a>
+<span class="sourceLineNo">418</span>                try {<a name="line.418"></a>
+<span class="sourceLineNo">419</span>                    // We get the set of items which are already excluded prior to the current import.<a name="line.419"></a>
+<span class="sourceLineNo">420</span>                    UserLibrary userLib = ((UserLibrary) libPanelController.getEditorController().getLibrary());<a name="line.420"></a>
+<span class="sourceLineNo">421</span>                    alreadyExcludedItems = userLib.getFilter();<a name="line.421"></a>
+<span class="sourceLineNo">422</span>                    <a name="line.422"></a>
+<span class="sourceLineNo">423</span>                    List&lt;JarReport&gt; jarReportList = exploringTask.get(); // blocking call<a name="line.423"></a>
+<span class="sourceLineNo">424</span>                    final Callback&lt;ImportRow, ObservableValue&lt;Boolean&gt;&gt; importRequired<a name="line.424"></a>
+<span class="sourceLineNo">425</span>                            = new Callback&lt;ImportRow, ObservableValue&lt;Boolean&gt;&gt;() {<a name="line.425"></a>
+<span class="sourceLineNo">426</span>                                @Override<a name="line.426"></a>
+<span class="sourceLineNo">427</span>                                public BooleanProperty call(ImportRow row) {<a name="line.427"></a>
+<span class="sourceLineNo">428</span>                                    return row.importRequired();<a name="line.428"></a>
+<span class="sourceLineNo">429</span>                                }<a name="line.429"></a>
+<span class="sourceLineNo">430</span>                            };<a name="line.430"></a>
+<span class="sourceLineNo">431</span>                    importList.setCellFactory(CheckBoxListCell.forListView(importRequired));<a name="line.431"></a>
+<span class="sourceLineNo">432</span><a name="line.432"></a>
+<span class="sourceLineNo">433</span>                    for (JarReport jarReport : jarReportList) {<a name="line.433"></a>
+<span class="sourceLineNo">434</span>                        for (JarReportEntry e : jarReport.getEntries()) {<a name="line.434"></a>
+<span class="sourceLineNo">435</span>                            if ((e.getStatus() == JarReportEntry.Status.OK) &amp;&amp; e.isNode()) {<a name="line.435"></a>
+<span class="sourceLineNo">436</span>                                boolean checked = true;<a name="line.436"></a>
+<span class="sourceLineNo">437</span>                                // If the class we import is already listed as an excluded one<a name="line.437"></a>
+<span class="sourceLineNo">438</span>                                // then it must appear unchecked in the list.<a name="line.438"></a>
+<span class="sourceLineNo">439</span>                                if (alreadyExcludedItems.contains(e.getKlass().getCanonicalName())) {<a name="line.439"></a>
+<span class="sourceLineNo">440</span>                                    checked = false;<a name="line.440"></a>
+<span class="sourceLineNo">441</span>                                    alreadyExcludedItems.remove(e.getKlass().getCanonicalName());<a name="line.441"></a>
+<span class="sourceLineNo">442</span>                                }<a name="line.442"></a>
+<span class="sourceLineNo">443</span>                                final ImportRow importRow = new ImportRow(checked, e, null);<a name="line.443"></a>
+<span class="sourceLineNo">444</span>                                importList.getItems().add(importRow);<a name="line.444"></a>
+<span class="sourceLineNo">445</span>                                importRow.importRequired().addListener(new ChangeListener&lt;Boolean&gt;() {<a name="line.445"></a>
+<span class="sourceLineNo">446</span><a name="line.446"></a>
+<span class="sourceLineNo">447</span>                                    @Override<a name="line.447"></a>
+<span class="sourceLineNo">448</span>                                    public void changed(ObservableValue&lt;? extends Boolean&gt; ov, Boolean oldValue, Boolean newValue) {<a name="line.448"></a>
+<span class="sourceLineNo">449</span>                                        final int numOfComponentToImport = getNumOfComponentToImport(importList);<a name="line.449"></a>
+<span class="sourceLineNo">450</span>                                        updateOKButtonTitle(numOfComponentToImport);<a name="line.450"></a>
+<span class="sourceLineNo">451</span>                                        updateSelectionToggleText(numOfComponentToImport);<a name="line.451"></a>
+<span class="sourceLineNo">452</span>                                    }<a name="line.452"></a>
+<span class="sourceLineNo">453</span>                                });<a name="line.453"></a>
+<span class="sourceLineNo">454</span>                            }<a name="line.454"></a>
+<span class="sourceLineNo">455</span>                        }<a name="line.455"></a>
+<span class="sourceLineNo">456</span>                    }<a name="line.456"></a>
+<span class="sourceLineNo">457</span>                    <a name="line.457"></a>
+<span class="sourceLineNo">458</span>                    // Sort based on the simple class name.<a name="line.458"></a>
+<span class="sourceLineNo">459</span>                    Collections.sort(importList.getItems(), new ImportRowComparator());<a name="line.459"></a>
+<span class="sourceLineNo">460</span><a name="line.460"></a>
+<span class="sourceLineNo">461</span>                    final int numOfComponentToImport = getNumOfComponentToImport(importList);<a name="line.461"></a>
+<span class="sourceLineNo">462</span>                    updateOKButtonTitle(numOfComponentToImport);<a name="line.462"></a>
+<span class="sourceLineNo">463</span>                    updateSelectionToggleText(numOfComponentToImport);<a name="line.463"></a>
+<span class="sourceLineNo">464</span>                    updateNumOfItemsLabelAndSelectionToggleState();<a name="line.464"></a>
+<span class="sourceLineNo">465</span>                } catch (InterruptedException | ExecutionException | IOException ex) {<a name="line.465"></a>
+<span class="sourceLineNo">466</span>                    getStage().close();<a name="line.466"></a>
+<span class="sourceLineNo">467</span>                    showErrorDialog(ex);<a name="line.467"></a>
+<span class="sourceLineNo">468</span>                }<a name="line.468"></a>
+<span class="sourceLineNo">469</span><a name="line.469"></a>
+<span class="sourceLineNo">470</span>                unsetProcessing();<a name="line.470"></a>
+<span class="sourceLineNo">471</span>            }<a name="line.471"></a>
+<span class="sourceLineNo">472</span>        });<a name="line.472"></a>
+<span class="sourceLineNo">473</span><a name="line.473"></a>
+<span class="sourceLineNo">474</span>        th.start();<a name="line.474"></a>
+<span class="sourceLineNo">475</span>    }<a name="line.475"></a>
+<span class="sourceLineNo">476</span>    <a name="line.476"></a>
+<span class="sourceLineNo">477</span>    private void showErrorDialog(Exception exception) {<a name="line.477"></a>
+<span class="sourceLineNo">478</span>        final ErrorDialog errorDialog = new ErrorDialog(null);<a name="line.478"></a>
+<span class="sourceLineNo">479</span>        errorDialog.setTitle(I18N.getString("import.error.title"));<a name="line.479"></a>
+<span class="sourceLineNo">480</span>        errorDialog.setMessage(I18N.getString("import.error.message"));<a name="line.480"></a>
+<span class="sourceLineNo">481</span>        errorDialog.setDetails(I18N.getString("import.error.details"));<a name="line.481"></a>
+<span class="sourceLineNo">482</span>        errorDialog.setDebugInfoWithThrowable(exception);<a name="line.482"></a>
+<span class="sourceLineNo">483</span>        errorDialog.showAndWait();<a name="line.483"></a>
+<span class="sourceLineNo">484</span>    }<a name="line.484"></a>
+<span class="sourceLineNo">485</span><a name="line.485"></a>
+<span class="sourceLineNo">486</span>    void updateImportClassLoader(URLClassLoader cl) {<a name="line.486"></a>
+<span class="sourceLineNo">487</span>        this.importClassLoader = cl;<a name="line.487"></a>
+<span class="sourceLineNo">488</span>    }<a name="line.488"></a>
+<span class="sourceLineNo">489</span><a name="line.489"></a>
+<span class="sourceLineNo">490</span>    void unsetProcessing() {<a name="line.490"></a>
+<span class="sourceLineNo">491</span>        processingProgressIndicator.setVisible(false);<a name="line.491"></a>
+<span class="sourceLineNo">492</span>        processingLabel.setVisible(false);<a name="line.492"></a>
+<span class="sourceLineNo">493</span>        topSplitPane.setVisible(true);<a name="line.493"></a>
+<span class="sourceLineNo">494</span><a name="line.494"></a>
+<span class="sourceLineNo">495</span>        importList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener&lt;ImportRow&gt;() {<a name="line.495"></a>
+<span class="sourceLineNo">496</span><a name="line.496"></a>
+<span class="sourceLineNo">497</span>            @Override<a name="line.497"></a>
+<span class="sourceLineNo">498</span>            public void changed(ObservableValue&lt;? extends ImportRow&gt; ov, ImportRow t, ImportRow t1) {<a name="line.498"></a>
+<span class="sourceLineNo">499</span>                previewGroup.getChildren().clear();<a name="line.499"></a>
+<span class="sourceLineNo">500</span>                final String fxmlText = JarExplorer.makeFxmlText(t1.getJarReportEntry().getKlass());<a name="line.500"></a>
+<span class="sourceLineNo">501</span>                try {<a name="line.501"></a>
+<span class="sourceLineNo">502</span>                    FXOMDocument fxomDoc = new FXOMDocument(fxmlText, null, importClassLoader, null);<a name="line.502"></a>
+<span class="sourceLineNo">503</span>                    zeNode = (Node) fxomDoc.getSceneGraphRoot();<a name="line.503"></a>
+<span class="sourceLineNo">504</span>                } catch (IOException ioe) {<a name="line.504"></a>
+<span class="sourceLineNo">505</span>                    showErrorDialog(ioe);<a name="line.505"></a>
+<span class="sourceLineNo">506</span>                }<a name="line.506"></a>
+<span class="sourceLineNo">507</span>                <a name="line.507"></a>
+<span class="sourceLineNo">508</span>                // In order to get valid bounds I need to put the node into a<a name="line.508"></a>
+<span class="sourceLineNo">509</span>                // scene and ask for full layout.<a name="line.509"></a>
+<span class="sourceLineNo">510</span>                try {<a name="line.510"></a>
+<span class="sourceLineNo">511</span>                    final Group visualGroup = new Group(zeNode);<a name="line.511"></a>
+<span class="sourceLineNo">512</span>                    final Scene hiddenScene = new Scene(visualGroup);<a name="line.512"></a>
+<span class="sourceLineNo">513</span>                    Stage hiddenStage = new Stage();<a name="line.513"></a>
+<span class="sourceLineNo">514</span>                    hiddenStage.setScene(hiddenScene);<a name="line.514"></a>
+<span class="sourceLineNo">515</span>                    visualGroup.applyCss();<a name="line.515"></a>
+<span class="sourceLineNo">516</span>                    visualGroup.layout();<a name="line.516"></a>
+<span class="sourceLineNo">517</span>                    final Bounds zeBounds = zeNode.getLayoutBounds();<a name="line.517"></a>
+<span class="sourceLineNo">518</span>                    builtinPrefWidth = zeBounds.getWidth();<a name="line.518"></a>
+<span class="sourceLineNo">519</span>                    builtinPrefHeight = zeBounds.getHeight();<a name="line.519"></a>
+<span class="sourceLineNo">520</span>                    // Detach the scene !<a name="line.520"></a>
+<span class="sourceLineNo">521</span>                    hiddenScene.setRoot(new Group());<a name="line.521"></a>
+<span class="sourceLineNo">522</span>                    hiddenStage.close();<a name="line.522"></a>
+<span class="sourceLineNo">523</span>                } catch (Error e) {<a name="line.523"></a>
+<span class="sourceLineNo">524</span>                    // Experience shows that with rogue jar files (a jar file<a name="line.524"></a>
+<span class="sourceLineNo">525</span>                    // unlikely to contain FX controls) we can enter here.<a name="line.525"></a>
+<span class="sourceLineNo">526</span>                    // Anything better to do than setting pref size to 0 ?<a name="line.526"></a>
+<span class="sourceLineNo">527</span>                    builtinPrefWidth = 0;<a name="line.527"></a>
+<span class="sourceLineNo">528</span>                    builtinPrefHeight = 0;<a name="line.528"></a>
+<span class="sourceLineNo">529</span>                }<a name="line.529"></a>
+<span class="sourceLineNo">530</span>                <a name="line.530"></a>
+<span class="sourceLineNo">531</span>                if (builtinPrefWidth == 0 || builtinPrefHeight == 0) {<a name="line.531"></a>
+<span class="sourceLineNo">532</span>                    ((Region) zeNode).setPrefSize(200, 200);<a name="line.532"></a>
+<span class="sourceLineNo">533</span>                    setSizeLabel(PrefSize.TWO_HUNDRED_BY_TWO_HUNDRED);<a name="line.533"></a>
+<span class="sourceLineNo">534</span>                    defSizeChoice.getSelectionModel().select(2);<a name="line.534"></a>
+<span class="sourceLineNo">535</span>                } else {<a name="line.535"></a>
+<span class="sourceLineNo">536</span>                    setSizeLabel(PrefSize.DEFAULT);<a name="line.536"></a>
+<span class="sourceLineNo">537</span>                    defSizeChoice.getSelectionModel().selectFirst();<a name="line.537"></a>
+<span class="sourceLineNo">538</span>                }<a name="line.538"></a>
+<span class="sourceLineNo">539</span>                previewGroup.getChildren().add(zeNode);<a name="line.539"></a>
+<span class="sourceLineNo">540</span>                defSizeChoice.setDisable(false);<a name="line.540"></a>
+<span class="sourceLineNo">541</span>                classNameLabel.setText(t1.getJarReportEntry().getKlass().getName());<a name="line.541"></a>
+<span class="sourceLineNo">542</span>            }<a name="line.542"></a>
+<span class="sourceLineNo">543</span>        });<a name="line.543"></a>
+<span class="sourceLineNo">544</span><a name="line.544"></a>
+<span class="sourceLineNo">545</span>        // We avoid to get an empty Preview area at first.<a name="line.545"></a>
+<span class="sourceLineNo">546</span>        if (importList.getItems().size() &gt; 0) {<a name="line.546"></a>
+<span class="sourceLineNo">547</span>            importList.getSelectionModel().selectFirst();<a name="line.547"></a>
+<span class="sourceLineNo">548</span>        }<a name="line.548"></a>
+<span class="sourceLineNo">549</span>    }<a name="line.549"></a>
+<span class="sourceLineNo">550</span><a name="line.550"></a>
+<span class="sourceLineNo">551</span>    private URLClassLoader getClassLoaderForFiles(List&lt;File&gt; files) {<a name="line.551"></a>
+<span class="sourceLineNo">552</span>        return new URLClassLoader(makeURLArrayFromFiles(files));<a name="line.552"></a>
+<span class="sourceLineNo">553</span>    }<a name="line.553"></a>
+<span class="sourceLineNo">554</span><a name="line.554"></a>
+<span class="sourceLineNo">555</span>    private URL[] makeURLArrayFromFiles(List&lt;File&gt; files) {<a name="line.555"></a>
+<span class="sourceLineNo">556</span>        final URL[] result = new URL[files.size()];<a name="line.556"></a>
+<span class="sourceLineNo">557</span>        try {<a name="line.557"></a>
+<span class="sourceLineNo">558</span>            int index = 0;<a name="line.558"></a>
+<span class="sourceLineNo">559</span>            for (File file : files) {<a name="line.559"></a>
+<span class="sourceLineNo">560</span>                result[index] = file.toURI().toURL();<a name="line.560"></a>
+<span class="sourceLineNo">561</span>                index++;<a name="line.561"></a>
+<span class="sourceLineNo">562</span>            }<a name="line.562"></a>
+<span class="sourceLineNo">563</span>        } catch (MalformedURLException x) {<a name="line.563"></a>
+<span class="sourceLineNo">564</span>            throw new RuntimeException("Bug in " + getClass().getSimpleName(), x); //NOI18N<a name="line.564"></a>
+<span class="sourceLineNo">565</span>        }<a name="line.565"></a>
+<span class="sourceLineNo">566</span><a name="line.566"></a>
+<span class="sourceLineNo">567</span>        return result;<a name="line.567"></a>
+<span class="sourceLineNo">568</span>    }<a name="line.568"></a>
+<span class="sourceLineNo">569</span><a name="line.569"></a>
+<span class="sourceLineNo">570</span>    private void setProcessing() {<a name="line.570"></a>
+<span class="sourceLineNo">571</span>        cancelButton.setDefaultButton(true);<a name="line.571"></a>
+<span class="sourceLineNo">572</span>    }<a name="line.572"></a>
+<span class="sourceLineNo">573</span><a name="line.573"></a>
+<span class="sourceLineNo">574</span>    private int getNumOfComponentToImport(final ListView&lt;ImportRow&gt; list) {<a name="line.574"></a>
+<span class="sourceLineNo">575</span>        int res = 0;<a name="line.575"></a>
+<span class="sourceLineNo">576</span>        <a name="line.576"></a>
+<span class="sourceLineNo">577</span>        for (final ImportRow row : list.getItems()) {<a name="line.577"></a>
+<span class="sourceLineNo">578</span>            if (row.isImportRequired()) {<a name="line.578"></a>
+<span class="sourceLineNo">579</span>                res++;<a name="line.579"></a>
+<span class="sourceLineNo">580</span>            }<a name="line.580"></a>
+<span class="sourceLineNo">581</span>        }<a name="line.581"></a>
+<span class="sourceLineNo">582</span>        <a name="line.582"></a>
+<span class="sourceLineNo">583</span>        return res;<a name="line.583"></a>
+<span class="sourceLineNo">584</span>    }<a name="line.584"></a>
+<span class="sourceLineNo">585</span>    <a name="line.585"></a>
+<span class="sourceLineNo">586</span>    private List&lt;String&gt; getExcludedItems() {<a name="line.586"></a>
+<span class="sourceLineNo">587</span>        List&lt;String&gt; res = new ArrayList&lt;&gt;(alreadyExcludedItems);<a name="line.587"></a>
+<span class="sourceLineNo">588</span>        <a name="line.588"></a>
+<span class="sourceLineNo">589</span>        for (ImportRow row : importList.getItems()) {<a name="line.589"></a>
+<span class="sourceLineNo">590</span>            if (! row.isImportRequired()) {<a name="line.590"></a>
+<span class="sourceLineNo">591</span>                res.add(row.getCanonicalClassName());<a name="line.591"></a>
+<span class="sourceLineNo">592</span>            }<a name="line.592"></a>
+<span class="sourceLineNo">593</span>        }<a name="line.593"></a>
+<span class="sourceLineNo">594</span>        return res;<a name="line.594"></a>
+<span class="sourceLineNo">595</span>    }<a name="line.595"></a>
+<span class="sourceLineNo">596</span><a name="line.596"></a>
+<span class="sourceLineNo">597</span>    // The title of the button is important in the sense it says to the user<a name="line.597"></a>
+<span class="sourceLineNo">598</span>    // what action will be taken.<a name="line.598"></a>
+<span class="sourceLineNo">599</span>    // In the most common case one or more component are selected in the list,<a name="line.599"></a>
+<span class="sourceLineNo">600</span>    // but it is also possible to get an empty list, in which case the user may<a name="line.600"></a>
+<span class="sourceLineNo">601</span>    // want to import the jar file anyway; it makes sense in ooder to resolve<a name="line.601"></a>
+<span class="sourceLineNo">602</span>    // dependencies other jars have onto it.<a name="line.602"></a>
+<span class="sourceLineNo">603</span>    // See DTL-6531 for details.<a name="line.603"></a>
+<span class="sourceLineNo">604</span>    private void updateOKButtonTitle(int numOfComponentToImport) {<a name="line.604"></a>
+<span class="sourceLineNo">605</span>        if (numOfComponentToImport == 0) {<a name="line.605"></a>
+<span class="sourceLineNo">606</span>            if (numOfImportedJar == 1) {<a name="line.606"></a>
+<span class="sourceLineNo">607</span>                setOKButtonTitle(I18N.getString("import.button.import.jar"));<a name="line.607"></a>
+<span class="sourceLineNo">608</span>            } else {<a name="line.608"></a>
+<span class="sourceLineNo">609</span>                setOKButtonTitle(I18N.getString("import.button.import.jars"));<a name="line.609"></a>
+<span class="sourceLineNo">610</span>            }<a name="line.610"></a>
+<span class="sourceLineNo">611</span>        } else if (numOfComponentToImport == 1) {<a name="line.611"></a>
+<span class="sourceLineNo">612</span>            setOKButtonTitle(I18N.getString("import.button.import.component"));<a name="line.612"></a>
+<span class="sourceLineNo">613</span>        } else {<a name="line.613"></a>
+<span class="sourceLineNo">614</span>            setOKButtonTitle(I18N.getString("import.button.import.components"));<a name="line.614"></a>
+<span class="sourceLineNo">615</span>        }<a name="line.615"></a>
+<span class="sourceLineNo">616</span>    }<a name="line.616"></a>
+<span class="sourceLineNo">617</span>    <a name="line.617"></a>
+<span class="sourceLineNo">618</span>    void updateNumOfItemsLabelAndSelectionToggleState() {<a name="line.618"></a>
+<span class="sourceLineNo">619</span>        final int num = importList.getItems().size();<a name="line.619"></a>
+<span class="sourceLineNo">620</span>        if (num == 0 || num == 1) {<a name="line.620"></a>
+<span class="sourceLineNo">621</span>            numOfItemsLabel.setText(num + " " //NOI18N<a name="line.621"></a>
+<span class="sourceLineNo">622</span>                    + I18N.getString("import.num.item"));<a name="line.622"></a>
+<span class="sourceLineNo">623</span>        } else {<a name="line.623"></a>
+<span class="sourceLineNo">624</span>            numOfItemsLabel.setText(num + " " //NOI18N<a name="line.624"></a>
+<span class="sourceLineNo">625</span>                    + I18N.getString("import.num.items"));<a name="line.625"></a>
+<span class="sourceLineNo">626</span>        }<a name="line.626"></a>
+<span class="sourceLineNo">627</span>        <a name="line.627"></a>
+<span class="sourceLineNo">628</span>        if (num &gt;= 1) {<a name="line.628"></a>
+<span class="sourceLineNo">629</span>            checkAllUncheckAllToggle.setDisable(false);<a name="line.629"></a>
+<span class="sourceLineNo">630</span>        }<a name="line.630"></a>
+<span class="sourceLineNo">631</span>    }<a name="line.631"></a>
+<span class="sourceLineNo">632</span><a name="line.632"></a>
+<span class="sourceLineNo">633</span>    private void updateSelectionToggleText(int numOfComponentToImport) {<a name="line.633"></a>
+<span class="sourceLineNo">634</span>        if (numOfComponentToImport == 0) {<a name="line.634"></a>
+<span class="sourceLineNo">635</span>            checkAllUncheckAllToggle.setText(I18N.getString("import.toggle.checkall"));<a name="line.635"></a>
+<span class="sourceLineNo">636</span>        } else {<a name="line.636"></a>
+<span class="sourceLineNo">637</span>            checkAllUncheckAllToggle.setText(I18N.getString("import.toggle.uncheckall"));<a name="line.637"></a>
+<span class="sourceLineNo">638</span>        }<a name="line.638"></a>
+<span class="sourceLineNo">639</span>    }<a name="line.639"></a>
+<span class="sourceLineNo">640</span>        <a name="line.640"></a>
+<span class="sourceLineNo">641</span>    // NOTE At the end of the day some tooling in metadata will supersedes the<a name="line.641"></a>
+<span class="sourceLineNo">642</span>    // use of this method that is only able to deal with a Region, ignoring all<a name="line.642"></a>
+<span class="sourceLineNo">643</span>    // other cases.<a name="line.643"></a>
+<span class="sourceLineNo">644</span>    private void updateSize(Integer choice) {<a name="line.644"></a>
+<span class="sourceLineNo">645</span>        if (zeNode instanceof Region) {<a name="line.645"></a>
+<span class="sourceLineNo">646</span>            PrefSize prefSize = PrefSize.values()[choice];<a name="line.646"></a>
+<span class="sourceLineNo">647</span>            switch (prefSize) {<a name="line.647"></a>
+<span class="sourceLineNo">648</span>                case DEFAULT:<a name="line.648"></a>
+<span class="sourceLineNo">649</span>                    ((Region) zeNode).setPrefSize(builtinPrefWidth, builtinPrefHeight);<a name="line.649"></a>
+<span class="sourceLineNo">650</span>                    setSizeLabel(prefSize);<a name="line.650"></a>
+<span class="sourceLineNo">651</span>                    break;<a name="line.651"></a>
+<span class="sourceLineNo">652</span>                case TWO_HUNDRED_BY_ONE_HUNDRED:<a name="line.652"></a>
+<span class="sourceLineNo">653</span>                    ((Region) zeNode).setPrefSize(200, 100);<a name="line.653"></a>
+<span class="sourceLineNo">654</span>                    setSizeLabel(prefSize);<a name="line.654"></a>
+<span class="sourceLineNo">655</span>                    break;<a name="line.655"></a>
+<span class="sourceLineNo">656</span>                case TWO_HUNDRED_BY_TWO_HUNDRED:<a name="line.656"></a>
+<span class="sourceLineNo">657</span>                    ((Region) zeNode).setPrefSize(200, 200);<a name="line.657"></a>
+<span class="sourceLineNo">658</span>                    setSizeLabel(prefSize);<a name="line.658"></a>
+<span class="sourceLineNo">659</span>                    break;<a name="line.659"></a>
+<span class="sourceLineNo">660</span>                default:<a name="line.660"></a>
+<span class="sourceLineNo">661</span>                    break;<a name="line.661"></a>
+<span class="sourceLineNo">662</span>            }<a name="line.662"></a>
+<span class="sourceLineNo">663</span>            <a name="line.663"></a>
+<span class="sourceLineNo">664</span>            defSizeChoice.getSelectionModel().select(choice);<a name="line.664"></a>
+<span class="sourceLineNo">665</span>        }<a name="line.665"></a>
+<span class="sourceLineNo">666</span>    }<a name="line.666"></a>
+<span class="sourceLineNo">667</span>    <a name="line.667"></a>
+<span class="sourceLineNo">668</span>    private void setSizeLabel(PrefSize ps) {<a name="line.668"></a>
+<span class="sourceLineNo">669</span>        switch (ps) {<a name="line.669"></a>
+<span class="sourceLineNo">670</span>            case DEFAULT:<a name="line.670"></a>
+<span class="sourceLineNo">671</span>                sizeLabel.setText(builtinPrefWidth + " x " + builtinPrefHeight); //NOI18N<a name="line.671"></a>
+<span class="sourceLineNo">672</span>                break;<a name="line.672"></a>
+<span class="sourceLineNo">673</span>            case TWO_HUNDRED_BY_ONE_HUNDRED:<a name="line.673"></a>
+<span class="sourceLineNo">674</span>                sizeLabel.setText("200 x 100"); //NOI18N<a name="line.674"></a>
+<span class="sourceLineNo">675</span>                break;<a name="line.675"></a>
+<span class="sourceLineNo">676</span>            case TWO_HUNDRED_BY_TWO_HUNDRED:<a name="line.676"></a>
+<span class="sourceLineNo">677</span>                sizeLabel.setText("200 x 200"); //NOI18N<a name="line.677"></a>
+<span class="sourceLineNo">678</span>                break;<a name="line.678"></a>
+<span class="sourceLineNo">679</span>            default:<a name="line.679"></a>
+<span class="sourceLineNo">680</span>                break;<a name="line.680"></a>
+<span class="sourceLineNo">681</span>        }<a name="line.681"></a>
+<span class="sourceLineNo">682</span>    }<a name="line.682"></a>
+<span class="sourceLineNo">683</span>}<a name="line.683"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

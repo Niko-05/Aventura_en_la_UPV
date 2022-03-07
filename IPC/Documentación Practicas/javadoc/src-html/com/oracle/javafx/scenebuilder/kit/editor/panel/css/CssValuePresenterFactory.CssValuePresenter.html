@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2012, 2014, Oracle and/or its affiliates.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. Use is subject to license terms.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This file is available and licensed under the following license:<a name="line.5"></a>
+<span class="sourceLineNo">006</span> *<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * Redistribution and use in source and binary forms, with or without<a name="line.7"></a>
+<span class="sourceLineNo">008</span> * modification, are permitted provided that the following conditions<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * are met:<a name="line.9"></a>
+<span class="sourceLineNo">010</span> *<a name="line.10"></a>
+<span class="sourceLineNo">011</span> *  - Redistributions of source code must retain the above copyright<a name="line.11"></a>
+<span class="sourceLineNo">012</span> *    notice, this list of conditions and the following disclaimer.<a name="line.12"></a>
+<span class="sourceLineNo">013</span> *  - Redistributions in binary form must reproduce the above copyright<a name="line.13"></a>
+<span class="sourceLineNo">014</span> *    notice, this list of conditions and the following disclaimer in<a name="line.14"></a>
+<span class="sourceLineNo">015</span> *    the documentation and/or other materials provided with the distribution.<a name="line.15"></a>
+<span class="sourceLineNo">016</span> *  - Neither the name of Oracle Corporation nor the names of its<a name="line.16"></a>
+<span class="sourceLineNo">017</span> *    contributors may be used to endorse or promote products derived<a name="line.17"></a>
+<span class="sourceLineNo">018</span> *    from this software without specific prior written permission.<a name="line.18"></a>
+<span class="sourceLineNo">019</span> *<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS<a name="line.20"></a>
+<span class="sourceLineNo">021</span> * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR<a name="line.22"></a>
+<span class="sourceLineNo">023</span> * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT<a name="line.25"></a>
+<span class="sourceLineNo">026</span> * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY<a name="line.27"></a>
+<span class="sourceLineNo">028</span> * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<a name="line.28"></a>
+<span class="sourceLineNo">029</span> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<a name="line.30"></a>
+<span class="sourceLineNo">031</span> */<a name="line.31"></a>
+<span class="sourceLineNo">032</span>package com.oracle.javafx.scenebuilder.kit.editor.panel.css;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>import javafx.scene.Node;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import javafx.scene.control.Label;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import javafx.scene.image.Image;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import javafx.scene.image.ImageView;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import javafx.scene.paint.Color;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import javafx.scene.paint.Paint;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import javafx.scene.shape.Rectangle;<a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>/**<a name="line.42"></a>
+<span class="sourceLineNo">043</span> *<a name="line.43"></a>
+<span class="sourceLineNo">044</span> */<a name="line.44"></a>
+<span class="sourceLineNo">045</span>public class CssValuePresenterFactory {<a name="line.45"></a>
+<span class="sourceLineNo">046</span><a name="line.46"></a>
+<span class="sourceLineNo">047</span>    public abstract class CssValuePresenter&lt;T&gt; {<a name="line.47"></a>
+<span class="sourceLineNo">048</span><a name="line.48"></a>
+<span class="sourceLineNo">049</span>        private final T value;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        private Node node;<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        protected CssValuePresenter(T value) {<a name="line.51"></a>
+<span class="sourceLineNo">052</span>            this.value = value;<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        }<a name="line.53"></a>
+<span class="sourceLineNo">054</span><a name="line.54"></a>
+<span class="sourceLineNo">055</span>        public T getValue() {<a name="line.55"></a>
+<span class="sourceLineNo">056</span>            return value;<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        }<a name="line.57"></a>
+<span class="sourceLineNo">058</span><a name="line.58"></a>
+<span class="sourceLineNo">059</span>        public Node getCustomPresenter() {<a name="line.59"></a>
+<span class="sourceLineNo">060</span>            if (node == null) {<a name="line.60"></a>
+<span class="sourceLineNo">061</span>                node = doGetPresenter();<a name="line.61"></a>
+<span class="sourceLineNo">062</span>            }<a name="line.62"></a>
+<span class="sourceLineNo">063</span>            return node;<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        }<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        <a name="line.65"></a>
+<span class="sourceLineNo">066</span>        public Label getTextPresenter() {<a name="line.66"></a>
+<span class="sourceLineNo">067</span>            return new Label(CssValueConverter.toCssString(value));<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        }<a name="line.68"></a>
+<span class="sourceLineNo">069</span><a name="line.69"></a>
+<span class="sourceLineNo">070</span>        protected abstract Node doGetPresenter();<a name="line.70"></a>
+<span class="sourceLineNo">071</span>    }<a name="line.71"></a>
+<span class="sourceLineNo">072</span>    <a name="line.72"></a>
+<span class="sourceLineNo">073</span>    private static final CssValuePresenterFactory singleton = new CssValuePresenterFactory();<a name="line.73"></a>
+<span class="sourceLineNo">074</span><a name="line.74"></a>
+<span class="sourceLineNo">075</span>    protected CssValuePresenterFactory() {<a name="line.75"></a>
+<span class="sourceLineNo">076</span>    }<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>    public static CssValuePresenterFactory getInstance() {<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        return singleton;<a name="line.79"></a>
+<span class="sourceLineNo">080</span>    }<a name="line.80"></a>
+<span class="sourceLineNo">081</span><a name="line.81"></a>
+<span class="sourceLineNo">082</span>    public &lt;T&gt; CssValuePresenter&lt;T&gt; newValuePresenter(T value) {<a name="line.82"></a>
+<span class="sourceLineNo">083</span>        final CssValuePresenter&lt;?&gt; ret;<a name="line.83"></a>
+<span class="sourceLineNo">084</span>        if(Paint.class.isAssignableFrom(value.getClass())){<a name="line.84"></a>
+<span class="sourceLineNo">085</span>            ret = new PaintValuePresenter((Paint)value);<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        } else {<a name="line.86"></a>
+<span class="sourceLineNo">087</span>            if(value instanceof Image){<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                ret = new ImageValuePresenter((Image) value);<a name="line.88"></a>
+<span class="sourceLineNo">089</span>            } else {<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                ret = new DefaultValuePresenter(value);<a name="line.90"></a>
+<span class="sourceLineNo">091</span>            }<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        }<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        @SuppressWarnings("unchecked")<a name="line.93"></a>
+<span class="sourceLineNo">094</span>        final CssValuePresenter&lt;T&gt; castedRet = (CssValuePresenter&lt;T&gt;)ret;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        return castedRet;<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    }<a name="line.96"></a>
+<span class="sourceLineNo">097</span>    <a name="line.97"></a>
+<span class="sourceLineNo">098</span>    private class PaintValuePresenter extends CssValuePresenter&lt;Paint&gt; {<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        private PaintValuePresenter(Paint p){<a name="line.99"></a>
+<span class="sourceLineNo">100</span>            super(p);<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        }<a name="line.101"></a>
+<span class="sourceLineNo">102</span>        <a name="line.102"></a>
+<span class="sourceLineNo">103</span>        @Override<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        protected Node doGetPresenter() {<a name="line.104"></a>
+<span class="sourceLineNo">105</span>            Rectangle rect = new Rectangle(10, 10);<a name="line.105"></a>
+<span class="sourceLineNo">106</span>            rect.setStroke(Color.BLACK);<a name="line.106"></a>
+<span class="sourceLineNo">107</span>            rect.setFill(getValue());<a name="line.107"></a>
+<span class="sourceLineNo">108</span>            return rect;<a name="line.108"></a>
+<span class="sourceLineNo">109</span>        }<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    }<a name="line.110"></a>
+<span class="sourceLineNo">111</span>    <a name="line.111"></a>
+<span class="sourceLineNo">112</span>    private class ImageValuePresenter extends CssValuePresenter&lt;Image&gt; {<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        private ImageValuePresenter(Image img){<a name="line.113"></a>
+<span class="sourceLineNo">114</span>            super(img);<a name="line.114"></a>
+<span class="sourceLineNo">115</span>        }<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        <a name="line.116"></a>
+<span class="sourceLineNo">117</span>        @Override<a name="line.117"></a>
+<span class="sourceLineNo">118</span>        protected Node doGetPresenter() {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>            ImageView imgView = new ImageView((getValue()));<a name="line.119"></a>
+<span class="sourceLineNo">120</span>            imgView.setFitWidth(15);<a name="line.120"></a>
+<span class="sourceLineNo">121</span>            imgView.setPreserveRatio(true);<a name="line.121"></a>
+<span class="sourceLineNo">122</span>            return imgView;<a name="line.122"></a>
+<span class="sourceLineNo">123</span>        }<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    }<a name="line.124"></a>
+<span class="sourceLineNo">125</span>    <a name="line.125"></a>
+<span class="sourceLineNo">126</span>    private class DefaultValuePresenter extends CssValuePresenter&lt;Object&gt; {<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        private DefaultValuePresenter(Object val){<a name="line.127"></a>
+<span class="sourceLineNo">128</span>            super(val);<a name="line.128"></a>
+<span class="sourceLineNo">129</span>        }<a name="line.129"></a>
+<span class="sourceLineNo">130</span>        @Override<a name="line.130"></a>
+<span class="sourceLineNo">131</span>        protected Node doGetPresenter() {<a name="line.131"></a>
+<span class="sourceLineNo">132</span>            return null;<a name="line.132"></a>
+<span class="sourceLineNo">133</span>        }<a name="line.133"></a>
+<span class="sourceLineNo">134</span>    }<a name="line.134"></a>
+<span class="sourceLineNo">135</span>}<a name="line.135"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,1145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2012, 2014, Oracle and/or its affiliates.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. Use is subject to license terms.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This file is available and licensed under the following license:<a name="line.5"></a>
+<span class="sourceLineNo">006</span> *<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * Redistribution and use in source and binary forms, with or without<a name="line.7"></a>
+<span class="sourceLineNo">008</span> * modification, are permitted provided that the following conditions<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * are met:<a name="line.9"></a>
+<span class="sourceLineNo">010</span> *<a name="line.10"></a>
+<span class="sourceLineNo">011</span> *  - Redistributions of source code must retain the above copyright<a name="line.11"></a>
+<span class="sourceLineNo">012</span> *    notice, this list of conditions and the following disclaimer.<a name="line.12"></a>
+<span class="sourceLineNo">013</span> *  - Redistributions in binary form must reproduce the above copyright<a name="line.13"></a>
+<span class="sourceLineNo">014</span> *    notice, this list of conditions and the following disclaimer in<a name="line.14"></a>
+<span class="sourceLineNo">015</span> *    the documentation and/or other materials provided with the distribution.<a name="line.15"></a>
+<span class="sourceLineNo">016</span> *  - Neither the name of Oracle Corporation nor the names of its<a name="line.16"></a>
+<span class="sourceLineNo">017</span> *    contributors may be used to endorse or promote products derived<a name="line.17"></a>
+<span class="sourceLineNo">018</span> *    from this software without specific prior written permission.<a name="line.18"></a>
+<span class="sourceLineNo">019</span> *<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS<a name="line.20"></a>
+<span class="sourceLineNo">021</span> * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR<a name="line.22"></a>
+<span class="sourceLineNo">023</span> * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT<a name="line.25"></a>
+<span class="sourceLineNo">026</span> * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY<a name="line.27"></a>
+<span class="sourceLineNo">028</span> * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT<a name="line.28"></a>
+<span class="sourceLineNo">029</span> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<a name="line.30"></a>
+<span class="sourceLineNo">031</span> */<a name="line.31"></a>
+<span class="sourceLineNo">032</span>package com.oracle.javafx.scenebuilder.kit.editor.panel.library;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.oracle.javafx.scenebuilder.kit.editor.EditorController;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.oracle.javafx.scenebuilder.kit.editor.drag.source.AbstractDragSource;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.oracle.javafx.scenebuilder.kit.editor.drag.source.DocumentDragSource;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.oracle.javafx.scenebuilder.kit.editor.i18n.I18N;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import com.oracle.javafx.scenebuilder.kit.editor.panel.util.AbstractFxmlPanelController;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import com.oracle.javafx.scenebuilder.kit.editor.panel.util.dialog.AbstractModalDialog.ButtonID;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import com.oracle.javafx.scenebuilder.kit.editor.panel.util.dialog.AlertDialog;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>import com.oracle.javafx.scenebuilder.kit.editor.panel.util.dialog.ErrorDialog;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>import com.oracle.javafx.scenebuilder.kit.fxom.FXOMArchive;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>import com.oracle.javafx.scenebuilder.kit.fxom.FXOMDocument;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>import com.oracle.javafx.scenebuilder.kit.fxom.FXOMInstance;<a name="line.44"></a>
+<span class="sourceLineNo">045</span>import com.oracle.javafx.scenebuilder.kit.fxom.FXOMObject;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>import com.oracle.javafx.scenebuilder.kit.fxom.FXOMProperty;<a name="line.46"></a>
+<span class="sourceLineNo">047</span>import com.oracle.javafx.scenebuilder.kit.fxom.FXOMPropertyT;<a name="line.47"></a>
+<span class="sourceLineNo">048</span>import com.oracle.javafx.scenebuilder.kit.library.BuiltinLibrary;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>import com.oracle.javafx.scenebuilder.kit.library.Library;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>import com.oracle.javafx.scenebuilder.kit.library.LibraryItem;<a name="line.50"></a>
+<span class="sourceLineNo">051</span>import com.oracle.javafx.scenebuilder.kit.library.LibraryItemNameComparator;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>import com.oracle.javafx.scenebuilder.kit.library.user.UserLibrary;<a name="line.52"></a>
+<span class="sourceLineNo">053</span>import com.oracle.javafx.scenebuilder.kit.metadata.util.PrefixedValue;<a name="line.53"></a>
+<span class="sourceLineNo">054</span>import com.oracle.javafx.scenebuilder.kit.metadata.util.PropertyName;<a name="line.54"></a>
+<span class="sourceLineNo">055</span>import java.io.File;<a name="line.55"></a>
+<span class="sourceLineNo">056</span>import java.io.IOException;<a name="line.56"></a>
+<span class="sourceLineNo">057</span>import java.io.PrintWriter;<a name="line.57"></a>
+<span class="sourceLineNo">058</span>import java.net.MalformedURLException;<a name="line.58"></a>
+<span class="sourceLineNo">059</span>import java.net.URISyntaxException;<a name="line.59"></a>
+<span class="sourceLineNo">060</span>import java.net.URL;<a name="line.60"></a>
+<span class="sourceLineNo">061</span>import java.nio.file.FileSystemNotFoundException;<a name="line.61"></a>
+<span class="sourceLineNo">062</span>import java.nio.file.Files;<a name="line.62"></a>
+<span class="sourceLineNo">063</span>import java.nio.file.Path;<a name="line.63"></a>
+<span class="sourceLineNo">064</span>import java.nio.file.Paths;<a name="line.64"></a>
+<span class="sourceLineNo">065</span>import java.nio.file.StandardCopyOption;<a name="line.65"></a>
+<span class="sourceLineNo">066</span>import java.nio.file.attribute.FileAttribute;<a name="line.66"></a>
+<span class="sourceLineNo">067</span>import java.util.ArrayList;<a name="line.67"></a>
+<span class="sourceLineNo">068</span>import java.util.Collections;<a name="line.68"></a>
+<span class="sourceLineNo">069</span>import java.util.LinkedHashMap;<a name="line.69"></a>
+<span class="sourceLineNo">070</span>import java.util.List;<a name="line.70"></a>
+<span class="sourceLineNo">071</span>import java.util.Locale;<a name="line.71"></a>
+<span class="sourceLineNo">072</span>import java.util.Timer;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>import java.util.TimerTask;<a name="line.73"></a>
+<span class="sourceLineNo">074</span>import java.util.TreeSet;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>import javafx.application.Platform;<a name="line.75"></a>
+<span class="sourceLineNo">076</span>import javafx.beans.value.ChangeListener;<a name="line.76"></a>
+<span class="sourceLineNo">077</span>import javafx.beans.value.ObservableValue;<a name="line.77"></a>
+<span class="sourceLineNo">078</span>import javafx.collections.ListChangeListener;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>import javafx.event.EventHandler;<a name="line.79"></a>
+<span class="sourceLineNo">080</span>import javafx.fxml.FXML;<a name="line.80"></a>
+<span class="sourceLineNo">081</span>import javafx.scene.control.Accordion;<a name="line.81"></a>
+<span class="sourceLineNo">082</span>import javafx.scene.control.Label;<a name="line.82"></a>
+<span class="sourceLineNo">083</span>import javafx.scene.control.ListCell;<a name="line.83"></a>
+<span class="sourceLineNo">084</span>import javafx.scene.control.ListView;<a name="line.84"></a>
+<span class="sourceLineNo">085</span>import javafx.scene.control.TitledPane;<a name="line.85"></a>
+<span class="sourceLineNo">086</span>import javafx.scene.input.DragEvent;<a name="line.86"></a>
+<span class="sourceLineNo">087</span>import javafx.scene.input.Dragboard;<a name="line.87"></a>
+<span class="sourceLineNo">088</span>import javafx.scene.input.KeyCode;<a name="line.88"></a>
+<span class="sourceLineNo">089</span>import javafx.scene.input.KeyEvent;<a name="line.89"></a>
+<span class="sourceLineNo">090</span>import javafx.scene.input.TransferMode;<a name="line.90"></a>
+<span class="sourceLineNo">091</span>import javafx.scene.layout.StackPane;<a name="line.91"></a>
+<span class="sourceLineNo">092</span>import javafx.stage.FileChooser;<a name="line.92"></a>
+<span class="sourceLineNo">093</span>import javafx.stage.Stage;<a name="line.93"></a>
+<span class="sourceLineNo">094</span>import javafx.stage.Window;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>import javafx.util.Callback;<a name="line.95"></a>
+<span class="sourceLineNo">096</span><a name="line.96"></a>
+<span class="sourceLineNo">097</span>/**<a name="line.97"></a>
+<span class="sourceLineNo">098</span> * This class creates and controls the &lt;b&gt;Library Panel&lt;/b&gt; of Scene Builder<a name="line.98"></a>
+<span class="sourceLineNo">099</span> * Kit.<a name="line.99"></a>
+<span class="sourceLineNo">100</span> *<a name="line.100"></a>
+<span class="sourceLineNo">101</span> */<a name="line.101"></a>
+<span class="sourceLineNo">102</span>public class LibraryPanelController extends AbstractFxmlPanelController {<a name="line.102"></a>
+<span class="sourceLineNo">103</span><a name="line.103"></a>
+<span class="sourceLineNo">104</span>    private String searchPattern;<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    ArrayList&lt;LibraryItem&gt; searchData = new ArrayList&lt;&gt;();<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    private final String TEMP_FILE_EXTENSION = ".tmp"; //NOI18N<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    // The name of the library section to keep opened. This is used when e.g.<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    // a user jar file is imported to the library directory.<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    // If the user was doing a search then we let the library layout unchanged.<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    // If the user wasn't doing a search and custom content is updated then<a name="line.110"></a>
+<span class="sourceLineNo">111</span>    // we want to get Custom section opened.<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    String sectionNameToKeepOpened = null;<a name="line.112"></a>
+<span class="sourceLineNo">113</span>    boolean initiateImportDialog = false;<a name="line.113"></a>
+<span class="sourceLineNo">114</span>    final List&lt;File&gt; jarAndFxmlFiles = new ArrayList&lt;&gt;();<a name="line.114"></a>
+<span class="sourceLineNo">115</span>    private String userLibraryPathString = null;<a name="line.115"></a>
+<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">117</span>    @FXML<a name="line.117"></a>
+<span class="sourceLineNo">118</span>    private Accordion libAccordion;<a name="line.118"></a>
+<span class="sourceLineNo">119</span>    @FXML<a name="line.119"></a>
+<span class="sourceLineNo">120</span>    Label noSearchResults;<a name="line.120"></a>
+<span class="sourceLineNo">121</span>    @FXML ListView&lt;LibraryListItem&gt; libSearchList;<a name="line.121"></a>
+<span class="sourceLineNo">122</span>    <a name="line.122"></a>
+<span class="sourceLineNo">123</span>    @FXML ListView&lt;LibraryListItem&gt; libList = new ListView&lt;&gt;();<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    <a name="line.124"></a>
+<span class="sourceLineNo">125</span>    @FXML StackPane libPane;<a name="line.125"></a>
+<span class="sourceLineNo">126</span><a name="line.126"></a>
+<span class="sourceLineNo">127</span>    /*<a name="line.127"></a>
+<span class="sourceLineNo">128</span>     * Public<a name="line.128"></a>
+<span class="sourceLineNo">129</span>     */<a name="line.129"></a>
+<span class="sourceLineNo">130</span>    <a name="line.130"></a>
+<span class="sourceLineNo">131</span>    /**<a name="line.131"></a>
+<span class="sourceLineNo">132</span>     * Creates a library panel controller for the specified editor controller.<a name="line.132"></a>
+<span class="sourceLineNo">133</span>     *<a name="line.133"></a>
+<span class="sourceLineNo">134</span>     * @param c the editor controller (never null).<a name="line.134"></a>
+<span class="sourceLineNo">135</span>     */<a name="line.135"></a>
+<span class="sourceLineNo">136</span>    public LibraryPanelController(EditorController c) {<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        super(LibraryPanelController.class.getResource("LibraryPanel.fxml"), I18N.getBundle(), c); //NOI18N<a name="line.137"></a>
+<span class="sourceLineNo">138</span>        startListeningToLibrary();<a name="line.138"></a>
+<span class="sourceLineNo">139</span>    }<a name="line.139"></a>
+<span class="sourceLineNo">140</span><a name="line.140"></a>
+<span class="sourceLineNo">141</span>    /**<a name="line.141"></a>
+<span class="sourceLineNo">142</span>     * Returns null or the search pattern applied to this library panel.<a name="line.142"></a>
+<span class="sourceLineNo">143</span>     *<a name="line.143"></a>
+<span class="sourceLineNo">144</span>     * @return null or the search pattern applied to this library panel.<a name="line.144"></a>
+<span class="sourceLineNo">145</span>     */<a name="line.145"></a>
+<span class="sourceLineNo">146</span>    public String getSearchPattern() {<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        return searchPattern;<a name="line.147"></a>
+<span class="sourceLineNo">148</span>    }<a name="line.148"></a>
+<span class="sourceLineNo">149</span><a name="line.149"></a>
+<span class="sourceLineNo">150</span>    /**<a name="line.150"></a>
+<span class="sourceLineNo">151</span>     * Sets the search pattern to be applied to this library panel. When null<a name="line.151"></a>
+<span class="sourceLineNo">152</span>     * value is passed, the library panel displays all its items.<a name="line.152"></a>
+<span class="sourceLineNo">153</span>     *<a name="line.153"></a>
+<span class="sourceLineNo">154</span>     * @param searchPattern null or the search pattern to apply to this library<a name="line.154"></a>
+<span class="sourceLineNo">155</span>     * panel.<a name="line.155"></a>
+<span class="sourceLineNo">156</span>     */<a name="line.156"></a>
+<span class="sourceLineNo">157</span>    public void setSearchPattern(String searchPattern) {<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        this.searchPattern = searchPattern.toUpperCase(Locale.ENGLISH);<a name="line.158"></a>
+<span class="sourceLineNo">159</span>        searchPatternDidChange();<a name="line.159"></a>
+<span class="sourceLineNo">160</span>    }<a name="line.160"></a>
+<span class="sourceLineNo">161</span><a name="line.161"></a>
+<span class="sourceLineNo">162</span>    /**<a name="line.162"></a>
+<span class="sourceLineNo">163</span>     * @treatAsPrivate Perform the import jar action.<a name="line.163"></a>
+<span class="sourceLineNo">164</span>     */<a name="line.164"></a>
+<span class="sourceLineNo">165</span>    public void performImportJarFxml() {<a name="line.165"></a>
+<span class="sourceLineNo">166</span>        // Open file chooser and get user selection<a name="line.166"></a>
+<span class="sourceLineNo">167</span>        final List&lt;File&gt; importedFiles = performSelectJarOrFxmlFile();<a name="line.167"></a>
+<span class="sourceLineNo">168</span>        processImportJarFxml(importedFiles);<a name="line.168"></a>
+<span class="sourceLineNo">169</span>    }<a name="line.169"></a>
+<span class="sourceLineNo">170</span>    <a name="line.170"></a>
+<span class="sourceLineNo">171</span>    /**<a name="line.171"></a>
+<span class="sourceLineNo">172</span>     * @treatAsPrivate Perform the import of the selection<a name="line.172"></a>
+<span class="sourceLineNo">173</span>     * @param objects the FXOM objects to import to customize the Library content.<a name="line.173"></a>
+<span class="sourceLineNo">174</span>     */<a name="line.174"></a>
+<span class="sourceLineNo">175</span>    public void performImportSelection(List&lt;FXOMObject&gt; objects) {<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        processInternalImport(objects);<a name="line.176"></a>
+<span class="sourceLineNo">177</span>    }<a name="line.177"></a>
+<span class="sourceLineNo">178</span>    <a name="line.178"></a>
+<span class="sourceLineNo">179</span>    /*<a name="line.179"></a>
+<span class="sourceLineNo">180</span>     * AbstractPanelController<a name="line.180"></a>
+<span class="sourceLineNo">181</span>     */<a name="line.181"></a>
+<span class="sourceLineNo">182</span>    <a name="line.182"></a>
+<span class="sourceLineNo">183</span>    /**<a name="line.183"></a>
+<span class="sourceLineNo">184</span>     * @treatAsPrivate FXOM document did change.<a name="line.184"></a>
+<span class="sourceLineNo">185</span>     * @param oldDocument the previous fxom document or null<a name="line.185"></a>
+<span class="sourceLineNo">186</span>     */<a name="line.186"></a>
+<span class="sourceLineNo">187</span>    @Override<a name="line.187"></a>
+<span class="sourceLineNo">188</span>    protected void fxomDocumentDidChange(FXOMDocument oldDocument) {<a name="line.188"></a>
+<span class="sourceLineNo">189</span>    }<a name="line.189"></a>
+<span class="sourceLineNo">190</span><a name="line.190"></a>
+<span class="sourceLineNo">191</span>    /**<a name="line.191"></a>
+<span class="sourceLineNo">192</span>     * @treatAsPrivate User scene graph did change.<a name="line.192"></a>
+<span class="sourceLineNo">193</span>     */<a name="line.193"></a>
+<span class="sourceLineNo">194</span>    @Override<a name="line.194"></a>
+<span class="sourceLineNo">195</span>    protected void sceneGraphRevisionDidChange() {<a name="line.195"></a>
+<span class="sourceLineNo">196</span>    }<a name="line.196"></a>
+<span class="sourceLineNo">197</span><a name="line.197"></a>
+<span class="sourceLineNo">198</span>    /**<a name="line.198"></a>
+<span class="sourceLineNo">199</span>     * @treatAsPrivate User scene graph did change.<a name="line.199"></a>
+<span class="sourceLineNo">200</span>     */<a name="line.200"></a>
+<span class="sourceLineNo">201</span>    @Override<a name="line.201"></a>
+<span class="sourceLineNo">202</span>    protected void cssRevisionDidChange() {<a name="line.202"></a>
+<span class="sourceLineNo">203</span>    }<a name="line.203"></a>
+<span class="sourceLineNo">204</span><a name="line.204"></a>
+<span class="sourceLineNo">205</span>    /**<a name="line.205"></a>
+<span class="sourceLineNo">206</span>     * @treatAsPrivate Job manager revision did change.<a name="line.206"></a>
+<span class="sourceLineNo">207</span>     */<a name="line.207"></a>
+<span class="sourceLineNo">208</span>    @Override<a name="line.208"></a>
+<span class="sourceLineNo">209</span>    protected void jobManagerRevisionDidChange() {<a name="line.209"></a>
+<span class="sourceLineNo">210</span>        // FXOMDocument has been modified by a job.<a name="line.210"></a>
+<span class="sourceLineNo">211</span>        // Library panel should probably not care for now.<a name="line.211"></a>
+<span class="sourceLineNo">212</span>    }<a name="line.212"></a>
+<span class="sourceLineNo">213</span>    <a name="line.213"></a>
+<span class="sourceLineNo">214</span>    /**<a name="line.214"></a>
+<span class="sourceLineNo">215</span>     * @treatAsPrivate Selection did change.<a name="line.215"></a>
+<span class="sourceLineNo">216</span>     */<a name="line.216"></a>
+<span class="sourceLineNo">217</span>    @Override<a name="line.217"></a>
+<span class="sourceLineNo">218</span>    protected void editorSelectionDidChange() {<a name="line.218"></a>
+<span class="sourceLineNo">219</span>    }<a name="line.219"></a>
+<span class="sourceLineNo">220</span><a name="line.220"></a>
+<span class="sourceLineNo">221</span>    /*<a name="line.221"></a>
+<span class="sourceLineNo">222</span>     * AbstractFxmlPanelController<a name="line.222"></a>
+<span class="sourceLineNo">223</span>     */<a name="line.223"></a>
+<span class="sourceLineNo">224</span>    <a name="line.224"></a>
+<span class="sourceLineNo">225</span>    /**<a name="line.225"></a>
+<span class="sourceLineNo">226</span>     * @treatAsPrivate Controller did load fxml.<a name="line.226"></a>
+<span class="sourceLineNo">227</span>     */<a name="line.227"></a>
+<span class="sourceLineNo">228</span>    @Override<a name="line.228"></a>
+<span class="sourceLineNo">229</span>    protected void controllerDidLoadFxml() {<a name="line.229"></a>
+<span class="sourceLineNo">230</span>        assert libAccordion != null;<a name="line.230"></a>
+<span class="sourceLineNo">231</span>        assert libPane != null;<a name="line.231"></a>
+<span class="sourceLineNo">232</span>        assert libList != null;<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        assert noSearchResults != null;<a name="line.233"></a>
+<span class="sourceLineNo">234</span>        assert libSearchList != null;<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        <a name="line.235"></a>
+<span class="sourceLineNo">236</span>        startListeningToDrop();<a name="line.236"></a>
+<span class="sourceLineNo">237</span>        setDisplayMode(DISPLAY_MODE.SECTIONS);<a name="line.237"></a>
+<span class="sourceLineNo">238</span>        populateLibraryPanel();<a name="line.238"></a>
+<span class="sourceLineNo">239</span>        setUserLibraryPathString();<a name="line.239"></a>
+<span class="sourceLineNo">240</span>    }<a name="line.240"></a>
+<span class="sourceLineNo">241</span><a name="line.241"></a>
+<span class="sourceLineNo">242</span>    /*<a name="line.242"></a>
+<span class="sourceLineNo">243</span>     * Private<a name="line.243"></a>
+<span class="sourceLineNo">244</span>     */<a name="line.244"></a>
+<span class="sourceLineNo">245</span><a name="line.245"></a>
+<span class="sourceLineNo">246</span>    /**<a name="line.246"></a>
+<span class="sourceLineNo">247</span>     * The display mode of the Library panel is used to choose how items<a name="line.247"></a>
+<span class="sourceLineNo">248</span>     * are rendered within the panel.<a name="line.248"></a>
+<span class="sourceLineNo">249</span>     */<a name="line.249"></a>
+<span class="sourceLineNo">250</span>    public enum DISPLAY_MODE {<a name="line.250"></a>
+<span class="sourceLineNo">251</span><a name="line.251"></a>
+<span class="sourceLineNo">252</span>        SECTIONS {<a name="line.252"></a>
+<span class="sourceLineNo">253</span><a name="line.253"></a>
+<span class="sourceLineNo">254</span>                    @Override<a name="line.254"></a>
+<span class="sourceLineNo">255</span>                    public String toString() {<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                        return I18N.getString("library.panel.menu.view.sections");<a name="line.256"></a>
+<span class="sourceLineNo">257</span>                    }<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                },<a name="line.258"></a>
+<span class="sourceLineNo">259</span>        SEARCH,<a name="line.259"></a>
+<span class="sourceLineNo">260</span>        LIST {<a name="line.260"></a>
+<span class="sourceLineNo">261</span><a name="line.261"></a>
+<span class="sourceLineNo">262</span>                    @Override<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                    public String toString() {<a name="line.263"></a>
+<span class="sourceLineNo">264</span>                        return I18N.getString("library.panel.menu.view.list");<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                    }<a name="line.265"></a>
+<span class="sourceLineNo">266</span>                }<a name="line.266"></a>
+<span class="sourceLineNo">267</span>    };<a name="line.267"></a>
+<span class="sourceLineNo">268</span>    <a name="line.268"></a>
+<span class="sourceLineNo">269</span>    private DISPLAY_MODE currentDisplayMode;<a name="line.269"></a>
+<span class="sourceLineNo">270</span>    private DISPLAY_MODE previousDisplayMode = DISPLAY_MODE.SECTIONS;<a name="line.270"></a>
+<span class="sourceLineNo">271</span>    <a name="line.271"></a>
+<span class="sourceLineNo">272</span>    public void setPreviousDisplayMode(DISPLAY_MODE displayMode) {<a name="line.272"></a>
+<span class="sourceLineNo">273</span>        this.previousDisplayMode = displayMode;<a name="line.273"></a>
+<span class="sourceLineNo">274</span>    }<a name="line.274"></a>
+<span class="sourceLineNo">275</span>    <a name="line.275"></a>
+<span class="sourceLineNo">276</span>    public void setDisplayMode(DISPLAY_MODE displayMode) {<a name="line.276"></a>
+<span class="sourceLineNo">277</span>        this.currentDisplayMode = displayMode;<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        <a name="line.278"></a>
+<span class="sourceLineNo">279</span>        switch (displayMode) {<a name="line.279"></a>
+<span class="sourceLineNo">280</span>            case SECTIONS:<a name="line.280"></a>
+<span class="sourceLineNo">281</span>                libAccordion.setVisible(true);<a name="line.281"></a>
+<span class="sourceLineNo">282</span>                libAccordion.setManaged(true);<a name="line.282"></a>
+<span class="sourceLineNo">283</span>                noSearchResults.setVisible(false);<a name="line.283"></a>
+<span class="sourceLineNo">284</span>                noSearchResults.setManaged(false);<a name="line.284"></a>
+<span class="sourceLineNo">285</span>                libSearchList.setVisible(false);<a name="line.285"></a>
+<span class="sourceLineNo">286</span>                libSearchList.setManaged(false);<a name="line.286"></a>
+<span class="sourceLineNo">287</span>                libList.setVisible(false);<a name="line.287"></a>
+<span class="sourceLineNo">288</span>                libList.setManaged(false);<a name="line.288"></a>
+<span class="sourceLineNo">289</span>                break;<a name="line.289"></a>
+<span class="sourceLineNo">290</span>            case SEARCH:<a name="line.290"></a>
+<span class="sourceLineNo">291</span>                libAccordion.setVisible(false);<a name="line.291"></a>
+<span class="sourceLineNo">292</span>                libAccordion.setManaged(false);<a name="line.292"></a>
+<span class="sourceLineNo">293</span>                if (libSearchList.getItems().isEmpty()) {<a name="line.293"></a>
+<span class="sourceLineNo">294</span>                    noSearchResults.setVisible(true);<a name="line.294"></a>
+<span class="sourceLineNo">295</span>                    noSearchResults.setManaged(true);<a name="line.295"></a>
+<span class="sourceLineNo">296</span>                    libSearchList.setVisible(false);<a name="line.296"></a>
+<span class="sourceLineNo">297</span>                    libSearchList.setManaged(false);<a name="line.297"></a>
+<span class="sourceLineNo">298</span>                } else {<a name="line.298"></a>
+<span class="sourceLineNo">299</span>                    noSearchResults.setVisible(false);<a name="line.299"></a>
+<span class="sourceLineNo">300</span>                    noSearchResults.setManaged(false);<a name="line.300"></a>
+<span class="sourceLineNo">301</span>                    libSearchList.setVisible(true);<a name="line.301"></a>
+<span class="sourceLineNo">302</span>                    libSearchList.setManaged(true);<a name="line.302"></a>
+<span class="sourceLineNo">303</span>                }<a name="line.303"></a>
+<span class="sourceLineNo">304</span>                libList.setVisible(false);<a name="line.304"></a>
+<span class="sourceLineNo">305</span>                libList.setManaged(false);<a name="line.305"></a>
+<span class="sourceLineNo">306</span>                break;<a name="line.306"></a>
+<span class="sourceLineNo">307</span>            case LIST:<a name="line.307"></a>
+<span class="sourceLineNo">308</span>                libAccordion.setVisible(false);<a name="line.308"></a>
+<span class="sourceLineNo">309</span>                libAccordion.setManaged(false);<a name="line.309"></a>
+<span class="sourceLineNo">310</span>                noSearchResults.setVisible(false);<a name="line.310"></a>
+<span class="sourceLineNo">311</span>                noSearchResults.setManaged(false);<a name="line.311"></a>
+<span class="sourceLineNo">312</span>                libSearchList.setVisible(false);<a name="line.312"></a>
+<span class="sourceLineNo">313</span>                libSearchList.setManaged(false);<a name="line.313"></a>
+<span class="sourceLineNo">314</span>                libList.setVisible(true);<a name="line.314"></a>
+<span class="sourceLineNo">315</span>                libList.setManaged(true);<a name="line.315"></a>
+<span class="sourceLineNo">316</span>                break;<a name="line.316"></a>
+<span class="sourceLineNo">317</span>            default:<a name="line.317"></a>
+<span class="sourceLineNo">318</span>                break;<a name="line.318"></a>
+<span class="sourceLineNo">319</span>        }<a name="line.319"></a>
+<span class="sourceLineNo">320</span>    }<a name="line.320"></a>
+<span class="sourceLineNo">321</span>    <a name="line.321"></a>
+<span class="sourceLineNo">322</span>    public DISPLAY_MODE getDisplayMode() {<a name="line.322"></a>
+<span class="sourceLineNo">323</span>        return currentDisplayMode;<a name="line.323"></a>
+<span class="sourceLineNo">324</span>    }<a name="line.324"></a>
+<span class="sourceLineNo">325</span>    <a name="line.325"></a>
+<span class="sourceLineNo">326</span>    private final ChangeListener&lt;Library&gt; libraryListener = new ChangeListener&lt;Library&gt;() {<a name="line.326"></a>
+<span class="sourceLineNo">327</span><a name="line.327"></a>
+<span class="sourceLineNo">328</span>        @Override<a name="line.328"></a>
+<span class="sourceLineNo">329</span>        public void changed(ObservableValue&lt;? extends Library&gt; ov, Library t, Library t1) {<a name="line.329"></a>
+<span class="sourceLineNo">330</span>            // When a jar is imported this listener is called two times.<a name="line.330"></a>
+<span class="sourceLineNo">331</span>            // First the UserLibrary is turned into BuiltinLibrary, then it is<a name="line.331"></a>
+<span class="sourceLineNo">332</span>            // turned back into a UserLibrary with the up to date library dir<a name="line.332"></a>
+<span class="sourceLineNo">333</span>            // content.<a name="line.333"></a>
+<span class="sourceLineNo">334</span>//            System.out.println("libraryListener called - t " + t + " - t1 " + t1);<a name="line.334"></a>
+<span class="sourceLineNo">335</span>            if (t instanceof UserLibrary) {<a name="line.335"></a>
+<span class="sourceLineNo">336</span>                t.getItems().removeListener(libraryItemListener);<a name="line.336"></a>
+<span class="sourceLineNo">337</span>                t.getItems().clear();<a name="line.337"></a>
+<span class="sourceLineNo">338</span>            }<a name="line.338"></a>
+<span class="sourceLineNo">339</span>            if (t1 instanceof UserLibrary) {<a name="line.339"></a>
+<span class="sourceLineNo">340</span>                t1.getItems().addListener(libraryItemListener);<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                if (sectionNameToKeepOpened != null) {<a name="line.341"></a>
+<span class="sourceLineNo">342</span>                    sectionNameToKeepOpened = null;<a name="line.342"></a>
+<span class="sourceLineNo">343</span>                }<a name="line.343"></a>
+<span class="sourceLineNo">344</span>            }<a name="line.344"></a>
+<span class="sourceLineNo">345</span>            // libraryDidChange might not be called by several listeners.<a name="line.345"></a>
+<span class="sourceLineNo">346</span>            // Silencing the one below means I dunno how to get the selected index.<a name="line.346"></a>
+<span class="sourceLineNo">347</span>//            libraryDidChange(t);<a name="line.347"></a>
+<span class="sourceLineNo">348</span>        }<a name="line.348"></a>
+<span class="sourceLineNo">349</span>    };<a name="line.349"></a>
+<span class="sourceLineNo">350</span>    <a name="line.350"></a>
+<span class="sourceLineNo">351</span>    final ListChangeListener&lt;LibraryItem&gt; libraryItemListener = new ListChangeListener&lt;LibraryItem&gt;() {<a name="line.351"></a>
+<span class="sourceLineNo">352</span><a name="line.352"></a>
+<span class="sourceLineNo">353</span>            @Override<a name="line.353"></a>
+<span class="sourceLineNo">354</span>            public void onChanged(ListChangeListener.Change&lt;? extends LibraryItem&gt; change) {<a name="line.354"></a>
+<span class="sourceLineNo">355</span>//                System.out.println("libraryItemListener called");<a name="line.355"></a>
+<span class="sourceLineNo">356</span>                libraryDidChange(null);<a name="line.356"></a>
+<span class="sourceLineNo">357</span>            }<a name="line.357"></a>
+<span class="sourceLineNo">358</span>        };<a name="line.358"></a>
+<span class="sourceLineNo">359</span>    <a name="line.359"></a>
+<span class="sourceLineNo">360</span>    private void startListeningToLibrary() {<a name="line.360"></a>
+<span class="sourceLineNo">361</span>        getEditorController().libraryProperty().addListener(libraryListener);<a name="line.361"></a>
+<span class="sourceLineNo">362</span>    }<a name="line.362"></a>
+<span class="sourceLineNo">363</span>    <a name="line.363"></a>
+<span class="sourceLineNo">364</span>    // For now there is no scenario where this method might be of some use.<a name="line.364"></a>
+<span class="sourceLineNo">365</span>//    private void stopListeningToLibrary() {<a name="line.365"></a>
+<span class="sourceLineNo">366</span>//        getEditorController().libraryProperty().removeListener(libraryListener);<a name="line.366"></a>
+<span class="sourceLineNo">367</span>//    }<a name="line.367"></a>
+<span class="sourceLineNo">368</span><a name="line.368"></a>
+<span class="sourceLineNo">369</span>    void libraryDidChange(Library oldLib) {<a name="line.369"></a>
+<span class="sourceLineNo">370</span>        if (libAccordion != null) {<a name="line.370"></a>
+<span class="sourceLineNo">371</span>            // Clear the content of the panel.<a name="line.371"></a>
+<span class="sourceLineNo">372</span>            libAccordion.getPanes().clear();<a name="line.372"></a>
+<span class="sourceLineNo">373</span><a name="line.373"></a>
+<span class="sourceLineNo">374</span>            // Reconstruct the panel content based on the new Library.<a name="line.374"></a>
+<span class="sourceLineNo">375</span>            populateLibraryPanel();<a name="line.375"></a>
+<span class="sourceLineNo">376</span>        }<a name="line.376"></a>
+<span class="sourceLineNo">377</span>    }<a name="line.377"></a>
+<span class="sourceLineNo">378</span>    <a name="line.378"></a>
+<span class="sourceLineNo">379</span>    private String getExpandedSectionName() {<a name="line.379"></a>
+<span class="sourceLineNo">380</span>        String sectionName = null;<a name="line.380"></a>
+<span class="sourceLineNo">381</span>        <a name="line.381"></a>
+<span class="sourceLineNo">382</span>        if (libAccordion != null &amp;&amp; libAccordion.getExpandedPane() != null) {<a name="line.382"></a>
+<span class="sourceLineNo">383</span>            sectionName = libAccordion.getExpandedPane().getText();<a name="line.383"></a>
+<span class="sourceLineNo">384</span>        }<a name="line.384"></a>
+<span class="sourceLineNo">385</span>        <a name="line.385"></a>
+<span class="sourceLineNo">386</span>//        System.out.println("getExpandedSectionName " + sectionName);<a name="line.386"></a>
+<span class="sourceLineNo">387</span>        return sectionName;<a name="line.387"></a>
+<span class="sourceLineNo">388</span>    }<a name="line.388"></a>
+<span class="sourceLineNo">389</span>    <a name="line.389"></a>
+<span class="sourceLineNo">390</span>//    private String getSelectedItemName() {<a name="line.390"></a>
+<span class="sourceLineNo">391</span>//        String selectedItemName = null;<a name="line.391"></a>
+<span class="sourceLineNo">392</span>//        <a name="line.392"></a>
+<span class="sourceLineNo">393</span>//        if (libAccordion != null &amp;&amp; libAccordion.getExpandedPane() != null) {<a name="line.393"></a>
+<span class="sourceLineNo">394</span>//            final ListView&lt;?&gt; list = (ListView&lt;?&gt;)libAccordion.getExpandedPane().getContent();<a name="line.394"></a>
+<span class="sourceLineNo">395</span>//            Object selectedItem = list.getSelectionModel().getSelectedItem();<a name="line.395"></a>
+<span class="sourceLineNo">396</span>//            if (selectedItem instanceof LibraryListItem) {<a name="line.396"></a>
+<span class="sourceLineNo">397</span>//                selectedItemName = ((LibraryListItem)selectedItem).getLibItem().getName();<a name="line.397"></a>
+<span class="sourceLineNo">398</span>//            }<a name="line.398"></a>
+<span class="sourceLineNo">399</span>//        }<a name="line.399"></a>
+<span class="sourceLineNo">400</span>//        <a name="line.400"></a>
+<span class="sourceLineNo">401</span>////        System.out.println("getSelectedItemName " + selectedItemName);<a name="line.401"></a>
+<span class="sourceLineNo">402</span>//        return selectedItemName;<a name="line.402"></a>
+<span class="sourceLineNo">403</span>//    }<a name="line.403"></a>
+<span class="sourceLineNo">404</span>    <a name="line.404"></a>
+<span class="sourceLineNo">405</span>    // We need to discover the sections and the content of each one before being<a name="line.405"></a>
+<span class="sourceLineNo">406</span>    // able to populate the panel.<a name="line.406"></a>
+<span class="sourceLineNo">407</span>    // Each section is a TitledPane that contains a ListView of LibraryItem.<a name="line.407"></a>
+<span class="sourceLineNo">408</span>    // The order section are listed is managed by the comparator that comes with<a name="line.408"></a>
+<span class="sourceLineNo">409</span>    // the Library. In each section the LibraryItem are sorted with alphabetical<a name="line.409"></a>
+<span class="sourceLineNo">410</span>    // ordering.<a name="line.410"></a>
+<span class="sourceLineNo">411</span>    // First TitledPane is expanded.<a name="line.411"></a>
+<span class="sourceLineNo">412</span>    private void populateLibraryPanel() {<a name="line.412"></a>
+<span class="sourceLineNo">413</span>        // libData is backend structure for all that we put in the Accordion.<a name="line.413"></a>
+<span class="sourceLineNo">414</span>        LinkedHashMap&lt;String, ArrayList&lt;LibraryItem&gt;&gt; libData = new LinkedHashMap&lt;&gt;();<a name="line.414"></a>
+<span class="sourceLineNo">415</span>        TreeSet&lt;String&gt; sectionNames = new TreeSet&lt;&gt;(getEditorController().getLibrary().getSectionComparator());<a name="line.415"></a>
+<span class="sourceLineNo">416</span>        List&lt;TitledPane&gt; panes = libAccordion.getPanes();<a name="line.416"></a>
+<span class="sourceLineNo">417</span>        <a name="line.417"></a>
+<span class="sourceLineNo">418</span>        searchData.clear();<a name="line.418"></a>
+<span class="sourceLineNo">419</span>        libList.getItems().clear();<a name="line.419"></a>
+<span class="sourceLineNo">420</span>        <a name="line.420"></a>
+<span class="sourceLineNo">421</span>        if (getEditorController().getLibrary().getItems().size() &gt; 0) {<a name="line.421"></a>
+<span class="sourceLineNo">422</span>            // Construct a sorted set of all lib section names.<a name="line.422"></a>
+<span class="sourceLineNo">423</span>            for (LibraryItem item : getEditorController().getLibrary().getItems()) {<a name="line.423"></a>
+<span class="sourceLineNo">424</span>                sectionNames.add(item.getSection());<a name="line.424"></a>
+<span class="sourceLineNo">425</span>            }<a name="line.425"></a>
+<span class="sourceLineNo">426</span><a name="line.426"></a>
+<span class="sourceLineNo">427</span>            // Create a sorted set of lib elements for each section.<a name="line.427"></a>
+<span class="sourceLineNo">428</span>            for (String sectionName : sectionNames) {<a name="line.428"></a>
+<span class="sourceLineNo">429</span>                libData.put(sectionName, new ArrayList&lt;&gt;());<a name="line.429"></a>
+<span class="sourceLineNo">430</span>            }<a name="line.430"></a>
+<span class="sourceLineNo">431</span><a name="line.431"></a>
+<span class="sourceLineNo">432</span>            // Add each LibraryItem to the appropriate set.<a name="line.432"></a>
+<span class="sourceLineNo">433</span>            for (LibraryItem item : getEditorController().getLibrary().getItems()) {<a name="line.433"></a>
+<span class="sourceLineNo">434</span>                libData.get(item.getSection()).add(item);<a name="line.434"></a>
+<span class="sourceLineNo">435</span>            }<a name="line.435"></a>
+<span class="sourceLineNo">436</span><a name="line.436"></a>
+<span class="sourceLineNo">437</span>            // Parse our lib data structure and populate the Accordion accordingly.<a name="line.437"></a>
+<span class="sourceLineNo">438</span>            for (String sectionName : sectionNames) {<a name="line.438"></a>
+<span class="sourceLineNo">439</span>                ListView&lt;LibraryListItem&gt; itemsList = new ListView&lt;&gt;();<a name="line.439"></a>
+<span class="sourceLineNo">440</span>                itemsList.setId(sectionName + "List"); // for QE //NOI18N<a name="line.440"></a>
+<span class="sourceLineNo">441</span>                itemsList.setCellFactory(cb);<a name="line.441"></a>
+<span class="sourceLineNo">442</span>                itemsList.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);<a name="line.442"></a>
+<span class="sourceLineNo">443</span>                Collections.sort(libData.get(sectionName), new LibraryItemNameComparator());<a name="line.443"></a>
+<span class="sourceLineNo">444</span>                for (LibraryItem item : libData.get(sectionName)) {<a name="line.444"></a>
+<span class="sourceLineNo">445</span>                    itemsList.getItems().add(new LibraryListItem(item));<a name="line.445"></a>
+<span class="sourceLineNo">446</span>                }<a name="line.446"></a>
+<span class="sourceLineNo">447</span>                TitledPane sectionPane = new TitledPane(sectionName, itemsList);<a name="line.447"></a>
+<span class="sourceLineNo">448</span>                sectionPane.setId(sectionName); // for QE<a name="line.448"></a>
+<span class="sourceLineNo">449</span>                sectionPane.setAnimated(true);<a name="line.449"></a>
+<span class="sourceLineNo">450</span>                panes.add(sectionPane);<a name="line.450"></a>
+<span class="sourceLineNo">451</span><a name="line.451"></a>
+<span class="sourceLineNo">452</span>                searchData.addAll(libData.get(sectionName));<a name="line.452"></a>
+<span class="sourceLineNo">453</span><a name="line.453"></a>
+<span class="sourceLineNo">454</span>                libList.getItems().add(new LibraryListItem(sectionName));<a name="line.454"></a>
+<span class="sourceLineNo">455</span>                for (LibraryItem item : libData.get(sectionName)) {<a name="line.455"></a>
+<span class="sourceLineNo">456</span>                    libList.getItems().add(new LibraryListItem(item));<a name="line.456"></a>
+<span class="sourceLineNo">457</span>                }<a name="line.457"></a>
+<span class="sourceLineNo">458</span>            }<a name="line.458"></a>
+<span class="sourceLineNo">459</span><a name="line.459"></a>
+<span class="sourceLineNo">460</span>            if (libAccordion.getPanes().size() &gt;= 1) {<a name="line.460"></a>
+<span class="sourceLineNo">461</span>                expandPaneWithName(sectionNameToKeepOpened);<a name="line.461"></a>
+<span class="sourceLineNo">462</span>            }<a name="line.462"></a>
+<span class="sourceLineNo">463</span><a name="line.463"></a>
+<span class="sourceLineNo">464</span>            if (libSearchList.getCellFactory() == null) {<a name="line.464"></a>
+<span class="sourceLineNo">465</span>                libSearchList.setCellFactory(cb);<a name="line.465"></a>
+<span class="sourceLineNo">466</span>            }<a name="line.466"></a>
+<span class="sourceLineNo">467</span><a name="line.467"></a>
+<span class="sourceLineNo">468</span>            if (libList.getCellFactory() == null) {<a name="line.468"></a>
+<span class="sourceLineNo">469</span>                libList.setCellFactory(cb);<a name="line.469"></a>
+<span class="sourceLineNo">470</span>            }<a name="line.470"></a>
+<span class="sourceLineNo">471</span><a name="line.471"></a>
+<span class="sourceLineNo">472</span>            libSearchList.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);<a name="line.472"></a>
+<span class="sourceLineNo">473</span>            libList.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);<a name="line.473"></a>
+<span class="sourceLineNo">474</span>        }<a name="line.474"></a>
+<span class="sourceLineNo">475</span>    }<a name="line.475"></a>
+<span class="sourceLineNo">476</span>    <a name="line.476"></a>
+<span class="sourceLineNo">477</span>    private void expandPaneWithName(String paneName) {<a name="line.477"></a>
+<span class="sourceLineNo">478</span>        String sectionName = paneName;<a name="line.478"></a>
+<span class="sourceLineNo">479</span>        <a name="line.479"></a>
+<span class="sourceLineNo">480</span>        if (sectionName == null) {<a name="line.480"></a>
+<span class="sourceLineNo">481</span>            sectionName = BuiltinLibrary.TAG_CONTAINERS;<a name="line.481"></a>
+<span class="sourceLineNo">482</span>        }<a name="line.482"></a>
+<span class="sourceLineNo">483</span>        <a name="line.483"></a>
+<span class="sourceLineNo">484</span>        for (TitledPane tp : libAccordion.getPanes()) {<a name="line.484"></a>
+<span class="sourceLineNo">485</span>            if (tp.getText().equals(sectionName)) {<a name="line.485"></a>
+<span class="sourceLineNo">486</span>//                System.out.println("expandPaneWithName - Expand section " + sectionName);<a name="line.486"></a>
+<span class="sourceLineNo">487</span>                libAccordion.setExpandedPane(tp);<a name="line.487"></a>
+<span class="sourceLineNo">488</span>            }<a name="line.488"></a>
+<span class="sourceLineNo">489</span>        }<a name="line.489"></a>
+<span class="sourceLineNo">490</span>    }<a name="line.490"></a>
+<span class="sourceLineNo">491</span>    <a name="line.491"></a>
+<span class="sourceLineNo">492</span>    private void searchPatternDidChange() {<a name="line.492"></a>
+<span class="sourceLineNo">493</span>        if (searchPattern == null || searchPattern.isEmpty()) {<a name="line.493"></a>
+<span class="sourceLineNo">494</span>            currentDisplayMode = previousDisplayMode;<a name="line.494"></a>
+<span class="sourceLineNo">495</span>        } else {<a name="line.495"></a>
+<span class="sourceLineNo">496</span>            if (currentDisplayMode != DISPLAY_MODE.SEARCH) {<a name="line.496"></a>
+<span class="sourceLineNo">497</span>                previousDisplayMode = currentDisplayMode;<a name="line.497"></a>
+<span class="sourceLineNo">498</span>                currentDisplayMode = DISPLAY_MODE.SEARCH;<a name="line.498"></a>
+<span class="sourceLineNo">499</span>            }<a name="line.499"></a>
+<span class="sourceLineNo">500</span>        }<a name="line.500"></a>
+<span class="sourceLineNo">501</span>        <a name="line.501"></a>
+<span class="sourceLineNo">502</span>        // The filtering is done by ignoring case, and by retaining any item that<a name="line.502"></a>
+<span class="sourceLineNo">503</span>        // contains the given pattern. An opened question is to filter as soon as<a name="line.503"></a>
+<span class="sourceLineNo">504</span>        // the pattern is two or more characters long: for now we react from the<a name="line.504"></a>
+<span class="sourceLineNo">505</span>        // first character.<a name="line.505"></a>
+<span class="sourceLineNo">506</span>        //<a name="line.506"></a>
+<span class="sourceLineNo">507</span>        // It can occur the whole Library is changed under the foots of SceneBuilder<a name="line.507"></a>
+<span class="sourceLineNo">508</span>        // while filtering is on going. searchData is never null so if its<a name="line.508"></a>
+<span class="sourceLineNo">509</span>        // content is changing then the filtering result will be inacurrate:<a name="line.509"></a>
+<span class="sourceLineNo">510</span>        // that is acceptable.<a name="line.510"></a>
+<span class="sourceLineNo">511</span>        //<a name="line.511"></a>
+<span class="sourceLineNo">512</span>        if (currentDisplayMode.equals(DISPLAY_MODE.SEARCH)) {<a name="line.512"></a>
+<span class="sourceLineNo">513</span>            libSearchList.getItems().clear();<a name="line.513"></a>
+<span class="sourceLineNo">514</span>            final ArrayList&lt;LibraryItem&gt; rawFilteredItem = new ArrayList&lt;&gt;();<a name="line.514"></a>
+<span class="sourceLineNo">515</span>            for (LibraryItem item : searchData) {<a name="line.515"></a>
+<span class="sourceLineNo">516</span>                if (item.getName().toUpperCase(Locale.ROOT).contains(searchPattern)) {<a name="line.516"></a>
+<span class="sourceLineNo">517</span>                    rawFilteredItem.add(item);<a name="line.517"></a>
+<span class="sourceLineNo">518</span>                }<a name="line.518"></a>
+<span class="sourceLineNo">519</span>            }<a name="line.519"></a>
+<span class="sourceLineNo">520</span>            Collections.sort(rawFilteredItem, new LibraryItemNameComparator());<a name="line.520"></a>
+<span class="sourceLineNo">521</span>            for (LibraryItem item : rawFilteredItem) {<a name="line.521"></a>
+<span class="sourceLineNo">522</span>                libSearchList.getItems().add(new LibraryListItem(item));<a name="line.522"></a>
+<span class="sourceLineNo">523</span>            }<a name="line.523"></a>
+<span class="sourceLineNo">524</span>            rawFilteredItem.clear();<a name="line.524"></a>
+<span class="sourceLineNo">525</span>        }<a name="line.525"></a>
+<span class="sourceLineNo">526</span>        <a name="line.526"></a>
+<span class="sourceLineNo">527</span>        setDisplayMode(currentDisplayMode);<a name="line.527"></a>
+<span class="sourceLineNo">528</span>    }<a name="line.528"></a>
+<span class="sourceLineNo">529</span>    <a name="line.529"></a>
+<span class="sourceLineNo">530</span>    // Key events listened onto the ListView<a name="line.530"></a>
+<span class="sourceLineNo">531</span>    // For some reason the listener when set on the cell (see LibraryListCell)<a name="line.531"></a>
+<span class="sourceLineNo">532</span>    // is never called, probably because it is the ListView which has the focus.<a name="line.532"></a>
+<span class="sourceLineNo">533</span>    private final EventHandler&lt;KeyEvent&gt; keyEventHandler = new EventHandler&lt;KeyEvent&gt;() {<a name="line.533"></a>
+<span class="sourceLineNo">534</span>        @Override<a name="line.534"></a>
+<span class="sourceLineNo">535</span>        public void handle(final KeyEvent e) {<a name="line.535"></a>
+<span class="sourceLineNo">536</span>            handleKeyEvent(e);<a name="line.536"></a>
+<span class="sourceLineNo">537</span>        }<a name="line.537"></a>
+<span class="sourceLineNo">538</span>    };<a name="line.538"></a>
+<span class="sourceLineNo">539</span>    <a name="line.539"></a>
+<span class="sourceLineNo">540</span>    private final Callback&lt;ListView&lt;LibraryListItem&gt;, ListCell&lt;LibraryListItem&gt;&gt; cb<a name="line.540"></a>
+<span class="sourceLineNo">541</span>            = new Callback&lt;ListView&lt;LibraryListItem&gt;, ListCell&lt;LibraryListItem&gt;&gt;() {<a name="line.541"></a>
+<span class="sourceLineNo">542</span>    <a name="line.542"></a>
+<span class="sourceLineNo">543</span>        @Override<a name="line.543"></a>
+<span class="sourceLineNo">544</span>        public ListCell&lt;LibraryListItem&gt; call(ListView&lt;LibraryListItem&gt; param) {<a name="line.544"></a>
+<span class="sourceLineNo">545</span>            return new LibraryListCell(getEditorController());<a name="line.545"></a>
+<span class="sourceLineNo">546</span>        }<a name="line.546"></a>
+<span class="sourceLineNo">547</span>    };<a name="line.547"></a>
+<span class="sourceLineNo">548</span>    <a name="line.548"></a>
+<span class="sourceLineNo">549</span>    private void handleKeyEvent(KeyEvent e) {<a name="line.549"></a>
+<span class="sourceLineNo">550</span>        // On ENTER we try to insert the item which is selected within the Library.<a name="line.550"></a>
+<span class="sourceLineNo">551</span>        if (e.getCode() == KeyCode.ENTER) {<a name="line.551"></a>
+<span class="sourceLineNo">552</span>            // This way of doing things requires the use of an @SuppressWarnings("unchecked")<a name="line.552"></a>
+<span class="sourceLineNo">553</span>//            final LibraryItem item = ((ListView&lt;LibraryItem&gt;)e.getSource()).getSelectionModel().getSelectedItem();<a name="line.553"></a>
+<span class="sourceLineNo">554</span>            // hence this other way below ...<a name="line.554"></a>
+<span class="sourceLineNo">555</span>            Object source = e.getSource();<a name="line.555"></a>
+<span class="sourceLineNo">556</span>            assert source instanceof ListView;<a name="line.556"></a>
+<span class="sourceLineNo">557</span>            final ListView&lt;?&gt; list = (ListView&lt;?&gt;)source;<a name="line.557"></a>
+<span class="sourceLineNo">558</span>            Object rawItem = list.getSelectionModel().getSelectedItem();<a name="line.558"></a>
+<span class="sourceLineNo">559</span>            assert rawItem instanceof LibraryListItem;<a name="line.559"></a>
+<span class="sourceLineNo">560</span>            final LibraryListItem listitem = (LibraryListItem)rawItem;<a name="line.560"></a>
+<span class="sourceLineNo">561</span>            final LibraryItem item = listitem.getLibItem();<a name="line.561"></a>
+<span class="sourceLineNo">562</span>             <a name="line.562"></a>
+<span class="sourceLineNo">563</span>            if (getEditorController().canPerformInsert(item)) {<a name="line.563"></a>
+<span class="sourceLineNo">564</span>                getEditorController().performInsert(item);<a name="line.564"></a>
+<span class="sourceLineNo">565</span>            }<a name="line.565"></a>
+<span class="sourceLineNo">566</span>            <a name="line.566"></a>
+<span class="sourceLineNo">567</span>            e.consume();<a name="line.567"></a>
+<span class="sourceLineNo">568</span>        }<a name="line.568"></a>
+<span class="sourceLineNo">569</span>    }<a name="line.569"></a>
+<span class="sourceLineNo">570</span>    <a name="line.570"></a>
+<span class="sourceLineNo">571</span>    private void startListeningToDrop() {<a name="line.571"></a>
+<span class="sourceLineNo">572</span>        libPane.setOnDragDropped(new EventHandler&lt;DragEvent&gt;() {<a name="line.572"></a>
+<span class="sourceLineNo">573</span><a name="line.573"></a>
+<span class="sourceLineNo">574</span>            @Override<a name="line.574"></a>
+<span class="sourceLineNo">575</span>            public void handle(DragEvent t) {<a name="line.575"></a>
+<span class="sourceLineNo">576</span>//                System.out.println("libPane onDragDropped");<a name="line.576"></a>
+<span class="sourceLineNo">577</span>                AbstractDragSource dragSource = getEditorController().getDragController().getDragSource();<a name="line.577"></a>
+<span class="sourceLineNo">578</span>                if (dragSource != null &amp;&amp; dragSource instanceof DocumentDragSource) {<a name="line.578"></a>
+<span class="sourceLineNo">579</span>                    processInternalImport(((DocumentDragSource)dragSource).getDraggedObjects());<a name="line.579"></a>
+<span class="sourceLineNo">580</span>                } else {<a name="line.580"></a>
+<span class="sourceLineNo">581</span>                    initiateImportDialog = false;<a name="line.581"></a>
+<span class="sourceLineNo">582</span>                    jarAndFxmlFiles.clear();<a name="line.582"></a>
+<span class="sourceLineNo">583</span>                    t.setDropCompleted(true);<a name="line.583"></a>
+<span class="sourceLineNo">584</span>                    // Drop gesture is only valid when the Library is an instance of UserLibrary<a name="line.584"></a>
+<span class="sourceLineNo">585</span>                    if (getEditorController().getLibrary() instanceof UserLibrary) {<a name="line.585"></a>
+<span class="sourceLineNo">586</span>                        Dragboard db = t.getDragboard();<a name="line.586"></a>
+<span class="sourceLineNo">587</span>                        if (db.hasFiles()) {<a name="line.587"></a>
+<span class="sourceLineNo">588</span>                            final List&lt;File&gt; files = db.getFiles();<a name="line.588"></a>
+<span class="sourceLineNo">589</span>                            for (File file : files) {<a name="line.589"></a>
+<span class="sourceLineNo">590</span>                                // Keep only jar and fxml files<a name="line.590"></a>
+<span class="sourceLineNo">591</span>                                if (file.isFile() &amp;&amp; (file.getName().endsWith(".jar") || file.getName().endsWith(".fxml"))) { //NOI18N<a name="line.591"></a>
+<span class="sourceLineNo">592</span>//                                System.out.println("libPane onDragDropped - Retaining file " + file.getName());<a name="line.592"></a>
+<span class="sourceLineNo">593</span>                                    jarAndFxmlFiles.add(file);<a name="line.593"></a>
+<span class="sourceLineNo">594</span>                                }<a name="line.594"></a>
+<span class="sourceLineNo">595</span>                            }<a name="line.595"></a>
+<span class="sourceLineNo">596</span><a name="line.596"></a>
+<span class="sourceLineNo">597</span>                            // The import dialog might be kept opened by the user quite<a name="line.597"></a>
+<span class="sourceLineNo">598</span>                            // a long time.<a name="line.598"></a>
+<span class="sourceLineNo">599</span>                            // On Mac (not on Win), after around 20 seconds of opening<a name="line.599"></a>
+<span class="sourceLineNo">600</span>                            // time of the import dialog window the user sees a move from<a name="line.600"></a>
+<span class="sourceLineNo">601</span>                            // the lib panel to the Finder of the file icon, as if the drag<a name="line.601"></a>
+<span class="sourceLineNo">602</span>                            // is rejected.<a name="line.602"></a>
+<span class="sourceLineNo">603</span>                            // In order to silence (mask ?) this issue there's:<a name="line.603"></a>
+<span class="sourceLineNo">604</span>                            // - the delegation to setOnDragExited of the call of processImportJarFxml<a name="line.604"></a>
+<span class="sourceLineNo">605</span>                            // so that current handler returns fast.<a name="line.605"></a>
+<span class="sourceLineNo">606</span>                            // - the runLater in setOnDragExited, wrapped with a Timer set with a 1 second delay<a name="line.606"></a>
+<span class="sourceLineNo">607</span>                            // Is there a way to be notified when the import dialog<a name="line.607"></a>
+<span class="sourceLineNo">608</span>                            // can be run without interfering with the drag and drop sequence ?<a name="line.608"></a>
+<span class="sourceLineNo">609</span>                            initiateImportDialog = true;<a name="line.609"></a>
+<span class="sourceLineNo">610</span>                        }<a name="line.610"></a>
+<span class="sourceLineNo">611</span>                    }<a name="line.611"></a>
+<span class="sourceLineNo">612</span>                }<a name="line.612"></a>
+<span class="sourceLineNo">613</span>            }<a name="line.613"></a>
+<span class="sourceLineNo">614</span>        });<a name="line.614"></a>
+<span class="sourceLineNo">615</span>        <a name="line.615"></a>
+<span class="sourceLineNo">616</span>        libPane.setOnDragExited(new EventHandler&lt;DragEvent&gt;() {<a name="line.616"></a>
+<span class="sourceLineNo">617</span><a name="line.617"></a>
+<span class="sourceLineNo">618</span>            @Override<a name="line.618"></a>
+<span class="sourceLineNo">619</span>            public void handle(DragEvent t) {<a name="line.619"></a>
+<span class="sourceLineNo">620</span>//                System.out.println("libPane onDragExited");<a name="line.620"></a>
+<span class="sourceLineNo">621</span>                if (initiateImportDialog) {<a name="line.621"></a>
+<span class="sourceLineNo">622</span>                    initiateImportDialog = false;<a name="line.622"></a>
+<span class="sourceLineNo">623</span>                    final Timer timer = new Timer(true);<a name="line.623"></a>
+<span class="sourceLineNo">624</span>                    final TimerTask timerTask = new TimerTask() {<a name="line.624"></a>
+<span class="sourceLineNo">625</span><a name="line.625"></a>
+<span class="sourceLineNo">626</span>                        @Override<a name="line.626"></a>
+<span class="sourceLineNo">627</span>                        public void run() {<a name="line.627"></a>
+<span class="sourceLineNo">628</span>                            Platform.runLater(new Runnable() {<a name="line.628"></a>
+<span class="sourceLineNo">629</span><a name="line.629"></a>
+<span class="sourceLineNo">630</span>                                @Override<a name="line.630"></a>
+<span class="sourceLineNo">631</span>                                public void run() {<a name="line.631"></a>
+<span class="sourceLineNo">632</span>                                    processImportJarFxml(jarAndFxmlFiles);<a name="line.632"></a>
+<span class="sourceLineNo">633</span>                                }<a name="line.633"></a>
+<span class="sourceLineNo">634</span>                            });<a name="line.634"></a>
+<span class="sourceLineNo">635</span>                            // I don't need to use the timer later on so by<a name="line.635"></a>
+<span class="sourceLineNo">636</span>                            // cancelling it right here I'm sure free resources<a name="line.636"></a>
+<span class="sourceLineNo">637</span>                            // that otherwise would prevent the JVM from exiting.<a name="line.637"></a>
+<span class="sourceLineNo">638</span>                            timer.cancel();<a name="line.638"></a>
+<span class="sourceLineNo">639</span>                        }<a name="line.639"></a>
+<span class="sourceLineNo">640</span>                    };<a name="line.640"></a>
+<span class="sourceLineNo">641</span>                    timer.schedule(timerTask, 600); // milliseconds<a name="line.641"></a>
+<span class="sourceLineNo">642</span>                }<a name="line.642"></a>
+<span class="sourceLineNo">643</span>            }<a name="line.643"></a>
+<span class="sourceLineNo">644</span>        });<a name="line.644"></a>
+<span class="sourceLineNo">645</span>        <a name="line.645"></a>
+<span class="sourceLineNo">646</span>        <a name="line.646"></a>
+<span class="sourceLineNo">647</span>        libPane.setOnDragOver(new EventHandler&lt;DragEvent&gt;() {<a name="line.647"></a>
+<span class="sourceLineNo">648</span><a name="line.648"></a>
+<span class="sourceLineNo">649</span>            @Override<a name="line.649"></a>
+<span class="sourceLineNo">650</span>            public void handle(DragEvent t) {<a name="line.650"></a>
+<span class="sourceLineNo">651</span>//                System.out.println("libPane onDragOver");<a name="line.651"></a>
+<span class="sourceLineNo">652</span>                AbstractDragSource dragSource = getEditorController().getDragController().getDragSource();<a name="line.652"></a>
+<span class="sourceLineNo">653</span>                Dragboard db = t.getDragboard();<a name="line.653"></a>
+<span class="sourceLineNo">654</span>                // db has file when dragging a file from native file manager (Mac Finder, Windows Explorer, ...).<a name="line.654"></a>
+<span class="sourceLineNo">655</span>                // dragSource is not null if the user drags something from Hierarchy or Content panel.<a name="line.655"></a>
+<span class="sourceLineNo">656</span>                if (db.hasFiles() || dragSource != null) {<a name="line.656"></a>
+<span class="sourceLineNo">657</span>                    t.acceptTransferModes(TransferMode.COPY);<a name="line.657"></a>
+<span class="sourceLineNo">658</span>                }<a name="line.658"></a>
+<span class="sourceLineNo">659</span>            }<a name="line.659"></a>
+<span class="sourceLineNo">660</span>        });<a name="line.660"></a>
+<span class="sourceLineNo">661</span>        <a name="line.661"></a>
+<span class="sourceLineNo">662</span>        // This one is called only if lib is the source of the drop.<a name="line.662"></a>
+<span class="sourceLineNo">663</span>        libPane.setOnDragDone(new EventHandler&lt;DragEvent&gt;() {<a name="line.663"></a>
+<span class="sourceLineNo">664</span><a name="line.664"></a>
+<span class="sourceLineNo">665</span>            @Override<a name="line.665"></a>
+<span class="sourceLineNo">666</span>            public void handle(DragEvent t) {<a name="line.666"></a>
+<span class="sourceLineNo">667</span>                assert getEditorController().getDragController().getDragSource() != null;<a name="line.667"></a>
+<span class="sourceLineNo">668</span>                getEditorController().getDragController().end();<a name="line.668"></a>
+<span class="sourceLineNo">669</span>                t.getDragboard().clear();<a name="line.669"></a>
+<span class="sourceLineNo">670</span>                t.consume();<a name="line.670"></a>
+<span class="sourceLineNo">671</span>            }<a name="line.671"></a>
+<span class="sourceLineNo">672</span>        });<a name="line.672"></a>
+<span class="sourceLineNo">673</span>        <a name="line.673"></a>
+<span class="sourceLineNo">674</span>    }<a name="line.674"></a>
+<span class="sourceLineNo">675</span>    <a name="line.675"></a>
+<span class="sourceLineNo">676</span>    // An internal import is an import to the Library initiated from within<a name="line.676"></a>
+<span class="sourceLineNo">677</span>    // SceneBuilder (from Content or Hierarchy).<a name="line.677"></a>
+<span class="sourceLineNo">678</span>    // We stop the watching thread to avoid potential parsing of a file that<a name="line.678"></a>
+<span class="sourceLineNo">679</span>    // would not yet be properly finalized on disk.<a name="line.679"></a>
+<span class="sourceLineNo">680</span>    private void processInternalImport(List&lt;FXOMObject&gt; objects) {<a name="line.680"></a>
+<span class="sourceLineNo">681</span>        sectionNameToKeepOpened = getExpandedSectionName();<a name="line.681"></a>
+<span class="sourceLineNo">682</span>        setUserLibraryPathString();<a name="line.682"></a>
+<span class="sourceLineNo">683</span>        Path libPath = Paths.get(userLibraryPathString);<a name="line.683"></a>
+<span class="sourceLineNo">684</span>        boolean hasDependencies = false;<a name="line.684"></a>
+<span class="sourceLineNo">685</span>        // Selection can be multiple: as soon as one has dependencies<a name="line.685"></a>
+<span class="sourceLineNo">686</span>        // we won't import anything.<a name="line.686"></a>
+<span class="sourceLineNo">687</span>        // Copy of the dependencies remains something to do (DTL-5879).<a name="line.687"></a>
+<span class="sourceLineNo">688</span>        for (FXOMObject asset : objects) {<a name="line.688"></a>
+<span class="sourceLineNo">689</span>            if (hasDependencies(asset)) {<a name="line.689"></a>
+<span class="sourceLineNo">690</span>                hasDependencies = true;<a name="line.690"></a>
+<span class="sourceLineNo">691</span>                break;<a name="line.691"></a>
+<span class="sourceLineNo">692</span>            }<a name="line.692"></a>
+<span class="sourceLineNo">693</span>        }<a name="line.693"></a>
+<span class="sourceLineNo">694</span>        <a name="line.694"></a>
+<span class="sourceLineNo">695</span>        if (hasDependencies) {<a name="line.695"></a>
+<span class="sourceLineNo">696</span>            userLibraryUpdateRejected();<a name="line.696"></a>
+<span class="sourceLineNo">697</span>        } else {<a name="line.697"></a>
+<span class="sourceLineNo">698</span>            ((UserLibrary) getEditorController().getLibrary()).stopWatching();<a name="line.698"></a>
+<span class="sourceLineNo">699</span><a name="line.699"></a>
+<span class="sourceLineNo">700</span>            try {<a name="line.700"></a>
+<span class="sourceLineNo">701</span>                // The selection can be multiple, in which case each asset is<a name="line.701"></a>
+<span class="sourceLineNo">702</span>                // processed separately.<a name="line.702"></a>
+<span class="sourceLineNo">703</span>                for (FXOMObject asset : objects) {<a name="line.703"></a>
+<span class="sourceLineNo">704</span>                    // Create an FXML layout as a String<a name="line.704"></a>
+<span class="sourceLineNo">705</span>                    ArrayList&lt;FXOMObject&gt; selection = new ArrayList&lt;&gt;();<a name="line.705"></a>
+<span class="sourceLineNo">706</span>                    selection.add(asset);<a name="line.706"></a>
+<span class="sourceLineNo">707</span>                    final FXOMArchive fxomArchive = new FXOMArchive(selection);<a name="line.707"></a>
+<span class="sourceLineNo">708</span>                    final FXOMArchive.Entry entry0 = fxomArchive.getEntries().get(0);<a name="line.708"></a>
+<span class="sourceLineNo">709</span>                    String fxmlText = entry0.getFxmlText();<a name="line.709"></a>
+<span class="sourceLineNo">710</span><a name="line.710"></a>
+<span class="sourceLineNo">711</span>                    // Write the FXML layout into a dedicated file stored in the user Library dir.<a name="line.711"></a>
+<span class="sourceLineNo">712</span>                    // We use the tag name of the top element and append a number:<a name="line.712"></a>
+<span class="sourceLineNo">713</span>                    // if Library dir already contains SplitPane_1.fxml and top element has<a name="line.713"></a>
+<span class="sourceLineNo">714</span>                    // tag name SplitPane then we will create SplitPane_2.fxml and so on.<a name="line.714"></a>
+<span class="sourceLineNo">715</span>                    // Note the tag name is most of the time identical to the Java class name, see DTL-6643.<a name="line.715"></a>
+<span class="sourceLineNo">716</span>                    String prefix = asset.getGlueElement().getTagName();<a name="line.716"></a>
+<span class="sourceLineNo">717</span>                    File fxmlFile = getUniqueFxmlFileName(prefix, userLibraryPathString);<a name="line.717"></a>
+<span class="sourceLineNo">718</span>                    writeFxmlFile(fxmlFile, fxmlText, libPath);<a name="line.718"></a>
+<span class="sourceLineNo">719</span>                }<a name="line.719"></a>
+<span class="sourceLineNo">720</span>            } finally {<a name="line.720"></a>
+<span class="sourceLineNo">721</span>                if (currentDisplayMode.equals(DISPLAY_MODE.SECTIONS)) {<a name="line.721"></a>
+<span class="sourceLineNo">722</span>                    sectionNameToKeepOpened = UserLibrary.TAG_USER_DEFINED;<a name="line.722"></a>
+<span class="sourceLineNo">723</span>                }<a name="line.723"></a>
+<span class="sourceLineNo">724</span>                    <a name="line.724"></a>
+<span class="sourceLineNo">725</span>                ((UserLibrary) getEditorController().getLibrary()).startWatching();<a name="line.725"></a>
+<span class="sourceLineNo">726</span>            }<a name="line.726"></a>
+<span class="sourceLineNo">727</span>        }<a name="line.727"></a>
+<span class="sourceLineNo">728</span>    }<a name="line.728"></a>
+<span class="sourceLineNo">729</span><a name="line.729"></a>
+<span class="sourceLineNo">730</span>    private void writeFxmlFile(File targetFile, String text, Path libPath) {<a name="line.730"></a>
+<span class="sourceLineNo">731</span>        Path targetFilePath = Paths.get(targetFile.getPath());<a name="line.731"></a>
+<span class="sourceLineNo">732</span>        createUserLibraryDir(libPath);<a name="line.732"></a>
+<span class="sourceLineNo">733</span><a name="line.733"></a>
+<span class="sourceLineNo">734</span>        try {<a name="line.734"></a>
+<span class="sourceLineNo">735</span>            // Create the new file<a name="line.735"></a>
+<span class="sourceLineNo">736</span>            Files.createFile(targetFilePath);<a name="line.736"></a>
+<span class="sourceLineNo">737</span><a name="line.737"></a>
+<span class="sourceLineNo">738</span>            // Write content of file<a name="line.738"></a>
+<span class="sourceLineNo">739</span>            try (PrintWriter writer = new PrintWriter(targetFile, "UTF-8")) { //NOI18N<a name="line.739"></a>
+<span class="sourceLineNo">740</span>                writer.write(text);<a name="line.740"></a>
+<span class="sourceLineNo">741</span>            }<a name="line.741"></a>
+<span class="sourceLineNo">742</span>        } catch (IOException ioe) {<a name="line.742"></a>
+<span class="sourceLineNo">743</span>            final ErrorDialog errorDialog = new ErrorDialog(null);<a name="line.743"></a>
+<span class="sourceLineNo">744</span>            errorDialog.setTitle(I18N.getString("error.file.create.title"));<a name="line.744"></a>
+<span class="sourceLineNo">745</span>            errorDialog.setMessage(I18N.getString("error.file.create.message", targetFilePath.normalize().toString()));<a name="line.745"></a>
+<span class="sourceLineNo">746</span>            errorDialog.setDetails(I18N.getString("error.write.details"));<a name="line.746"></a>
+<span class="sourceLineNo">747</span>            errorDialog.setDebugInfoWithThrowable(ioe);<a name="line.747"></a>
+<span class="sourceLineNo">748</span>            errorDialog.showAndWait();<a name="line.748"></a>
+<span class="sourceLineNo">749</span>        }<a name="line.749"></a>
+<span class="sourceLineNo">750</span>    }<a name="line.750"></a>
+<span class="sourceLineNo">751</span>    <a name="line.751"></a>
+<span class="sourceLineNo">752</span>    private File getUniqueFxmlFileName(String prefix, String libDir) {<a name="line.752"></a>
+<span class="sourceLineNo">753</span>        int suffix = 0;<a name="line.753"></a>
+<span class="sourceLineNo">754</span>        File file = null;<a name="line.754"></a>
+<span class="sourceLineNo">755</span>        while (file == null || file.exists()) {<a name="line.755"></a>
+<span class="sourceLineNo">756</span>            suffix++;<a name="line.756"></a>
+<span class="sourceLineNo">757</span>            file = new File(libDir + File.separator + prefix + "_" + suffix + ".fxml"); //NOI18N<a name="line.757"></a>
+<span class="sourceLineNo">758</span>        }<a name="line.758"></a>
+<span class="sourceLineNo">759</span>        <a name="line.759"></a>
+<span class="sourceLineNo">760</span>        return file;<a name="line.760"></a>
+<span class="sourceLineNo">761</span>    }<a name="line.761"></a>
+<span class="sourceLineNo">762</span>    <a name="line.762"></a>
+<span class="sourceLineNo">763</span>    private void processImportJarFxml(List&lt;File&gt; importedFiles) {<a name="line.763"></a>
+<span class="sourceLineNo">764</span>        if (importedFiles != null &amp;&amp; !importedFiles.isEmpty()) {<a name="line.764"></a>
+<span class="sourceLineNo">765</span>            sectionNameToKeepOpened = getExpandedSectionName();<a name="line.765"></a>
+<span class="sourceLineNo">766</span>            Path libPath = Paths.get(((UserLibrary)getEditorController().getLibrary()).getPath());<a name="line.766"></a>
+<span class="sourceLineNo">767</span>            // Create UserLibrary dir if missing<a name="line.767"></a>
+<span class="sourceLineNo">768</span>            if (createUserLibraryDir(libPath)) {<a name="line.768"></a>
+<span class="sourceLineNo">769</span>                final List&lt;File&gt; fxmlFiles = getSubsetOfFiles(".fxml", importedFiles); //NOI18N<a name="line.769"></a>
+<span class="sourceLineNo">770</span><a name="line.770"></a>
+<span class="sourceLineNo">771</span>                if (!fxmlFiles.isEmpty() &amp;&amp; enoughFreeSpaceOnDisk(fxmlFiles) &amp;&amp; ! hasDependencies(fxmlFiles)) {<a name="line.771"></a>
+<span class="sourceLineNo">772</span>                    copyFilesToUserLibraryDir(fxmlFiles);<a name="line.772"></a>
+<span class="sourceLineNo">773</span>                    <a name="line.773"></a>
+<span class="sourceLineNo">774</span>                    if (currentDisplayMode.equals(DISPLAY_MODE.SECTIONS)) {<a name="line.774"></a>
+<span class="sourceLineNo">775</span>                        sectionNameToKeepOpened = UserLibrary.TAG_USER_DEFINED;<a name="line.775"></a>
+<span class="sourceLineNo">776</span>                    }<a name="line.776"></a>
+<span class="sourceLineNo">777</span>                }<a name="line.777"></a>
+<span class="sourceLineNo">778</span><a name="line.778"></a>
+<span class="sourceLineNo">779</span>                final List&lt;File&gt; jarFiles = getSubsetOfFiles(".jar", importedFiles); //NOI18N<a name="line.779"></a>
+<span class="sourceLineNo">780</span>                // For jar files we delegate to the import dialog.<a name="line.780"></a>
+<span class="sourceLineNo">781</span>                if (!jarFiles.isEmpty() &amp;&amp; enoughFreeSpaceOnDisk(jarFiles)) {<a name="line.781"></a>
+<span class="sourceLineNo">782</span>                    // From here we know we will initiate the import dialog.<a name="line.782"></a>
+<span class="sourceLineNo">783</span>                    // This is why we put application window on the front.<a name="line.783"></a>
+<span class="sourceLineNo">784</span>                    // From there the import dialog window, which is application modal,<a name="line.784"></a>
+<span class="sourceLineNo">785</span>                    // should come on top of it.<a name="line.785"></a>
+<span class="sourceLineNo">786</span>                    final Window window = getPanelRoot().getScene().getWindow();<a name="line.786"></a>
+<span class="sourceLineNo">787</span>                    if (window instanceof Stage) {<a name="line.787"></a>
+<span class="sourceLineNo">788</span>                        final Stage stage = (Stage) window;<a name="line.788"></a>
+<span class="sourceLineNo">789</span>                        stage.toFront();<a name="line.789"></a>
+<span class="sourceLineNo">790</span>                    }<a name="line.790"></a>
+<span class="sourceLineNo">791</span><a name="line.791"></a>
+<span class="sourceLineNo">792</span>                    final ImportWindowController iwc<a name="line.792"></a>
+<span class="sourceLineNo">793</span>                            = new ImportWindowController(this, jarFiles, window);<a name="line.793"></a>
+<span class="sourceLineNo">794</span>                    iwc.setToolStylesheet(getEditorController().getToolStylesheet());<a name="line.794"></a>
+<span class="sourceLineNo">795</span>                    // See comment in OnDragDropped handle set in method startListeningToDrop.<a name="line.795"></a>
+<span class="sourceLineNo">796</span>                    ButtonID userChoice = iwc.showAndWait();<a name="line.796"></a>
+<span class="sourceLineNo">797</span><a name="line.797"></a>
+<span class="sourceLineNo">798</span>                    if (userChoice.equals(ButtonID.OK) &amp;&amp; currentDisplayMode.equals(DISPLAY_MODE.SECTIONS)) {<a name="line.798"></a>
+<span class="sourceLineNo">799</span>                        sectionNameToKeepOpened = UserLibrary.TAG_USER_DEFINED;<a name="line.799"></a>
+<span class="sourceLineNo">800</span>                    }<a name="line.800"></a>
+<span class="sourceLineNo">801</span>                }<a name="line.801"></a>
+<span class="sourceLineNo">802</span>            }<a name="line.802"></a>
+<span class="sourceLineNo">803</span>        }<a name="line.803"></a>
+<span class="sourceLineNo">804</span>    }<a name="line.804"></a>
+<span class="sourceLineNo">805</span>    <a name="line.805"></a>
+<span class="sourceLineNo">806</span>    private List&lt;File&gt; getSubsetOfFiles(String pattern, List&lt;File&gt; files) {<a name="line.806"></a>
+<span class="sourceLineNo">807</span>        final List&lt;File&gt; res = new ArrayList&lt;&gt;();<a name="line.807"></a>
+<span class="sourceLineNo">808</span>        <a name="line.808"></a>
+<span class="sourceLineNo">809</span>        for (File file : files) {<a name="line.809"></a>
+<span class="sourceLineNo">810</span>            if (file.getName().endsWith(pattern)) {<a name="line.810"></a>
+<span class="sourceLineNo">811</span>                res.add(file);<a name="line.811"></a>
+<span class="sourceLineNo">812</span>            }<a name="line.812"></a>
+<span class="sourceLineNo">813</span>        }<a name="line.813"></a>
+<span class="sourceLineNo">814</span>        <a name="line.814"></a>
+<span class="sourceLineNo">815</span>        return res;<a name="line.815"></a>
+<span class="sourceLineNo">816</span>    }<a name="line.816"></a>
+<span class="sourceLineNo">817</span>    <a name="line.817"></a>
+<span class="sourceLineNo">818</span>    private boolean createUserLibraryDir(Path libPath) {<a name="line.818"></a>
+<span class="sourceLineNo">819</span>        boolean dirCreated = false;<a name="line.819"></a>
+<span class="sourceLineNo">820</span>        try {<a name="line.820"></a>
+<span class="sourceLineNo">821</span>            // Files.createDirectories do nothing if provided Path already exists.<a name="line.821"></a>
+<span class="sourceLineNo">822</span>            Files.createDirectories(libPath, new FileAttribute&lt;?&gt;[]{});<a name="line.822"></a>
+<span class="sourceLineNo">823</span>            dirCreated = true;<a name="line.823"></a>
+<span class="sourceLineNo">824</span>        } catch (IOException ioe) {<a name="line.824"></a>
+<span class="sourceLineNo">825</span>            final ErrorDialog errorDialog = new ErrorDialog(null);<a name="line.825"></a>
+<span class="sourceLineNo">826</span>            errorDialog.setTitle(I18N.getString("error.dir.create.title"));<a name="line.826"></a>
+<span class="sourceLineNo">827</span>            errorDialog.setMessage(I18N.getString("error.dir.create.message", libPath.normalize().toString()));<a name="line.827"></a>
+<span class="sourceLineNo">828</span>            errorDialog.setDetails(I18N.getString("error.write.details"));<a name="line.828"></a>
+<span class="sourceLineNo">829</span>            errorDialog.setDebugInfoWithThrowable(ioe);<a name="line.829"></a>
+<span class="sourceLineNo">830</span>            errorDialog.showAndWait();<a name="line.830"></a>
+<span class="sourceLineNo">831</span>        }<a name="line.831"></a>
+<span class="sourceLineNo">832</span>        <a name="line.832"></a>
+<span class="sourceLineNo">833</span>        return dirCreated;<a name="line.833"></a>
+<span class="sourceLineNo">834</span>    }<a name="line.834"></a>
+<span class="sourceLineNo">835</span>    <a name="line.835"></a>
+<span class="sourceLineNo">836</span>    private boolean enoughFreeSpaceOnDisk(List&lt;File&gt; files) {<a name="line.836"></a>
+<span class="sourceLineNo">837</span>        long totalSize = Long.MAX_VALUE; // bytes<a name="line.837"></a>
+<span class="sourceLineNo">838</span>        try {<a name="line.838"></a>
+<span class="sourceLineNo">839</span>            for (File file : files) {<a name="line.839"></a>
+<span class="sourceLineNo">840</span>                Path targetPath = Paths.get(file.getAbsolutePath());<a name="line.840"></a>
+<span class="sourceLineNo">841</span>                totalSize += Files.size(targetPath);<a name="line.841"></a>
+<span class="sourceLineNo">842</span>            }<a name="line.842"></a>
+<span class="sourceLineNo">843</span>        } catch (IOException ioe) {<a name="line.843"></a>
+<span class="sourceLineNo">844</span>            final ErrorDialog errorDialog = new ErrorDialog(null);<a name="line.844"></a>
+<span class="sourceLineNo">845</span>            errorDialog.setTitle(I18N.getString("error.disk.space.title"));<a name="line.845"></a>
+<span class="sourceLineNo">846</span>            errorDialog.setMessage(I18N.getString("error.disk.space.message"));<a name="line.846"></a>
+<span class="sourceLineNo">847</span>            errorDialog.setDetails(I18N.getString("error.write.details"));<a name="line.847"></a>
+<span class="sourceLineNo">848</span>            errorDialog.setDebugInfoWithThrowable(ioe);<a name="line.848"></a>
+<span class="sourceLineNo">849</span>            errorDialog.showAndWait();<a name="line.849"></a>
+<span class="sourceLineNo">850</span>        }<a name="line.850"></a>
+<span class="sourceLineNo">851</span>        <a name="line.851"></a>
+<span class="sourceLineNo">852</span>        final File libFile = new File(((UserLibrary)getEditorController().getLibrary()).getPath());<a name="line.852"></a>
+<span class="sourceLineNo">853</span>        return totalSize &lt; libFile.getFreeSpace();<a name="line.853"></a>
+<span class="sourceLineNo">854</span>    }<a name="line.854"></a>
+<span class="sourceLineNo">855</span>    <a name="line.855"></a>
+<span class="sourceLineNo">856</span>    // Each copy is done via an intermediate temporary file that is renamed if<a name="line.856"></a>
+<span class="sourceLineNo">857</span>    // the copy goes well (for atomicity). If a copy fails we try to erase the<a name="line.857"></a>
+<span class="sourceLineNo">858</span>    // temporary file to stick to an as clean as possible disk content.<a name="line.858"></a>
+<span class="sourceLineNo">859</span>    // TODO fix DTL-5879 [When copying FXML files in lib dir we have to copy files which are external references as well]<a name="line.859"></a>
+<span class="sourceLineNo">860</span>    void copyFilesToUserLibraryDir(List&lt;File&gt; files) {<a name="line.860"></a>
+<span class="sourceLineNo">861</span>        int errorCount = 0;<a name="line.861"></a>
+<span class="sourceLineNo">862</span>        IOException savedIOE = null;<a name="line.862"></a>
+<span class="sourceLineNo">863</span>        String savedFileName = ""; //NOI18N<a name="line.863"></a>
+<span class="sourceLineNo">864</span>        Path tempTargetPath = null;<a name="line.864"></a>
+<span class="sourceLineNo">865</span>        setUserLibraryPathString();<a name="line.865"></a>
+<span class="sourceLineNo">866</span>        <a name="line.866"></a>
+<span class="sourceLineNo">867</span>        // Here we deactivate the UserLib so that it unlocks the files contained<a name="line.867"></a>
+<span class="sourceLineNo">868</span>        // in the lib dir in the file system meaning (especially on Windows).<a name="line.868"></a>
+<span class="sourceLineNo">869</span>        ((UserLibrary) getEditorController().getLibrary()).stopWatching();<a name="line.869"></a>
+<span class="sourceLineNo">870</span>        <a name="line.870"></a>
+<span class="sourceLineNo">871</span>        try {<a name="line.871"></a>
+<span class="sourceLineNo">872</span>            for (File file : files) {<a name="line.872"></a>
+<span class="sourceLineNo">873</span>                savedFileName = file.getName();<a name="line.873"></a>
+<span class="sourceLineNo">874</span>                tempTargetPath = Paths.get(userLibraryPathString, file.getName() + TEMP_FILE_EXTENSION);<a name="line.874"></a>
+<span class="sourceLineNo">875</span>                Path ultimateTargetPath = Paths.get(userLibraryPathString, file.getName());<a name="line.875"></a>
+<span class="sourceLineNo">876</span>                Files.deleteIfExists(tempTargetPath);<a name="line.876"></a>
+<span class="sourceLineNo">877</span>                Files.copy(file.toPath(), tempTargetPath, StandardCopyOption.REPLACE_EXISTING);<a name="line.877"></a>
+<span class="sourceLineNo">878</span>                Files.move(tempTargetPath, ultimateTargetPath, StandardCopyOption.ATOMIC_MOVE);<a name="line.878"></a>
+<span class="sourceLineNo">879</span>            }<a name="line.879"></a>
+<span class="sourceLineNo">880</span>        } catch (IOException ioe) {<a name="line.880"></a>
+<span class="sourceLineNo">881</span>            errorCount++;<a name="line.881"></a>
+<span class="sourceLineNo">882</span>            savedIOE = ioe;<a name="line.882"></a>
+<span class="sourceLineNo">883</span>        } finally {<a name="line.883"></a>
+<span class="sourceLineNo">884</span>            if (tempTargetPath != null) {<a name="line.884"></a>
+<span class="sourceLineNo">885</span>                try {<a name="line.885"></a>
+<span class="sourceLineNo">886</span>                    Files.deleteIfExists(tempTargetPath);<a name="line.886"></a>
+<span class="sourceLineNo">887</span>                } catch (IOException ioe) {<a name="line.887"></a>
+<span class="sourceLineNo">888</span>                    errorCount++;<a name="line.888"></a>
+<span class="sourceLineNo">889</span>                    savedIOE = ioe;<a name="line.889"></a>
+<span class="sourceLineNo">890</span>                }<a name="line.890"></a>
+<span class="sourceLineNo">891</span>            }<a name="line.891"></a>
+<span class="sourceLineNo">892</span>        }<a name="line.892"></a>
+<span class="sourceLineNo">893</span><a name="line.893"></a>
+<span class="sourceLineNo">894</span>        ((UserLibrary) getEditorController().getLibrary()).startWatching();<a name="line.894"></a>
+<span class="sourceLineNo">895</span><a name="line.895"></a>
+<span class="sourceLineNo">896</span>        if (errorCount &gt; 0) {<a name="line.896"></a>
+<span class="sourceLineNo">897</span>            final ErrorDialog errorDialog = new ErrorDialog(null);<a name="line.897"></a>
+<span class="sourceLineNo">898</span>            errorDialog.setTitle(I18N.getString("error.copy.title"));<a name="line.898"></a>
+<span class="sourceLineNo">899</span>            if (errorCount == 1) {<a name="line.899"></a>
+<span class="sourceLineNo">900</span>                errorDialog.setMessage(I18N.getString("error.copy.message.single", savedFileName, userLibraryPathString));<a name="line.900"></a>
+<span class="sourceLineNo">901</span>                errorDialog.setDebugInfoWithThrowable(savedIOE);<a name="line.901"></a>
+<span class="sourceLineNo">902</span>            } else {<a name="line.902"></a>
+<span class="sourceLineNo">903</span>                errorDialog.setMessage(I18N.getString("error.copy.message.multiple", errorCount, userLibraryPathString));<a name="line.903"></a>
+<span class="sourceLineNo">904</span>            }<a name="line.904"></a>
+<span class="sourceLineNo">905</span>            errorDialog.setDetails(I18N.getString("error.write.details"));<a name="line.905"></a>
+<span class="sourceLineNo">906</span>            errorDialog.showAndWait();<a name="line.906"></a>
+<span class="sourceLineNo">907</span>        }<a name="line.907"></a>
+<span class="sourceLineNo">908</span>    }<a name="line.908"></a>
+<span class="sourceLineNo">909</span>    <a name="line.909"></a>
+<span class="sourceLineNo">910</span>    /**<a name="line.910"></a>
+<span class="sourceLineNo">911</span>     * Open a file chooser that allows to select one or more FXML and JAR file.<a name="line.911"></a>
+<span class="sourceLineNo">912</span>     * @return the list of selected files<a name="line.912"></a>
+<span class="sourceLineNo">913</span>     */<a name="line.913"></a>
+<span class="sourceLineNo">914</span>    private List&lt;File&gt; performSelectJarOrFxmlFile() {<a name="line.914"></a>
+<span class="sourceLineNo">915</span>        FileChooser fileChooser = new FileChooser();<a name="line.915"></a>
+<span class="sourceLineNo">916</span>        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(I18N.getString("lib.filechooser.filter.msg"),<a name="line.916"></a>
+<span class="sourceLineNo">917</span>                "*.fxml", "*.jar")); //NOI18N<a name="line.917"></a>
+<span class="sourceLineNo">918</span>        return fileChooser.showOpenMultipleDialog(null);<a name="line.918"></a>
+<span class="sourceLineNo">919</span>    }<a name="line.919"></a>
+<span class="sourceLineNo">920</span><a name="line.920"></a>
+<span class="sourceLineNo">921</span>    private void userLibraryUpdateRejected() {<a name="line.921"></a>
+<span class="sourceLineNo">922</span>        final AlertDialog dialog = new AlertDialog(null);<a name="line.922"></a>
+<span class="sourceLineNo">923</span>        dialog.setTitle(I18N.getString("alert.import.reject.dependencies.title"));<a name="line.923"></a>
+<span class="sourceLineNo">924</span>        dialog.setMessage(I18N.getString("alert.import.reject.dependencies.message"));<a name="line.924"></a>
+<span class="sourceLineNo">925</span>        dialog.setDetails(I18N.getString("alert.import.reject.dependencies.details"));<a name="line.925"></a>
+<span class="sourceLineNo">926</span>        dialog.setActionButtonDisable(true);<a name="line.926"></a>
+<span class="sourceLineNo">927</span>        dialog.setActionButtonVisible(false);<a name="line.927"></a>
+<span class="sourceLineNo">928</span>        dialog.setOKButtonDisable(true);<a name="line.928"></a>
+<span class="sourceLineNo">929</span>        dialog.setOKButtonVisible(false);<a name="line.929"></a>
+<span class="sourceLineNo">930</span>        dialog.setCancelButtonTitle(I18N.getString("label.close"));<a name="line.930"></a>
+<span class="sourceLineNo">931</span>        dialog.showAndWait();<a name="line.931"></a>
+<span class="sourceLineNo">932</span>    }<a name="line.932"></a>
+<span class="sourceLineNo">933</span><a name="line.933"></a>
+<span class="sourceLineNo">934</span>    private static final PropertyName valueName = new PropertyName("value"); //NOI18N<a name="line.934"></a>
+<span class="sourceLineNo">935</span>    <a name="line.935"></a>
+<span class="sourceLineNo">936</span>    private boolean hasDependencies(List&lt;File&gt; fxmlFiles) {<a name="line.936"></a>
+<span class="sourceLineNo">937</span>        boolean hasDependencies = false;<a name="line.937"></a>
+<span class="sourceLineNo">938</span>        boolean scanWentWell = true;<a name="line.938"></a>
+<span class="sourceLineNo">939</span><a name="line.939"></a>
+<span class="sourceLineNo">940</span>        for (File fxmlFile : fxmlFiles) {<a name="line.940"></a>
+<span class="sourceLineNo">941</span>            try {<a name="line.941"></a>
+<span class="sourceLineNo">942</span>                if (hasDependencies(fxmlFile)) {<a name="line.942"></a>
+<span class="sourceLineNo">943</span>                    hasDependencies = true;<a name="line.943"></a>
+<span class="sourceLineNo">944</span>                    break;<a name="line.944"></a>
+<span class="sourceLineNo">945</span>                }<a name="line.945"></a>
+<span class="sourceLineNo">946</span>            } catch (IOException ioe) {<a name="line.946"></a>
+<span class="sourceLineNo">947</span>                scanWentWell = false;<a name="line.947"></a>
+<span class="sourceLineNo">948</span>                hasDependencies = true; // not sure but better take no risk<a name="line.948"></a>
+<span class="sourceLineNo">949</span>                final ErrorDialog errorDialog = new ErrorDialog(null);<a name="line.949"></a>
+<span class="sourceLineNo">950</span>                errorDialog.setTitle(I18N.getString("error.import.reject.dependencies.scan.title"));<a name="line.950"></a>
+<span class="sourceLineNo">951</span>                errorDialog.setMessage(I18N.getString("error.import.reject.dependencies.scan.message"));<a name="line.951"></a>
+<span class="sourceLineNo">952</span>                errorDialog.setDetails(I18N.getString("error.import.reject.dependencies.scan.details"));<a name="line.952"></a>
+<span class="sourceLineNo">953</span>                errorDialog.setDebugInfoWithThrowable(ioe);<a name="line.953"></a>
+<span class="sourceLineNo">954</span>                errorDialog.showAndWait();<a name="line.954"></a>
+<span class="sourceLineNo">955</span>            }<a name="line.955"></a>
+<span class="sourceLineNo">956</span>        }<a name="line.956"></a>
+<span class="sourceLineNo">957</span><a name="line.957"></a>
+<span class="sourceLineNo">958</span>        if (hasDependencies &amp;&amp; scanWentWell) {<a name="line.958"></a>
+<span class="sourceLineNo">959</span>            userLibraryUpdateRejected();<a name="line.959"></a>
+<span class="sourceLineNo">960</span>        }<a name="line.960"></a>
+<span class="sourceLineNo">961</span><a name="line.961"></a>
+<span class="sourceLineNo">962</span>        return hasDependencies;<a name="line.962"></a>
+<span class="sourceLineNo">963</span>    }<a name="line.963"></a>
+<span class="sourceLineNo">964</span><a name="line.964"></a>
+<span class="sourceLineNo">965</span>    private boolean hasDependencies(File fxmlFile) throws IOException {<a name="line.965"></a>
+<span class="sourceLineNo">966</span>        boolean res = false;<a name="line.966"></a>
+<span class="sourceLineNo">967</span>        URL location;<a name="line.967"></a>
+<span class="sourceLineNo">968</span>        <a name="line.968"></a>
+<span class="sourceLineNo">969</span>        location = fxmlFile.toURI().toURL();<a name="line.969"></a>
+<span class="sourceLineNo">970</span>        FXOMDocument fxomDocument =<a name="line.970"></a>
+<span class="sourceLineNo">971</span>                new FXOMDocument(FXOMDocument.readContentFromURL(location), location,<a name="line.971"></a>
+<span class="sourceLineNo">972</span>                        getEditorController().getFxomDocument().getClassLoader(),<a name="line.972"></a>
+<span class="sourceLineNo">973</span>                        getEditorController().getFxomDocument().getResources());<a name="line.973"></a>
+<span class="sourceLineNo">974</span>        res = hasDependencies(fxomDocument.getFxomRoot());<a name="line.974"></a>
+<span class="sourceLineNo">975</span>        <a name="line.975"></a>
+<span class="sourceLineNo">976</span>        return res;<a name="line.976"></a>
+<span class="sourceLineNo">977</span>    }<a name="line.977"></a>
+<span class="sourceLineNo">978</span>    <a name="line.978"></a>
+<span class="sourceLineNo">979</span>    private boolean hasDependencies(FXOMObject rootFxomObject) {<a name="line.979"></a>
+<span class="sourceLineNo">980</span>        final List&lt;Path&gt; targetPaths = getDependenciesPaths(rootFxomObject);<a name="line.980"></a>
+<span class="sourceLineNo">981</span>        return targetPaths.size() &gt; 0;<a name="line.981"></a>
+<span class="sourceLineNo">982</span>    }<a name="line.982"></a>
+<span class="sourceLineNo">983</span>    <a name="line.983"></a>
+<span class="sourceLineNo">984</span>    private List&lt;Path&gt; getDependenciesPaths(FXOMObject rootFxomObject) {<a name="line.984"></a>
+<span class="sourceLineNo">985</span><a name="line.985"></a>
+<span class="sourceLineNo">986</span>        final List&lt;Path&gt; targetPaths = new ArrayList&lt;&gt;();<a name="line.986"></a>
+<span class="sourceLineNo">987</span><a name="line.987"></a>
+<span class="sourceLineNo">988</span>        for (FXOMPropertyT p : rootFxomObject.collectPropertiesT()) {<a name="line.988"></a>
+<span class="sourceLineNo">989</span>            final Path path = extractPath(p);<a name="line.989"></a>
+<span class="sourceLineNo">990</span>            if (path != null) {<a name="line.990"></a>
+<span class="sourceLineNo">991</span>                targetPaths.add(path);<a name="line.991"></a>
+<span class="sourceLineNo">992</span>            }<a name="line.992"></a>
+<span class="sourceLineNo">993</span>        }<a name="line.993"></a>
+<span class="sourceLineNo">994</span>        <a name="line.994"></a>
+<span class="sourceLineNo">995</span>        for (FXOMObject fxomObject : rootFxomObject.collectObjectWithSceneGraphObjectClass(URL.class)) {<a name="line.995"></a>
+<span class="sourceLineNo">996</span>            if (fxomObject instanceof FXOMInstance) {<a name="line.996"></a>
+<span class="sourceLineNo">997</span>                final FXOMInstance urlInstance = (FXOMInstance) fxomObject;<a name="line.997"></a>
+<span class="sourceLineNo">998</span>                final FXOMProperty valueProperty = urlInstance.getProperties().get(valueName);<a name="line.998"></a>
+<span class="sourceLineNo">999</span>                if (valueProperty instanceof FXOMPropertyT) {<a name="line.999"></a>
+<span class="sourceLineNo">1000</span>                    FXOMPropertyT valuePropertyT = (FXOMPropertyT) valueProperty;<a name="line.1000"></a>
+<span class="sourceLineNo">1001</span>                    final Path path = extractPath(valuePropertyT);<a name="line.1001"></a>
+<span class="sourceLineNo">1002</span>                    if (path != null) {<a name="line.1002"></a>
+<span class="sourceLineNo">1003</span>                        targetPaths.add(path);<a name="line.1003"></a>
+<span class="sourceLineNo">1004</span>                    }<a name="line.1004"></a>
+<span class="sourceLineNo">1005</span>                } else {<a name="line.1005"></a>
+<span class="sourceLineNo">1006</span>                    assert false : "valueProperty.getName() = " + valueProperty.getName();<a name="line.1006"></a>
+<span class="sourceLineNo">1007</span>                }<a name="line.1007"></a>
+<span class="sourceLineNo">1008</span>            }<a name="line.1008"></a>
+<span class="sourceLineNo">1009</span>        }<a name="line.1009"></a>
+<span class="sourceLineNo">1010</span><a name="line.1010"></a>
+<span class="sourceLineNo">1011</span>        return targetPaths;<a name="line.1011"></a>
+<span class="sourceLineNo">1012</span>    }<a name="line.1012"></a>
+<span class="sourceLineNo">1013</span>    <a name="line.1013"></a>
+<span class="sourceLineNo">1014</span>    <a name="line.1014"></a>
+<span class="sourceLineNo">1015</span>    private Path extractPath(FXOMPropertyT p) {<a name="line.1015"></a>
+<span class="sourceLineNo">1016</span>        Path result;<a name="line.1016"></a>
+<span class="sourceLineNo">1017</span>        <a name="line.1017"></a>
+<span class="sourceLineNo">1018</span>        final PrefixedValue pv = new PrefixedValue(p.getValue());<a name="line.1018"></a>
+<span class="sourceLineNo">1019</span>        if (pv.isPlainString()) {<a name="line.1019"></a>
+<span class="sourceLineNo">1020</span>            try {<a name="line.1020"></a>
+<span class="sourceLineNo">1021</span>                final URL url = new URL(pv.getSuffix());<a name="line.1021"></a>
+<span class="sourceLineNo">1022</span>                result = Paths.get(url.toURI());<a name="line.1022"></a>
+<span class="sourceLineNo">1023</span>            } catch(MalformedURLException|URISyntaxException x) {<a name="line.1023"></a>
+<span class="sourceLineNo">1024</span>                result = null;<a name="line.1024"></a>
+<span class="sourceLineNo">1025</span>            }<a name="line.1025"></a>
+<span class="sourceLineNo">1026</span>        } else if (pv.isDocumentRelativePath()) {<a name="line.1026"></a>
+<span class="sourceLineNo">1027</span>            final URL documentLocation = p.getFxomDocument().getLocation();<a name="line.1027"></a>
+<span class="sourceLineNo">1028</span>            if (documentLocation == null) {<a name="line.1028"></a>
+<span class="sourceLineNo">1029</span>                result = null;<a name="line.1029"></a>
+<span class="sourceLineNo">1030</span>            } else {<a name="line.1030"></a>
+<span class="sourceLineNo">1031</span>                final URL url = pv.resolveDocumentRelativePath(documentLocation);<a name="line.1031"></a>
+<span class="sourceLineNo">1032</span>                if (url == null) {<a name="line.1032"></a>
+<span class="sourceLineNo">1033</span>                    result = null;<a name="line.1033"></a>
+<span class="sourceLineNo">1034</span>                } else {<a name="line.1034"></a>
+<span class="sourceLineNo">1035</span>                    try {<a name="line.1035"></a>
+<span class="sourceLineNo">1036</span>                        result = Paths.get(url.toURI());<a name="line.1036"></a>
+<span class="sourceLineNo">1037</span>                    } catch(FileSystemNotFoundException|URISyntaxException x) {<a name="line.1037"></a>
+<span class="sourceLineNo">1038</span>                        result = null;<a name="line.1038"></a>
+<span class="sourceLineNo">1039</span>                    }<a name="line.1039"></a>
+<span class="sourceLineNo">1040</span>                }<a name="line.1040"></a>
+<span class="sourceLineNo">1041</span>            }<a name="line.1041"></a>
+<span class="sourceLineNo">1042</span>        } else if (pv.isClassLoaderRelativePath()) {<a name="line.1042"></a>
+<span class="sourceLineNo">1043</span>            final ClassLoader classLoader = p.getFxomDocument().getClassLoader();<a name="line.1043"></a>
+<span class="sourceLineNo">1044</span>            if (classLoader == null) {<a name="line.1044"></a>
+<span class="sourceLineNo">1045</span>                result = null;<a name="line.1045"></a>
+<span class="sourceLineNo">1046</span>            } else {<a name="line.1046"></a>
+<span class="sourceLineNo">1047</span>                final URL url = pv.resolveClassLoaderRelativePath(classLoader);<a name="line.1047"></a>
+<span class="sourceLineNo">1048</span>                if (url == null) {<a name="line.1048"></a>
+<span class="sourceLineNo">1049</span>                    result = null;<a name="line.1049"></a>
+<span class="sourceLineNo">1050</span>                } else {<a name="line.1050"></a>
+<span class="sourceLineNo">1051</span>                    try {<a name="line.1051"></a>
+<span class="sourceLineNo">1052</span>                        result = Paths.get(url.toURI());<a name="line.1052"></a>
+<span class="sourceLineNo">1053</span>                    } catch(URISyntaxException x) {<a name="line.1053"></a>
+<span class="sourceLineNo">1054</span>                        result = null;<a name="line.1054"></a>
+<span class="sourceLineNo">1055</span>                    }<a name="line.1055"></a>
+<span class="sourceLineNo">1056</span>                }<a name="line.1056"></a>
+<span class="sourceLineNo">1057</span>                <a name="line.1057"></a>
+<span class="sourceLineNo">1058</span>            }<a name="line.1058"></a>
+<span class="sourceLineNo">1059</span>        } else {<a name="line.1059"></a>
+<span class="sourceLineNo">1060</span>            result = null;<a name="line.1060"></a>
+<span class="sourceLineNo">1061</span>        }<a name="line.1061"></a>
+<span class="sourceLineNo">1062</span>        <a name="line.1062"></a>
+<span class="sourceLineNo">1063</span>        return result;<a name="line.1063"></a>
+<span class="sourceLineNo">1064</span>    }<a name="line.1064"></a>
+<span class="sourceLineNo">1065</span>    <a name="line.1065"></a>
+<span class="sourceLineNo">1066</span>    private void setUserLibraryPathString() {<a name="line.1066"></a>
+<span class="sourceLineNo">1067</span>        if (getEditorController().getLibrary() instanceof UserLibrary<a name="line.1067"></a>
+<span class="sourceLineNo">1068</span>                &amp;&amp; userLibraryPathString == null) {<a name="line.1068"></a>
+<span class="sourceLineNo">1069</span>            userLibraryPathString = ((UserLibrary) getEditorController().getLibrary()).getPath();<a name="line.1069"></a>
+<span class="sourceLineNo">1070</span>            assert userLibraryPathString != null;<a name="line.1070"></a>
+<span class="sourceLineNo">1071</span>        }<a name="line.1071"></a>
+<span class="sourceLineNo">1072</span>    }<a name="line.1072"></a>
+<span class="sourceLineNo">1073</span>}<a name="line.1073"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

@@ -36,7 +36,24 @@ public class FXMLSignUpController implements Initializable {
     //private BooleanBinding validFields;
     
     //When to strings are equal, compareTo returns zero
-    private final int EQUALS = 0;  
+    @FXML
+    private TextField PasswordField;
+    @FXML
+    private TextField MailField;
+    @FXML
+    private TextField PasswordField2;
+    @FXML
+    private Button botonAceptar;
+    @FXML
+    private Button botonCancelar;
+    @FXML
+    private Label errMail;
+    @FXML
+    private Label errPass1;
+    @FXML
+    private Label errPass2;
+
+
     
    
     
@@ -97,15 +114,15 @@ public class FXMLSignUpController implements Initializable {
     // you must initialize here all related with the object 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        errPass2.setVisible(false);
        
         validEmail = new SimpleBooleanProperty();
         validPassword = new SimpleBooleanProperty();   
         equalPasswords = new SimpleBooleanProperty();
         
-        validPassword.setValue(Boolean.FALSE);
-        validEmail.setValue(Boolean.FALSE);
-        equalPasswords.setValue(Boolean.FALSE);
-        
+        validPassword.setValue(Boolean.TRUE);
+        validEmail.setValue(Boolean.TRUE);
+        equalPasswords.setValue(Boolean.TRUE);
        
         
         
@@ -116,6 +133,68 @@ public class FXMLSignUpController implements Initializable {
         
 
     } 
+    
+    
+    private boolean esCorreo(String correoSTR) {
+        char[] correoArray = correoSTR.toCharArray();
+        int sumAUX = 0;
+        
+        for (int i = 0; correoArray.length > i; i++) {
+            if (correoArray[i] == '@' || correoArray[i] == '.' || correoArray[i] == ' ') {
+                sumAUX++;
+            }
+        }
+        if (sumAUX > 2) { return false; }
+
+        for (int i = 1; correoArray.length > i; i++) {
+            if (correoArray[i] == '@') {
+                for (int j = i + 2; correoArray.length - 1 > j; j++) {
+                    if (correoArray[j] == '.') { return true; }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean esContraseña(String contraSTR) {
+        char[] contraArray = contraSTR.toCharArray();
+        int sumAUX = 0;
+        
+        for (int i = 0; contraArray.length > i; i++) {
+            if (contraArray[i] == ' ') {
+                sumAUX++;
+            }
+        }
+        if (sumAUX > 0 || contraArray.length < 8 || contraArray.length > 15) { return false; }
+        
+        return true;
+    }
+
+    @FXML
+    private void pulsarAceptar(ActionEvent event) {
+        System.out.println("Correo introducido: " + MailField.getText());
+        System.out.println("Contraseña introducida: " + PasswordField.getText());
+        System.out.println("Contraseña2 introducida: " + PasswordField2.getText());
+        System.out.println("------------------------------------"); 
+        System.out.println(esCorreo(MailField.getText()));
+        
+        if(!esCorreo(MailField.getText())){
+            errMail.setVisible(true);
+            validEmail.setValue(Boolean.FALSE);
+        }
+        
+        if(!esContraseña(PasswordField.getText())){
+            errPass1.setVisible(true);
+            validPassword.setValue(Boolean.FALSE);
+        }
+        
+        if(!(PasswordField.getText().equals(PasswordField2.getText()))){
+            errPass2.setVisible(true);
+            equalPasswords.setValue(Boolean.FALSE);
+        }
+
+    }
    
     
 }

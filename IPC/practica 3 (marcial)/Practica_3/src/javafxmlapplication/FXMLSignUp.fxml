@@ -13,8 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.FXMLSignUpController">
    <top>
       <HBox prefHeight="100.0" style="-fx-background-color: #0685BC;" BorderPane.alignment="CENTER_LEFT">
          <children>
@@ -38,7 +37,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" spacing="25.0" BorderPane.alignment="CENTER_RIGHT">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #0685BC;" text="Aceptar" textFill="WHITE">
+            <Button fx:id="botonAceptar" mnemonicParsing="false" onAction="#pulsarAceptar" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #0685BC;" text="Aceptar" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -50,7 +49,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #0685BC;" text="Cancelar" textFill="WHITE">
+            <Button fx:id="botonCancelar" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #0685BC;" text="Cancelar" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -74,30 +73,46 @@
             <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="350.0">
                <children>
                   <Label text="CORREO" />
-                  <TextField fx:id="PasswordField" alignment="BOTTOM_LEFT" promptText="yourMail@hotmail.com" />
+                  <TextField fx:id="MailField" alignment="BOTTOM_LEFT" promptText="yourMail@hotmail.com" />
+                  <Label fx:id="errMail" prefHeight="23.0" prefWidth="97.0" text="Incorrect Email" textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets left="30.0" />
                </padding>
             </VBox>
-            <VBox alignment="CENTER_LEFT" layoutX="5.0" layoutY="100.0" prefHeight="100.0" prefWidth="250.0">
+            <VBox alignment="CENTER_LEFT" layoutY="98.0" prefHeight="100.0" prefWidth="600.0">
                <children>
                   <Label text="CONTRASEÑA" />
-                  <TextField minWidth="30.0" prefWidth="250.0" promptText="LettersNumbersSymbols" />
+                  <TextField fx:id="PasswordField" maxWidth="220.0" minWidth="30.0" prefWidth="250.0" promptText="LettersNumbersSymbols" />
+                  <Label fx:id="errPass1" prefHeight="20.0" prefWidth="541.0" text="Incorrect. It must be a combination of 8 to 15 numbers of letters, without blank spaces." textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets left="30.0" />
                </padding>
             </VBox>
-            <VBox alignment="CENTER_LEFT" layoutX="8.0" layoutY="198.0" prefHeight="100.0" prefWidth="250.0">
+            <VBox alignment="CENTER_LEFT" layoutY="198.0" prefHeight="100.0" prefWidth="250.0">
                <children>
                   <Label text="REPITE CONTRASEÑA" />
-                  <TextField promptText="LettersNumbersSymbols" />
+                  <TextField fx:id="PasswordField2" promptText="LettersNumbersSymbols" />
+                  <Label fx:id="errPass2" prefHeight="23.0" prefWidth="195.0" text="Las contraseñas no coinciden." textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets left="30.0" />
                </padding>
             </VBox>
+            <VBox layoutX="265.0" layoutY="248.0" />
          </children>
       </AnchorPane>
    </center>
