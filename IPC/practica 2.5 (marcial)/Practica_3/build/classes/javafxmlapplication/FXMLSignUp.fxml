@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.FXMLSignUpController">
+   <top>
+      <HBox prefHeight="100.0" style="-fx-background-color: #0685BC;" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registrarse">
+               <font>
+                  <Font size="52.0" />
+               </font>
+            </Text>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="25.0" BorderPane.alignment="CENTER_RIGHT">
+         <children>
+            <Button fx:id="botonAceptar" mnemonicParsing="false" onAction="#pulsarAceptar" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #0685BC;" text="Aceptar" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/accept_white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="botonCancelar" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #0685BC;" text="Cancelar" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/cancel_white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="400.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="350.0">
+               <children>
+                  <Label text="CORREO" />
+                  <TextField fx:id="MailField" alignment="BOTTOM_LEFT" promptText="yourMail@hotmail.com" />
+                  <Label fx:id="errMail" prefHeight="23.0" prefWidth="97.0" text="Incorrect Email" textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutY="98.0" prefHeight="100.0" prefWidth="600.0">
+               <children>
+                  <Label text="CONTRASEÑA" />
+                  <TextField fx:id="PasswordField" maxWidth="220.0" minWidth="30.0" prefWidth="250.0" promptText="LettersNumbersSymbols" />
+                  <Label fx:id="errPass1" prefHeight="20.0" prefWidth="541.0" text="Incorrect. It must be a combination of 8 to 15 numbers of letters, without blank spaces." textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" layoutY="198.0" prefHeight="100.0" prefWidth="250.0">
+               <children>
+                  <Label text="REPITE CONTRASEÑA" />
+                  <TextField fx:id="PasswordField2" promptText="LettersNumbersSymbols" />
+                  <Label fx:id="errPass2" prefHeight="23.0" prefWidth="195.0" text="Las contraseñas no coinciden." textFill="RED" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </VBox>
+            <VBox layoutX="265.0" layoutY="248.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
