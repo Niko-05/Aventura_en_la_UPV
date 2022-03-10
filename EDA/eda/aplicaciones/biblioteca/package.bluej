@@ -1,12 +1,12 @@
 #BlueJ package file
-dependency1.from=BuscadorDeLaBibl
+dependency1.from=TestEficiencia
 dependency1.to=Termino
 dependency1.type=UsesDependency
 dependency2.from=TestEficiencia
-dependency2.to=Termino
+dependency2.to=BuscadorDeLaBibl
 dependency2.type=UsesDependency
-dependency3.from=TestEficiencia
-dependency3.to=BuscadorDeLaBibl
+dependency3.from=BuscadorDeLaBibl
+dependency3.to=Termino
 dependency3.type=UsesDependency
 objectbench.height=104
 objectbench.width=741
@@ -32,7 +32,7 @@ target1.name=Termino
 target1.showInterface=false
 target1.type=ClassTarget
 target1.width=120
-target1.x=240
+target1.x=230
 target1.y=300
 target2.height=70
 target2.name=lista10.txt

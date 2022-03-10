@@ -58,13 +58,22 @@ public class Termino {
      */
     public int hashCode() { 
         int res = this.valorHash;
-        if (res != 0) { return res; }
+        if (res != 0) {return res;}
         
         // COMPLETAR: calcular el valor de res para this.termino en this.baseHashCode
         // de forma EFICIENTE, i.e. usando la regla de Horner
         int n = this.termino.length();
-        for(int i = 0; i < this.termino.length() - 1; i++){
-            res += this.termino.charAt(i) * this.baseHashCode ^ (n - (i + 1));
+        int pow = this.baseHashCode;
+        int counter = 0;
+        
+        for(int i = 0; i < n - 1; i++){
+            counter = (n - (i + 1));
+            pow = 1;
+            while(counter != 0){
+                pow *= this.baseHashCode;
+                counter--;
+            }
+            res += this.termino.charAt(i) * pow;
         }        
         res += this.termino.charAt(n - 1);
         /* FIN COMPLETAR */

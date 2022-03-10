@@ -1,7 +1,7 @@
 Actividad 0
 ------------
 
-orden por defecto:
+java Ants:
 
 1 -> 89 retries, 4 interbloqueados
 2 -> 51 retries, 7 interbloqueados
@@ -25,28 +25,30 @@ Actividad 1
 
 java Ants 1:
 
-1 ->  retries,  interbloqueados
-2 ->  retries,  interbloqueados
-3 ->  retries,  interbloqueados
-4 ->  retries,  interbloqueados
-5 ->  retries,  interbloqueados
-6 ->  retries,  interbloqueados
+1 -> 153 retries, 4 interbloqueados
+2 -> 140 retries, 6 interbloqueados
+3 -> 82 retries, 2 interbloqueados
+4 -> 88 retries, 2 interbloqueados
+5 -> 45 retries, 0 interbloqueados
+6 -> 139 retries, 3 interbloqueados
 
 orden java Ants 1 8 10 3:
 
-1 ->  retries,  interbloqueados
-2 ->  retries,  interbloqueados
-3 ->  retries,  interbloqueados
-4 ->  retries,  interbloqueados
-5 ->  retries,  interbloqueados
-6 ->  retries,  interbloqueados
+1 -> 18 retries, 2 interbloqueados
+2 -> 6 retries, 0 interbloqueados
+3 -> 30 retries, 4 interbloqueados
+4 -> 2 retries, 0 interbloqueados
+5 -> 0 retries, 0 interbloqueados
+6 -> 15 retries, 4 interbloqueados
 
 Se aprecian diferencias significativas entre Terrain0 y Terrain1?
 
+No hay diferencias significativas
 
 Se producen menos reactivaciones "innecesarias" de hilos en Terrain1 que
 en Terrain0?
 
+Se producen la misma cantidad de reactivaciones innecesarias
 
 
 Actividad 2
