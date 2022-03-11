@@ -130,7 +130,7 @@ public class FXMLSignUpController implements Initializable {
         });
         
         
-        BooleanBinding validFields = Bindings.and(validEmail, equalPasswords);//.and(equalPasswords);
+        BooleanBinding validFields = Bindings.and(validEmail, equalPasswords).and(equalPasswords);
         botonAceptar.disableProperty().bind(Bindings.not(validFields));
         
         MailField.focusedProperty().addListener((observable, oldV, newV) -> {
@@ -138,8 +138,8 @@ public class FXMLSignUpController implements Initializable {
                 if(!esCorreo(MailField.getText())){
                 errMail.setVisible(true);
                 validEmail.setValue(Boolean.FALSE);
-                }
-            } else {errMail.setVisible(false); validEmail.setValue(Boolean.TRUE);}
+                } else {errMail.setVisible(false); validEmail.setValue(Boolean.TRUE);}
+            } 
         });
         
         PasswordField.focusedProperty().addListener((observable, oldV, newV) -> {
@@ -147,8 +147,8 @@ public class FXMLSignUpController implements Initializable {
                 if(!esContraseña(PasswordField.getText())){
                 errPass1.setVisible(true);
                 validPassword.setValue(Boolean.FALSE);
-                }
-            } else {errPass1.setVisible(false); validPassword.setValue(Boolean.TRUE);}
+                } else {errPass1.setVisible(false); validPassword.setValue(Boolean.TRUE);}
+            } 
         });
         
         PasswordField2.focusedProperty().addListener((observable, oldV, newV) -> {
@@ -159,8 +159,8 @@ public class FXMLSignUpController implements Initializable {
                 PasswordField.requestFocus();
                 PasswordField.textProperty().setValue("");
                 PasswordField2.textProperty().setValue("");
-                }
-            } else {errPass2.setVisible(false); equalPasswords.setValue(Boolean.TRUE);}
+                } else {errPass2.setVisible(false); equalPasswords.setValue(Boolean.TRUE);}
+            } 
         });
 
 
