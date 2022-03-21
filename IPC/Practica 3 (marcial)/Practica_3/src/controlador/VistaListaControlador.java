@@ -68,7 +68,6 @@ public class VistaListaControlador implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-            vistadeListafxID.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             
                 // en el código de inicialización del controlador
                 //vistadeListafxID.setCellFactory((c)->{ return new MiCelda(); });
@@ -124,35 +123,40 @@ public class VistaListaControlador implements Initializable {
                     }
                 });
                 
-               vistadeListafxID.getSelectionModel().selectedIndexProperty().addListener( (o, oldVal, newVal) -> {
-                    if (newVal.intValue() == -1)
-                    labelSELECTED.setText("none");
-                    else
+               vistadeListafxID.getSelectionModel().selectedIndexProperty().addListener((o, oldVal, newVal) -> {
+                if (newVal.intValue() == -1) {
+                    labelSELECTED.setText("None");
+                } else {
                     labelSELECTED.setText(datos.get(newVal.intValue()).toString());
-                    });
-                    labelSELECTED.setText("none");
+                }
+            });
+            labelSELECTED.setText("None");
 
 		
 	}
 
     @FXML
     private void bajarAction(ActionEvent event) {
+        try {
         int i = vistadeListafxID.getSelectionModel().getSelectedIndex();
         Persona aux = datos.get(i);
         Persona aux2 = datos.get(i+1);
         datos.set(i,aux2);
         datos.set(i+1,aux);
         vistadeListafxID.getSelectionModel().select(i+1);
+        } catch (IndexOutOfBoundsException e) {}
     }
 
     @FXML
-    private void botonSUBIR(ActionEvent event) {
+    private void botonSUBIR(ActionEvent event)  {
+        try {
         int i = vistadeListafxID.getSelectionModel().getSelectedIndex();
         Persona aux = datos.get(i);
         Persona aux2 = datos.get(i-1);
         datos.set(i,aux2);
         datos.set(i-1,aux);
         vistadeListafxID.getSelectionModel().select(i-1);
+        } catch (IndexOutOfBoundsException e) {}
     }
 
     @FXML

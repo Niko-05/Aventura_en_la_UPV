@@ -4,3 +4,9 @@ git add .		añade seguimiento
 git commit -m "comen"	hacer un backup
 git push		subir
 git pull		bajar
+
+
+git clone https://github.com/Niko-05/Aventura_en_la_UPV.git
+
+git config --global user.name "nombre"
+git config --global user.email correo.dominio
