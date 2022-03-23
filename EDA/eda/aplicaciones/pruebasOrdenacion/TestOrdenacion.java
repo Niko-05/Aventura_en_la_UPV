@@ -24,20 +24,9 @@ public class TestOrdenacion {
         Integer[] a1 = crearAleatorioInteger(100000);
         Integer[] a2 = Arrays.copyOf(a1, a1.length);
 
-        // A completar por el alumno: 
-        // comprobar que mergeSort2 ordena correctamente,
-        // usando el metodo sonIguales de 
-        // la clase Ordenacion para comparar su resultado  
-        // con el de quickSort 
-        
-        // Ordenacion por Quick Sort de a1:
-        //COMPLETAR
-
-        // Ordenacion por Merge Sort (version 2) de a2:   
-        //COMPLETAR		
-		
-		// Son iguales a1 (quickSort) y a2 (mergeSort2)?
-		// COMPLETAR return 
+        Ordenacion.quickSort(a1);
+        Ordenacion.mergeSort2(a2);
+        return Ordenacion.sonIguales(a1,a2);
     }
 
     /**
@@ -72,8 +61,10 @@ public class TestOrdenacion {
                 t2 = System.nanoTime();
                 tacum1 += t2 - t1;    
                 
-                //  A completar:  
-                //  Temporizacion de mergeSort2
+                t1 = System.nanoTime();
+                Ordenacion.mergeSort2(aux2);
+                t2 = System.nanoTime();
+                tacum2 += t2 - t1;
                 
                 
                 t1 = System.nanoTime();
@@ -138,9 +129,11 @@ public class TestOrdenacion {
                 t2 = System.nanoTime();
                 tacum1 += t2 - t1;    
                 
-                // A completar: 
-                // Temporizacion de mergeSort2                               
-                                                                
+                t1 = System.nanoTime();
+                Ordenacion.mergeSort2(aux2);
+                t2 = System.nanoTime();
+                tacum2 += t2 - t1;
+                
                 t1 = System.nanoTime();
                 Ordenacion.quickSort(aux3);
                 t2 = System.nanoTime();
@@ -165,8 +158,10 @@ public class TestOrdenacion {
      * @return String[]
      */    
     public static String[] crearAleatorioString(int talla, int n) {
-        /*MODIFICAR*/
-        return null;
+        String[] res = new String[talla];
+        GeneradorDeString g = new GeneradorDeString(n);
+        for (String s : res) s = g.generar();
+        return res;
     }
     
     public static void main(String[] args) {
@@ -174,8 +169,10 @@ public class TestOrdenacion {
         if (okMS2) {
             System.out.println("Para temporizar Integers se debe ejecutar "
                                + "el metodo temporizar()");
+                               temporizar();
             System.out.println("Para temporizar Strings se debe ejecutar "
                                + "el metodo temporizarString()");
+                               temporizarString();
         }
         else {
             System.out.println("ERROR en mergeSort2: no ordena correctamente\n"
@@ -183,4 +180,6 @@ public class TestOrdenacion {
         }
     }                   
 }
-
+/*
+ * 
+ */
