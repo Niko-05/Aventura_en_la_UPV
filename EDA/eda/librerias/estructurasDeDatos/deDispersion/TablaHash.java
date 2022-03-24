@@ -247,7 +247,10 @@ public class TablaHash<C, V> implements Map<C, V> {
      */
     public final double costeMLocalizar() {
         /* COMPLETAR */
-        return 0; // para que compile
+        double res = 0.0;
+        for(ListaConPI<EntradaHash<C,V>> cub: elArray)
+            res += (cub.talla() * (cub.talla()+1))/2;
+        return res/talla; // para que compile
         
     }
 
