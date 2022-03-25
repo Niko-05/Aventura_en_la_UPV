@@ -252,6 +252,7 @@ public class TablaHash<C, V> implements Map<C, V> {
         //    res += (cub.talla()-1 * (cub.talla()-2))/2;}
         //return res/talla;
         for(int i=0; i<elArray.length;i++){
+            
             for(int j=0; j<elArray[i].talla();j++){
                 res +=j;
             }
