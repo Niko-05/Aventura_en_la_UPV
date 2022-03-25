@@ -59,20 +59,16 @@ public class FXMLPersonaController implements Initializable {
         buttonCANCEL.disableProperty().bind(Bindings.not(hayTexto));
         buttonOK.disableProperty().bind(Bindings.not(hayTexto));
         
-//        nombreText.lengthProperty().addListener((observable, oldV, newV) -> {
-//            //if(newV > 0){
-//                if(nombreText.getText().trim().length() > 0){
-//                    hayNombre.setValue(Boolean.TRUE);
-//                }
-//            //} 
-//        });
+        nombreText.lengthProperty().addListener((observable, oldV, newV) -> {
+                if(nombreText.getText().trim().length() > 0){
+                    hayNombre.setValue(Boolean.TRUE);
+                } else {hayNombre.setValue(Boolean.FALSE);}
+        });
         
-        apellidosText.focusedProperty().addListener((observable, oldV, newV) -> {
-            if(!newV){
+        apellidosText.lengthProperty().addListener((observable, oldV, newV) -> {
                 if(apellidosText.getText().trim().length() > 0){
                     hayApellido.setValue(Boolean.TRUE);
-                }
-            } 
+                } else {hayApellido.setValue(Boolean.FALSE);}
         });
     
 
