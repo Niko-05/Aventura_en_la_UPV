@@ -6,7 +6,6 @@
  * @version 2021
  */
 import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Terrain1 implements Terrain {
@@ -26,14 +25,27 @@ public class Terrain1 implements Terrain {
             v.hi(a);
         }finally { lock.unlock(); }
     }
-    public void     bye     (int a) {notifyAll();v.bye(a);    }
+    public void     bye     (int a) {
+        try{
+         lock.lock();
+         cola.signalAll();
+         v.bye(a);
+        }finally{lock.unlock();}
+    }
 
     public void     move    (int a) throws InterruptedException {
-        v.turn(a); Pos dest=v.dest(a);
-        while (v.occupied(dest)) {
-            cola.await();
-            v.retry(a);
-        }
-        v.go(a); cola.signalAll();
+        try {
+            lock.lock();
+            v.turn(a);
+            Pos dest = v.dest(a);
+            try {
+                while (v.occupied(dest)) {
+                    cola.await();
+                    v.retry(a);
+                }
+            }catch(Exception e){}
+            v.go(a);
+            cola.signalAll();
+        }finally{lock.unlock();}
     }
 }

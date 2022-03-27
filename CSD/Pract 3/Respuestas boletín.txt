@@ -56,12 +56,12 @@ Actividad 2
 
 java Ants 2:
 
-1 ->  retries,  interbloqueados
-2 ->  retries,  interbloqueados
-3 ->  retries,  interbloqueados
-4 ->  retries,  interbloqueados
-5 ->  retries,  interbloqueados
-6 ->  retries,  interbloqueados
+1 ->  11 retries, 0 interbloqueados
+2 ->  73 retries, 2 interbloqueados
+3 ->  12 retries, 0 interbloqueados
+4 ->  85 retries, 10 interbloqueados
+5 ->  37 retries, 3 interbloqueados
+6 ->  57 retries, 8 interbloqueados
 
 orden java Ants 2 8 10 3:
 

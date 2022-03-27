@@ -89,6 +89,13 @@ public class TablaHash<C, V> implements Map<C, V> {
         return true; // n SI es primo
     }    
     
+    /** Devuelve el factor de carga (real) de una Tabla Hash,   
+     *  lo que equivale a la longitud media de sus cubetas en  
+     *  una implemetacion Enlazada de la Tabla */
+    public final double factorCarga() { 
+        return (double) talla / elArray.length; 
+    }
+    
     /** Comprueba si una Tabla Hash esta vacia,  
      *  i.e. si tiene 0 Entradas */
     public boolean esVacio() { return talla == 0; }
@@ -206,13 +213,6 @@ public class TablaHash<C, V> implements Map<C, V> {
         return l;
     }
     
-    /** Devuelve el factor de carga (real) de una Tabla Hash,   
-     *  lo que equivale a la longitud media de sus cubetas en  
-     *  una implemetacion Enlazada de la Tabla */
-    public final double factorCarga() { 
-        return (double) talla / elArray.length; 
-    }
-    
     /** Devuelve un String con las Entradas de una Tabla Hash
      *  en un formato texto dado (ver toString de EntradaHash)
      */
@@ -247,8 +247,17 @@ public class TablaHash<C, V> implements Map<C, V> {
      */
     public final double costeMLocalizar() {
         /* COMPLETAR */
-        return 0; // para que compile
-        
+        double res = 0.0;
+        //for(ListaConPI<EntradaHash<C,V>> cub: elArray){
+        //    res += (cub.talla()-1 * (cub.talla()-2))/2;}
+        //return res/talla;
+        for(int i=0; i<elArray.length;i++){
+            
+            for(int j=0; j<elArray[i].talla();j++){
+                res +=j;
+            }
+        }
+        return res/talla; 
     }
 
     /** Devuelve un String con el histograma de ocupacion 

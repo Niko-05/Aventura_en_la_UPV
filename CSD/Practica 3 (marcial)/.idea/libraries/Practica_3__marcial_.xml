@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Practica 3 (marcial)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Ants.jar!/" />
+      <root url="jar://$PROJECT_DIR$/AntsDemo.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
