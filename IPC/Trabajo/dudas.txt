@@ -1,0 +1,19 @@
+
+Login:
+	- Parametros de correo valido
+	- Paramentros de contraseña valida (8-20 caracteres, 1 letra 1 mayuscula y 1 minuscula y caracter especial)
+	- Comprobar edad
+	- confirmar registro
+	- opcion autoidentificarse (sistema pide nombre o nick y contraseña)
+
+-Usar LEGLista para almacenar nombres ya guardados
+- usar map para contraseña y usuario
+- opcion cerrar sesion
+- clase contraseña (constructor, metodo equals,)
+
+- almacenar resultados en txt - ¿codificar? ¿clase almacen datos?
+
+Realizacion de problemas
+	- boton carta estelar
+	- opcion pregunta aleatoria y respuestas en orden aleatorio
+	- opcion lista de problemas
