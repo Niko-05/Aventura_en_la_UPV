@@ -17,3 +17,9 @@ Realizacion de problemas
 	- boton carta estelar
 	- opcion pregunta aleatoria y respuestas en orden aleatorio
 	- opcion lista de problemas
+
+¿Primera pantalla?
+¿Problemas resueltos "2.1" ?
+¿boton idioma?
+¿label temporal?
+¿hacer que se cambien ventanas?
