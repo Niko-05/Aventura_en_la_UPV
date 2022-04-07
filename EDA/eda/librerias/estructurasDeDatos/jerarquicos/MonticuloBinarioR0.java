@@ -53,9 +53,9 @@ public class MonticuloBinarioR0<E extends Comparable<E>>
      *  @param e  Elemento a insertar  
      */
     public void insertar(E e) {
-        if (talla == elArray.length - 1) { duplicarArray(); }
-        int  posIns = talla++;
-        while (posIns > 0 && e.compareTo(elArray[(posIns - 1) / 2]) > 0) { 
+        if (talla == elArray.length) {duplicarArray();}
+        int posIns = talla++;
+        while (posIns > 0 && e.compareTo(elArray[(posIns - 1) / 2]) < 0) { 
             elArray[posIns] = elArray[(posIns - 1) / 2]; 
             posIns = (posIns - 1) / 2;
         }
@@ -75,8 +75,9 @@ public class MonticuloBinarioR0<E extends Comparable<E>>
      *  @return Elemento con maxima prioridad de la CP
      */
     public E eliminarMin() {
-        E elMinimo = elArray[1];
-        elArray[0] = elArray[talla--];
+        E elMinimo = recuperarMin();
+        elArray[0] = elArray[talla - 1];
+        talla--;
         hundir(0);
         return elMinimo;
     }
@@ -90,15 +91,15 @@ public class MonticuloBinarioR0<E extends Comparable<E>>
         E aHundir = elArray[posActual]; 
         int hijo = posActual * 2 + 1; 
         boolean esHeap = false;
-        while (hijo <= talla && !esHeap) {
-            if (hijo != talla 
-                && elArray[hijo + 1].compareTo(elArray[hijo]) > 0) { 
+        while (hijo < talla && !esHeap) {
+            if (hijo != talla - 1
+                && elArray[hijo + 1].compareTo(elArray[hijo]) < 0) { 
                 hijo++; 
             }
             if (elArray[hijo].compareTo(aHundir) < 0) {
                 elArray[posActual] = elArray[hijo];
                 posActual = hijo; 
-                hijo = posActual * 2;
+                hijo = posActual * 2 + 1;
             } else { esHeap = true; }
         }
         elArray[posActual] = aHundir;
