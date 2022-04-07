@@ -12,7 +12,7 @@ package aplicaciones.impresora;
  *  @version (Curso 2020-2021)
  */
  
-public class Trabajo {
+public class Trabajo implements Comparable<Trabajo>{
     
     private String titulo;
     private int numPaginas;
@@ -58,7 +58,8 @@ public class Trabajo {
      *  @return int resultado de la comparacion de un Trabajo (this) con otro 
      */
     public int compareTo(Trabajo otro) { 
-        /*COMPLETAR*/
+        int res = res = this.numPaginas - otro.numPaginas;
+        return res;
     }
     
     /** Devuelve el String que representa un Trabajo en un cierto 
@@ -70,4 +71,3 @@ public class Trabajo {
     }
 }
 
-}

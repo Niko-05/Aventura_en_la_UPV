@@ -11,7 +11,7 @@ import librerias.estructurasDeDatos.jerarquicos.MonticuloBinarioR0;
  *  @version (Curso 2020-2021)
  */
 
-public class ServidorColaPrioridad implements ServidorDeImpresion {
+public class ServidorColaPrioridad implements ServidorDeImpresion{
     
     // Un ServidorColaPrioridad TIENE UNA ColaPrioridad cP 
     // de Trabajos a la espera de ser impresos
@@ -19,21 +19,21 @@ public class ServidorColaPrioridad implements ServidorDeImpresion {
     
     /** Crea un Servidor de Impresion vacio. */
     public ServidorColaPrioridad() { 
-        /*COMPLETAR*/
+        cP = new MonticuloBinarioR0();
     }
     
     /** Incluye un nuevo Trabajo t en un ServidorDeImpresion.
      *  @param t   Trabajo
      */
     public void insertar(Trabajo t) { 
-        /*COMPLETAR*/
+        cP.insertar(t);
     }
     
     /** Comprueba si hay algun Trabajo a imprimir en un ServidorDeImpresion.
      *  @return boolean
      */
     public boolean hayTrabajos() { 
-        /*COMPLETAR*/
+        return !cP.esVacia();
     }
     
     /** SII hayTrabajos(): devuelve el Trabajo de un ServidorDeImpresion
@@ -41,7 +41,7 @@ public class ServidorColaPrioridad implements ServidorDeImpresion {
      *  @return Trabajo
      */
     public Trabajo getTrabajo() { 
-        /*COMPLETAR*/
+        return cP.recuperarMin();
     }
     
     /** SII hayTrabajos(): elimina de un ServidorDeImpresion el 
@@ -50,7 +50,7 @@ public class ServidorColaPrioridad implements ServidorDeImpresion {
      *  @return int (seg.)
      */
     public int imprimirTrabajo() { 
-        /*COMPLETAR*/
+        Trabajo t = cP.eliminarMin();
         int tiempoImpresion = 
             (int) (Math.round(60.0 * t.getNumPaginas() / PAGINAS_POR_MINUTO));
         return tiempoImpresion;
