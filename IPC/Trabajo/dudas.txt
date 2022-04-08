@@ -23,3 +23,6 @@ Realizacion de problemas
 ¿boton idioma?
 ¿label temporal?
 ¿hacer que se cambien ventanas?
+
+
+codigo ---------
