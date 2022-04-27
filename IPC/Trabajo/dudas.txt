@@ -30,3 +30,4 @@ codigo ---------
 
 mejor spam de errores o error al aceptar
 que es un correo valido 
+correos repetidos no se comprueban
