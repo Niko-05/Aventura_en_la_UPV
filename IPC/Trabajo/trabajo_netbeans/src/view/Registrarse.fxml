@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.controller.RegistrarseController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -26,8 +26,9 @@
       </VBox>
    </top>
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
+            <Button mnemonicParsing="false" onAction="#buttonBack" text="Pa atra" />
             <TextField fx:id="correoField" promptText="Correo" />
             <Label fx:id="errCorreoLab" text="error correo">
                <font>

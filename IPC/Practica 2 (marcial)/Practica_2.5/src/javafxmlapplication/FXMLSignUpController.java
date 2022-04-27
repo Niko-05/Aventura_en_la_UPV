@@ -134,6 +134,7 @@ public class FXMLSignUpController implements Initializable {
         botonAceptar.disableProperty().bind(Bindings.not(validFields));
         
         MailField.focusedProperty().addListener((observable, oldV, newV) -> {
+            errMail.setVisible(false);
             if(!newV){
                 if(!esCorreo(MailField.getText())){
                 errMail.setVisible(true);
@@ -142,16 +143,33 @@ public class FXMLSignUpController implements Initializable {
             } 
         });
         
+        MailField.textProperty().addListener((observable, oldV, newV) -> {
+            if(esCorreo(newV)){
+                validEmail.setValue(Boolean.TRUE);
+            }        
+        });
+        
         PasswordField.focusedProperty().addListener((observable, oldV, newV) -> {
-            if(!newV){
-                if(!esContraseña(PasswordField.getText())){
-                errPass1.setVisible(true);
-                validPassword.setValue(Boolean.FALSE);
-                } else {errPass1.setVisible(false); validPassword.setValue(Boolean.TRUE);}
-            } 
+            errPass1.setVisible(false);
+            if (!newV) {
+                if (!esContraseña(PasswordField.getText())) {
+                    errPass1.setVisible(true);
+                    validPassword.setValue(Boolean.FALSE);
+                } else {
+                    errPass1.setVisible(false);
+                    validPassword.setValue(Boolean.TRUE);
+                }
+            }
+        });
+        
+        PasswordField.textProperty().addListener((observable, oldV, newV) -> {
+            if(esContraseña(newV)){
+                validPassword.setValue(Boolean.TRUE);
+            }        
         });
         
         PasswordField2.focusedProperty().addListener((observable, oldV, newV) -> {
+            errPass2.setVisible(false);
             if(!newV){
                 if(!(PasswordField.getText().equals(PasswordField2.getText()))){
                 errPass2.setVisible(true);
@@ -190,6 +208,7 @@ public class FXMLSignUpController implements Initializable {
     }
     
     private boolean esContraseña(String contraSTR) {
+ 
         char[] contraArray = contraSTR.toCharArray();
         int sumAUX = 0;
         
@@ -199,7 +218,7 @@ public class FXMLSignUpController implements Initializable {
             }
         }
         if (sumAUX > 0 || contraArray.length < 8 || contraArray.length > 15) { return false; }
-        
+
         return true;
     }
 
@@ -230,3 +249,18 @@ public class FXMLSignUpController implements Initializable {
 
     
 }
+
+
+
+//PasswordField.focusedProperty().addListener((observable, oldV, newV) -> {
+//            errPass1.setVisible(false);
+//            if (!newV) {
+//                if (!esContraseña(PasswordField.getText())) {
+//                    errPass1.setVisible(true);
+//                    validPassword.setValue(Boolean.FALSE);
+//                } else {
+//                    errPass1.setVisible(false);
+//                    validPassword.setValue(Boolean.TRUE);
+//                }
+//            }
+//        });

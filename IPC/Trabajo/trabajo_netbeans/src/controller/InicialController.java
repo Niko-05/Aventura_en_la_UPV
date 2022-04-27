@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javafxmlapplication.controller;
+package controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,9 +43,6 @@ import model.User;
  */
 public class InicialController implements Initializable {
     
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     @FXML
     private BorderPane borderPane;
@@ -107,13 +104,16 @@ public class InicialController implements Initializable {
         
         
         
-        Parent root = FXMLLoader.load(getClass().getResource("/javafxmlapplication/view/Registrarse.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Parent root = FXMLLoader.load(getClass().getResource("/view/Registrarse.fxml"));
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        double prevWidth = stage.getWidth();
+        double prevHeight = stage.getHeight();
+        stage.setHeight(prevHeight);
+        stage.setWidth(prevWidth);
         stage.setScene(scene);
+        
     }
-
-
 
     
     
