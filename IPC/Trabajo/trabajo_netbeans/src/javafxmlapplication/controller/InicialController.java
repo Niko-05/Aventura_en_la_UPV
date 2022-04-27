@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -41,6 +42,10 @@ import model.User;
  * @author usuario
  */
 public class InicialController implements Initializable {
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
     private BorderPane borderPane;
@@ -54,11 +59,11 @@ public class InicialController implements Initializable {
     private Label errConLab;
     @FXML
     private Button buttonAceptar;
-    @FXML
-    private Button buttRegistrar;
     
     
    User usuario;
+    @FXML
+    private Button buttRegistrar;
     /**
      * Initializes the controller class.
      */
@@ -86,18 +91,28 @@ public class InicialController implements Initializable {
     }
 
     @FXML
-    private void buttRegAction(ActionEvent event) throws IOException {
+    private void buttRegAction(ActionEvent event) throws Exception {
         
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("view/Registrarse.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
+//       FXMLLoader loader= new FXMLLoader(getClass().getResource("/javafxmlapplication/view/Registrarse.fxml"));
+//        Parent root = loader.load();
+//        
+//        Scene scene = new Scene(root);
+//        
+//        Stage stage = new Stage();
+//        stage.setScene(scene);
+//        stage.setTitle("Demo vista de lista de personas");
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.show();
+        
+        
+        
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/javafxmlapplication/view/Registrarse.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Modificar Persona");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-        stage.showAndWait();
     }
+
 
 
     
