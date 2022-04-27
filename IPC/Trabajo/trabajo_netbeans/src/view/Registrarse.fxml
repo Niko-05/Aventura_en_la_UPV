@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -48,14 +49,17 @@
                </font>
             </Label>
             <DatePicker fx:id="fechaField" promptText="fecha naci" />
-            <Label fx:id="errFechaLab" text="error fecha">
+            <Label fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <Button fx:id="buttonAvatar" mnemonicParsing="false" onAction="#buttAvatarAction" text="avatar">
                <graphic>
-                  <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../avatars/default.png" />
+                     </image></ImageView>
                </graphic>
             </Button>
             <Button fx:id="buttonAceptar" mnemonicParsing="false" onAction="#buttAceptarAction" text="Aceptar/iniciar" />

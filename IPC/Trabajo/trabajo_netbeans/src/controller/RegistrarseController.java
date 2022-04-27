@@ -5,8 +5,10 @@
  */
 package controller;
 
+import DBAccess.NavegacionDAOException;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -20,12 +22,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Navegacion;
 import model.User;
 
 /**
@@ -57,13 +61,13 @@ public class RegistrarseController implements Initializable {
     @FXML
     private DatePicker fechaField;
     @FXML
-    private Label errFechaLab;
-    @FXML
     private Button buttonAvatar;
     @FXML
     private ImageView avatarField;
     @FXML
     private Button buttonAceptar;
+    @FXML
+    private Label errFechaLab;
 
 
     /**
@@ -75,26 +79,26 @@ public class RegistrarseController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        // Esconder mensajes de error
         errNomLab.setVisible(false);
         errConLab.setVisible(false);
-        //errFechaLab.setVisible(false);
+        errFechaLab.setVisible(false);
         errCorreoLab.setVisible(false);
    
-        
+        // inicializacion propiedades binding
         validEmail = new SimpleBooleanProperty();
         validPassword = new SimpleBooleanProperty();   
-        //validage = new SimpleBooleanProperty();
         validname = new SimpleBooleanProperty();
         
         validPassword.setValue(Boolean.FALSE);
         validEmail.setValue(Boolean.FALSE);
-        //validage.setValue(Boolean.FALSE);
         validname.setValue(Boolean.FALSE);
         
+        // Bindings para boton aceptar
         BooleanBinding validFields = Bindings.and(validEmail, validPassword).and(validname);
         buttonAceptar.disableProperty().bind(Bindings.not(validFields));
         
-        
+        // Control de errores correo
         correoField.focusedProperty().addListener((observable, oldV, newV) -> {
             if(!newV){
                 if(!User.checkEmail(correoField.getText())){
@@ -110,16 +114,23 @@ public class RegistrarseController implements Initializable {
             } else {validEmail.setValue(Boolean.FALSE);}
         });
         
+        // Control de errores nombre
         nombreField.focusedProperty().addListener((observable, oldV, newV) -> {
-            errNomLab.setVisible(false);
             if(!newV){
                 if(!User.checkNickName(nombreField.getText())){
                 errNomLab.setVisible(true);
-                validPassword.setValue(Boolean.FALSE);
+                validname.setValue(Boolean.FALSE);
                 } else {errNomLab.setVisible(false); validname.setValue(Boolean.TRUE);}
             } 
         });
         
+        nombreField.textProperty().addListener((observable, oldV, newV) -> {
+            if(User.checkNickName(newV)){
+                validname.setValue(Boolean.TRUE); errNomLab.setVisible(false);
+            } else {validname.setValue(Boolean.FALSE);}
+        });
+        
+        // Control de errores contraseña
         contraField.focusedProperty().addListener((observable, oldV, newV) -> {
             errConLab.setVisible(false);
             if(!newV){
@@ -130,7 +141,26 @@ public class RegistrarseController implements Initializable {
             } 
         });
         
+        contraField.textProperty().addListener((observable, oldV, newV) -> {
+            if(User.checkPassword(newV)){
+                validPassword.setValue(Boolean.TRUE); errConLab.setVisible(false);
+            } else {validPassword.setValue(Boolean.FALSE);}
+        });
         
+        // Establecer limite de edad (16 años)
+        fechaField.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    LocalDate today = LocalDate.now().minusYears(16);
+                    setDisable(empty || date.compareTo(today) > 0);
+                }
+            };
+        });
+        
+        fechaField.focusedProperty().addListener((observable, oldV, newV) -> {
+            errFechaLab.setVisible(false);
+        });
     }    
 
     @FXML
@@ -138,9 +168,37 @@ public class RegistrarseController implements Initializable {
     }
 
     @FXML
-    private void buttAceptarAction(ActionEvent event) {
+    private void buttAceptarAction(ActionEvent event) throws NavegacionDAOException {
+        //Prueba correo
+        if (!User.checkEmail(correoField.getText())) {
+            errNomLab.setVisible(true);
+            validPassword.setValue(Boolean.FALSE);
+        }
+        // Prueba Contraseña
+        if (!User.checkPassword(contraField.getText())) {
+            errConLab.setVisible(true);
+            validPassword.setValue(Boolean.FALSE);
+        }
+        //Prueba nombre
+        if (!User.checkNickName(nombreField.getText())) {
+            errNomLab.setVisible(true);
+            validname.setValue(Boolean.FALSE);
+        }
+        //Prueba nombre no existente
+        if (Navegacion.getSingletonNavegacion().exitsNickName(nombreField.getText())) {
+            errNomLab.setText("nombre ya existente");
+            errNomLab.setVisible(true);
+        }
+        // Prueba fecha
+        if (fechaField.getValue() == null) errFechaLab.setVisible(true);
+        
+        //crea usuario
+        if (validPassword.getValue() && validname.getValue() && validEmail.getValue() && (fechaField.getValue() != null)){
+            Navegacion.getSingletonNavegacion().registerUser(nombreField.getText(), contraField.getText(), contraField.getText(), avatarField.getImage(), fechaField.getValue());
+        }
     }
 
+    // Boton back para volver a la pantalla de inicio
     @FXML
     private void buttonBack(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Inicial.fxml"));
@@ -152,5 +210,6 @@ public class RegistrarseController implements Initializable {
         stage.setWidth(prevWidth);
         stage.setScene(scene);
     }
+    
     
 }
