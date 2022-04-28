@@ -90,7 +90,7 @@ public class InicialController implements Initializable {
     @FXML
     private void buttRegAction(ActionEvent event) throws Exception {
         
-//       FXMLLoader loader= new FXMLLoader(getClass().getResource("/javafxmlapplication/view/Registrarse.fxml"));
+//       FXMLLoader loader= new FXMLLoader(getClass().getResource("/view/Registrarse.fxml"));
 //        Parent root = loader.load();
 //        
 //        Scene scene = new Scene(root);
@@ -111,6 +111,7 @@ public class InicialController implements Initializable {
         double prevHeight = stage.getHeight();
         stage.setHeight(prevHeight);
         stage.setWidth(prevWidth);
+        stage.setTitle("Pestaña registrarse");
         stage.setScene(scene);
         
     }

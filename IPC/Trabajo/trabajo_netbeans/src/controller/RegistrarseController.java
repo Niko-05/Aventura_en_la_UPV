@@ -198,8 +198,8 @@ public class RegistrarseController implements Initializable {
         }
     }
 
-    // Boton back para volver a la pantalla de inicio
-    @FXML
+    
+    @FXML   // Boton back para volver a la pantalla de inicio
     private void buttonBack(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Inicial.fxml"));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -208,6 +208,7 @@ public class RegistrarseController implements Initializable {
         double prevHeight = stage.getHeight();
         stage.setHeight(prevHeight);
         stage.setWidth(prevWidth);
+        stage.setTitle("Pestaña Inicial");
         stage.setScene(scene);
     }
     
