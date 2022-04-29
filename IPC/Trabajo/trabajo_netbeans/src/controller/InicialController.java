@@ -89,7 +89,7 @@ public class InicialController implements Initializable {
             if(Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText()) == null){
             errConLab.setVisible(true);
             } else {
-                loged = true;
+//                loged = true;
                 usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
                 //sleep(1000);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Principal.fxml"));
@@ -107,7 +107,7 @@ public class InicialController implements Initializable {
                 
                 stage.setScene(scene);
                 controladorPrin.setUsuario(usuario);
-                
+//                
             }
         }else {errNomLab.setVisible(true);}
     }

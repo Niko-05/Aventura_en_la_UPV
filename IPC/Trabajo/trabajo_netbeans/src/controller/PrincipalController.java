@@ -79,8 +79,7 @@ public class PrincipalController implements Initializable {
 //            }
 //        }
         
-        imgUsuario.setImage(usuario.getAvatar());
-        usuarioLAB.setText(usuario.getNickName());
+        
     }    
 
     @FXML
@@ -125,5 +124,7 @@ public class PrincipalController implements Initializable {
     
     void setUsuario(User user){
         usuario = user;
+        imgUsuario.setImage(usuario.getAvatar());
+        usuarioLAB.setText(usuario.getNickName());
     }
 }
