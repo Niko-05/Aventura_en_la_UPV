@@ -69,7 +69,8 @@ public class RegistrarseController implements Initializable {
     @FXML
     private Label errFechaLab;
 
-
+    private User usuario;
+    private boolean registered;
     /**
      * Initializes the controller class.
      */
@@ -212,5 +213,10 @@ public class RegistrarseController implements Initializable {
         stage.setScene(scene);
     }
     
-    
+    public User getUser(){
+        return usuario;
+    }
+    public boolean isUserRegistered(){
+        return registered;
+    }
 }

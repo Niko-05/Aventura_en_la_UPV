@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -56,11 +57,11 @@ public class InicialController implements Initializable {
     private Label errConLab;
     @FXML
     private Button buttonAceptar;
-    
-    
-   User usuario;
     @FXML
     private Button buttRegistrar;
+    
+    private User usuario;
+    private boolean loged = false;
     /**
      * Initializes the controller class.
      */
@@ -69,7 +70,7 @@ public class InicialController implements Initializable {
         // TODO
         errNomLab.setVisible(false);
         errConLab.setVisible(false);
-        
+        loged = false;
     }    
 
 
@@ -80,8 +81,18 @@ public class InicialController implements Initializable {
             if(Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText()) == null){
             errConLab.setVisible(true);
             } else {
-            
-                // pasar a pantalla principal
+                loged = true;
+                usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
+                sleep(1000);
+                Parent root = FXMLLoader.load(getClass().getResource("/view/Principal.fxml"));
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                double prevWidth = stage.getWidth();
+                double prevHeight = stage.getHeight();
+                stage.setHeight(prevHeight);
+                stage.setWidth(prevWidth);
+                stage.setTitle("Pestaña Principal");
+                stage.setScene(scene);
                 
             }
         }else {errNomLab.setVisible(true);}
@@ -113,10 +124,13 @@ public class InicialController implements Initializable {
         stage.setWidth(prevWidth);
         stage.setTitle("Pestaña registrarse");
         stage.setScene(scene);
-        
     }
 
-    
-    
+    public User getUser(){
+        return usuario;
+    }
+    public boolean isUserLoged(){
+        return loged;
+    }
 }
 
