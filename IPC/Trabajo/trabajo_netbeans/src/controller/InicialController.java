@@ -61,7 +61,7 @@ public class InicialController implements Initializable {
     private Button buttRegistrar;
     
     private User usuario;
-    private boolean loged = false;
+    private boolean loged;
     /**
      * Initializes the controller class.
      */
@@ -71,6 +71,14 @@ public class InicialController implements Initializable {
         errNomLab.setVisible(false);
         errConLab.setVisible(false);
         loged = false;
+        
+        
+        contraField.focusedProperty().addListener((obs, preV, newV) -> {
+            errConLab.setVisible(false);
+        });
+        nombreField.focusedProperty().addListener((obs, preV, newV) -> {
+            errNomLab.setVisible(false);
+        });
     }    
 
 
@@ -126,10 +134,10 @@ public class InicialController implements Initializable {
         stage.setScene(scene);
     }
 
-    public User getUser(){
+    User getUser(){
         return usuario;
     }
-    public boolean isUserLoged(){
+    boolean isUserLoged(){
         return loged;
     }
 }

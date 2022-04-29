@@ -33,3 +33,4 @@ que es un correo valido
 correos repetidos no se comprueban
 modificar perfil mejor popup o sustituir
 estrellitas en contraseña
+darle al enter para iniciar sesion
