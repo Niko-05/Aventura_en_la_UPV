@@ -58,13 +58,13 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        //Acceder a usuario de inicial
-        FXMLLoader loaderIni = new FXMLLoader(getClass().getResource("/view/Inicial.fxml"));
-//        try {
-//            Parent root = FXMLLoader.load(getClass().getResource("/view/Inicial.fxml"));
-//        } catch (IOException ex) {
-//            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+//        //Acceder a usuario de inicial
+//        FXMLLoader loaderIni = new FXMLLoader(getClass().getResource("/view/Inicial.fxml"));
+////        try {
+////            Parent root = FXMLLoader.load(getClass().getResource("/view/Inicial.fxml"));
+////        } catch (IOException ex) {
+////            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+////        }
 //        InicialController controladorInicial = loaderIni.getController();
 //        if (controladorInicial.isUserLoged()) {
 //            usuario = controladorInicial.getUser();
@@ -78,9 +78,9 @@ public class PrincipalController implements Initializable {
 //                usuario = controladorRegistro.getUser();
 //            }
 //        }
-//        
-//        imgUsuario.setImage(usuario.getAvatar());
-//        usuarioLAB.setText(usuario.getNickName());
+        
+        imgUsuario.setImage(usuario.getAvatar());
+        usuarioLAB.setText(usuario.getNickName());
     }    
 
     @FXML
@@ -123,4 +123,7 @@ public class PrincipalController implements Initializable {
         
     }
     
+    void setUsuario(User user){
+        usuario = user;
+    }
 }

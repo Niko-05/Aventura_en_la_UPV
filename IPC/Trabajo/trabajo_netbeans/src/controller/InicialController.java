@@ -91,8 +91,9 @@ public class InicialController implements Initializable {
             } else {
                 loged = true;
                 usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
-                sleep(1000);
-                Parent root = FXMLLoader.load(getClass().getResource("/view/Principal.fxml"));
+                //sleep(1000);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Principal.fxml"));
+                Parent root = loader.load();
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 double prevWidth = stage.getWidth();
@@ -100,7 +101,12 @@ public class InicialController implements Initializable {
                 stage.setHeight(prevHeight);
                 stage.setWidth(prevWidth);
                 stage.setTitle("Pestaña Principal");
+                
+                PrincipalController controladorPrin = loader.getController();
+//                controladorPrin.setUsuario(usuario);
+                
                 stage.setScene(scene);
+                controladorPrin.setUsuario(usuario);
                 
             }
         }else {errNomLab.setVisible(true);}
