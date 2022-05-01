@@ -1,0 +1,8 @@
+-Retirar controles de arriba del todo (file, edit ...)
+-Usar paleta colores pasada por dc
+-Usar fuente de letra "Segoe UI" con tamaño 15 para texto plano (no titulo)
+-Usar etiquetas "Text" para poner texto en la interfaz
+-Añadir "Text" a campos de rellenar texto
+-Margen entre borde cercano y elemento de 10 como mínimo e intentar mantener la cifra constante en toda la ventana
+-Labels error a tamaño 12
+
