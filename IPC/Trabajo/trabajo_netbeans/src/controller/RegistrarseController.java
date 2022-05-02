@@ -29,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Navegacion;
 import model.User;
@@ -172,19 +173,15 @@ public class RegistrarseController implements Initializable {
     private void buttAvatarAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChoseAvatar.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
-        stage.setTitle("Seleccion de avatar");
+        Stage stage = new Stage();
         stage.setScene(scene);
+        stage.setTitle("Modificar Persona");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
         
         ChoseAvatarController controladorAvatar = loader.getController();
-
-        stage.setScene(scene);
-        controladorAvatar.setRuta("/view/Registrarse.fxml");
+        if(controladorAvatar.getAvatar() != null) avatarField.setImage(controladorAvatar.getAvatar());
     }
 
     @FXML

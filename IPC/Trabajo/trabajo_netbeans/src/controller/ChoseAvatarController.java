@@ -60,6 +60,7 @@ public class ChoseAvatarController implements Initializable {
 
     private FileChooser selector = new FileChooser();
     private String ruta;
+
     /**
      * Initializes the controller class.
      */
@@ -72,69 +73,34 @@ public class ChoseAvatarController implements Initializable {
         buttonAvatar4.setToggleGroup(tGroup);
         buttonAvatarDef.setToggleGroup(tGroup);
         buttAvatarUpload.setToggleGroup(tGroup);
-        
+
         buttAvatarUpload.setDisable(true);
-        
 
-
-        
-                
         // TODO
         buttonAvatar1.getToggleGroup().selectedToggleProperty().addListener((obs, preV, newV) -> {
             avatar.setImage(getSelected());
-            
+
         });
-        
-        
+
     }
 
     @FXML
     private void cancelarAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
-        if ("/view/Registrarse.fxml".equals(ruta)) {
-            stage.setTitle("Pestaña Registrarse");
-            stage.setScene(scene);
-        }
+        
+        avatar.setImage(null);
+        ((Stage) buttonAvatar1.getScene().getWindow()).close();
+        
     }
 
     @FXML
     private void aceptarAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
 
-        if ("/view/Registrarse.fxml".equals(ruta)) {
-            stage.setTitle("Pestaña Registrarse");
-            RegistrarseController controladorReg = loader.getController();
-            stage.setScene(scene);
-            controladorReg.setAvatar(avatar.getImage());
-        }
-        
-        if ("/view/ModificarPerfil.fxml".equals(ruta)) {
-            stage.setTitle("Modificar Perfil");
-            ModPerfilController controladorMod = loader.getController();
-            stage.setScene(scene);
-            controladorMod.setAvatar(avatar.getImage());
-        }
-        
-        
-        
+        ((Stage) buttonAvatar1.getScene().getWindow()).close();
+
     }
 
-    @FXML
-    private void importarAction(ActionEvent event) {
+@FXML
+private void importarAction(ActionEvent event) {
         selector.setTitle("Avatar Selector");
         selector.setInitialDirectory(new File(System.getProperty("user.home")));
         selector.getExtensionFilters().clear();
@@ -165,5 +131,9 @@ public class ChoseAvatarController implements Initializable {
     
     public void setRuta(String ruta){
         this.ruta = ruta;
+    }
+    
+    Image getAvatar(){
+    return avatar.getImage();
     }
 }

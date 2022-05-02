@@ -96,7 +96,6 @@ public class PrincipalController implements Initializable {
                 stage.setTitle("Pestaña Principal");
                 
                 ModPerfilController controladorModPerfil = loader.getController();
-//                controladorPrin.setUsuario(usuario);
                 
                 stage.setScene(scene);
                 controladorModPerfil.setUsuario(usuario);

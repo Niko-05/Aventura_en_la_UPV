@@ -5,6 +5,7 @@
  */
 package controller;
 
+import DBAccess.NavegacionDAOException;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.net.URL;
@@ -29,6 +30,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
@@ -137,8 +139,5 @@ public class InicialController implements Initializable {
         stage.setTitle("Pestaña registrarse");
         stage.setScene(scene);
     }
-
- 
-   
 }
 
