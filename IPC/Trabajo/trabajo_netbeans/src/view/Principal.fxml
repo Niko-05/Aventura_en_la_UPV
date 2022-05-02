@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="controller.PrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx" fx:controller="controller.PrincipalController">
    <children>
       <ImageView fx:id="imgUsuario" fitHeight="100.0" fitWidth="115.0" layoutX="471.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="buttonModPerfil" layoutX="50.0" layoutY="110.0" mnemonicParsing="false" onAction="#modPerfilAction" text="Mod Perfil" />

@@ -26,6 +26,7 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -79,6 +80,9 @@ public class RegistrarseController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        avatarField.setPreserveRatio(false);
+        avatarField.resize(50, 50);
         
         // Esconder mensajes de error
         errNomLab.setVisible(false);
@@ -165,7 +169,22 @@ public class RegistrarseController implements Initializable {
     }    
 
     @FXML
-    private void buttAvatarAction(ActionEvent event) {
+    private void buttAvatarAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChoseAvatar.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        double prevWidth = stage.getWidth();
+        double prevHeight = stage.getHeight();
+        stage.setHeight(prevHeight);
+        stage.setWidth(prevWidth);
+        stage.setTitle("Seleccion de avatar");
+        stage.setScene(scene);
+        
+        ChoseAvatarController controladorAvatar = loader.getController();
+
+        stage.setScene(scene);
+        controladorAvatar.setRuta("/view/Registrarse.fxml");
     }
 
     @FXML
@@ -213,10 +232,7 @@ public class RegistrarseController implements Initializable {
         stage.setScene(scene);
     }
     
-    public User getUser(){
-        return usuario;
-    }
-    public boolean isUserRegistered(){
-        return registered;
+    public void setAvatar(Image avatar){
+        avatarField.setImage(avatar);
     }
 }
