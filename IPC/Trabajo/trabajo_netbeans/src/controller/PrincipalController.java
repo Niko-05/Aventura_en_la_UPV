@@ -26,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Navegacion;
 import model.User;
 
 /**
@@ -83,8 +84,24 @@ public class PrincipalController implements Initializable {
     }    
 
     @FXML
-    private void modPerfilAction(ActionEvent event) {
-    }
+    private void modPerfilAction(ActionEvent event) throws IOException {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModificarPerfil.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                double prevWidth = stage.getWidth();
+                double prevHeight = stage.getHeight();
+                stage.setHeight(prevHeight);
+                stage.setWidth(prevWidth);
+                stage.setTitle("Pestaña Principal");
+                
+                ModPerfilController controladorModPerfil = loader.getController();
+//                controladorPrin.setUsuario(usuario);
+                
+                stage.setScene(scene);
+                controladorModPerfil.setUsuario(usuario);
+//                
+            }
 
     @FXML
     private void listaProblmAction(ActionEvent event) {
@@ -100,7 +117,6 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void cerrarSesionAction(ActionEvent event) throws IOException {
-        
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.initStyle(StageStyle.UTILITY);
         alerta.setTitle("Confirmacion");
@@ -119,7 +135,6 @@ public class PrincipalController implements Initializable {
             stage.setScene(scene);
 
         }
-        
     }
     
     void setUsuario(User user){
