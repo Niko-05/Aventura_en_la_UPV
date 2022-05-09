@@ -5,4 +5,3 @@
 -Añadir "Text" a campos de rellenar texto
 -Margen entre borde cercano y elemento de 10 como mínimo e intentar mantener la cifra constante en toda la ventana
 -Labels error a tamaño 12
-
