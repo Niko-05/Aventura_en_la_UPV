@@ -6,8 +6,17 @@
   -fx-background-color: #3D405B;
   -fx-background-radius: 999px;
   -fx-text-fill: #F2CC8F;
-  -fx-font: 12pt "Segoe UI";
+  -fx-font: 14pt "Segoe UI";
   -fx-line-height: 24px;
   -fx-padding: 8px 10px;
 
+}
+
+#cerrar_sesion{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #3D405B;
+    -fx-font: bold 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
 }

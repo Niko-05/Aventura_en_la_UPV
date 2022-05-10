@@ -8,16 +8,17 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrincipalController">
    <children>
-      <ImageView fx:id="imgUsuario" fitHeight="100.0" fitWidth="115.0" layoutX="471.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="buttonModPerfil" layoutX="50.0" layoutY="110.0" mnemonicParsing="false" onAction="#modPerfilAction" text="Mod Perfil" />
-      <Button fx:id="buttListProblm" layoutX="242.0" layoutY="98.0" mnemonicParsing="false" onAction="#listaProblmAction" text="Lista de Problemas" />
-      <Button fx:id="buttProblAuto" layoutX="234.0" layoutY="156.0" mnemonicParsing="false" onAction="#problAutoAction" text="Problema Automatico" />
-      <Button fx:id="buttVerResult" layoutX="254.0" layoutY="216.0" mnemonicParsing="false" onAction="#verResultAction" text="Ver resultados" />
-      <Button fx:id="buttonCerrarSesion" layoutX="50.0" layoutY="46.0" mnemonicParsing="false" onAction="#cerrarSesionAction" stylesheets="@../../../estilo.css" text="Cerrar sesion" />
-      <Label fx:id="usuarioLAB" layoutX="420.0" layoutY="151.0" text="nombre usuario">
+      <ImageView id="avatar" fx:id="imgUsuario" fitHeight="150.0" fitWidth="162.0" layoutX="421.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="buttonModPerfil" layoutX="455.0" layoutY="315.0" mnemonicParsing="false" onAction="#modPerfilAction" text="Mod Perfil" />
+      <Button fx:id="buttListProblm" layoutX="199.0" layoutY="105.0" mnemonicParsing="false" onAction="#listaProblmAction" prefHeight="39.0" prefWidth="201.0" text="Lista de Problemas" />
+      <Button fx:id="buttProblAuto" layoutX="199.0" layoutY="170.0" mnemonicParsing="false" onAction="#problAutoAction" text="Problema Automatico" />
+      <Button fx:id="buttVerResult" layoutX="199.0" layoutY="233.0" mnemonicParsing="false" onAction="#verResultAction" prefHeight="39.0" prefWidth="201.0" text="Ver resultados" />
+      <Button id="cerrar_sesion" fx:id="buttonCerrarSesion" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#cerrarSesionAction" prefHeight="35.0" prefWidth="107.0" stylesheets="@../../../estilo.css" text="Cerrar sesion" />
+      <Label fx:id="usuarioLAB" layoutX="418.0" layoutY="263.0" text="nombre usuario">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <ImageView id="logo" fitHeight="150.0" fitWidth="168.0" layoutX="21.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
