@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -36,8 +37,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import model.Navegacion;
 import model.User;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -139,5 +142,21 @@ public class InicialController implements Initializable {
         stage.setTitle("Pestaña registrarse");
         stage.setScene(scene);
     }
+
+    @FXML
+    private void pruebas(ActionEvent event) {
+        
+        
+        System.out.print((int) Math.floor(Math.random()*(10-0+1)+0));
+                
+        
+//        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+//        alerta.initStyle(StageStyle.TRANSPARENT);
+//        alerta.setTitle("Confirmacion");
+//        alerta.setContentText("Se ha registrado el usuario correctamente");
+//        alerta.show();
+    }
+    
+    
 }
 
