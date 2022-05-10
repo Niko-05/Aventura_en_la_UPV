@@ -5,15 +5,14 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="controller.TestController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TestController">
    <children>
       <RadioButton fx:id="Respuesta_1" layoutX="120.0" layoutY="192.0" mnemonicParsing="false" text="Respuesta 1" />
       <RadioButton fx:id="Respuesta_2" layoutX="120.0" layoutY="257.0" mnemonicParsing="false" text="Respuesta 2" />
       <RadioButton fx:id="Respuesta_3" layoutX="120.0" layoutY="312.0" mnemonicParsing="false" text="Respuesta 3" />
       <Label fx:id="preguntaField" contentDisplay="TOP" layoutX="99.0" layoutY="48.0" prefHeight="120.0" prefWidth="403.0" text="PreguntaPreguntaPreguntaPreguntaPreguntaPreguntaPreguntaPreguntaPreguntaPreguntaPregunta" textAlignment="JUSTIFY" wrapText="true" />
       <Button layoutX="22.0" layoutY="36.0" mnemonicParsing="false" onAction="#backAction" text="Back" />
-      <Button layoutX="502.0" layoutY="351.0" mnemonicParsing="false" onAction="#siguienteAction" text="Siguiente" />
+      <Button fx:id="siguienteButton" layoutX="502.0" layoutY="351.0" mnemonicParsing="false" onAction="#siguienteAction" text="Siguiente" />
       <Button fx:id="comprobarButton" layoutX="409.0" layoutY="351.0" mnemonicParsing="false" onAction="#comprobarAction" text="Comprobar" />
       <Label layoutX="106.0" layoutY="355.0" text="Aciertos:" />
       <Label fx:id="aciertosLabel" layoutX="159.0" layoutY="355.0" text="0" />

@@ -84,30 +84,43 @@ public class PrincipalController implements Initializable {
             }
 
     @FXML
-    private void listaProblmAction(ActionEvent event) {
-        System.out.println(aciertos);
-        System.out.println(fallos);
+    private void listaProblmAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        double prevWidth = stage.getWidth();
+        double prevHeight = stage.getHeight();
+        stage.setHeight(prevHeight);
+        stage.setWidth(prevWidth);
+        stage.setTitle("Elegir problemas");
+
+        ElegirProblemaController controladorTest = loader.getController();
+
+        stage.setScene(scene);
+        controladorTest.setUsuario(usuario);
+        controladorTest.setResultados(aciertos, fallos);
     }
 
     @FXML
     private void problAutoAction(ActionEvent event) throws IOException {
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Test.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                double prevWidth = stage.getWidth();
-                double prevHeight = stage.getHeight();
-                stage.setHeight(prevHeight);
-                stage.setWidth(prevWidth);
-                stage.setTitle("Resolucion de problemas");
-                
-                TestController controladorTest = loader.getController();
-                
-                stage.setScene(scene);
-                controladorTest.setUsuario(usuario);
-                controladorTest.setResultados(aciertos, fallos);
-                controladorTest.setRandomness(true);
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        double prevWidth = stage.getWidth();
+        double prevHeight = stage.getHeight();
+        stage.setHeight(prevHeight);
+        stage.setWidth(prevWidth);
+        stage.setTitle("Resolucion de problemas");
+
+        TestController controladorTest = loader.getController();
+
+        stage.setScene(scene);
+        controladorTest.setUsuario(usuario);
+        controladorTest.setResultados(aciertos, fallos);
+        controladorTest.setRandomness(true);
         
         
     }
