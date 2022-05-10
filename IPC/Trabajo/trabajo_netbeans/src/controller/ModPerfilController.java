@@ -59,6 +59,8 @@ public class ModPerfilController implements Initializable {
     private Button buttonAceptar;
     
     private User usuario;
+    private int fallos;
+    private int aciertos;
 
     /**
      * Initializes the controller class.
@@ -71,20 +73,21 @@ public class ModPerfilController implements Initializable {
     @FXML
     private void buttonBack(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Principal.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                double prevWidth = stage.getWidth();
-                double prevHeight = stage.getHeight();
-                stage.setHeight(prevHeight);
-                stage.setWidth(prevWidth);
-                stage.setTitle("Pestaña Principal");
-                
-                PrincipalController controladorPrin = loader.getController();
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        double prevWidth = stage.getWidth();
+        double prevHeight = stage.getHeight();
+        stage.setHeight(prevHeight);
+        stage.setWidth(prevWidth);
+        stage.setTitle("Pestaña Principal");
+
+        PrincipalController controladorPrin = loader.getController();
 //                controladorPrin.setUsuario(usuario);
-                
-                stage.setScene(scene);
-                controladorPrin.setUsuario(usuario);
+
+        stage.setScene(scene);
+        controladorPrin.setUsuario(usuario);
+        controladorPrin.setResultados(aciertos, fallos);
     }
 
     @FXML
@@ -105,12 +108,18 @@ public class ModPerfilController implements Initializable {
 
     @FXML
     private void buttAceptarAction(ActionEvent event) {
+        
     }
     
      void setUsuario(User user){
         usuario = user;
     }
-     public void setAvatar(Image avatar){
+     public void setAvatar(Image avatar) {
         avatarField.setImage(avatar);
+    }
+
+    void setResultados(int a, int f) {
+        aciertos = a;
+        fallos = f;
     }
 }

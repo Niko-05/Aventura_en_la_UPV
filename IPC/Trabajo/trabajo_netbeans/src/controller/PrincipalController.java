@@ -53,33 +53,13 @@ public class PrincipalController implements Initializable {
 
     
     private User usuario;
+    private int fallos;
+    private int aciertos;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-//        //Acceder a usuario de inicial
-//        FXMLLoader loaderIni = new FXMLLoader(getClass().getResource("/view/Inicial.fxml"));
-////        try {
-////            Parent root = FXMLLoader.load(getClass().getResource("/view/Inicial.fxml"));
-////        } catch (IOException ex) {
-////            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-////        }
-//        InicialController controladorInicial = loaderIni.getController();
-//        if (controladorInicial.isUserLoged()) {
-//            usuario = controladorInicial.getUser();
-//            System.out.print("------\nfunciona\n-------");
-//        } else {
-//
-//            //Acceder al usuario registrado
-//            FXMLLoader loaderReg = new FXMLLoader(getClass().getResource("/view/Registrarse.fxml"));
-//            RegistrarseController controladorRegistro = loaderReg.getController();
-//            if (controladorRegistro.isUserRegistered()) {
-//                usuario = controladorRegistro.getUser();
-//            }
-//        }
-        
         
     }    
 
@@ -93,21 +73,43 @@ public class PrincipalController implements Initializable {
                 double prevHeight = stage.getHeight();
                 stage.setHeight(prevHeight);
                 stage.setWidth(prevWidth);
-                stage.setTitle("Pestaña Principal");
+                stage.setTitle("Modificar Perfil");
                 
                 ModPerfilController controladorModPerfil = loader.getController();
                 
                 stage.setScene(scene);
                 controladorModPerfil.setUsuario(usuario);
+                controladorModPerfil.setResultados(aciertos, fallos);
 //                
             }
 
     @FXML
     private void listaProblmAction(ActionEvent event) {
+        System.out.println(aciertos);
+        System.out.println(fallos);
     }
 
     @FXML
-    private void problAutoAction(ActionEvent event) {
+    private void problAutoAction(ActionEvent event) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Test.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                double prevWidth = stage.getWidth();
+                double prevHeight = stage.getHeight();
+                stage.setHeight(prevHeight);
+                stage.setWidth(prevWidth);
+                stage.setTitle("Resolucion de problemas");
+                
+                TestController controladorTest = loader.getController();
+                
+                stage.setScene(scene);
+                controladorTest.setUsuario(usuario);
+                controladorTest.setResultados(aciertos, fallos);
+                controladorTest.setRandomness(true);
+        
+        
     }
 
     @FXML
@@ -140,5 +142,10 @@ public class PrincipalController implements Initializable {
         usuario = user;
         imgUsuario.setImage(usuario.getAvatar());
         usuarioLAB.setText(usuario.getNickName());
+    }
+    
+    void setResultados(int a, int f){
+        aciertos = a;
+        fallos = f;
     }
 }
