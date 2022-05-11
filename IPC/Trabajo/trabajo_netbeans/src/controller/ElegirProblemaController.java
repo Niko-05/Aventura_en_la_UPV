@@ -63,7 +63,7 @@ public class ElegirProblemaController implements Initializable {
             problemas = Navegacion.getSingletonNavegacion().getProblems();
         } catch (NavegacionDAOException ex) {}
         
-        ArrayList<String> problemasList = new ArrayList<String>();
+        List<String> problemasList = new ArrayList<String>();
         for(int i = 0; i < problemas.size(); i++){
             problemasList.add(problemas.get(i).getText());
         

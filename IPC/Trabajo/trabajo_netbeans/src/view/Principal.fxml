@@ -8,22 +8,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane id="border_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="border_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrincipalController">
    <center>
       <VBox prefHeight="298.0" prefWidth="246.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="201.0" text="Lista de Problemas">
+            <Button mnemonicParsing="false" onAction="#listaProblmAction" prefHeight="40.0" prefWidth="201.0" text="Lista de Problemas">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="201.0" text="Problema Automático">
+            <Button mnemonicParsing="false" onAction="#problAutoAction" prefHeight="40.0" prefWidth="201.0" text="Problema Automático">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="201.0" text="Ver Resultados">
+            <Button mnemonicParsing="false" onAction="#resultadosAction" prefHeight="40.0" prefWidth="201.0" text="Ver Resultados">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
@@ -37,7 +36,7 @@
    <top>
       <HBox prefHeight="71.0" prefWidth="570.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="cerrar_sesion" mnemonicParsing="false" text="Cerrar Sesión" />
+            <Button id="cerrar_sesion" mnemonicParsing="false" onAction="#cerrarSesionAction" text="Cerrar Sesión" />
          </children>
          <BorderPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -58,17 +57,17 @@
    <right>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgUsuario" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </ImageView>
-            <Label prefHeight="24.0" prefWidth="182.0" text="Nombre de Usuario">
+            <Label fx:id="usuarioLAB" prefHeight="24.0" prefWidth="182.0" text="Nombre de Usuario">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Button mnemonicParsing="false" text="Modificar Perfil">
+            <Button mnemonicParsing="false" onAction="#modPerfilAction" text="Modificar Perfil">
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>

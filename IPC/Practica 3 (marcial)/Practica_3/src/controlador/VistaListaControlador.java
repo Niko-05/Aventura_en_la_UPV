@@ -42,6 +42,9 @@ public class VistaListaControlador implements Initializable {
     @FXML
     private Button bModificar;
     
+    
+    private ObservableList<Persona> datos = null; // Colecci�n vinculada a la vista.
+    
     @FXML void addAccion(ActionEvent event) {
         // añade a la colección si los campos no son vacíos y no contienen únicamente blancos
          if ((!textFieldfxID.getText().isEmpty())
@@ -60,9 +63,10 @@ public class VistaListaControlador implements Initializable {
     @FXML void borrarAccion(ActionEvent event) {
     	int i = vistadeListafxID.getSelectionModel().getSelectedIndex();
     	if (i>=0) datos.remove(i);
+//        while(datos.size() > 0){datos.remove(0);}
     }
 	
-	private ObservableList<Persona> datos = null; // Colecci�n vinculada a la vista.
+	
 	
 	
 
@@ -77,6 +81,11 @@ public class VistaListaControlador implements Initializable {
 		ArrayList<Persona> misdatos = new ArrayList<Persona>();
 		misdatos.add(new Persona("Pepe", "García"));
 		misdatos.add(new Persona("María", "Pérez"));
+                misdatos.add(new Persona("1", "12"));
+                misdatos.add(new Persona("2", "21"));
+                misdatos.add(new Persona("3", "31"));
+                misdatos.add(new Persona("4", "41"));
+                
 		datos = FXCollections.observableArrayList(misdatos);
 		vistadeListafxID.setItems(datos); // vinculaci�n entre la vista y el modelo
                 
@@ -132,7 +141,22 @@ public class VistaListaControlador implements Initializable {
             });
             labelSELECTED.setText("None");
 
-		
+            
+            //limitar botones
+		vistadeListafxID.getSelectionModel().selectedIndexProperty().addListener((o, oldVal, newVal) -> {
+                if (newVal.intValue() == vistadeListafxID.getItems().size()-1) {
+                    bBajar.setDisable(true);
+                    bSubir.setDisable(false);
+                } else {
+                    bBajar.setDisable(false);
+                }
+                if(newVal.intValue() == 0){
+                    bBajar.setDisable(false);
+                    bSubir.setDisable(true);
+                } else {
+                    bSubir.setDisable(false);
+                }
+            });
 	}
 
     @FXML

@@ -5,8 +5,11 @@
  */
 package controller;
 
+import DBAccess.NavegacionDAOException;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Navegacion;
+import model.Session;
 import model.User;
 
 /**
@@ -38,16 +42,6 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private ImageView imgUsuario;
-    @FXML
-    private Button buttonModPerfil;
-    @FXML
-    private Button buttListProblm;
-    @FXML
-    private Button buttProblAuto;
-    @FXML
-    private Button buttVerResult;
-    @FXML
-    private Button buttonCerrarSesion;
     @FXML
     private Label usuarioLAB;
 
@@ -125,9 +119,6 @@ public class PrincipalController implements Initializable {
         
     }
 
-    @FXML
-    private void verResultAction(ActionEvent event) {
-    }
 
     @FXML
     private void cerrarSesionAction(ActionEvent event) throws IOException {
@@ -160,5 +151,12 @@ public class PrincipalController implements Initializable {
     void setResultados(int a, int f){
         aciertos = a;
         fallos = f;
+    }
+
+    @FXML
+    private void resultadosAction(ActionEvent event) throws NavegacionDAOException {
+        Session prueba = new Session(LocalDateTime.now(),5,9);
+        usuario.addSession(prueba);
+        System.out.println("prueba");
     }
 }
