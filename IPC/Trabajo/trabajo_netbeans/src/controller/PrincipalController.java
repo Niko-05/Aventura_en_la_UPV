@@ -120,7 +120,7 @@ public class PrincipalController implements Initializable {
         stage.setScene(scene);
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
-        controladorTest.setRandomness(true);
+        controladorTest.setRandomnes(true);
         
         
     }

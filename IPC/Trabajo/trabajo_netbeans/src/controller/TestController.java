@@ -86,6 +86,7 @@ public class TestController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        
         comprobarButton.setDisable(true);
         siguienteButton.setDisable(true);
         
@@ -112,8 +113,9 @@ public class TestController implements Initializable {
             max = Navegacion.getSingletonNavegacion().getProblems().size() - 1;
         } catch (NavegacionDAOException ex) {}
 
-            if (random) setRandomProblem();
 
+            
+        
         // TODO
     }
 
@@ -264,8 +266,9 @@ public class TestController implements Initializable {
         aciertosLabel.setText(Integer.toString(aciertos));
     }
     
-    void setRandomness(boolean rdm) {
+    void setRandomnes(boolean rdm) {
         random = rdm;
+        setRandomProblem();
     }
     
     void setRandomness(boolean rdm,int prb) {
