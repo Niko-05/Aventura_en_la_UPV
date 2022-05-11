@@ -2,6 +2,44 @@
     -fx-background-color: #F4F1DE;
 }
 
+#Vbox_principal{
+    -fx-background-color: #F4F1DE;
+}
+
+#mas{
+    -fx-background-color: #3D405B;
+    -fx-text-fill: #F2CC8F;
+    -fx-font:bold 12pt "Segoe UI";
+    -fx-line-height: 24px;
+}
+
+#limpiar_carta{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #3D405B;
+    -fx-font: bold 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#ferru{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #E07A5F;
+    -fx-font: 14pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+.menu-button{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: bold 12pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
 .button{
   -fx-background-color: #3D405B;
   -fx-background-radius: 999px;
@@ -12,7 +50,18 @@
 
 }
 
+.radio-button{
+    -fx-font: 15pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+
 .label{
+    -fx-font: 14pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+#enunciado{
     -fx-font: 14pt "Segoe UI";
     -fx-text-fill: #3D405B;
 }

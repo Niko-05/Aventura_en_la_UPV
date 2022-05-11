@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
@@ -16,10 +18,27 @@
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
-            <Button mnemonicParsing="false" text="Login">
+            <MenuButton mnemonicParsing="false" prefHeight="80.0" text="Nombre Usuario" textFill="#f2cc8f">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
                <HBox.margin>
-                  <Insets bottom="4.0" left="4.0" top="4.0" />
-               </HBox.margin></Button>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </HBox.margin>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" prefHeight="80.0" text="Problemas" textFill="#f2cc8f">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+               <HBox.margin>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </HBox.margin>
+            </MenuButton>
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Zoom" />
             <Button id="mas" mnemonicParsing="false" onAction="#zoomOut" prefHeight="35.0" prefWidth="35.0" text="-" />
@@ -106,7 +125,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/eliminar.png" />
+                        <Image url="@../../iconos/gobernante.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -117,7 +136,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/gobernante.png" />
+                        <Image url="@../../iconos/eliminar.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
