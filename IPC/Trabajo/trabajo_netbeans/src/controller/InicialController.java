@@ -146,8 +146,26 @@ public class InicialController implements Initializable {
     @FXML
     private void pruebas(ActionEvent event) {
         
+//        Notifications notificationBuilder = Notifications.create()
+//                    .title("Confirmacion")
+//                    .text("Se ha registrado el usuario correctamente")
+//                    .graphic(null)
+//                    .hideAfter(Duration.seconds(5))
+//                    .position(Pos.BOTTOM_RIGHT);
+//
+//            Platform.runLater(() -> {
+//
+//                notificationBuilder.showInformation();
+//            });
+
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.initStyle(StageStyle.DECORATED);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("DNI: 652764243\nNombre: nfdsuhgiie");
+        alerta.showAndWait();
         
-        System.out.print((int) Math.floor(Math.random()*(10-0+1)+0));
+        
+//        System.out.print((int) Math.floor(Math.random()*(10-0+1)+0));
                 
         
 //        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
