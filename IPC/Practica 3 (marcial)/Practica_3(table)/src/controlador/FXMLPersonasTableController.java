@@ -8,6 +8,7 @@ package controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -56,7 +57,7 @@ public class FXMLPersonasTableController implements Initializable {
 
     
     private void inicializaModelo() {
-        ArrayList<Persona> misdatos = new ArrayList<Persona>();
+        List<Persona> misdatos = new ArrayList<Persona>();
         misdatos.add(new Persona("Pepe", "García","Valencia"));
         misdatos.add(new Persona("María", "Pérez","Madrid"));
         datos= FXCollections.observableList(misdatos);

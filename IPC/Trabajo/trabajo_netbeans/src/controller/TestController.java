@@ -43,6 +43,8 @@ import org.sqlite.date.FastDateFormat;
 public class TestController implements Initializable {
 
     @FXML
+    private RadioButton Respuesta_0;
+    @FXML
     private RadioButton Respuesta_1;
     @FXML
     private RadioButton Respuesta_2;
@@ -52,6 +54,7 @@ public class TestController implements Initializable {
     private Label preguntaField;
     
     
+    private boolean res0;
     private boolean res1;
     private boolean res2;
     private boolean res3;
@@ -79,6 +82,7 @@ public class TestController implements Initializable {
     
     
     
+    
 
     /**
      * Initializes the controller class.
@@ -96,9 +100,11 @@ public class TestController implements Initializable {
         
 
         ToggleGroup tGroup = new ToggleGroup();
+        Respuesta_0.setToggleGroup(tGroup);
         Respuesta_1.setToggleGroup(tGroup);
         Respuesta_2.setToggleGroup(tGroup);
         Respuesta_3.setToggleGroup(tGroup);
+        
         
 
        tGroup.selectedToggleProperty().addListener((obs, preV, newV) -> {
@@ -164,14 +170,17 @@ public class TestController implements Initializable {
         if(random){
             setRandomProblem();
             comprobarButton.setDisable(false);
+            Respuesta_0.setStyle("-fx-text-fill: black");
             Respuesta_1.setStyle("-fx-text-fill: black");
             Respuesta_2.setStyle("-fx-text-fill: black");
             Respuesta_3.setStyle("-fx-text-fill: black");
             
+            Respuesta_0.setSelected(false);
             Respuesta_1.setSelected(false);
             Respuesta_2.setSelected(false);
             Respuesta_3.setSelected(false);
 
+            Respuesta_0.setDisable(false);
             Respuesta_1.setDisable(false);
             Respuesta_2.setDisable(false);
             Respuesta_3.setDisable(false);
@@ -203,11 +212,13 @@ public class TestController implements Initializable {
         int num = (int) Math.floor(Math.random() * (max - min + 1) + min);
 
         preguntaField.setText(problemas.get(num).getText());
+        Respuesta_0.setText(problemas.get(num).getAnswers().get(0).getText());
         Respuesta_1.setText(problemas.get(num).getAnswers().get(1).getText());
         Respuesta_2.setText(problemas.get(num).getAnswers().get(2).getText());
         Respuesta_3.setText(problemas.get(num).getAnswers().get(3).getText());
         selectedProblem = num;
         
+        res0 = (problemas.get(num).getAnswers().get(0).getValidity());
         res1 = (problemas.get(num).getAnswers().get(1).getValidity());
         res2 = (problemas.get(num).getAnswers().get(2).getValidity());
         res3 = (problemas.get(num).getAnswers().get(3).getValidity());
@@ -221,7 +232,10 @@ public class TestController implements Initializable {
         //             fallos.setValue(fallos.get() + 1);
         //             aciertos.setValue(aciertos.get() + 1);
          // Comprobar Error
-         if (Respuesta_1.isSelected() && !res1) {
+         if (Respuesta_0.isSelected() && !res0) {
+             Respuesta_0.setStyle("-fx-text-fill: red");
+             fallos += 1;
+         } else if (Respuesta_1.isSelected() && !res1) {
              Respuesta_1.setStyle("-fx-text-fill: red");
              fallos += 1;
          } else if (Respuesta_2.isSelected() && !res2) {
@@ -231,6 +245,9 @@ public class TestController implements Initializable {
              Respuesta_3.setStyle("-fx-text-fill: red");
              fallos += 1;
              
+         } else if (Respuesta_0.isSelected() && res0) {
+             Respuesta_0.setStyle("-fx-text-fill: green");
+             aciertos += 1;
          } else if (Respuesta_1.isSelected() && res1) {
              Respuesta_1.setStyle("-fx-text-fill: green");
              aciertos += 1;
@@ -247,6 +264,7 @@ public class TestController implements Initializable {
          fallosLabel.setText(Integer.toString(fallos));
          aciertosLabel.setText(Integer.toString(aciertos));
          
+         Respuesta_0.setDisable(true);
          Respuesta_1.setDisable(true);
          Respuesta_2.setDisable(true);
          Respuesta_3.setDisable(true);
@@ -276,10 +294,12 @@ public class TestController implements Initializable {
         selectedProblem = prb;
       
         preguntaField.setText(problemas.get(selectedProblem).getText());
+        Respuesta_0.setText(problemas.get(selectedProblem).getAnswers().get(0).getText());
         Respuesta_1.setText(problemas.get(selectedProblem).getAnswers().get(1).getText());
         Respuesta_2.setText(problemas.get(selectedProblem).getAnswers().get(2).getText());
         Respuesta_3.setText(problemas.get(selectedProblem).getAnswers().get(3).getText());
 
+        res0 = (problemas.get(selectedProblem).getAnswers().get(0).getValidity());
         res1 = (problemas.get(selectedProblem).getAnswers().get(1).getValidity());
         res2 = (problemas.get(selectedProblem).getAnswers().get(2).getValidity());
         res3 = (problemas.get(selectedProblem).getAnswers().get(3).getValidity());

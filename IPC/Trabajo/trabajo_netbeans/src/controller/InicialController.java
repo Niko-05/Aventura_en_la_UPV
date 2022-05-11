@@ -158,14 +158,14 @@ public class InicialController implements Initializable {
 //                notificationBuilder.showInformation();
 //            });
 
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.initStyle(StageStyle.DECORATED);
-        alerta.setTitle("Confirmacion");
-        alerta.setHeaderText("DNI: 652764243\nNombre: nfdsuhgiie");
-        alerta.showAndWait();
+//        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+//        alerta.initStyle(StageStyle.DECORATED);
+//        alerta.setTitle("Confirmacion");
+//        alerta.setHeaderText("DNI: 652764243\nNombre: nfdsuhgiie");
+//        alerta.showAndWait();
         
         
-//        System.out.print((int) Math.floor(Math.random()*(10-0+1)+0));
+        System.out.print((int) Math.floor(Math.random()*(10-0+1)+0));
                 
         
 //        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
