@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="Vbox_principal" prefHeight="542.0" prefWidth="687.0" stylesheets="@../../estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="poiupv.FXMLDocumentController">
+<VBox id="Vbox_principal" prefHeight="542.0" prefWidth="687.0" stylesheets="@../../estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Mapa">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
-            <Button mnemonicParsing="false" text="Login">
+            <Button mnemonicParsing="false" onAction="#logInAction" text="Login">
                <HBox.margin>
                   <Insets bottom="4.0" left="4.0" top="4.0" />
                </HBox.margin></Button>
@@ -36,7 +36,7 @@
                <content>
                   <ImageView fitHeight="5760.0" fitWidth="8960.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../recursos_entrega/resources/carta_nautica.jpg" />
+                        <Image url="@../icons/carta_nautica.jpg" />
                      </image>
                   </ImageView>
                </content></ScrollPane>
@@ -44,85 +44,85 @@
       </SplitPane>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button id="ferru" mnemonicParsing="false">
+            <Button id="ferru" mnemonicParsing="false" onAction="#punteroAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/punto-de-alfiler.png" />
+                        <Image url="@../icons/punto-de-alfiler.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false">
+            <Button id="ferru" mnemonicParsing="false" onAction="#lineaAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/linea.png" />
+                        <Image url="@../icons/linea.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false">
+            <Button id="ferru" mnemonicParsing="false" onAction="#arcoAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/linea%20curva.png" />
+                        <Image url="@../icons/linea%20curva.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false">
+            <Button id="ferru" mnemonicParsing="false" onAction="#escribirAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/fuente.png" />
+                        <Image url="@../icons/fuente.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false">
+            <Button id="ferru" mnemonicParsing="false" onAction="#colorAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/pintar.png" />
+                        <Image url="@../icons/pintar.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false">
+            <Button id="ferru" mnemonicParsing="false" onAction="#reglaAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/eliminar.png" />
+                        <Image url="@../icons/gobernante.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false">
+            <Button id="ferru" mnemonicParsing="false" onAction="#eliminarAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../iconos/gobernante.png" />
+                        <Image url="@../icons/eliminar.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
             <Region prefHeight="67.0" prefWidth="94.0" />
-            <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" text="Limpiar Carta">
+            <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" text="Limpiar Carta">
                <HBox.margin>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                </HBox.margin>
