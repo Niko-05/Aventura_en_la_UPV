@@ -24,6 +24,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
@@ -45,6 +47,10 @@ public class Mapa implements Initializable {
     private ScrollPane map_scrollpane;
     private boolean crearLinea;
     private Line linePainting;
+    @FXML
+    private HBox botonesBox;
+    @FXML
+    private Region botonesRegion;
 
     /**
      * Initializes the controller class.
@@ -65,7 +71,11 @@ public class Mapa implements Initializable {
         map_scrollpane.setContent(contentGroup);
         zoom(0.15);
         
-        
+//        botonesBox.getScene().widthProperty().addListener((obs, oldV, newV) -> {
+//            botonesRegion.setLayoutX(newV.doubleValue());
+//        });
+//        botonesRegion.widthProperty().
+//        botonesBox.widthProperty().bind
         
     }    
 
@@ -193,7 +203,7 @@ public class Mapa implements Initializable {
                 zoomGroup.getChildren().remove((Node)e.getSource());
                 ev.consume();
             });
-            menuContext.show(linePainting, event.getSceneX(), event.getSceneY());
+            menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
 //            menuContext.sho
             e.consume();
         });

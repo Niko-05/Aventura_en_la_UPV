@@ -7,6 +7,7 @@ package controller;
 
 import DBAccess.NavegacionDAOException;
 import java.awt.Color;
+import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -27,6 +28,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import model.Answer;
@@ -40,7 +43,7 @@ import org.sqlite.date.FastDateFormat;
  *
  * @author marci
  */
-public class Test implements Initializable {
+public class VentanaResponder implements Initializable {
 
     @FXML
     private RadioButton Respuesta_0;
@@ -77,7 +80,18 @@ public class Test implements Initializable {
     private Label aciertosLabel;
     @FXML
     private Label fallosLabel;
+    @FXML
     private Button siguienteButton;
+    @FXML
+    private VBox ventanaPrincipal;
+    @FXML
+    private VBox hBoxPrincipal;
+    @FXML
+    private VBox vBoxEnunciado;
+    @FXML
+    private HBox hBoxAbajo1;
+    @FXML
+    private HBox hBoxAbajo2;
     
     
     
@@ -89,6 +103,20 @@ public class Test implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
+        
+            hBoxAbajo1.setPrefWidth((double) newV / 2);
+            hBoxAbajo2.setPrefWidth((double) newV / 2);
+
+            hBoxPrincipal.setPrefWidth((double) newV);
+        });
+        
+        ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
+        
+            hBoxPrincipal.setPrefHeight((double) newV);
+            vBoxEnunciado.setPrefHeight((double) newV / 2);
+        });
+        
         
         comprobarButton.setDisable(true);
         siguienteButton.setDisable(true);
@@ -96,7 +124,7 @@ public class Test implements Initializable {
         
 //        fallos.set(0);
 //        aciertos.set(0);
-        
+//        preguntaField.setFont(new Font(30.0));
 
         ToggleGroup tGroup = new ToggleGroup();
         Respuesta_0.setToggleGroup(tGroup);
@@ -120,11 +148,11 @@ public class Test implements Initializable {
 
 
             
-        
+        setRandomProblem();
+        random = true;
         // TODO
     }
 
-    @FXML
     private void backAction(ActionEvent event) throws IOException {
         if(random){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
@@ -163,6 +191,7 @@ public class Test implements Initializable {
         }
     }
 
+    @FXML
     private void siguienteAction(ActionEvent event) throws IOException {
         
         if(random){
@@ -302,6 +331,7 @@ public class Test implements Initializable {
         res2 = (problemas.get(selectedProblem).getAnswers().get(2).getValidity());
         res3 = (problemas.get(selectedProblem).getAnswers().get(3).getValidity());
     }
+
 
    
 }

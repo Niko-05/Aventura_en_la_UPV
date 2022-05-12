@@ -42,3 +42,6 @@ seleccionar elemento para eleminarlo o cambiar color
 mensajito al posarse en un boton
 eliminar submenu muy alejado
 al crear varios objetos no reconoce al primero
+
+action event para cerrar la ventana
+coger las ventanas abieertas y cerrarlas

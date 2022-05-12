@@ -6,6 +6,10 @@
     -fx-background-color: #F4F1DE;
 }
 
+#border-pane{
+    -fx-background-color: #F4F1DE;
+}
+
 #mas{
     -fx-background-color: #3D405B;
     -fx-text-fill: #F2CC8F;
@@ -58,8 +62,9 @@
 
 }
 
+
 .radio-button{
-    -fx-font: 10pt "Segoe UI";
+    -fx-font: 12pt "Segoe UI";
     -fx-text-fill: #3D405B;
 }
 
@@ -70,7 +75,7 @@
 }
 
 #enunciado{
-    -fx-font: 10pt "Segoe UI";
+    -fx-font: 13pt "Segoe UI";
     -fx-text-fill: #3D405B;
 }
 

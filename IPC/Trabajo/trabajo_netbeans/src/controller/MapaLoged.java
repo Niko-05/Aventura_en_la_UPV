@@ -139,19 +139,16 @@ public class MapaLoged implements Initializable {
 
     @FXML
     private void probAleatorioAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Test.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventanaResponder.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = new Stage();
         Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
         stage.setTitle("Resolucion de problemas");
 
-        Test controladorTest = loader.getController();
+        VentanaResponder controladorTest = loader.getController();
 
         stage.setScene(scene);
+        stage.show();
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
         controladorTest.setRandomnes(true);
