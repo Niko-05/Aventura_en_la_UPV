@@ -5,16 +5,22 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.User;
 
 /**
@@ -89,7 +95,22 @@ public class MapaLoged implements Initializable {
     }
 
     @FXML
-    private void modPerfilAction(ActionEvent event) {
+    private void modPerfilAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModificarPerfil.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                double prevWidth = stage.getWidth();
+                double prevHeight = stage.getHeight();
+                stage.setHeight(prevHeight);
+                stage.setWidth(prevWidth);
+                stage.setTitle("Modificar Perfil");
+                
+                ModPerfil controladorModPerfil = loader.getController();
+                
+                stage.setScene(scene);
+                controladorModPerfil.setUsuario(usuario);
+                controladorModPerfil.setResultados(aciertos, fallos);
     }
 
     @FXML
@@ -97,11 +118,42 @@ public class MapaLoged implements Initializable {
     }
 
     @FXML
-    private void probListAction(ActionEvent event) {
+    private void probListAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        double prevWidth = stage.getWidth();
+        double prevHeight = stage.getHeight();
+        stage.setHeight(prevHeight);
+        stage.setWidth(prevWidth);
+        stage.setTitle("Elegir problemas");
+
+        ElegirProblema controladorTest = loader.getController();
+
+        stage.setScene(scene);
+        controladorTest.setUsuario(usuario);
+        controladorTest.setResultados(aciertos, fallos);
     }
 
     @FXML
-    private void probAleatorioAction(ActionEvent event) {
+    private void probAleatorioAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Test.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        double prevWidth = stage.getWidth();
+        double prevHeight = stage.getHeight();
+        stage.setHeight(prevHeight);
+        stage.setWidth(prevWidth);
+        stage.setTitle("Resolucion de problemas");
+
+        Test controladorTest = loader.getController();
+
+        stage.setScene(scene);
+        controladorTest.setUsuario(usuario);
+        controladorTest.setResultados(aciertos, fallos);
+        controladorTest.setRandomnes(true);
     }
 
     @FXML

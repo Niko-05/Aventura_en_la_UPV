@@ -12,18 +12,18 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="Vbox_principal" prefHeight="542.0" prefWidth="687.0" stylesheets="@../../estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Mapa">
+<VBox id="Vbox_principal" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../../estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Mapa">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
-            <Button mnemonicParsing="false" onAction="#logInAction" text="Login">
+            <Button minWidth="50.0" mnemonicParsing="false" onAction="#logInAction" prefHeight="39.0" prefWidth="70.0" text="Login">
                <HBox.margin>
                   <Insets bottom="4.0" left="4.0" top="4.0" />
                </HBox.margin></Button>
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Zoom" />
             <Button id="mas" mnemonicParsing="false" onAction="#zoomOut" prefHeight="35.0" prefWidth="35.0" text="-" />
-            <Slider fx:id="zoom_slider" prefHeight="14.0" prefWidth="98.0" HBox.hgrow="SOMETIMES" />
+            <Slider fx:id="zoom_slider" max="6000.0" min="800.0" prefHeight="14.0" prefWidth="400.0" HBox.hgrow="SOMETIMES" />
             <Button id="mas" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="35.0" prefWidth="35.0" text="+" />
          </children>
          <VBox.margin>
@@ -34,7 +34,7 @@
          <items>
             <ScrollPane fx:id="map_scrollpane" hbarPolicy="ALWAYS" onMouseMoved="#muestraPosicion" pannable="true" prefHeight="430.0" prefWidth="411.0" vbarPolicy="ALWAYS">
                <content>
-                  <ImageView fitHeight="5760.0" fitWidth="8960.0" pickOnBounds="true">
+                  <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/carta_nautica.jpg" />
                      </image>
