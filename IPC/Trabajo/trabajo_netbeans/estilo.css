@@ -25,12 +25,20 @@
 #ferru{
     -fx-background-color: #81B29A;
     -fx-background-radius: 999px;
-    -fx-text-fill: #E07A5F;
+    -fx-text-fill: #F2CC8F;
     -fx-font: 14pt "Segoe UI";
     -fx-line-height: 24px;
     -fx-padding: 8px 10px;
 }
 
+#atras{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 14pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
 .menu-button{
     -fx-background-color: #81B29A;
     -fx-background-radius: 999px;
@@ -51,7 +59,7 @@
 }
 
 .radio-button{
-    -fx-font: 15pt "Segoe UI";
+    -fx-font: 13pt "Segoe UI";
     -fx-text-fill: #3D405B;
 }
 

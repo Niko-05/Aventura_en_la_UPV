@@ -67,6 +67,7 @@
       </SplitPane>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
+            <Region prefHeight="67.0" prefWidth="52.0" />
             <Button id="ferru" mnemonicParsing="false" onAction="#punteroAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
@@ -144,7 +145,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Region prefHeight="67.0" prefWidth="94.0" />
+            <Region prefHeight="67.0" prefWidth="35.0" />
             <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" text="Limpiar Carta">
                <HBox.margin>
                   <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
