@@ -14,8 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox id="Vbox_principal" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Mapa">
+<VBox id="Vbox_principal" fx:id="ventanaPrincipal" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Mapa">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -58,7 +59,6 @@
       </SplitPane>
       <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Region fx:id="botonesRegion" prefHeight="200.0" prefWidth="200.0" />
             <Button id="ferru" mnemonicParsing="false" onAction="#punteroAction">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
@@ -136,16 +136,24 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Region prefHeight="67.0" prefWidth="94.0" />
-            <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" text="Limpiar Carta">
-               <HBox.margin>
-                  <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-               </HBox.margin>
-            </Button>
-            <Region fx:id="botonesRegion" prefHeight="200.0" prefWidth="200.0" />
+            <HBox fx:id="hboxClear" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" text="Limpiar Carta" textAlignment="JUSTIFY">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets right="50.0" />
+               </padding>
+            </HBox>
          </children>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
          </padding>
       </HBox>
    </children>

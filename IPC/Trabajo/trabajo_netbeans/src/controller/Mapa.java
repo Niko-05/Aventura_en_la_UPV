@@ -26,6 +26,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
@@ -50,13 +51,20 @@ public class Mapa implements Initializable {
     @FXML
     private HBox botonesBox;
     @FXML
-    private Region botonesRegion;
+    private VBox ventanaPrincipal;
+    @FXML
+    private HBox hboxClear;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
+            botonesBox.setSpacing((double) newV / 25);
+            hboxClear.setPrefWidth((double) newV);
+        });
         
         zoom_slider.setMin(0.1);
         zoom_slider.setMax(1.3);
