@@ -121,7 +121,7 @@ public class MapaLoged implements Initializable {
     private void probListAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = new Stage();
         Scene scene = new Scene(root);
         double prevWidth = stage.getWidth();
         double prevHeight = stage.getHeight();
@@ -132,6 +132,7 @@ public class MapaLoged implements Initializable {
         ElegirProblema controladorTest = loader.getController();
 
         stage.setScene(scene);
+        stage.show();
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
     }

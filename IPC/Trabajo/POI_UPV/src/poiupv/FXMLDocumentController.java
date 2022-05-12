@@ -26,6 +26,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import static javafx.scene.paint.Color.color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import poiupv.Poi;
@@ -56,6 +57,10 @@ public class FXMLDocumentController implements Initializable {
     private MenuItem pin_info;
     @FXML
     private Label posicion;
+    @FXML
+    private MenuButton map_pin1;
+    @FXML
+    private MenuItem pin_info1;
 
     @FXML
     void zoomIn(ActionEvent event) {
@@ -122,6 +127,11 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+//        map_pin1.getStyleClass().addAll("-fx - background - color: #81B29A -fx - background - radius: 999px -fx - text - fill: #F2CC8F -fx - line - height: 24px -fx - padding: 8px 10px");
+        map_pin1.setVisible(true);
+        map_pin.getStyleClass().addAll(map_pin.getStyleClass().toString());
+
         // TODO
         initData();
         //==========================================================

@@ -37,3 +37,8 @@ darle al enter para iniciar sesion
 
 tienen que salir todos los problemas al menos 1 vez antes de empezar a repetirse?
 se considera sesion durante todo el tiempo que el usuario este conectado?
+
+seleccionar elemento para eleminarlo o cambiar color
+mensajito al posarse en un boton
+eliminar submenu muy alejado
+al crear varios objetos no reconoce al primero
