@@ -78,7 +78,7 @@ public class ModPerfil implements Initializable {
 
     @FXML
     private void buttonBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Principal.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -86,9 +86,9 @@ public class ModPerfil implements Initializable {
         double prevHeight = stage.getHeight();
         stage.setHeight(prevHeight);
         stage.setWidth(prevWidth);
-        stage.setTitle("Pestaña Principal");
+        stage.setTitle("Mapa");
 
-        Principal controladorPrin = loader.getController();
+        MapaLoged controladorPrin = loader.getController();
 //                controladorPrin.setUsuario(usuario);
 
         stage.setScene(scene);

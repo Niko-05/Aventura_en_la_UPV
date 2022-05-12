@@ -59,7 +59,7 @@
                <content>
                   <ImageView fitHeight="5760.0" fitWidth="8960.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../recursos_entrega/resources/carta_nautica.jpg" />
+                        <Image url="@../icons/carta_nautica.jpg" />
                      </image>
                   </ImageView>
                </content></ScrollPane>

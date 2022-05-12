@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -31,13 +32,17 @@ public class Mapa implements Initializable {
     private Slider zoom_slider;
     @FXML
     private ScrollPane map_scrollpane;
+    @FXML
+    private ImageView cartaNautica;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        cartaNautica.setPreserveRatio(true);
+        cartaNautica.fitHeightProperty().bind(zoom_slider.valueProperty());
     }    
 
     @FXML

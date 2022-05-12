@@ -105,7 +105,7 @@ public class Inicial implements Initializable {
                 stage.setWidth(prevWidth);
                 stage.setTitle("Mapa");
                 
-                Principal controladorPrin = loader.getController();
+                MapaLoged controladorPrin = loader.getController();
 //                controladorPrin.setUsuario(usuario);
                 
                 stage.setScene(scene);
