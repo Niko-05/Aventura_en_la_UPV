@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -57,87 +58,80 @@
             </ScrollPane>
          </items>
       </SplitPane>
-      <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
          <children>
-            <Button id="ferru" mnemonicParsing="false" onAction="#punteroAction">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
+            <ToggleButton fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/punto-de-alfiler.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false" onAction="#lineaAction">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="lineaButton" mnemonicParsing="false" onAction="#lineaAction">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/linea.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false" onAction="#arcoAction">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="arcoButton" mnemonicParsing="false" onAction="#arcoButton">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/linea%20curva.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false" onAction="#escribirAction">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="escribirButton" mnemonicParsing="false" onAction="#escribirAction">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/fuente.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false" onAction="#colorAction">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/pintar.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false" onAction="#reglaAction">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/gobernante.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
-            <Button id="ferru" mnemonicParsing="false" onAction="#eliminarAction">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/eliminar.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <HBox fx:id="hboxClear" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               </graphic>
+            </ToggleButton>
+            <HBox fx:id="hboxClear" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="500.0">
                <children>
+                  <HBox fx:id="hboxabajo3" alignment="CENTER" prefHeight="56.0" prefWidth="300.0">
+                     <children>
+                        <ToggleButton fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/pintar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <ToggleButton fx:id="eliminarButton" mnemonicParsing="false" onAction="#eliminarAction">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/eliminar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
                   <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" text="Limpiar Carta" textAlignment="JUSTIFY">
                      <HBox.margin>
                         <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
@@ -157,4 +151,7 @@
          </padding>
       </HBox>
    </children>
+   <padding>
+      <Insets right="10.0" />
+   </padding>
 </VBox>

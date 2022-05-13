@@ -21,6 +21,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
@@ -36,24 +38,41 @@ import javafx.stage.Stage;
  * @author marci
  */
 public class Mapa implements Initializable {
+    
+    private boolean crearLinea;
+    private Line linePainting;
+    private double mousePosX;
+    private double mousePosY;
+    private Group zoomGroup;
 
     @FXML
     private Slider zoom_slider;
     @FXML
     private ImageView cartaNautica;
-    private double mousePosX;
-    private double mousePosY;
-    private Group zoomGroup;
     @FXML
     private ScrollPane map_scrollpane;
-    private boolean crearLinea;
-    private Line linePainting;
     @FXML
     private HBox botonesBox;
     @FXML
     private VBox ventanaPrincipal;
     @FXML
     private HBox hboxClear;
+    @FXML
+    private HBox hboxabajo3;
+    @FXML
+    private ToggleButton punteroButton;
+    @FXML
+    private ToggleButton lineaButton;
+    @FXML
+    private ToggleButton arcoButton;
+    @FXML
+    private ToggleButton escribirButton;
+    @FXML
+    private ToggleButton reglaButton;
+    @FXML
+    private ToggleButton colorButton;
+    @FXML
+    private ToggleButton eliminarButton;
 
     /**
      * Initializes the controller class.
@@ -61,10 +80,19 @@ public class Mapa implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        ToggleGroup tGroup = new ToggleGroup();
+        punteroButton.setToggleGroup(tGroup);
+        lineaButton.setToggleGroup(tGroup);
+        arcoButton.setToggleGroup(tGroup);
+        escribirButton.setToggleGroup(tGroup);
+        
         ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
             botonesBox.setSpacing((double) newV / 25);
             hboxClear.setPrefWidth((double) newV);
+            hboxabajo3.setPrefWidth((double) newV / 3);
+            hboxabajo3.setSpacing((double) newV / 25);
         });
+//        ventanaPrincipal.setMinHeight(600);
         
         zoom_slider.setMin(0.1);
         zoom_slider.setMax(1.3);
@@ -86,6 +114,18 @@ public class Mapa implements Initializable {
 //        botonesBox.widthProperty().bind
         
     }    
+    
+    
+    @FXML
+    private void logInAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Inicial.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setTitle("LogIn");
+            stage.setScene(scene);
+    }
 
     @FXML
     private void zoomOut(ActionEvent event) {
@@ -111,21 +151,22 @@ public class Mapa implements Initializable {
             map_scrollpane.setPannable(false);
 //        } else {crearLinea = false;}
     }
-
+    
     @FXML
-    private void arcoAction(ActionEvent event) {
+    private void arcoButton(ActionEvent event) {
     }
+
 
     @FXML
     private void escribirAction(ActionEvent event) {
     }
-
+    
     @FXML
-    private void colorAction(ActionEvent event) {
+    private void reglaAction(ActionEvent event) {
     }
 
     @FXML
-    private void reglaAction(ActionEvent event) {
+    private void colorAction(ActionEvent event) {
     }
 
     @FXML
@@ -136,16 +177,7 @@ public class Mapa implements Initializable {
     private void limpiarAction(ActionEvent event) {
     }
 
-    @FXML
-    private void logInAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Inicial.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("LogIn");
-            stage.setScene(scene);
-    }
+    
 
     @FXML
     private void getMousePosition(MouseEvent event) {
@@ -213,5 +245,7 @@ public class Mapa implements Initializable {
             e.consume();
         });
     }
+
+    
     
 }
