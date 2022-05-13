@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<HBox stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModPerfil">
+<HBox id="Vbox_principal" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModPerfil">
    <children>
       <VBox>
          <children>

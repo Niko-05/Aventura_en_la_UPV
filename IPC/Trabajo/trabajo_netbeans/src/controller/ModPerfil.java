@@ -9,7 +9,9 @@ import DBAccess.NavegacionDAOException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,16 +22,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Callback;
 import model.Navegacion;
 import model.User;
 
@@ -81,7 +91,7 @@ public class ModPerfil implements Initializable {
         avatarField.setImage(usuario.getAvatar());
         contraseñaLab.setText(usuario.getPassword());
         correoLab.setText(usuario.getEmail());
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
         nacimientoLab.setText(usuario.getBirthdate().format(formatters));
         // TODO
     }    
@@ -152,15 +162,92 @@ public class ModPerfil implements Initializable {
     }
 
     @FXML
-    private void modCorreoAction(ActionEvent event) {
+    private void modCorreoAction(ActionEvent event) throws NavegacionDAOException {
+        TextInputDialog textInput = new TextInputDialog();
+        textInput.setTitle("Modifica");
+        textInput.setHeaderText("Introduce el nuevo correo");
+//        textInput.getDialogPane().setContentText("Introduce el nuevo correo");
+        Optional<String> result = textInput.showAndWait();
+        TextField input = textInput.getEditor();
+
+        if (result.isPresent() && input.getText().trim().length() > 0) {
+            if (User.checkEmail(input.getText())) {
+                usuario.setEmail(input.getText());
+                correoLab.setText(input.getText());
+            } else {
+                errCorreoLab.setVisible(true);
+            }
+        }
     }
 
     @FXML
-    private void modContraseñaAction(ActionEvent event) {
+    private void modContraseñaAction(ActionEvent event) throws NavegacionDAOException {
+        TextInputDialog textInput = new TextInputDialog();
+        textInput.setTitle("Modifica");
+//        textInput.getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        textInput.setHeaderText("Introduce la nueva contraseña");
+//        textInput.getDialogPane().setContentText("Introduce el nuevo correo");
+        Optional<String> result = textInput.showAndWait();
+        TextField input = textInput.getEditor();
+
+        if (result.isPresent() && input.getText().trim().length() > 0) {
+            if (User.checkEmail(input.getText())) {
+                usuario.setPassword(input.getText());
+                contraseñaLab.setText(input.getText());
+            } else {
+                errContraseñaLab.setVisible(true);
+            }
+        }
     }
 
     @FXML
     private void modFechaAction(ActionEvent event) {
+
+        Dialog<LocalDate> dialog = new Dialog<>();
+        dialog.setTitle("Cumpleaños");
+        dialog.setHeaderText("This is a custom dialog. Enter info and \n"
+                + "press Okay (or click title bar 'X' for cancel).");
+//        dialog.setResizable(true);
+
+//        Label label1 = new Label("Name: ");
+//        Label label2 = new Label("Phone: ");
+//        TextField text1 = new TextField();
+//        TextField text2 = new TextField();
+
+        DatePicker pickerDate = new DatePicker();
+
+        GridPane grid = new GridPane();
+//        grid.add(label1, 1, 1);
+//        grid.add(text1, 2, 1);
+//        grid.add(label2, 1, 2);
+//        grid.add(text2, 2, 2);
+        grid.add(pickerDate,1,1);
+        dialog.getDialogPane().setContent(grid);
+        grid.getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        
+        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+
+        dialog.setResultConverter(new Callback<ButtonType, LocalDate>() {
+            @Override
+            public LocalDate call(ButtonType b) {
+
+                if (b == buttonTypeOk) {
+
+                    return null;
+                }
+
+                return null;
+            }
+        });
+
+        Optional<LocalDate> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+
+            nacimientoLab.setText(result.get().toString());
+        }
+
     }
     
      void setUsuario(User user){

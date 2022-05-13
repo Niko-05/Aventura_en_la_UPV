@@ -152,12 +152,12 @@ public class Mapa implements Initializable {
     @FXML
     private void logInAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Inicial.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setResizable(false);
-            stage.setTitle("LogIn");
-            stage.setScene(scene);
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("LogIn");
+        stage.setScene(scene);
     }
 
     @FXML

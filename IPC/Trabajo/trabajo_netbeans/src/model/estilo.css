@@ -132,3 +132,20 @@
     -fx-line-height: 24px;
     -fx-padding: 8px 10px;
 }
+
+.dialog-pane:header .grid .label {
+    -fx-background-color: #F4F1DE;
+    -fx-font-style: italic;
+    -fx-font-size: 2em;
+}
+
+.dialog-pane:header .button{
+  -fx-background-color: #3D405B;
+  -fx-background-radius: 999px;
+  -fx-text-fill: #F2CC8F;
+  -fx-font: 14pt "Segoe UI";
+  -fx-line-height: 24px;
+  /*-fx-padding: 8px 10px;*/
+
+}
+/*.Text-Input-Dialog*/

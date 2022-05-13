@@ -97,20 +97,18 @@ public class MapaLoged implements Initializable {
     @FXML
     private void modPerfilAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModificarPerfil.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                double prevWidth = stage.getWidth();
-                double prevHeight = stage.getHeight();
-                stage.setHeight(prevHeight);
-                stage.setWidth(prevWidth);
-                stage.setTitle("Modificar Perfil");
-                
-                ModPerfil controladorModPerfil = loader.getController();
-                
-                stage.setScene(scene);
-                controladorModPerfil.setUsuario(usuario);
-                controladorModPerfil.setResultados(aciertos, fallos);
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Modificar Perfil");
+        stage.setScene(scene);
+
+        ModPerfil controladorModPerfil = loader.getController();
+
+        stage.setScene(scene);
+        controladorModPerfil.setUsuario(usuario);
+        controladorModPerfil.setResultados(aciertos, fallos);
     }
 
     @FXML
