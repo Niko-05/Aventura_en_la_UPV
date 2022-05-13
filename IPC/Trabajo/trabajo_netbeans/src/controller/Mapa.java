@@ -142,10 +142,7 @@ public class Mapa implements Initializable {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            double prevWidth = stage.getWidth();
-            double prevHeight = stage.getHeight();
-            stage.setHeight(prevHeight);
-            stage.setWidth(prevWidth);
+            stage.setResizable(false);
             stage.setTitle("LogIn");
             stage.setScene(scene);
     }

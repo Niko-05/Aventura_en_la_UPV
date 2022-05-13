@@ -51,8 +51,6 @@ public class Inicial implements Initializable {
     
 
     @FXML
-    private BorderPane borderPane;
-    @FXML
     private TextField nombreField;
     @FXML
     private Label errNomLab;
@@ -62,8 +60,6 @@ public class Inicial implements Initializable {
     private Label errConLab;
     @FXML
     private Button buttonAceptar;
-    @FXML
-    private Button buttRegistrar;
     
     private User usuario;
     /**
@@ -99,10 +95,6 @@ public class Inicial implements Initializable {
                 Parent root = loader.load();
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
-                double prevWidth = stage.getWidth();
-                double prevHeight = stage.getHeight();
-                stage.setHeight(prevHeight);
-                stage.setWidth(prevWidth);
                 stage.setTitle("Mapa");
                 
                 MapaLoged controladorPrin = loader.getController();
@@ -115,7 +107,6 @@ public class Inicial implements Initializable {
         }else {errNomLab.setVisible(true);}
     }
 
-    @FXML
     private void buttRegAction(ActionEvent event) throws Exception {
         
 //       FXMLLoader loader= new FXMLLoader(getClass().getResource("/view/Registrarse.fxml"));
@@ -143,7 +134,6 @@ public class Inicial implements Initializable {
         stage.setScene(scene);
     }
 
-    @FXML
     private void pruebas(ActionEvent event) {
         
 //        Notifications notificationBuilder = Notifications.create()

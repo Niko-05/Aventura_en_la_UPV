@@ -43,6 +43,15 @@
     -fx-line-height: 24px;
     -fx-padding: 8px 10px;
 }
+
+#registrarse{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 997px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
 .menu-button{
     -fx-background-color: #81B29A;
     -fx-background-radius: 999px;
