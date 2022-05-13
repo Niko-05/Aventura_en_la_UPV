@@ -2,20 +2,19 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.modPerfil">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -31,21 +30,48 @@
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="nombreField" maxWidth="250.0" promptText="Usuario" />
+            <HBox prefHeight="43.0" prefWidth="301.0">
+               <children>
+                  <Label text="Usuario" />
+                  <Button mnemonicParsing="false" text="Button">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <Label fx:id="errNomLab" text="error nombre" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
                <VBox.margin>
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="correoField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" promptText="Correo" text="Correo electrónico" />
+            <HBox prefHeight="43.0" prefWidth="301.0">
+               <children>
+                  <Label text="email" />
+                  <Button mnemonicParsing="false" text="Button">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <Label fx:id="errCorreoLab" text="error correo" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
                <VBox.margin>
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="contraField" maxWidth="250.0" promptText="contraseña" />
+            <HBox prefHeight="34.0" prefWidth="301.0">
+               <children>
+                  <Label text="contra" />
+                  <Button mnemonicParsing="false" text="Button">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <Label fx:id="errConLab" text="error contraseña" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de nacimiento">
                <font>
@@ -55,17 +81,21 @@
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <DatePicker fx:id="fechaField" promptText="fecha naci" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="dd/mm/aaaa" />
+                  <Button mnemonicParsing="false" text="Button">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <Label fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="buttonAceptar" alignment="CENTER" maxWidth="100.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="25.0" prefWidth="116.0" text="Aceptar/iniciar">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Button>
          </children>
       </VBox>
    </center>
@@ -97,7 +127,7 @@
                      <graphic>
                         <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../avatars/default.png" />
+                              <Image url="@../icons/default.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -106,7 +136,7 @@
                      <graphic>
                         <ImageView fx:id="avatarField1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../avatars/avatar1.png" />
+                              <Image url="@../icons/avatar1.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -115,7 +145,7 @@
                      <graphic>
                         <ImageView fx:id="avatarField11" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../avatars/avatar2.png" />
+                              <Image url="@../icons/avatar2.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -124,7 +154,7 @@
                      <graphic>
                         <ImageView fx:id="avatarField111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../avatars/avatar3.png" />
+                              <Image url="@../icons/avatar3.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -133,7 +163,7 @@
                      <graphic>
                         <ImageView fx:id="avatarField1111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../avatars/avatar4.png" />
+                              <Image url="@../icons/avatar4.png" />
                            </image>
                         </ImageView>
                      </graphic>
