@@ -139,7 +139,7 @@
                            </children>
                         </HBox>
                         <Label fx:id="contraseñaLab" prefWidth="200.0" text="Usuario" />
-                        <Label fx:id="errContraseñaLab" text="error contraseña" />
+                        <Label fx:id="errContraseñaLab" text="Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, así como algún dígito y algún carácter especial (!@#$%&amp;*()-+=)" wrapText="true" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />

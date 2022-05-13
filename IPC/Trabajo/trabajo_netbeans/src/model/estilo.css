@@ -133,19 +133,30 @@
     -fx-padding: 8px 10px;
 }
 
-.dialog-pane:header .grid .label {
+.dialog-pane{
+  -fx-background-color: #F4F1DE;
+
+}
+.dialog-pane:header .header-panel{
     -fx-background-color: #F4F1DE;
-    -fx-font-style: italic;
-    -fx-font-size: 2em;
 }
 
-.dialog-pane:header .button{
-  -fx-background-color: #3D405B;
-  -fx-background-radius: 999px;
-  -fx-text-fill: #F2CC8F;
-  -fx-font: 14pt "Segoe UI";
-  -fx-line-height: 24px;
-  /*-fx-padding: 8px 10px;*/
-
+.dialog-pane:header .header-panel .label{
+    -fx-font: 14pt "Segoe UI";
+    -fx-text-fill: #3D405B;
 }
-/*.Text-Input-Dialog*/
+
+.dialog-pane .button{
+    -fx-background-color: #3D405B;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 12pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+.dialog-pane .button:hover{     
+  -fx-background-color:white;
+  -fx-text-fill:black;
+  -fx-font-weight:bold; 
+ }

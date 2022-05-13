@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -35,6 +37,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -54,6 +58,9 @@ public class ModPerfil implements Initializable {
     private int fallos;
     private int aciertos;
     private FileChooser selector = new FileChooser();
+    private static final String ERRCOINCIDENCIA = "Las contraseñas no coinciden";
+    private static final String ERRACTUAL = "La contraseña actual no coincide";
+    private static final String ERRNUEVA = "Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&*()-+=)";
     
     @FXML
     private ImageView avatarField;
@@ -167,6 +174,7 @@ public class ModPerfil implements Initializable {
         textInput.setTitle("Modifica");
         textInput.setHeaderText("Introduce el nuevo correo");
 //        textInput.getDialogPane().setContentText("Introduce el nuevo correo");
+        textInput.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
         Optional<String> result = textInput.showAndWait();
         TextField input = textInput.getEditor();
 
@@ -182,72 +190,125 @@ public class ModPerfil implements Initializable {
 
     @FXML
     private void modContraseñaAction(ActionEvent event) throws NavegacionDAOException {
-        TextInputDialog textInput = new TextInputDialog();
-        textInput.setTitle("Modifica");
-//        textInput.getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
-        textInput.setHeaderText("Introduce la nueva contraseña");
-//        textInput.getDialogPane().setContentText("Introduce el nuevo correo");
-        Optional<String> result = textInput.showAndWait();
-        TextField input = textInput.getEditor();
+        
+        errContraseñaLab.setVisible(false);
+        
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Contraseñas");
+        dialog.setHeaderText("Introduce las contraseñas");
 
-        if (result.isPresent() && input.getText().trim().length() > 0) {
-            if (User.checkEmail(input.getText())) {
-                usuario.setPassword(input.getText());
-                contraseñaLab.setText(input.getText());
+        Label label1 = new Label("Contraseña actual: ");
+        Label label2 = new Label("Contraseña nueva: ");
+        Label label3 = new Label("Repita contraseña: ");
+        TextField text1 = new TextField();
+        TextField text2 = new TextField();
+        TextField text3 = new TextField();
+
+        GridPane grid = new GridPane();
+        grid.add(label1, 1, 1);
+        grid.add(text1, 2, 1);
+        grid.add(label2, 1, 2);
+        grid.add(text2, 2, 2);
+        grid.add(label3, 1, 3);
+        grid.add(text3, 2, 3);
+
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        
+        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
+
+        dialog.setResultConverter(new Callback<ButtonType, String>() {
+            @Override
+            public String call(ButtonType b) {
+                if (b == buttonTypeOk) {
+                    if (usuario.getPassword().equals(text1.getText())) {
+                        if (text2.getText().equals(text3.getText())) {
+                            return text2.getText();
+                        } else {
+                            errContraseñaLab.setText(ERRCOINCIDENCIA);
+                            errContraseñaLab.setVisible(true);
+                        }
+                    } else {
+                        errContraseñaLab.setText(ERRACTUAL);
+                        errContraseñaLab.setVisible(true);
+                    }
+                    return null;
+                }
+                return null;
+            }
+        });
+
+        Optional<String> result = dialog.showAndWait();
+        
+
+        if (result.isPresent() && result != null) {
+            if (User.checkPassword(result.get())) {
+                contraseñaLab.setText(result.get());
+                usuario.setPassword(result.get());
             } else {
+                errContraseñaLab.setText(ERRNUEVA);
                 errContraseñaLab.setVisible(true);
             }
+            
         }
+        
     }
 
     @FXML
-    private void modFechaAction(ActionEvent event) {
+    private void modFechaAction(ActionEvent event) throws NavegacionDAOException {
 
         Dialog<LocalDate> dialog = new Dialog<>();
         dialog.setTitle("Cumpleaños");
-        dialog.setHeaderText("This is a custom dialog. Enter info and \n"
-                + "press Okay (or click title bar 'X' for cancel).");
-//        dialog.setResizable(true);
+        dialog.setHeaderText("Elije tu fecha de nacimiento");
 
-//        Label label1 = new Label("Name: ");
-//        Label label2 = new Label("Phone: ");
-//        TextField text1 = new TextField();
-//        TextField text2 = new TextField();
 
         DatePicker pickerDate = new DatePicker();
-
-        GridPane grid = new GridPane();
-//        grid.add(label1, 1, 1);
-//        grid.add(text1, 2, 1);
-//        grid.add(label2, 1, 2);
-//        grid.add(text2, 2, 2);
-        grid.add(pickerDate,1,1);
-        dialog.getDialogPane().setContent(grid);
-        grid.getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
         
-        ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+        pickerDate.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    LocalDate today = LocalDate.now().minusYears(16);
+                    setDisable(empty || date.compareTo(today) > 0);
+                }
+            };
+        });
+
+        VBox grid = new VBox();
+
+        grid.getChildren().add(pickerDate);
+        grid.setAlignment(Pos.CENTER);
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        
+        ButtonType buttonTypeCancel = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
+        ButtonType buttonTypeOk = new ButtonType("Aceptar", ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeCancel);
         dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        
 
         dialog.setResultConverter(new Callback<ButtonType, LocalDate>() {
             @Override
             public LocalDate call(ButtonType b) {
-
                 if (b == buttonTypeOk) {
-
-                    return null;
+                    return pickerDate.getValue();
                 }
-
                 return null;
             }
         });
 
         Optional<LocalDate> result = dialog.showAndWait();
+        
 
         if (result.isPresent()) {
-
-            nacimientoLab.setText(result.get().toString());
+            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+            nacimientoLab.setText(result.get().format(formatters));
+            usuario.setBirthdate(result.get());
         }
-
     }
     
      void setUsuario(User user){
