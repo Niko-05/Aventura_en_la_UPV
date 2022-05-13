@@ -39,9 +39,9 @@
          <items>
             <ScrollPane fx:id="map_scrollpane" onContextMenuRequested="#contextMenuRequested" onMouseMoved="#getMousePosition" pannable="true">
                <content>
-                  <Pane>
+                  <Pane onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased">
                      <children>
-                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/carta_nautica.jpg" />
                            </image>

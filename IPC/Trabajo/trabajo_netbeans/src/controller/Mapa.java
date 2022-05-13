@@ -5,6 +5,8 @@
  */
 package controller;
 
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,9 +28,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
@@ -40,10 +45,14 @@ import javafx.stage.Stage;
 public class Mapa implements Initializable {
     
     private boolean crearLinea;
+    private boolean crearPuntero;
+    private boolean crearArco;
+    private boolean crearTexto;
     private Line linePainting;
     private double mousePosX;
     private double mousePosY;
     private Group zoomGroup;
+    
 
     @FXML
     private Slider zoom_slider;
@@ -73,6 +82,9 @@ public class Mapa implements Initializable {
     private ToggleButton colorButton;
     @FXML
     private ToggleButton eliminarButton;
+    private Circle circlePainting;
+    private double inicioXArc;
+    
 
     /**
      * Initializes the controller class.
@@ -85,6 +97,8 @@ public class Mapa implements Initializable {
         lineaButton.setToggleGroup(tGroup);
         arcoButton.setToggleGroup(tGroup);
         escribirButton.setToggleGroup(tGroup);
+        
+        
         
         ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
             botonesBox.setSpacing((double) newV / 25);
@@ -106,6 +120,22 @@ public class Mapa implements Initializable {
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
         zoom(0.15);
+        
+        
+//        cartaNautica.addMouseWhellListener(new MouseWheelListener() {
+//
+//            public void mouseWheelMoved(MouseWheelEvent e) {
+//                int notches = e.getWheelRotation();
+//                if (notches < 0) {
+//                    double sliderVal = zoom_slider.getValue();
+//                    zoom_slider.setValue(sliderVal += 0.05);
+//                } else {
+//                    double sliderVal = zoom_slider.getValue();
+//                    zoom_slider.setValue(sliderVal -= 0.05);
+//                }
+//
+//            }
+//        });
         
 //        botonesBox.getScene().widthProperty().addListener((obs, oldV, newV) -> {
 //            botonesRegion.setLayoutX(newV.doubleValue());
@@ -142,23 +172,71 @@ public class Mapa implements Initializable {
 
     @FXML
     private void punteroAction(ActionEvent event) {
+        crearLinea = false;
+        crearArco = false;
+        crearTexto = false;
+        
+        if (!crearPuntero) {
+            crearPuntero = true;
+            map_scrollpane.setPannable(false);
+        } else {
+            crearPuntero = false;
+            map_scrollpane.setPannable(true);
+            map_scrollpane.requestFocus();
+        }
+        
     }
 
     @FXML
     private void lineaAction(ActionEvent event) {
-//        if (!crearLinea) {
+        crearPuntero = false;
+        crearArco = false;
+        crearTexto = false;
+    
+        if (!crearLinea) {
             crearLinea = true;
             map_scrollpane.setPannable(false);
-//        } else {crearLinea = false;}
+        } else {
+            crearLinea = false;
+            map_scrollpane.setPannable(true);
+            map_scrollpane.requestFocus();
+        }
     }
     
     @FXML
     private void arcoButton(ActionEvent event) {
+        crearPuntero = false;
+        crearLinea = false;
+        crearTexto = false;
+        
+        if (!crearArco) {
+            crearArco = true;
+            map_scrollpane.setPannable(false);
+        } else {
+            crearArco = false;
+            map_scrollpane.setPannable(true);
+            map_scrollpane.requestFocus();
+        }
+        
     }
 
 
     @FXML
     private void escribirAction(ActionEvent event) {
+        
+        crearPuntero = false;
+        crearLinea = false;
+        crearArco = false;
+        
+        if (!crearTexto) {
+            crearTexto = true;
+            map_scrollpane.setPannable(false);
+        } else {
+            crearTexto = false;
+            map_scrollpane.setPannable(true);
+            map_scrollpane.requestFocus();
+        }
+        
     }
     
     @FXML
@@ -200,6 +278,28 @@ public class Mapa implements Initializable {
         map_scrollpane.setVvalue(scrollV);
     }
 
+    @FXML
+    private void mousePressed(MouseEvent event) {
+        if (crearLinea) {
+            linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+            zoomGroup.getChildren().add(linePainting);
+            linePainting.setStrokeWidth(4);
+        }
+        
+        if (crearArco){
+            circlePainting = new Circle(1);
+            circlePainting.setStroke(Color.RED);
+            circlePainting.setFill(Color.TRANSPARENT);
+            zoomGroup.getChildren().add(circlePainting);
+            circlePainting.setCenterX(event.getX());
+            circlePainting.setCenterY(event.getY());
+            circlePainting.setStrokeWidth(4);
+            inicioXArc = event.getX();
+            
+        }
+
+    }
+
 
     @FXML
     private void mouseDragged(MouseEvent event) {
@@ -208,31 +308,54 @@ public class Mapa implements Initializable {
             linePainting.setEndY(event.getY());
         event.consume();
         }
-    }
-
-    @FXML
-    private void mousePressed(MouseEvent event) {
-        if (crearLinea) {
-            linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
-            zoomGroup.getChildren().add(linePainting);
-            linePainting.setStrokeWidth(4);
+        
+        if (crearArco){
+            double radio = Math.abs(event.getX() - inicioXArc);
+            circlePainting.setRadius(radio);
+            event.consume();
+            
         }
-
     }
 
     @FXML
     private void mouseReleased(MouseEvent event) {
-    if(crearLinea){
-        crearLinea = false;
+        if (crearLinea) {
+            crearLinea = false;
+            map_scrollpane.setPannable(true);
+            lineaButton.setSelected(false);
+        }
+        
+        if (crearArco) {
+            crearArco = false;
+            map_scrollpane.setPannable(true);
+            arcoButton.setSelected(false);
+        }
+
+        punteroButton.setSelected(false);
+        
+        arcoButton.setSelected(false);
+        escribirButton.setSelected(false);
         map_scrollpane.setPannable(true);
-    }
-    
+
     }
 
     @FXML
     private void contextMenuRequested(ContextMenuEvent event) {
         System.out.println(event.getX() + " - " + event.getY());
-        linePainting.setOnContextMenuRequested(e -> {
+//        linePainting.setOnContextMenuRequested(e -> {
+//            ContextMenu menuContext = new ContextMenu();
+//            MenuItem borrarItem = new MenuItem("eliminar");
+//            menuContext.getItems().add(borrarItem);
+//            borrarItem.setOnAction(ev -> {
+//                zoomGroup.getChildren().remove((Node)e.getSource());
+//                ev.consume();
+//            });
+//            menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
+////            menuContext.sho
+//            e.consume();
+//        });
+        
+        circlePainting.setOnContextMenuRequested(e -> {
             ContextMenu menuContext = new ContextMenu();
             MenuItem borrarItem = new MenuItem("eliminar");
             menuContext.getItems().add(borrarItem);
@@ -240,12 +363,11 @@ public class Mapa implements Initializable {
                 zoomGroup.getChildren().remove((Node)e.getSource());
                 ev.consume();
             });
-            menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
+            menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
 //            menuContext.sho
             e.consume();
         });
     }
 
-    
     
 }
