@@ -10,13 +10,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.beans.binding.Bindings.not;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,10 +128,6 @@ public class VentanaResponder implements Initializable {
         comprobarButton.setDisable(true);
         siguienteButton.setDisable(true);
         
-        
-//        fallos.set(0);
-//        aciertos.set(0);
-//        preguntaField.setFont(new Font(30.0));
 
         ToggleGroup tGroup = new ToggleGroup();
         Respuesta_0.setToggleGroup(tGroup);
@@ -137,9 +140,6 @@ public class VentanaResponder implements Initializable {
        tGroup.selectedToggleProperty().addListener((obs, preV, newV) -> {
             comprobarButton.setDisable(false);
        });
-//        fallosLabel.textProperty().bindBidirectional(fallos.asString());
-//        aciertosLabel.textProperty().bind(aciertos.asString());
-//        Integer.toString(aciertos)
         
         try {
             problemas = Navegacion.getSingletonNavegacion().getProblems();
@@ -148,8 +148,6 @@ public class VentanaResponder implements Initializable {
 
 
             
-        setRandomProblem();
-        random = true;
         // TODO
     }
 
@@ -236,19 +234,23 @@ public class VentanaResponder implements Initializable {
     }
     
     private void setRandomProblem() {
-        int num = (int) Math.floor(Math.random() * (max - min + 1) + min);
-
-        preguntaField.setText(problemas.get(num).getText());
-        Respuesta_0.setText(problemas.get(num).getAnswers().get(0).getText());
-        Respuesta_1.setText(problemas.get(num).getAnswers().get(1).getText());
-        Respuesta_2.setText(problemas.get(num).getAnswers().get(2).getText());
-        Respuesta_3.setText(problemas.get(num).getAnswers().get(3).getText());
-        selectedProblem = num;
         
-        res0 = (problemas.get(num).getAnswers().get(0).getValidity());
-        res1 = (problemas.get(num).getAnswers().get(1).getValidity());
-        res2 = (problemas.get(num).getAnswers().get(2).getValidity());
-        res3 = (problemas.get(num).getAnswers().get(3).getValidity());
+        selectedProblem = (int) Math.floor(Math.random() * (max - min + 1) + min);   
+        preguntaField.setText(problemas.get(selectedProblem).getText());
+        
+//        selectedProblem = 0;
+        List<Integer> list = new ArrayList(Arrays.asList(0, 1, 2, 3));
+        Collections.shuffle(list);
+        
+        Respuesta_0.setText(problemas.get(selectedProblem).getAnswers().get(list.get(0)).getText());
+        Respuesta_1.setText(problemas.get(selectedProblem).getAnswers().get(list.get(1)).getText());
+        Respuesta_2.setText(problemas.get(selectedProblem).getAnswers().get(list.get(2)).getText());
+        Respuesta_3.setText(problemas.get(selectedProblem).getAnswers().get(list.get(3)).getText());
+
+        res0 = (problemas.get(selectedProblem).getAnswers().get(list.get(0)).getValidity());
+        res1 = (problemas.get(selectedProblem).getAnswers().get(list.get(1)).getValidity());
+        res2 = (problemas.get(selectedProblem).getAnswers().get(list.get(2)).getValidity());
+        res3 = (problemas.get(selectedProblem).getAnswers().get(list.get(3)).getValidity());
 
         
     }
@@ -321,17 +323,22 @@ public class VentanaResponder implements Initializable {
         selectedProblem = prb;
       
         preguntaField.setText(problemas.get(selectedProblem).getText());
-        Respuesta_0.setText(problemas.get(selectedProblem).getAnswers().get(0).getText());
-        Respuesta_1.setText(problemas.get(selectedProblem).getAnswers().get(1).getText());
-        Respuesta_2.setText(problemas.get(selectedProblem).getAnswers().get(2).getText());
-        Respuesta_3.setText(problemas.get(selectedProblem).getAnswers().get(3).getText());
+        
+//        List<Answer> listaAUX = problemas.get(selectedProblem).getAnswers();
+//        Collections.shuffle(Arrays.asList(listaAUX.toString()));
 
-        res0 = (problemas.get(selectedProblem).getAnswers().get(0).getValidity());
-        res1 = (problemas.get(selectedProblem).getAnswers().get(1).getValidity());
-        res2 = (problemas.get(selectedProblem).getAnswers().get(2).getValidity());
-        res3 = (problemas.get(selectedProblem).getAnswers().get(3).getValidity());
+        List<Integer> list = new ArrayList(Arrays.asList(0, 1, 2, 3));
+        Collections.shuffle(list);
+        
+        Respuesta_0.setText(problemas.get(selectedProblem).getAnswers().get(list.get(0)).getText());
+        Respuesta_1.setText(problemas.get(selectedProblem).getAnswers().get(list.get(1)).getText());
+        Respuesta_2.setText(problemas.get(selectedProblem).getAnswers().get(list.get(2)).getText());
+        Respuesta_3.setText(problemas.get(selectedProblem).getAnswers().get(list.get(3)).getText());
+
+        res0 = (problemas.get(selectedProblem).getAnswers().get(list.get(0)).getValidity());
+        res1 = (problemas.get(selectedProblem).getAnswers().get(list.get(1)).getValidity());
+        res2 = (problemas.get(selectedProblem).getAnswers().get(list.get(2)).getValidity());
+        res3 = (problemas.get(selectedProblem).getAnswers().get(list.get(3)).getValidity());
     }
-
-
    
 }

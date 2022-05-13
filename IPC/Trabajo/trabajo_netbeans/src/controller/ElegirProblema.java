@@ -85,7 +85,7 @@ public class ElegirProblema implements Initializable {
     private void seleccionarAction(ActionEvent event) throws IOException{
         
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Test.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VentanaResponder.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -95,7 +95,7 @@ public class ElegirProblema implements Initializable {
         stage.setWidth(prevWidth);
         stage.setTitle("Resolucion de problemas");
 
-        Test controladorTest = loader.getController();
+        VentanaResponder controladorTest = loader.getController();
 
         
         controladorTest.setUsuario(usuario);

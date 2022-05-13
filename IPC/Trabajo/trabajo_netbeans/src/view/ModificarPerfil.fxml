@@ -7,175 +7,183 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
+
+<HBox stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModPerfil">
+   <children>
+      <VBox>
          <children>
-            <Region prefHeight="17.0" prefWidth="600.0" />
+            <HBox>
+               <children>
+                  <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/boton%20atras.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Segoe UI" size="12.0" />
+                     </font>
+                  </Button>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="232.0" />
+               </children>
+            </HBox>
+            <VBox maxWidth="331.0" prefHeight="383.0" prefWidth="331.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label id="labelmod" prefWidth="135.0" text="Usuario" />
+                              <MenuButton id="menumodificador" alignment="CENTER" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Cambiar Avatar" textAlignment="CENTER">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#avatarDefaultAction">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/default.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                  <MenuItem mnemonicParsing="false" onAction="#avatar1Action">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/avatar1.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                  <MenuItem mnemonicParsing="false" onAction="#avatar2Action">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/avatar2.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#avatar3Action">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/avatar3.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#avatar4Action">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/avatar4.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                    <MenuItem mnemonicParsing="false" onAction="#avatarImportAction" text="Importar">
+                                       <graphic>
+                                          <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/boton%20atras.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </MenuItem>
+                                </items>
+                              </MenuButton>
+                           </children>
+                        </HBox>
+                        <Label fx:id="usuarioLab" prefWidth="200.0" text="Usuario" />
+                        <Label fx:id="errNomLab" text="error nombre" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label id="labelmod" prefWidth="155.0" text="Correo" />
+                              <Button id="modificador" mnemonicParsing="false" onAction="#modCorreoAction" prefWidth="150.0" text="Modificar correo">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="correoLab" prefWidth="200.0" text="correo usuario" />
+                        <Label fx:id="errCorreoLab" text="error correo" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label id="labelmod" prefWidth="155.0" text="Contraseña" />
+                              <Button id="modificador" mnemonicParsing="false" onAction="#modContraseñaAction" prefWidth="150.0" text="Modificar contraseña" textAlignment="CENTER">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="contraseñaLab" prefWidth="200.0" text="Usuario" />
+                        <Label fx:id="errContraseñaLab" text="error contraseña" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label id="labelmod" prefWidth="155.0" text="Nacimiento" />
+                              <Button id="modificador" mnemonicParsing="false" onAction="#modFechaAction" prefWidth="150.0" text="Modificar Fecha">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="nacimientoLab" text="dd/mm/aaaa" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </VBox>
          </children>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
       </VBox>
-   </top>
-   <center>
-      <VBox maxWidth="331.0" prefHeight="383.0" prefWidth="331.0" BorderPane.alignment="CENTER">
+      <VBox spacing="20.0">
          <children>
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-            <HBox prefHeight="43.0" prefWidth="301.0">
-               <children>
-                  <Label text="Usuario" />
-                  <Button mnemonicParsing="false" text="Button">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <Label fx:id="errNomLab" text="error nombre" />
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-            <HBox prefHeight="43.0" prefWidth="301.0">
-               <children>
-                  <Label text="email" />
-                  <Button mnemonicParsing="false" text="Button">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <Label fx:id="errCorreoLab" text="error correo" />
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-            <HBox prefHeight="34.0" prefWidth="301.0">
-               <children>
-                  <Label text="contra" />
-                  <Button mnemonicParsing="false" text="Button">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <Label fx:id="errConLab" text="error contraseña" />
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de nacimiento">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="dd/mm/aaaa" />
-                  <Button mnemonicParsing="false" text="Button">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-            </HBox>
-            <Label fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
-               <font>
-                  <Font name="Segoe UI" size="12.0" />
-               </font>
-            </Label>
+            <ImageView fx:id="avatarField" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../icons/default.png" />
+               </image>
+            </ImageView>
          </children>
+         <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </padding>
       </VBox>
-   </center>
-   <left>
-      <VBox prefHeight="383.0" prefWidth="122.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#buttonBack" text="Atras">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../../../Downloads/esquema-de-boton-circular-de-flecha-hacia-atras-izquierda.png" />
-                     </image></ImageView>
-               </graphic>
-               <font>
-                  <Font name="Segoe UI" size="12.0" />
-               </font></Button>
-         </children>
-      </VBox>
-   </left>
-   <right>
-      <VBox prefHeight="383.0" prefWidth="177.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuButton mnemonicParsing="false" prefHeight="58.0" prefWidth="164.0" text="Elegir Avatar">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1">
-                     <graphic>
-                        <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/default.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
-                     <graphic>
-                        <ImageView fx:id="avatarField1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/avatar1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
-                     <graphic>
-                        <ImageView fx:id="avatarField11" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/avatar2.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
-                     <graphic>
-                        <ImageView fx:id="avatarField111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/avatar3.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
-                     <graphic>
-                        <ImageView fx:id="avatarField1111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/avatar4.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
-              </items>
-               <VBox.margin>
-                  <Insets right="10.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic>
-            </MenuButton>
-         </children></VBox>
-   </right>
-</BorderPane>
+   </children>
+</HBox>

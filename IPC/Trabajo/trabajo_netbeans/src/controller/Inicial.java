@@ -78,6 +78,8 @@ public class Inicial implements Initializable {
         nombreField.focusedProperty().addListener((obs, preV, newV) -> {
             errNomLab.setVisible(false);
         });
+        
+        nombreField.requestFocus();
     }    
 
 

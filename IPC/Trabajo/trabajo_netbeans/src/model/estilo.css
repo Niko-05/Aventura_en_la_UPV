@@ -40,8 +40,8 @@
     -fx-background-radius: 999px;
     -fx-text-fill: #F2CC8F;
     -fx-font: 14pt "Segoe UI";
-    -fx-line-height: 24px;
-    -fx-padding: 8px 10px;
+    /*-fx-line-height: 24px;*/
+    /*-fx-padding: 8px 10px;*/
 }
 
 #registrarse{
@@ -52,13 +52,40 @@
     -fx-line-height: 24px;
     -fx-padding: 8px 10px;
 }
+
+#modificador{
+  -fx-background-color: #3D405B;
+  -fx-background-radius: 999px;
+  -fx-text-fill: #F2CC8F;
+  -fx-font: 10pt "Segoe UI";
+  /*-fx-line-height: 24px;*/
+  /*-fx-padding: 8px 24px;*/
+
+}
+
+#menumodificador{
+    -fx-background-radius: 999px;
+    -fx-background-color: #81B29A;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 12pt "Segoe UI";
+
+}
+
+#labelmod{
+    -fx-font: bold 16pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+
 .menu-button{
     -fx-background-color: #81B29A;
     -fx-background-radius: 999px;
     -fx-text-fill: #F2CC8F;
     -fx-font: bold 12pt "Segoe UI";
     -fx-line-height: 24px;
-    -fx-padding: 8px 10px;
+    /*-fx-padding: 8px 10px;*/
+
+    -fx-background-radius: 999px;
 }
 
 /*.toggle-button{

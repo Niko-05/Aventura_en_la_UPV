@@ -5,9 +5,14 @@
  */
 package controller;
 
+import DBAccess.NavegacionDAOException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +27,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Navegacion;
 import model.User;
 
 /**
@@ -32,47 +39,50 @@ import model.User;
  * @author marci
  */
 public class ModPerfil implements Initializable {
-
-    @FXML
-    private BorderPane borderPane;
-    @FXML
-    private TextField correoField;
-    @FXML
-    private Label errCorreoLab;
-    @FXML
-    private TextField nombreField;
-    @FXML
-    private Label errNomLab;
-    @FXML
-    private TextField contraField;
-    @FXML
-    private Label errConLab;
-    @FXML
-    private DatePicker fechaField;
-    @FXML
-    private Label errFechaLab;
-    @FXML
-    private ImageView avatarField;
-    @FXML
-    private Button buttonAceptar;
     
     private User usuario;
     private int fallos;
     private int aciertos;
+    private FileChooser selector = new FileChooser();
+    
     @FXML
-    private ImageView avatarField1;
+    private ImageView avatarField;
     @FXML
-    private ImageView avatarField11;
+    private Label usuarioLab;
     @FXML
-    private ImageView avatarField111;
+    private Label errNomLab;
     @FXML
-    private ImageView avatarField1111;
+    private Label correoLab;
+    @FXML
+    private Label errCorreoLab;
+    @FXML
+    private Label contraseñaLab;
+    @FXML
+    private Label errContraseñaLab;
+    @FXML
+    private Label nacimientoLab;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            usuario = Navegacion.getSingletonNavegacion().loginUser("prueba", "123456aA!");
+        } catch (NavegacionDAOException ex) {
+            Logger.getLogger(ModPerfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        errContraseñaLab.setVisible(false);
+        errNomLab.setVisible(false);
+        errCorreoLab.setVisible(false);
+        
+        usuarioLab.setText(usuario.getNickName());
+        avatarField.setImage(usuario.getAvatar());
+        contraseñaLab.setText(usuario.getPassword());
+        correoLab.setText(usuario.getEmail());
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d/MM/uuuu");
+        nacimientoLab.setText(usuario.getBirthdate().format(formatters));
         // TODO
     }    
 
@@ -95,25 +105,62 @@ public class ModPerfil implements Initializable {
         controladorPrin.setUsuario(usuario);
         controladorPrin.setResultados(aciertos, fallos);
     }
-
-    private void buttAvatarAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChoseAvatar.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Modificar Persona");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-        
-        ChoseAvatar controladorAvatar = loader.getController();
-        if(controladorAvatar.getAvatar() != null) avatarField.setImage(controladorAvatar.getAvatar());
-        
+    
+    
+    @FXML
+    private void avatarDefaultAction(ActionEvent event) throws NavegacionDAOException {
+        usuario.setAvatar(new Image("/icons/default.png"));
+        avatarField.setImage(new Image("/icons/default.png"));
     }
 
     @FXML
-    private void buttAceptarAction(ActionEvent event) {
-        
+    private void avatar1Action(ActionEvent event) throws NavegacionDAOException {
+        usuario.setAvatar(new Image("/icons/avatar1.png"));
+        avatarField.setImage(new Image("/icons/avatar1.png"));
+    }
+
+    @FXML
+    private void avatar2Action(ActionEvent event) throws NavegacionDAOException {
+        usuario.setAvatar(new Image("/icons/avatar2.png"));
+        avatarField.setImage(new Image("/icons/avatar2.png"));
+    }
+
+    @FXML
+    private void avatar3Action(ActionEvent event) throws NavegacionDAOException {
+        usuario.setAvatar(new Image("/icons/avatar3.png"));
+        avatarField.setImage(new Image("/icons/avatar3.png"));
+    }
+
+    @FXML
+    private void avatar4Action(ActionEvent event) throws NavegacionDAOException {
+        usuario.setAvatar(new Image("/icons/avatar4.png"));
+        avatarField.setImage(new Image("/icons/avatar4.png"));
+    }
+
+    @FXML
+    private void avatarImportAction(ActionEvent event) throws NavegacionDAOException {
+        selector.setTitle("Avatar Selector");
+        selector.setInitialDirectory(new File(System.getProperty("user.home")));
+        selector.getExtensionFilters().clear();
+        selector.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes ", "*.png","*.jpg","*.gif"));
+        File file = selector.showOpenDialog(null);
+        if(file != null){
+            avatarField.setImage(new Image(file.toURI().toString()));
+            avatarField.resize(50, 50);
+            usuario.setAvatar(new Image(file.toURI().toString()));
+        }
+    }
+
+    @FXML
+    private void modCorreoAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void modContraseñaAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void modFechaAction(ActionEvent event) {
     }
     
      void setUsuario(User user){
@@ -127,4 +174,5 @@ public class ModPerfil implements Initializable {
         aciertos = a;
         fallos = f;
     }
+    
 }

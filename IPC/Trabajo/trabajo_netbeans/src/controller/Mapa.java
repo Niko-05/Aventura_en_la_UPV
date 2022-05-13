@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -84,6 +85,8 @@ public class Mapa implements Initializable {
     private ToggleButton eliminarButton;
     private Circle circlePainting;
     private double inicioXArc;
+    @FXML
+    private ListView<?> listaItems;
     
 
     /**
