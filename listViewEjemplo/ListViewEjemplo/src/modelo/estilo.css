@@ -1,0 +1,12 @@
+#controles{
+	-fx-background-color: black;
+	-fx-text-fill: white;
+}
+
+.list-cell{
+	-fx-text-fill: brown;
+}
+
+.list-item:selected{
+	-fx-background-color: lightblue;
+}

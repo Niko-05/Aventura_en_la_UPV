@@ -1,23 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Resultados">
+
+<VBox id="Vbox_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableView" layoutX="14.0" layoutY="45.0" prefHeight="341.0" prefWidth="582.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="600.0">
+         <children>
+            <Button id="atras" mnemonicParsing="false" text="Atrás">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/boton%20atras.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="352.0">
+               <children>
+                  <VBox prefHeight="62.0" prefWidth="179.0">
+                     <children>
+                        <Label text="Elegir fecha para filtrar">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <DatePicker prefHeight="28.0" prefWidth="178.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="50.0" right="30.0" top="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="139.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Limpiar filtro" />
+               </children>
+            </HBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <TableView prefHeight="325.0" prefWidth="600.0">
         <columns>
-          <TableColumn fx:id="fechaColum" prefWidth="75.0" text="FECHA" />
-          <TableColumn fx:id="aciertosColum" prefWidth="75.0" text="ACIERTOS" />
-            <TableColumn fx:id="fallosColum" prefWidth="75.0" text="FALLOS" />
-            <TableColumn fx:id="intentosColum" prefWidth="75.0" text="INTENTOS" />
+          <TableColumn prefWidth="196.79998779296875" text="Fecha" />
+          <TableColumn prefWidth="141.60003662109375" text="Aciertos" />
+            <TableColumn prefWidth="121.60003662109375" text="Fallos" />
+            <TableColumn prefWidth="135.2000732421875" text="Intentos" />
         </columns>
       </TableView>
-      <Button layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onAction="#backAction" text="Back" />
-      <Button layoutX="95.0" layoutY="14.0" mnemonicParsing="false" text="Button" />
-      <DatePicker fx:id="controlFecha" layoutX="171.0" layoutY="14.0" />
    </children>
-</AnchorPane>
+</VBox>
