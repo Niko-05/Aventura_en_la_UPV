@@ -67,6 +67,10 @@ public class Inicial implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
+        nombreField.setText("prueba");
+        contraField.setText("123456aA!");
         // TODO
         errNomLab.setVisible(false);
         errConLab.setVisible(false);
@@ -104,6 +108,8 @@ public class Inicial implements Initializable {
                 
                 stage.setScene(scene);
                 controladorPrin.setUsuario(usuario);
+                System.out.println("login " + controladorPrin);
+                controladorPrin.setController(controladorPrin);
 //                
             }
         }else {errNomLab.setVisible(true);}

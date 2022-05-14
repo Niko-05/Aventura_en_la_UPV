@@ -63,6 +63,9 @@ public class VentanaResponder implements Initializable {
     @FXML
     private Label preguntaField;
     
+    public IntegerProperty prueba1;
+    private IntegerProperty prueba2;
+    
     
     private boolean res0;
     private boolean res1;
@@ -80,6 +83,8 @@ public class VentanaResponder implements Initializable {
     private int max;
     private final int min = 0;
     private List<Problem> problemas;
+    
+    private MapaLoged controladorLoged = (new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"))).getController();
     //      (int) Math.floor(Math.random() * (max - min + 1) + min)
     @FXML
     private Button comprobarButton;
@@ -99,6 +104,7 @@ public class VentanaResponder implements Initializable {
     private HBox hBoxAbajo1;
     @FXML
     private HBox hBoxAbajo2;
+    private MapaLoged controllerLoged;
     
     
     
@@ -146,6 +152,9 @@ public class VentanaResponder implements Initializable {
             max = Navegacion.getSingletonNavegacion().getProblems().size() - 1;
         } catch (NavegacionDAOException ex) {}
 
+        
+        
+        
 
             
         // TODO
@@ -212,6 +221,9 @@ public class VentanaResponder implements Initializable {
             
             comprobarButton.setDisable(true);
             siguienteButton.setDisable(true);
+            
+//            controladorLoged.setResultados(aciertos, fallos);
+//            prueba1.set(prueba1.get() + 1 );
         } else {
         
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
@@ -341,4 +353,11 @@ public class VentanaResponder implements Initializable {
         res3 = (problemas.get(selectedProblem).getAnswers().get(list.get(3)).getValidity());
     }
    
+    
+    void setController(MapaLoged contr){
+        controllerLoged = contr;
+        System.out.println("mapa " + controllerLoged);
+    }
+    
+    IntegerProperty getResultados(){return null;}
 }
