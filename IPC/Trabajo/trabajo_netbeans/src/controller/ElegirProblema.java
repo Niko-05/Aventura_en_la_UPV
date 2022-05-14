@@ -25,7 +25,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Navegacion;
 import model.Problem;
@@ -37,9 +40,6 @@ import model.User;
  * @author marci
  */
 public class ElegirProblema implements Initializable {
-
-    @FXML
-    private ListView<String> problemasListView;
     
     
     private List<Problem> problemas;
@@ -50,13 +50,50 @@ public class ElegirProblema implements Initializable {
     private User usuario;
     private int aciertos;
     private int fallos;
+    
+    @FXML
+    private ListView<String> problemasListView;
     @FXML
     private Button seleccionarButton;
     @FXML
     private Button backButton;
+    @FXML
+    private VBox ventanaPrincipal;
+    @FXML
+    private HBox ventanaTop;
+    @FXML
+    private HBox ventanaAbajo;
+    @FXML
+    private HBox boxListView;
+    @FXML
+    private HBox ventanaTop2;
+    @FXML
+    private Label labelTop;
+    @FXML
+    private HBox ventanaTop1;
+    @FXML
+    private HBox ventanaTop3;
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
+        
+//            ventanaTop1.setPrefWidth(300);
+//            labelTop.setPrefWidth(((double) newV) - 210);
+            ventanaTop1.setPrefWidth((((double) newV) / 2) - 140);
+            ventanaTop3.setPrefWidth((((double) newV) / 2) - 140);
+            ventanaAbajo.setPrefWidth((double) newV);
+            boxListView.setPrefWidth((double) newV);
+            problemasListView.setPrefWidth((double) newV);
+        });
+        
+        ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
+            
+            boxListView.setPrefHeight((double) newV);
+        });
+        
         seleccionarButton.setDisable(true);
         
         try {
@@ -135,10 +172,5 @@ public class ElegirProblema implements Initializable {
     void setResultados(int a, int f){
         aciertos = a;
         fallos = f;
-    }
-
-    @FXML
-    private void pruebas(ActionEvent event) {
-        System.out.println(problemasListView.getSelectionModel().getSelectedIndex());
     }
 }

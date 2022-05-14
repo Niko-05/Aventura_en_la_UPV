@@ -359,5 +359,5 @@ public class VentanaResponder implements Initializable {
         System.out.println("mapa " + controllerLoged);
     }
     
-    IntegerProperty getResultados(){return null;}
+    void prueba(){System.out.println("preub");}
 }

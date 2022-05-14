@@ -33,6 +33,13 @@ import model.User;
  * @author marci
  */
 public class MapaLoged implements Initializable {
+    
+    private int aciertos;
+    private int fallos;
+    private User usuario;
+    private Stage stage;
+    private boolean stageOpen;
+    private MapaLoged controllerLoged;
 
     @FXML
     private Slider zoom_slider;
@@ -42,16 +49,11 @@ public class MapaLoged implements Initializable {
     private ImageView imgUsuario;
     @FXML
     private MenuButton usuarioButton;
-    private int aciertos;
-    private int fallos;
-    private User usuario;
     @FXML
     private Label aciertosLab;
     @FXML
     private Label fallosLab;
-    private Stage stage;
-    private boolean stageOpen;
-    private MapaLoged controllerLoged;
+    
 
     /**
      * Initializes the controller class.
@@ -150,19 +152,16 @@ public class MapaLoged implements Initializable {
         Parent root = loader.load();
         stage = new Stage();
         Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
         stage.setTitle("Elegir problemas");
 
         ElegirProblema controladorTest = loader.getController();
 
         stage.setScene(scene);
-        stage.show();
-        stageOpen = true;
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
+        stage.show();
+        stageOpen = true;
+        
     }
 
     @FXML
@@ -179,11 +178,12 @@ public class MapaLoged implements Initializable {
         VentanaResponder controladorTest = loader.getController();
 
         stage.setScene(scene);
-        stage.show();
-        stageOpen = true;
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
         controladorTest.setRandomnes(true);
+        stage.show();
+        stageOpen = true;
+        controladorTest.prueba();
 //        controladorTest.prueba2;
         
         
