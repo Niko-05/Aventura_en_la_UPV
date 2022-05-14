@@ -76,7 +76,11 @@
   -fx-background-radius: 999px;
   -fx-text-fill: #F2CC8F;
   -fx-font: 10pt "Segoe UI";
+}
 
+#modificador:hover{
+	-fx-background-color: #F2CC8F;
+	-fx-text-fill: #3D405B;
 }
 
 #menumodificador{
@@ -122,7 +126,7 @@
 
 .list-view{
 	-fx-background-color: #81B29A;
-	
+
 }
 .list-item{
 	-fx-font: 14pt "Segoe UI";
@@ -132,7 +136,7 @@
 .table-view{
 	-fx-background-color: #F2CC8F;
 	-fx-font: 14pt "Segoe UI";
-	
+
 }
 
 .table-view .column-header,
@@ -168,6 +172,10 @@
 
 .toggle-button:selected {
 	-fx-background-color: #F2CC8F;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #509a76;
 }
 
 .menu-button{
@@ -227,8 +235,7 @@
     -fx-padding: 8px 10px;
 }
 
-.dialog-pane .button:hover{     
+.dialog-pane .button:hover{
   -fx-background-color: #F2CC8F;
 	-fx-text-fill: #3D405B;
  }
- 
