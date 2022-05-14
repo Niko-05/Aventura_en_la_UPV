@@ -8,6 +8,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,11 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.User;
 
@@ -41,6 +44,10 @@ public class MapaLoged implements Initializable {
     private int aciertos;
     private int fallos;
     private User usuario;
+    @FXML
+    private Label aciertosLab;
+    @FXML
+    private Label fallosLab;
 
     /**
      * Initializes the controller class.
@@ -98,21 +105,28 @@ public class MapaLoged implements Initializable {
     private void modPerfilAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ModificarPerfil.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = new Stage();
         Scene scene = new Scene(root);
-        stage.setResizable(false);
         stage.setTitle("Modificar Perfil");
-        stage.setScene(scene);
-
+        stage.initModality(Modality.APPLICATION_MODAL);
         ModPerfil controladorModPerfil = loader.getController();
 
         stage.setScene(scene);
+        stage.showAndWait();
         controladorModPerfil.setUsuario(usuario);
         controladorModPerfil.setResultados(aciertos, fallos);
     }
 
     @FXML
-    private void cerrarSesionAction(ActionEvent event) {
+    private void cerrarSesionAction(ActionEvent event) throws IOException {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
+        Parent root = loader.load();
+        Stage stage = ((Stage) aciertosLab.getScene().getWindow());
+        Scene scene = new Scene(root);
+        stage.setTitle("Resolucion de problemas");
+        
+        stage.setScene(scene);
     }
 
     @FXML

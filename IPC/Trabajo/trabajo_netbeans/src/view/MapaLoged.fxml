@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="Vbox_principal" prefHeight="542.0" prefWidth="687.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapaLoged">
+<VBox id="Vbox_principal" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapaLoged">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -43,6 +43,22 @@
                   <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
                </HBox.margin>
             </MenuButton>
+            <VBox spacing="20.0">
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label text="Aciertos:" />
+                        <Label fx:id="aciertosLab" text="0" />
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label text="Fallos:" />
+                        <Label fx:id="fallosLab" text="0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Zoom" />
             <Button id="mas" mnemonicParsing="false" onAction="#zoomOut" prefHeight="35.0" prefWidth="35.0" text="-" />
