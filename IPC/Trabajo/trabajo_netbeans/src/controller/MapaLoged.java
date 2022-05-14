@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,12 +49,17 @@ public class MapaLoged implements Initializable {
     private Label aciertosLab;
     @FXML
     private Label fallosLab;
+    private Stage stage;
+    private boolean stageOpen;
+    private MapaLoged controllerLoged;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+
         // TODO
     }    
 
@@ -99,6 +105,7 @@ public class MapaLoged implements Initializable {
 
     @FXML
     private void limpiarAction(ActionEvent event) {
+
     }
 
     @FXML
@@ -112,9 +119,10 @@ public class MapaLoged implements Initializable {
         ModPerfil controladorModPerfil = loader.getController();
 
         stage.setScene(scene);
-        stage.showAndWait();
         controladorModPerfil.setUsuario(usuario);
         controladorModPerfil.setResultados(aciertos, fallos);
+        stage.showAndWait();
+        
     }
 
     @FXML
@@ -131,9 +139,12 @@ public class MapaLoged implements Initializable {
 
     @FXML
     private void probListAction(ActionEvent event) throws IOException {
+        if(stageOpen){
+            stage.close();
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
         Parent root = loader.load();
-        Stage stage = new Stage();
+        stage = new Stage();
         Scene scene = new Scene(root);
         double prevWidth = stage.getWidth();
         double prevHeight = stage.getHeight();
@@ -145,15 +156,19 @@ public class MapaLoged implements Initializable {
 
         stage.setScene(scene);
         stage.show();
+        stageOpen = true;
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
     }
 
     @FXML
     private void probAleatorioAction(ActionEvent event) throws IOException {
+        if (stageOpen) {
+            stage.close();
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventanaResponder.fxml"));
         Parent root = loader.load();
-        Stage stage = new Stage();
+        stage = new Stage();
         Scene scene = new Scene(root);
         stage.setTitle("Resolucion de problemas");
 
@@ -161,13 +176,20 @@ public class MapaLoged implements Initializable {
 
         stage.setScene(scene);
         stage.show();
+        stageOpen = true;
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
         controladorTest.setRandomnes(true);
+//        controladorTest.prueba2;
+        
+        
     }
 
     @FXML
     private void resultadosAction(ActionEvent event) {
+        if(stageOpen){
+            stage.close();
+        }
     }
     
     
@@ -183,5 +205,13 @@ public class MapaLoged implements Initializable {
     void setResultados(int a, int f){
         aciertos = a;
         fallos = f;
+        aciertosLab.setText(Integer.toString(aciertos));
+        fallosLab.setText(Integer.toString(fallos));
+        
+    }
+    
+    void setController(MapaLoged contr){
+        controllerLoged = contr;
+        System.out.println("mapa " + controllerLoged);
     }
 }
