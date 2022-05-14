@@ -62,7 +62,7 @@
       </SplitPane>
       <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
          <children>
-            <ToggleButton fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
+            <ToggleButton id="toggle" fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -71,16 +71,16 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="lineaButton" mnemonicParsing="false" onAction="#lineaAction">
+            <ToggleButton id="toggle" fx:id="lineaButton" mnemonicParsing="false" onAction="#lineaAction">
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="ferru" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/linea.png" />
                      </image>
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="arcoButton" mnemonicParsing="false" onAction="#arcoButton">
+            <ToggleButton id="toggle" fx:id="arcoButton" mnemonicParsing="false" onAction="#arcoButton">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -89,7 +89,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="escribirButton" mnemonicParsing="false" onAction="#escribirAction">
+            <ToggleButton id="toggle" fx:id="escribirButton" mnemonicParsing="false" onAction="#escribirAction">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -98,7 +98,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
+            <ToggleButton id="toggle" fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -111,7 +111,7 @@
                <children>
                   <HBox fx:id="hboxabajo3" alignment="CENTER" prefHeight="56.0" prefWidth="300.0">
                      <children>
-                        <ToggleButton fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">
+                        <ToggleButton id="toggle" fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -120,7 +120,7 @@
                               </ImageView>
                            </graphic>
                         </ToggleButton>
-                        <ToggleButton fx:id="eliminarButton" mnemonicParsing="false" onAction="#eliminarAction">
+                        <ToggleButton id="toggle" fx:id="eliminarButton" mnemonicParsing="false" onAction="#eliminarAction">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -134,7 +134,7 @@
                         <Insets />
                      </HBox.margin>
                   </HBox>
-                  <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" text="Limpiar Carta" textAlignment="JUSTIFY">
+                  <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" stylesheets="@../model/estilo.css" text="Limpiar Carta" textAlignment="JUSTIFY">
                      <HBox.margin>
                         <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                      </HBox.margin>

@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -32,21 +32,21 @@
                </VBox.margin>
             </Text>
             <TextField fx:id="nombreField" maxWidth="250.0" promptText="Usuario" />
-            <Label fx:id="errNomLab" text="error nombre" />
+            <Label id="error" fx:id="errNomLab" text="error nombre" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
                <VBox.margin>
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
             <TextField fx:id="correoField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" promptText="Correo" text="Correo electrónico" />
-            <Label fx:id="errCorreoLab" text="error correo" />
+            <Label id="error" fx:id="errCorreoLab" text="error correo" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
                <VBox.margin>
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
             <TextField fx:id="contraField" maxWidth="250.0" promptText="contraseña" />
-            <Label fx:id="errConLab" text="error contraseña" />
+            <Label id="error" fx:id="errConLab" text="error contraseña" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de nacimiento">
                <font>
                   <Font size="15.0" />
@@ -55,13 +55,13 @@
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <DatePicker fx:id="fechaField" promptText="fecha naci" />
+            <DatePicker fx:id="fechaField" promptText="fecha nacimiento" />
             <Label fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="buttonAceptar" alignment="CENTER" maxWidth="100.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="25.0" prefWidth="116.0" text="Aceptar/iniciar">
+            <Button fx:id="buttonAceptar" alignment="CENTER" maxWidth="150.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="39.0" prefWidth="150.0" text="Aceptar/iniciar">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -72,14 +72,14 @@
    <left>
       <VBox prefHeight="383.0" prefWidth="122.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#buttonBack" text="Atras">
+            <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" top="10.0" />
                </VBox.margin>
                <graphic>
                   <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../Downloads/esquema-de-boton-circular-de-flecha-hacia-atras-izquierda.png" />
+                        <Image url="@../icons/boton%20atras.png" />
                      </image></ImageView>
                </graphic>
                <font>
@@ -91,9 +91,9 @@
    <right>
       <VBox prefHeight="383.0" prefWidth="180.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuButton mnemonicParsing="false" prefHeight="41.0" prefWidth="165.0" text="Elegir Avatar">
+            <MenuButton mnemonicParsing="false" prefHeight="46.0" prefWidth="170.0" text="Avatar">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1">
+                <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -102,7 +102,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -111,7 +111,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField11" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -120,7 +120,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -129,7 +129,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField1111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
