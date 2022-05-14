@@ -16,6 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -33,14 +35,19 @@ public class VistaListaController implements Initializable {
     private ListView<String> lista;
     
     private ObservableList<String> dato =null;
-    @FXML
     private TextField campoTexto;
-    @FXML
-    private Button add;
     @FXML
     private Button down;
     @FXML
     private Button up;
+    @FXML
+    private CheckMenuItem bitcoin;
+    @FXML
+    private CheckMenuItem ether;
+    @FXML
+    private CheckMenuItem litecoin;
+    @FXML
+    private Label cripto;
 
 
     /**
@@ -71,7 +78,6 @@ public class VistaListaController implements Initializable {
         });
     }    
 
-    @FXML
     private void datos(ActionEvent event) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("About");
@@ -79,7 +85,6 @@ public class VistaListaController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
     private void enter(KeyEvent event) {
         if(!(campoTexto.getText()).isEmpty() && event.getCode() == KeyCode.ENTER){
             dato.add(campoTexto.getText());
@@ -88,7 +93,6 @@ public class VistaListaController implements Initializable {
         }
     }
 
-    @FXML
     private void enter(ActionEvent event) {
         if(!(campoTexto.getText()).isEmpty()){
             dato.add(campoTexto.getText());
@@ -103,6 +107,18 @@ public class VistaListaController implements Initializable {
 
     @FXML
     private void subir(ActionEvent event) {
+    }
+
+    @FXML
+    private void bc(ActionEvent event) {
+    }
+
+    @FXML
+    private void et(ActionEvent event) {
+    }
+
+    @FXML
+    private void lc(ActionEvent event) {
     }
     
 }
