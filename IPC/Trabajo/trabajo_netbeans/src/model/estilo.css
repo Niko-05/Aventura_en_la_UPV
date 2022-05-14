@@ -191,7 +191,6 @@
 }
 
 .dialog-pane .button:hover{     
-  -fx-background-color:white;
-  -fx-text-fill:black;
-  -fx-font-weight:bold; 
+  -fx-background-color: #F2CC8F;
+	-fx-text-fill: #3D405B;
  }

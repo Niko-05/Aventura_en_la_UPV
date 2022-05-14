@@ -128,6 +128,10 @@ public class MapaLoged implements Initializable {
     @FXML
     private void cerrarSesionAction(ActionEvent event) throws IOException {
         
+        if(stageOpen){
+            stage.close();
+        }
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
         Parent root = loader.load();
         Stage stage = ((Stage) aciertosLab.getScene().getWindow());

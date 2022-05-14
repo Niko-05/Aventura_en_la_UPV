@@ -102,6 +102,7 @@ public class Inicial implements Initializable {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setTitle("Mapa");
+                stage.setResizable(true);
                 
                 MapaLoged controladorPrin = loader.getController();
 //                controladorPrin.setUsuario(usuario);

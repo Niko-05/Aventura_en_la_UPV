@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,10 +50,16 @@ public class Mapa implements Initializable {
     private boolean crearPuntero;
     private boolean crearArco;
     private boolean crearTexto;
-    private Line linePainting;
+    
     private double mousePosX;
     private double mousePosY;
+    
+    private Line linePainting = new Line();
+    private Circle circlePainting;
+    private double inicioXArc;
+    
     private Group zoomGroup;
+    
     
 
     @FXML
@@ -83,8 +90,8 @@ public class Mapa implements Initializable {
     private ToggleButton colorButton;
     @FXML
     private ToggleButton eliminarButton;
-    private Circle circlePainting;
-    private double inicioXArc;
+    
+    
     @FXML
     private ListView<?> listaItems;
     
@@ -146,6 +153,25 @@ public class Mapa implements Initializable {
 //        botonesRegion.widthProperty().
 //        botonesBox.widthProperty().bind
         
+
+
+
+        linePainting.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+            public void handle(ContextMenuEvent ae) {
+                System.out.println(".handle()");
+            }
+        });
+        linePainting.setOnContextMenuRequested(e -> {
+            ContextMenu menuContext = new ContextMenu();
+            MenuItem borrarItem = new MenuItem("eliminar");
+            menuContext.getItems().add(borrarItem);
+            borrarItem.setOnAction(ev -> {
+                zoomGroup.getChildren().remove((Node)e.getSource());
+                ev.consume();
+            });
+            menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
+            e.consume();
+        });
     }    
     
     
@@ -345,7 +371,9 @@ public class Mapa implements Initializable {
     @FXML
     private void contextMenuRequested(ContextMenuEvent event) {
         System.out.println(event.getX() + " - " + event.getY());
-//        linePainting.setOnContextMenuRequested(e -> {
+        
+        
+//        circlePainting.setOnContextMenuRequested(e -> {
 //            ContextMenu menuContext = new ContextMenu();
 //            MenuItem borrarItem = new MenuItem("eliminar");
 //            menuContext.getItems().add(borrarItem);
@@ -353,24 +381,13 @@ public class Mapa implements Initializable {
 //                zoomGroup.getChildren().remove((Node)e.getSource());
 //                ev.consume();
 //            });
-//            menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
+//            menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
 ////            menuContext.sho
 //            e.consume();
 //        });
-        
-        circlePainting.setOnContextMenuRequested(e -> {
-            ContextMenu menuContext = new ContextMenu();
-            MenuItem borrarItem = new MenuItem("eliminar");
-            menuContext.getItems().add(borrarItem);
-            borrarItem.setOnAction(ev -> {
-                zoomGroup.getChildren().remove((Node)e.getSource());
-                ev.consume();
-            });
-            menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
-//            menuContext.sho
-            e.consume();
-        });
     }
+    
+    
 
     
 }
