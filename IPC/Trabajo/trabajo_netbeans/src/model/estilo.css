@@ -84,7 +84,11 @@
     -fx-background-color: #81B29A;
     -fx-text-fill: #F2CC8F;
     -fx-font: 12pt "Segoe UI";
+}
 
+#menumodificador:hover{
+	-fx-background-color: #F2CC8F;
+	-fx-text-fill: #81B29A;
 }
 
 #labelmod{
@@ -114,6 +118,39 @@
 #error{
 	-fx-text-fill: #E07A5F;
 	-fx-font: 10pt "Segoe UI";
+}
+
+.list-view{
+	-fx-background-color: #81B29A;
+	
+}
+.list-item{
+	-fx-font: 14pt "Segoe UI";
+	-fx-text-fill: #E07A5F;
+}
+
+.table-view{
+	-fx-background-color: #F2CC8F;
+	-fx-font: 14pt "Segoe UI";
+	
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #3D405B;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header .label{
+    -fx-text-fill: #F2CC8F;
+}
+
+.table-column{
+	-fx-border-color: #81B29A;
+	-fx-font: 14pt "Segoe UI";
+    -fx-text-fill: #3D405B;
 }
 
 .text-field{

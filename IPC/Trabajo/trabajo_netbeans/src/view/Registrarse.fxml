@@ -23,14 +23,14 @@
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="nombreField" promptText="Usuario" />
+            <TextField fx:id="nombreField" promptText="usuario" />
             <Label id="error" fx:id="errNomLab" text="error nombre" />
             <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
                <VBox.margin>
                   <Insets bottom="5.0" top="8.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="correoField" promptText="Correo" text="Correo electrónico" />
+            <TextField fx:id="correoField" promptText="correo@example.com" />
             <Label id="error" fx:id="errCorreoLab" text="error correo" />
             <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
                <VBox.margin>
@@ -92,9 +92,9 @@
                   <Image url="@../icons/default.png" />
                </image>
             </ImageView>
-            <MenuButton id="menumodificador" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Modificar avatar">
+            <MenuButton id="menumodificador" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Modificar avatar" textFill="#9c3636">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1">
+                <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -103,7 +103,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -112,7 +112,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField11" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -121,7 +121,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -130,7 +130,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Action 1">
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField1111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
