@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,43 +85,23 @@ public class ModPerfil implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            usuario = Navegacion.getSingletonNavegacion().loginUser("prueba", "123456aA!");
-        } catch (NavegacionDAOException ex) {
-            Logger.getLogger(ModPerfil.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            usuario = Navegacion.getSingletonNavegacion().loginUser("prueba", "123456aA!");
+//        } catch (NavegacionDAOException ex) {
+//            Logger.getLogger(ModPerfil.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         errContraseñaLab.setVisible(false);
         errNomLab.setVisible(false);
         errCorreoLab.setVisible(false);
         
-        usuarioLab.setText(usuario.getNickName());
-        avatarField.setImage(usuario.getAvatar());
-        contraseñaLab.setText(usuario.getPassword());
-        correoLab.setText(usuario.getEmail());
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-        nacimientoLab.setText(usuario.getBirthdate().format(formatters));
+        
         // TODO
     }    
 
     @FXML
     private void buttonBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
-        stage.setTitle("Mapa");
-
-        MapaLoged controladorPrin = loader.getController();
-//                controladorPrin.setUsuario(usuario);
-
-        stage.setScene(scene);
-        controladorPrin.setUsuario(usuario);
-        controladorPrin.setResultados(aciertos, fallos);
+        ((Stage) errContraseñaLab.getScene().getWindow()).close();
     }
     
     
@@ -313,6 +294,13 @@ public class ModPerfil implements Initializable {
     
      void setUsuario(User user){
         usuario = user;
+        
+        usuarioLab.setText(usuario.getNickName());
+        avatarField.setImage(usuario.getAvatar());
+        contraseñaLab.setText(usuario.getPassword());
+        correoLab.setText(usuario.getEmail());
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        nacimientoLab.setText(usuario.getBirthdate().format(formatters));
     }
      public void setAvatar(Image avatar) {
         avatarField.setImage(avatar);

@@ -10,11 +10,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<<<<<<< HEAD
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
    <top>
       <VBox BorderPane.alignment="CENTER">
@@ -23,50 +23,85 @@
          </children>
       </VBox>
    </top>
+=======
+<BorderPane id="border_pane" fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
+>>>>>>> 6d41166c35664f237c3db3b1ea160f54eb5d3b00
    <center>
-      <VBox maxWidth="331.0" prefHeight="383.0" prefWidth="305.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="383.0" prefWidth="380.0" BorderPane.alignment="CENTER">
          <children>
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
                <VBox.margin>
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
+<<<<<<< HEAD
             <TextField fx:id="nombreField" maxWidth="250.0" promptText="Usuario" />
             <Label id="error" fx:id="errNomLab" text="error nombre" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
+=======
+            <TextField fx:id="nombreField" promptText="Usuario" />
+            <Label id="error" fx:id="errNomLab" text="error nombre" />
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
+>>>>>>> 6d41166c35664f237c3db3b1ea160f54eb5d3b00
                <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
+                  <Insets bottom="5.0" top="8.0" />
                </VBox.margin>
             </Text>
+<<<<<<< HEAD
             <TextField fx:id="correoField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" promptText="Correo" text="Correo electrónico" />
             <Label id="error" fx:id="errCorreoLab" text="error correo" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
+=======
+            <TextField fx:id="correoField" promptText="Correo" text="Correo electrónico" />
+            <Label id="error" fx:id="errCorreoLab" text="error correo" />
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
+>>>>>>> 6d41166c35664f237c3db3b1ea160f54eb5d3b00
                <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
+                  <Insets bottom="5.0" top="8.0" />
                </VBox.margin>
             </Text>
+<<<<<<< HEAD
             <TextField fx:id="contraField" maxWidth="250.0" promptText="contraseña" />
             <Label id="error" fx:id="errConLab" text="error contraseña" />
             <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de nacimiento">
+=======
+            <TextField fx:id="contraField" promptText="contraseña" />
+            <Label id="error" fx:id="errConLab" text="error contraseña" />
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacimiento">
+>>>>>>> 6d41166c35664f237c3db3b1ea160f54eb5d3b00
                <font>
                   <Font size="15.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
+                  <Insets bottom="5.0" top="8.0" />
                </VBox.margin>
             </Text>
+<<<<<<< HEAD
             <DatePicker fx:id="fechaField" promptText="fecha nacimiento" />
             <Label fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
+=======
+            <DatePicker fx:id="fechaField" promptText="dd/mm/aaaa" />
+            <Label id="error" fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
+>>>>>>> 6d41166c35664f237c3db3b1ea160f54eb5d3b00
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
+<<<<<<< HEAD
             <Button fx:id="buttonAceptar" alignment="CENTER" maxWidth="150.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="39.0" prefWidth="150.0" text="Aceptar/iniciar">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
             </Button>
+=======
+>>>>>>> 6d41166c35664f237c3db3b1ea160f54eb5d3b00
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="35.0" />
+         </padding>
       </VBox>
    </center>
    <left>
@@ -77,7 +112,7 @@
                   <Insets bottom="10.0" left="10.0" top="10.0" />
                </VBox.margin>
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/boton%20atras.png" />
                      </image></ImageView>
@@ -86,12 +121,24 @@
                   <Font name="Segoe UI" size="12.0" />
                </font></Button>
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="383.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="383.0" prefWidth="180.0" BorderPane.alignment="CENTER">
          <children>
+<<<<<<< HEAD
             <MenuButton mnemonicParsing="false" prefHeight="46.0" prefWidth="170.0" text="Avatar">
+=======
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/default.png" />
+               </image>
+            </ImageView>
+            <MenuButton id="menumodificador" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Modificar avatar">
+>>>>>>> 6d41166c35664f237c3db3b1ea160f54eb5d3b00
               <items>
                 <MenuItem mnemonicParsing="false">
                      <graphic>
@@ -140,12 +187,17 @@
                   </MenuItem>
               </items>
                <VBox.margin>
-                  <Insets right="10.0" />
+                  <Insets top="10.0" />
                </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic>
             </MenuButton>
-         </children></VBox>
+            <Button fx:id="buttonAceptar" alignment="CENTER" contentDisplay="CENTER" maxWidth="116.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="39.0" prefWidth="116.0" text="Registrarse">
+               <VBox.margin>
+                  <Insets top="160.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets right="10.0" top="10.0" />
+         </BorderPane.margin></VBox>
    </right>
 </BorderPane>
