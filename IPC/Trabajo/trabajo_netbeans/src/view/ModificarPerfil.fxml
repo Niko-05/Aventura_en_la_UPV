@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox id="Vbox_principal" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModPerfil">
    <children>
       <VBox>
@@ -91,7 +90,7 @@
                                        <graphic>
                                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../icons/boton%20atras.png" />
+                                                <Image url="@../icons/subir.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>

@@ -39,7 +39,7 @@
       <SplitPane dividerPositions="0.1" VBox.vgrow="ALWAYS">
          <items>
             <ListView fx:id="listaItems" prefHeight="683.0" prefWidth="100.0" />
-            <ScrollPane fx:id="map_scrollpane" onContextMenuRequested="#contextMenuRequested" onMouseMoved="#getMousePosition" pannable="true">
+            <ScrollPane fx:id="map_scrollpane" onMouseMoved="#getMousePosition" pannable="true">
                <content>
                   <Pane onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased">
                      <children>

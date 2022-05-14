@@ -25,6 +25,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
@@ -37,7 +38,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.security.auth.callback.TextOutputCallback;
 
 /**
  * FXML Controller class
@@ -315,7 +318,7 @@ public class Mapa implements Initializable {
             linePainting.setStrokeWidth(4);
         }
         
-        if (crearArco){
+        if (crearArco) {
             circlePainting = new Circle(1);
             circlePainting.setStroke(Color.RED);
             circlePainting.setFill(Color.TRANSPARENT);
@@ -324,6 +327,37 @@ public class Mapa implements Initializable {
             circlePainting.setCenterY(event.getY());
             circlePainting.setStrokeWidth(4);
             inicioXArc = event.getX();
+
+            circlePainting.setOnContextMenuRequested(e -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem borrarItem = new MenuItem("eliminar");
+                menuContext.getItems().add(borrarItem);
+                borrarItem.setOnAction(ev -> {
+                    zoomGroup.getChildren().remove((Node) e.getSource());
+                    ev.consume();
+                });
+                menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
+//            menuContext.sho
+                e.consume();
+            });
+
+        }
+        
+        if (crearTexto){
+            TextField texto = new TextField();
+            texto.setLayoutX(event.getX());
+            texto.setLayoutY(event.getY());
+            texto.requestFocus();
+            
+            texto.setOnAction(e -> {
+                Text textoT = new Text(texto.getText());
+                textoT.setX(texto.getLayoutX());
+                textoT.setX(texto.getLayoutY());
+                textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: 30;");
+                zoomGroup.getChildren().add(textoT);
+                zoomGroup.getChildren().remove(texto);
+                e.consume();
+            });
             
         }
 
@@ -342,6 +376,9 @@ public class Mapa implements Initializable {
             double radio = Math.abs(event.getX() - inicioXArc);
             circlePainting.setRadius(radio);
             event.consume();
+            
+            
+        
             
         }
     }
@@ -373,18 +410,7 @@ public class Mapa implements Initializable {
         System.out.println(event.getX() + " - " + event.getY());
         
         
-//        circlePainting.setOnContextMenuRequested(e -> {
-//            ContextMenu menuContext = new ContextMenu();
-//            MenuItem borrarItem = new MenuItem("eliminar");
-//            menuContext.getItems().add(borrarItem);
-//            borrarItem.setOnAction(ev -> {
-//                zoomGroup.getChildren().remove((Node)e.getSource());
-//                ev.consume();
-//            });
-//            menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
-////            menuContext.sho
-//            e.consume();
-//        });
+        
     }
     
     
