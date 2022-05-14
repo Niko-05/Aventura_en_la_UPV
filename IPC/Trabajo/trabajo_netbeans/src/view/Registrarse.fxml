@@ -10,88 +10,89 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
-         <children>
-            <Region prefHeight="17.0" prefWidth="600.0" />
-         </children>
-      </VBox>
-   </top>
+<BorderPane id="border_pane" fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
    <center>
-      <VBox maxWidth="331.0" prefHeight="383.0" prefWidth="305.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="383.0" prefWidth="380.0" BorderPane.alignment="CENTER">
          <children>
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
                <VBox.margin>
                   <Insets bottom="5.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="nombreField" maxWidth="250.0" promptText="Usuario" />
-            <Label fx:id="errNomLab" text="error nombre" />
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
+            <TextField fx:id="nombreField" promptText="Usuario" />
+            <Label id="error" fx:id="errNomLab" text="error nombre" />
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
                <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
+                  <Insets bottom="5.0" top="8.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="correoField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" promptText="Correo" text="Correo electrónico" />
-            <Label fx:id="errCorreoLab" text="error correo" />
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
+            <TextField fx:id="correoField" promptText="Correo" text="Correo electrónico" />
+            <Label id="error" fx:id="errCorreoLab" text="error correo" />
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
                <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
+                  <Insets bottom="5.0" top="8.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="contraField" maxWidth="250.0" promptText="contraseña" />
-            <Label fx:id="errConLab" text="error contraseña" />
-            <Text id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha de nacimiento">
+            <TextField fx:id="contraField" promptText="contraseña" />
+            <Label id="error" fx:id="errConLab" text="error contraseña" />
+            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacimiento">
                <font>
                   <Font size="15.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
+                  <Insets bottom="5.0" top="8.0" />
                </VBox.margin>
             </Text>
-            <DatePicker fx:id="fechaField" promptText="fecha naci" />
-            <Label fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
+            <DatePicker fx:id="fechaField" promptText="dd/mm/aaaa" />
+            <Label id="error" fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="buttonAceptar" alignment="CENTER" maxWidth="100.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="25.0" prefWidth="116.0" text="Aceptar/iniciar">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </Button>
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="35.0" />
+         </padding>
       </VBox>
    </center>
    <left>
       <VBox prefHeight="383.0" prefWidth="122.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#buttonBack" text="Atras">
+            <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" top="10.0" />
                </VBox.margin>
                <graphic>
-                  <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../Downloads/esquema-de-boton-circular-de-flecha-hacia-atras-izquierda.png" />
+                        <Image url="@../icons/boton%20atras.png" />
                      </image></ImageView>
                </graphic>
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font></Button>
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="383.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="383.0" prefWidth="180.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuButton mnemonicParsing="false" prefHeight="41.0" prefWidth="165.0" text="Elegir Avatar">
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/default.png" />
+               </image>
+            </ImageView>
+            <MenuButton id="menumodificador" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Modificar avatar">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1">
                      <graphic>
@@ -140,12 +141,17 @@
                   </MenuItem>
               </items>
                <VBox.margin>
-                  <Insets right="10.0" />
+                  <Insets top="10.0" />
                </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic>
             </MenuButton>
-         </children></VBox>
+            <Button fx:id="buttonAceptar" alignment="CENTER" contentDisplay="CENTER" maxWidth="116.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="39.0" prefWidth="116.0" text="Registrarse">
+               <VBox.margin>
+                  <Insets top="160.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets right="10.0" top="10.0" />
+         </BorderPane.margin></VBox>
    </right>
 </BorderPane>
