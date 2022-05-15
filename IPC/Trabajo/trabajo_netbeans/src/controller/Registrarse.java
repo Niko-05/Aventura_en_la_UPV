@@ -31,6 +31,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -50,8 +52,6 @@ public class Registrarse implements Initializable {
     private BooleanProperty validname;
     private BooleanProperty validage;
 
-    @FXML
-    private BorderPane borderPane;
     @FXML
     private TextField correoField;
     @FXML
@@ -76,13 +76,9 @@ public class Registrarse implements Initializable {
     private User usuario;
     private boolean registered;
     @FXML
-    private ImageView avatarField1;
+    private VBox boxRegistarse;
     @FXML
-    private ImageView avatarField11;
-    @FXML
-    private ImageView avatarField111;
-    @FXML
-    private ImageView avatarField1111;
+    private HBox ventanaPrincipal;
 
     /**
      * Initializes the controller class.
@@ -90,6 +86,10 @@ public class Registrarse implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
+            boxRegistarse.setPrefHeight((double) newV / 2);
+        });
 
         avatarField.setPreserveRatio(false);
         avatarField.resize(50, 50);
@@ -196,22 +196,6 @@ public class Registrarse implements Initializable {
         });
     }
 
-    private void buttAvatarAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChoseAvatar.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Modificar Persona");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.showAndWait();
-
-        ChoseAvatar controladorAvatar = loader.getController();
-        if (controladorAvatar.getAvatar() != null) {
-            avatarField.setImage(controladorAvatar.getAvatar());
-        }
-    }
-
     @FXML
     private void buttAceptarAction(ActionEvent event) throws NavegacionDAOException, IOException {
         //Prueba correo
@@ -277,6 +261,30 @@ public class Registrarse implements Initializable {
 
     public void setAvatar(Image avatar) {
         avatarField.setImage(avatar);
+    }
+
+    @FXML
+    private void avatarDefaultAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void avatar1Action(ActionEvent event) {
+    }
+
+    @FXML
+    private void avatar2Action(ActionEvent event) {
+    }
+
+    @FXML
+    private void avatar3Action(ActionEvent event) {
+    }
+
+    @FXML
+    private void avatar4Action(ActionEvent event) {
+    }
+
+    @FXML
+    private void avatarImportAction(ActionEvent event) {
     }
     
     class ConfRegistro extends Thread {

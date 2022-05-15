@@ -14,13 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox id="Vbox_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="Vbox_principal" fx:id="ventanaPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Registrarse">
    <children>
-      <VBox prefHeight="383.0" prefWidth="122.0">
+      <VBox spacing="10.0">
          <children>
             <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
+                  <Insets />
                </VBox.margin>
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -33,124 +33,142 @@
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Button>
+            <VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
+                  <TextField fx:id="nombreField" promptText="usuario" />
+                  <Label id="error" fx:id="errNomLab" text="Usuario ya registrado" />
+               </children>
+            </VBox>
+            <VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico" />
+                  <TextField fx:id="correoField" promptText="correo@example.com" />
+                  <Label id="error" fx:id="errCorreoLab" text="error correo" />
+               </children>
+            </VBox>
+            <VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
+                  <TextField fx:id="contraField" promptText="contraseña" />
+                  <Label id="error" fx:id="errConLab" text="Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&amp;*()-+=)" />
+               </children>
+            </VBox>
+            <VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacimiento">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <DatePicker fx:id="fechaField" promptText="aaaa-mm-dd" />
+                  <Label id="error" fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
+                     <font>
+                        <Font name="Segoe UI" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
          </children>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-      </VBox>
-      <VBox prefHeight="400.0" prefWidth="319.0">
-         <children>
-            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="10.0" />
-               </VBox.margin>
-            </Text>
-            <TextField fx:id="nombreField" promptText="usuario" />
-            <Label id="error" fx:id="errNomLab" text="error nombre" />
-            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="8.0" />
-               </VBox.margin>
-            </Text>
-            <TextField fx:id="correoField" promptText="correo@example.com" />
-            <Label id="error" fx:id="errCorreoLab" text="error correo" />
-            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="8.0" />
-               </VBox.margin>
-            </Text>
-            <TextField fx:id="contraField" promptText="contraseña" />
-            <Label id="error" fx:id="errConLab" text="error contraseña" />
-            <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacimiento">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="5.0" top="8.0" />
-               </VBox.margin>
-            </Text>
-            <DatePicker fx:id="fechaField" promptText="aaaa-mm-dd" />
-            <Label id="error" fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
-               <font>
-                  <Font name="Segoe UI" size="12.0" />
-               </font>
-            </Label>
-         </children>
-         <padding>
-            <Insets right="35.0" />
-         </padding>
          <HBox.margin>
-            <Insets top="10.0" />
+            <Insets />
          </HBox.margin>
+         <padding>
+            <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+         </padding>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="383.0" prefWidth="180.0">
+      <VBox alignment="CENTER" spacing="20.0">
          <children>
-            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="avatarField" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true">
                <image>
                   <Image url="@../icons/default.png" />
                </image>
             </ImageView>
-            <MenuButton id="menumodificador" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Modificar avatar" textFill="#9c3636">
+            <MenuButton id="menumodificador" alignment="CENTER" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Cambiar Avatar" textAlignment="CENTER">
                <items>
-                  <MenuItem mnemonicParsing="false">
+                  <MenuItem mnemonicParsing="false" onAction="#avatarDefaultAction">
                      <graphic>
-                        <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/default.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false">
+                  <MenuItem mnemonicParsing="false" onAction="#avatar1Action">
                      <graphic>
-                        <ImageView fx:id="avatarField1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/avatar1.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false">
+                  <MenuItem mnemonicParsing="false" onAction="#avatar2Action">
                      <graphic>
-                        <ImageView fx:id="avatarField11" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/avatar2.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false">
+                  <MenuItem mnemonicParsing="false" onAction="#avatar3Action">
                      <graphic>
-                        <ImageView fx:id="avatarField111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/avatar3.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false">
+                  <MenuItem mnemonicParsing="false" onAction="#avatar4Action">
                      <graphic>
-                        <ImageView fx:id="avatarField1111" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/avatar4.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#avatarImportAction" text="Importar">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/subir.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
                </items>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
             </MenuButton>
-            <Button fx:id="buttonAceptar" alignment="CENTER" contentDisplay="CENTER" maxWidth="116.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="39.0" prefWidth="116.0" text="Registrarse">
+            <VBox fx:id="boxRegistarse" alignment="BOTTOM_RIGHT">
                <VBox.margin>
-                  <Insets top="160.0" />
+                  <Insets />
                </VBox.margin>
-            </Button>
+               <children>
+                  <Button fx:id="buttonAceptar" alignment="CENTER" contentDisplay="CENTER" maxWidth="116.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="39.0" prefWidth="116.0" text="Registrarse" />
+               </children>
+            </VBox>
          </children>
          <HBox.margin>
-            <Insets right="10.0" top="10.0" />
+            <Insets />
          </HBox.margin>
+         <padding>
+            <Insets left="10.0" right="30.0" />
+         </padding>
       </VBox>
    </children>
 </HBox>

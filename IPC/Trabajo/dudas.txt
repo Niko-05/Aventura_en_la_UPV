@@ -18,12 +18,6 @@ Realizacion de problemas
 	- opcion pregunta aleatoria y respuestas en orden aleatorio
 	- opcion lista de problemas
 
-¿Primera pantalla?
-¿Problemas resueltos "2.1" ?
-¿boton idioma?
-¿label temporal?
-¿hacer que se cambien ventanas?
-
 
 codigo ---------
 
@@ -42,6 +36,16 @@ seleccionar elemento para eleminarlo o cambiar color
 mensajito al posarse en un boton
 eliminar submenu muy alejado
 al crear varios objetos no reconoce al primero
+coger el controller de la ventana anterior (ir cerrando pestañas)
+mejor varias pestañas o una sola?
+listview de items
+mandar datepicker a fecha valida
+regla con imageview e ir haciendolo invisible?
+contraseña en modPerfil visible?
+imageview con hover y mensaje de requisitos contraseña
+
+
+
 
 action event para cerrar la ventana
 coger las ventanas abieertas y cerrarlas
