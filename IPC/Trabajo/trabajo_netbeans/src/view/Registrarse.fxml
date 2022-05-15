@@ -9,14 +9,36 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="border_pane" fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegistrarseController">
-   <center>
-      <VBox prefHeight="383.0" prefWidth="380.0" BorderPane.alignment="CENTER">
+<HBox id="Vbox_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="383.0" prefWidth="122.0">
+         <children>
+            <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/boton%20atras.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <VBox prefHeight="400.0" prefWidth="319.0">
          <children>
             <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario">
                <VBox.margin>
@@ -54,38 +76,14 @@
                </font>
             </Label>
          </children>
-         <BorderPane.margin>
-            <Insets top="10.0" />
-         </BorderPane.margin>
          <padding>
             <Insets right="35.0" />
          </padding>
-      </VBox>
-   </center>
-   <left>
-      <VBox prefHeight="383.0" prefWidth="122.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/boton%20atras.png" />
-                     </image></ImageView>
-               </graphic>
-               <font>
-                  <Font name="Segoe UI" size="12.0" />
-               </font></Button>
-         </children>
-         <BorderPane.margin>
+         <HBox.margin>
             <Insets top="10.0" />
-         </BorderPane.margin>
+         </HBox.margin>
       </VBox>
-   </left>
-   <right>
-      <VBox alignment="CENTER" prefHeight="383.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="383.0" prefWidth="180.0">
          <children>
             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -93,8 +91,8 @@
                </image>
             </ImageView>
             <MenuButton id="menumodificador" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Modificar avatar" textFill="#9c3636">
-              <items>
-                <MenuItem mnemonicParsing="false">
+               <items>
+                  <MenuItem mnemonicParsing="false">
                      <graphic>
                         <ImageView fx:id="avatarField" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -139,7 +137,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-              </items>
+               </items>
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -150,8 +148,9 @@
                </VBox.margin>
             </Button>
          </children>
-         <BorderPane.margin>
+         <HBox.margin>
             <Insets right="10.0" top="10.0" />
-         </BorderPane.margin></VBox>
-   </right>
-</BorderPane>
+         </HBox.margin>
+      </VBox>
+   </children>
+</HBox>
