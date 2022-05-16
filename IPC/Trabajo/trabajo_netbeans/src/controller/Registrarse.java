@@ -30,6 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -228,7 +229,7 @@ public class Registrarse implements Initializable {
             Navegacion.getSingletonNavegacion().registerUser(nombreField.getText(), contraField.getText(), contraField.getText(), avatarField.getImage(), fechaField.getValue());
 
             usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Principal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
@@ -236,7 +237,7 @@ public class Registrarse implements Initializable {
             double prevHeight = stage.getHeight();
             stage.setHeight(prevHeight);
             stage.setWidth(prevWidth);
-            stage.setTitle("Pestaña Principal");
+            stage.setTitle("Mapa");
 
             Principal controladorPrin = loader.getController();
 
@@ -251,10 +252,6 @@ public class Registrarse implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Inicial.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
         stage.setTitle("Pestaña Inicial");
         stage.setScene(scene);
     }
@@ -286,16 +283,20 @@ public class Registrarse implements Initializable {
     @FXML
     private void avatarImportAction(ActionEvent event) {
     }
+
+    @FXML
+    private void infoContraAction(MouseEvent event) {
+    }
     
     class ConfRegistro extends Thread {
         @Override
         public void run() {
             Notifications notificationBuilder = Notifications.create()
-                    .title("Confirmacion")
+                    .title("Confirmación")
                     .text("Se ha registrado el usuario correctamente")
                     .graphic(null)
                     .hideAfter(Duration.seconds(5))
-                    .position(Pos.CENTER);
+                    .position(Pos.BOTTOM_LEFT);
 
             Platform.runLater(() -> {
 

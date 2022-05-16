@@ -16,7 +16,7 @@
    <children>
       <VBox>
          <children>
-            <Button id="atras" mnemonicParsing="false" text="Atrás">
+            <Button id="atras" mnemonicParsing="false" onAction="#backAction" text="Atrás">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -92,7 +92,7 @@
                   <Insets />
                </VBox.margin>
             </Text>
-            <Button id="registrarse" mnemonicParsing="false" text="Registrarse">
+            <Button id="registrarse" mnemonicParsing="false" onAction="#buttRegAction" text="Registrarse">
                <font>
                   <Font name="Segoe UI" size="20.0" />
                </font>

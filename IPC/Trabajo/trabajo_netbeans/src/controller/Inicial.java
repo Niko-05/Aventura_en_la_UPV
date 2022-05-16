@@ -116,10 +116,11 @@ public class Inicial implements Initializable {
         }else {errNomLab.setVisible(true);}
     }
 
+    @FXML
     private void buttRegAction(ActionEvent event) throws Exception {
         
-//       FXMLLoader loader= new FXMLLoader(getClass().getResource("/view/Registrarse.fxml"));
-//        Parent root = loader.load();
+       FXMLLoader loader= new FXMLLoader(getClass().getResource("/view/Registrarse.fxml"));
+        Parent root = loader.load();
 //        
 //        Scene scene = new Scene(root);
 //        
@@ -128,17 +129,9 @@ public class Inicial implements Initializable {
 //        stage.setTitle("Demo vista de lista de personas");
 //        stage.initModality(Modality.APPLICATION_MODAL);
 //        stage.show();
-        
-        
-        
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Registrarse.fxml"));
+
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
         stage.setTitle("Pestaña registrarse");
         stage.setScene(scene);
     }
@@ -173,7 +166,23 @@ public class Inicial implements Initializable {
 //        alerta.setContentText("Se ha registrado el usuario correctamente");
 //        alerta.show();
     }
+
+    @FXML
+    private void backAction(ActionEvent event) throws IOException {
     
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setTitle("Mapa");
+        stage.setResizable(true);
+        stage.setScene(scene);
+        
+        Mapa controladorPrin = loader.getController();
+        
+        controladorPrin.setDimensions();
+    }
+
     
 }
 

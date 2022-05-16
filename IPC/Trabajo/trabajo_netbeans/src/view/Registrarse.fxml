@@ -16,7 +16,7 @@
 
 <HBox id="Vbox_principal" fx:id="ventanaPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Registrarse">
    <children>
-      <VBox spacing="10.0">
+      <VBox prefWidth="300.0" spacing="10.0">
          <children>
             <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
                <VBox.margin>
@@ -54,13 +54,19 @@
                </children>
             </VBox>
             <VBox>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
                <children>
                   <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
-                  <TextField fx:id="contraField" promptText="contraseña" />
-                  <Label id="error" fx:id="errConLab" text="Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&amp;*()-+=)" />
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <TextField fx:id="contraField" prefWidth="250.0" promptText="contraseña" />
+                        <ImageView fitHeight="20.0" fitWidth="20.0" onMouseMoved="#infoContraAction" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/eliminar.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label id="error" fx:id="errConLab" text="Error" />
                </children>
             </VBox>
             <VBox>
@@ -73,7 +79,7 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="fechaField" promptText="aaaa-mm-dd" />
+                  <DatePicker fx:id="fechaField" promptText="dd-mm-aaaa" />
                   <Label id="error" fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
                      <font>
                         <Font name="Segoe UI" size="12.0" />

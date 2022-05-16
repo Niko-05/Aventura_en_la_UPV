@@ -10,11 +10,13 @@ import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -40,7 +42,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.security.auth.callback.TextOutputCallback;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -285,6 +289,18 @@ public class Mapa implements Initializable {
 
     @FXML
     private void limpiarAction(ActionEvent event) {
+            Notifications notificationBuilder = Notifications.create()
+                    .title("Confirmación")
+                    .text("Se ha registrado el usuario correctamente")
+                    .graphic(null)
+                    .hideAfter(Duration.seconds(5))
+                    .position(Pos.BOTTOM_RIGHT);
+
+            Platform.runLater(() -> {
+
+                notificationBuilder.showInformation();
+            });
+        
     }
 
     
@@ -316,6 +332,19 @@ public class Mapa implements Initializable {
             linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
             zoomGroup.getChildren().add(linePainting);
             linePainting.setStrokeWidth(4);
+            
+            linePainting.setOnContextMenuRequested(e -> {
+                ContextMenu menuContext = new ContextMenu();
+                MenuItem borrarItem = new MenuItem("eliminar");
+                menuContext.getItems().add(borrarItem);
+                borrarItem.setOnAction(ev -> {
+                    zoomGroup.getChildren().remove((Node) e.getSource());
+                    ev.consume();
+                });
+                menuContext.show(linePainting, zoom_slider.getScene().getWindow().getX() + e.getSceneX(), zoom_slider.getScene().getWindow().getY() + e.getSceneY());
+//            menuContext.sho
+                e.consume();
+            });
         }
         
         if (crearArco) {
@@ -336,7 +365,7 @@ public class Mapa implements Initializable {
                     zoomGroup.getChildren().remove((Node) e.getSource());
                     ev.consume();
                 });
-                menuContext.show(circlePainting, e.getSceneX(), e.getSceneY());
+                menuContext.show(circlePainting, zoom_slider.getScene().getWindow().getX() + e.getSceneX(), zoom_slider.getScene().getWindow().getY() + e.getSceneY());
 //            menuContext.sho
                 e.consume();
             });
@@ -411,6 +440,12 @@ public class Mapa implements Initializable {
         
         
         
+    }
+    
+    void setDimensions(){
+        ventanaPrincipal.setPrefHeight(800);
+        ventanaPrincipal.setPrefWidth(1300);
+    
     }
     
     
