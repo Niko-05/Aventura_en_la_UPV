@@ -63,3 +63,7 @@ ajustar control datepicker
 passwordfields y mostrar contraseñas
 spacing password editar usuario
 alertas editar "correcta edicion"
+listeners grosor lineas
+recolor items
+cerrar contextmenus
+eventos de textfields

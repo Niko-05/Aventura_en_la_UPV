@@ -765,11 +765,13 @@ public class MapaLoged implements Initializable {
     void setStage(Stage aux){
         stageActual = aux;
         
-        stageActual.setOnCloseRequest(e -> {
-            stage.close();
-        });
+        if (stageOpen.getValue()) {
+            stageActual.setOnCloseRequest(e -> {
+                stage.close();
+            });
+        }
     }
-    
+
     void closeProblemas(){
         stageOpen.set(false);
     }

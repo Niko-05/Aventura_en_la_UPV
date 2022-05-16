@@ -652,6 +652,10 @@ public class Mapa implements Initializable {
         });
 
         menuContext.show(map_scrollpane, e.getScreenX(), e.getScreenY());
+//        menuContext.autoHideProperty().set(true);
+//        menuContext.focusedProperty().addListener((obs, oldV, newV) -> {
+//             menuContext.hide();
+//        });
 
         e.consume();
     }
