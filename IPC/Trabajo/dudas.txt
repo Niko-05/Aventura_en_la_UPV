@@ -54,7 +54,12 @@ coger las ventanas abieertas y cerrarlas
 
 
 cosas por hacer: -----
-Boton ver mapa y ver problema
 boton back problemas
 centrar los ejes de puntos
-crear sesiones y ajustar cerradas
+crear sesione
+hover informacion
+ajustar errores
+ajustar control datepicker
+passwordfields y mostrar contraseñas
+spacing password editar usuario
+alertas editar "correcta edicion"
