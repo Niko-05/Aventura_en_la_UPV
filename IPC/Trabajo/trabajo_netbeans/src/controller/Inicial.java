@@ -106,11 +106,12 @@ public class Inicial implements Initializable {
                 
                 MapaLoged controladorPrin = loader.getController();
 //                controladorPrin.setUsuario(usuario);
-                
+ 
                 stage.setScene(scene);
                 controladorPrin.setUsuario(usuario);
-                System.out.println("login " + controladorPrin);
-                controladorPrin.setController(controladorPrin);
+                controladorPrin.setStage(stage);
+                stage.setHeight(800);
+                stage.setWidth(1300);
 //                
             }
         }else {errNomLab.setVisible(true);}
@@ -134,6 +135,8 @@ public class Inicial implements Initializable {
         Scene scene = new Scene(root);
         stage.setTitle("Pestaña registrarse");
         stage.setScene(scene);
+        stage.setHeight(480);
+        stage.setWidth(500);
     }
 
     private void pruebas(ActionEvent event) {
@@ -177,10 +180,12 @@ public class Inicial implements Initializable {
         stage.setTitle("Mapa");
         stage.setResizable(true);
         stage.setScene(scene);
-        
+
+        stage.setHeight(800);
+        stage.setWidth(1300);
+
         Mapa controladorPrin = loader.getController();
-        
-        controladorPrin.setDimensions();
+
     }
 
     

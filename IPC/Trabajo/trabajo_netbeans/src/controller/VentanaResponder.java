@@ -62,28 +62,28 @@ public class VentanaResponder implements Initializable {
     private RadioButton Respuesta_3;
     @FXML
     private Label preguntaField;
-    
+
     public IntegerProperty prueba1;
     private IntegerProperty prueba2;
-    
-    
+
     private boolean res0;
     private boolean res1;
     private boolean res2;
     private boolean res3;
-    
+
     private User usuario;
 //    private IntegerProperty aciertos;
 //    private IntegerProperty fallos;
     private int aciertos = 0;
     private int fallos = 0;
-    
+
     private int selectedProblem;
     private boolean random;
     private int max;
     private final int min = 0;
     private List<Problem> problemas;
-    
+    private MapaLoged controllerLoged;
+
     private MapaLoged controladorLoged = (new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"))).getController();
     //      (int) Math.floor(Math.random() * (max - min + 1) + min)
     @FXML
@@ -104,64 +104,58 @@ public class VentanaResponder implements Initializable {
     private HBox hBoxAbajo1;
     @FXML
     private HBox hBoxAbajo2;
-    private MapaLoged controllerLoged;
-    
-    
-    
-    
+
+    private Stage stageMapa;
+
+    private Stage stageActual;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         
+
         ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
-        
+
             hBoxAbajo1.setPrefWidth((double) newV / 2);
             hBoxAbajo2.setPrefWidth((double) newV / 2);
 
             hBoxPrincipal.setPrefWidth((double) newV);
         });
-        
+
         ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
-        
+
             hBoxPrincipal.setPrefHeight((double) newV);
             vBoxEnunciado.setPrefHeight((double) newV / 2);
         });
-        
-        
+
         comprobarButton.setDisable(true);
         siguienteButton.setDisable(true);
-        
 
         ToggleGroup tGroup = new ToggleGroup();
         Respuesta_0.setToggleGroup(tGroup);
         Respuesta_1.setToggleGroup(tGroup);
         Respuesta_2.setToggleGroup(tGroup);
         Respuesta_3.setToggleGroup(tGroup);
-        
-        
 
-       tGroup.selectedToggleProperty().addListener((obs, preV, newV) -> {
+        tGroup.selectedToggleProperty().addListener((obs, preV, newV) -> {
             comprobarButton.setDisable(false);
-       });
-        
+        });
+
         try {
             problemas = Navegacion.getSingletonNavegacion().getProblems();
             max = Navegacion.getSingletonNavegacion().getProblems().size() - 1;
-        } catch (NavegacionDAOException ex) {}
+        } catch (NavegacionDAOException ex) {
+        }
 
         
-        
-        
-
-            
         // TODO
     }
 
     private void backAction(ActionEvent event) throws IOException {
-        if(random){
+        if (random) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -194,21 +188,21 @@ public class VentanaResponder implements Initializable {
             stage.setScene(scene);
             controladorTest.setUsuario(usuario);
             controladorTest.setResultados(aciertos, fallos);
-        
+
         }
     }
 
     @FXML
     private void siguienteAction(ActionEvent event) throws IOException {
-        
-        if(random){
+
+        if (random) {
             setRandomProblem();
             comprobarButton.setDisable(false);
             Respuesta_0.setStyle("-fx-text-fill: black");
             Respuesta_1.setStyle("-fx-text-fill: black");
             Respuesta_2.setStyle("-fx-text-fill: black");
             Respuesta_3.setStyle("-fx-text-fill: black");
-            
+
             Respuesta_0.setSelected(false);
             Respuesta_1.setSelected(false);
             Respuesta_2.setSelected(false);
@@ -218,14 +212,13 @@ public class VentanaResponder implements Initializable {
             Respuesta_1.setDisable(false);
             Respuesta_2.setDisable(false);
             Respuesta_3.setDisable(false);
-            
+
             comprobarButton.setDisable(true);
             siguienteButton.setDisable(true);
-            
-//            controladorLoged.setResultados(aciertos, fallos);
+
 //            prueba1.set(prueba1.get() + 1 );
         } else {
-        
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -241,19 +234,20 @@ public class VentanaResponder implements Initializable {
             stage.setScene(scene);
             controladorTest.setUsuario(usuario);
             controladorTest.setResultados(aciertos, fallos);
+            controladorTest.setController(controllerLoged);
         }
-        
+
     }
-    
+
     private void setRandomProblem() {
-        
-        selectedProblem = (int) Math.floor(Math.random() * (max - min + 1) + min);   
+
+        selectedProblem = (int) Math.floor(Math.random() * (max - min + 1) + min);
         preguntaField.setText(problemas.get(selectedProblem).getText());
-        
+
 //        selectedProblem = 0;
         List<Integer> list = new ArrayList(Arrays.asList(0, 1, 2, 3));
         Collections.shuffle(list);
-        
+
         Respuesta_0.setText(problemas.get(selectedProblem).getAnswers().get(list.get(0)).getText());
         Respuesta_1.setText(problemas.get(selectedProblem).getAnswers().get(list.get(1)).getText());
         Respuesta_2.setText(problemas.get(selectedProblem).getAnswers().get(list.get(2)).getText());
@@ -264,84 +258,90 @@ public class VentanaResponder implements Initializable {
         res2 = (problemas.get(selectedProblem).getAnswers().get(list.get(2)).getValidity());
         res3 = (problemas.get(selectedProblem).getAnswers().get(list.get(3)).getValidity());
 
-        
     }
-    
-     @FXML
+
+    @FXML
     private void comprobarAction(ActionEvent event) {
-  
+
         //             fallos.setValue(fallos.get() + 1);
         //             aciertos.setValue(aciertos.get() + 1);
-         // Comprobar Error
-         if (Respuesta_0.isSelected() && !res0) {
-             Respuesta_0.setStyle("-fx-text-fill: red");
-             fallos += 1;
-         } else if (Respuesta_1.isSelected() && !res1) {
-             Respuesta_1.setStyle("-fx-text-fill: red");
-             fallos += 1;
-         } else if (Respuesta_2.isSelected() && !res2) {
-             Respuesta_2.setStyle("-fx-text-fill: red");
-             fallos += 1;
-         } else if (Respuesta_3.isSelected() && !res3) {
-             Respuesta_3.setStyle("-fx-text-fill: red");
-             fallos += 1;
-             
-         } else if (Respuesta_0.isSelected() && res0) {
-             Respuesta_0.setStyle("-fx-text-fill: green");
-             aciertos += 1;
-         } else if (Respuesta_1.isSelected() && res1) {
-             Respuesta_1.setStyle("-fx-text-fill: green");
-             aciertos += 1;
-         } else if (Respuesta_2.isSelected() && res2) {
-             Respuesta_2.setStyle("-fx-text-fill: green");
-             aciertos += 1;
-         } else if (Respuesta_3.isSelected() && res3) {
-             Respuesta_3.setStyle("-fx-text-fill: green");
-             aciertos += 1;
-         }
-         comprobarButton.setDisable(true);
+        // Comprobar Error
+        if (Respuesta_0.isSelected() && !res0) {
+            Respuesta_0.setStyle("-fx-text-fill: red");
+            fallos += 1;
+        } else if (Respuesta_1.isSelected() && !res1) {
+            Respuesta_1.setStyle("-fx-text-fill: red");
+            fallos += 1;
+        } else if (Respuesta_2.isSelected() && !res2) {
+            Respuesta_2.setStyle("-fx-text-fill: red");
+            fallos += 1;
+        } else if (Respuesta_3.isSelected() && !res3) {
+            Respuesta_3.setStyle("-fx-text-fill: red");
+            fallos += 1;
+
+        } else if (Respuesta_0.isSelected() && res0) {
+            Respuesta_0.setStyle("-fx-text-fill: green");
+            aciertos += 1;
+        } else if (Respuesta_1.isSelected() && res1) {
+            Respuesta_1.setStyle("-fx-text-fill: green");
+            aciertos += 1;
+        } else if (Respuesta_2.isSelected() && res2) {
+            Respuesta_2.setStyle("-fx-text-fill: green");
+            aciertos += 1;
+        } else if (Respuesta_3.isSelected() && res3) {
+            Respuesta_3.setStyle("-fx-text-fill: green");
+            aciertos += 1;
+        }
+        comprobarButton.setDisable(true);
 //         System.out.println("Aciertos: " + aciertos + " | Fallos: " + fallos);
-         
-         fallosLabel.setText(Integer.toString(fallos));
-         aciertosLabel.setText(Integer.toString(aciertos));
-         
-         Respuesta_0.setDisable(true);
-         Respuesta_1.setDisable(true);
-         Respuesta_2.setDisable(true);
-         Respuesta_3.setDisable(true);
-         
-         siguienteButton.setDisable(false);
+
+        fallosLabel.setText(Integer.toString(fallos));
+        aciertosLabel.setText(Integer.toString(aciertos));
+
+        Respuesta_0.setDisable(true);
+        Respuesta_1.setDisable(true);
+        Respuesta_2.setDisable(true);
+        Respuesta_3.setDisable(true);
+
+        siguienteButton.setDisable(false);
+        controllerLoged.setResultados(aciertos, fallos);
     }
-    
-    
-    void setUsuario(User user){
+
+    void setUsuario(User user) {
         usuario = user;
     }
-    
-    void setResultados(int a, int f){
+
+    void setResultados(int a, int f) {
         aciertos = a;
         fallos = f;
         fallosLabel.setText(Integer.toString(fallos));
         aciertosLabel.setText(Integer.toString(aciertos));
+        
+        
+        
+        stageActual = ((Stage) aciertosLabel.getScene().getWindow());
+        
+        stageActual.setOnCloseRequest(e -> {
+            controllerLoged.closeProblemas();
+        });
     }
-    
+
     void setRandomnes(boolean rdm) {
         random = rdm;
         setRandomProblem();
     }
-    
-    void setRandomness(boolean rdm,int prb) {
+
+    void setRandomness(boolean rdm, int prb) {
         random = rdm;
         selectedProblem = prb;
-      
+
         preguntaField.setText(problemas.get(selectedProblem).getText());
-        
+
 //        List<Answer> listaAUX = problemas.get(selectedProblem).getAnswers();
 //        Collections.shuffle(Arrays.asList(listaAUX.toString()));
-
         List<Integer> list = new ArrayList(Arrays.asList(0, 1, 2, 3));
         Collections.shuffle(list);
-        
+
         Respuesta_0.setText(problemas.get(selectedProblem).getAnswers().get(list.get(0)).getText());
         Respuesta_1.setText(problemas.get(selectedProblem).getAnswers().get(list.get(1)).getText());
         Respuesta_2.setText(problemas.get(selectedProblem).getAnswers().get(list.get(2)).getText());
@@ -352,12 +352,20 @@ public class VentanaResponder implements Initializable {
         res2 = (problemas.get(selectedProblem).getAnswers().get(list.get(2)).getValidity());
         res3 = (problemas.get(selectedProblem).getAnswers().get(list.get(3)).getValidity());
     }
-   
-    
-    void setController(MapaLoged contr){
+
+    void setController(MapaLoged contr) {
         controllerLoged = contr;
-        System.out.println("mapa " + controllerLoged);
     }
-    
-    void prueba(){System.out.println("preub");}
+
+    void setStage(Stage aux) {
+        stageMapa = aux;
+
+        stageMapa = aux;
+
+    }
+
+    @FXML
+    private void verMapaAction(ActionEvent event) {
+        stageMapa.requestFocus();
+    }
 }

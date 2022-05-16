@@ -79,6 +79,8 @@ public class ModPerfil implements Initializable {
     private Label errContraseñaLab;
     @FXML
     private Label nacimientoLab;
+    private Stage stageActual;
+    private MapaLoged controllerLoged;
 
     /**
      * Initializes the controller class.
@@ -102,6 +104,8 @@ public class ModPerfil implements Initializable {
     @FXML
     private void buttonBack(ActionEvent event) throws IOException {
         ((Stage) errContraseñaLab.getScene().getWindow()).close();
+        controllerLoged.closeProblemas();
+        controllerLoged.setUsuario(usuario);
     }
     
     
@@ -109,30 +113,35 @@ public class ModPerfil implements Initializable {
     private void avatarDefaultAction(ActionEvent event) throws NavegacionDAOException {
         usuario.setAvatar(new Image("/icons/default.png"));
         avatarField.setImage(new Image("/icons/default.png"));
+        controllerLoged.setUsuario(usuario);
     }
 
     @FXML
     private void avatar1Action(ActionEvent event) throws NavegacionDAOException {
         usuario.setAvatar(new Image("/icons/avatar1.png"));
         avatarField.setImage(new Image("/icons/avatar1.png"));
+        controllerLoged.setUsuario(usuario);
     }
 
     @FXML
     private void avatar2Action(ActionEvent event) throws NavegacionDAOException {
         usuario.setAvatar(new Image("/icons/avatar2.png"));
         avatarField.setImage(new Image("/icons/avatar2.png"));
+        controllerLoged.setUsuario(usuario);
     }
 
     @FXML
     private void avatar3Action(ActionEvent event) throws NavegacionDAOException {
         usuario.setAvatar(new Image("/icons/avatar3.png"));
         avatarField.setImage(new Image("/icons/avatar3.png"));
+        controllerLoged.setUsuario(usuario);
     }
 
     @FXML
     private void avatar4Action(ActionEvent event) throws NavegacionDAOException {
         usuario.setAvatar(new Image("/icons/avatar4.png"));
         avatarField.setImage(new Image("/icons/avatar4.png"));
+        controllerLoged.setUsuario(usuario);
     }
 
     @FXML
@@ -146,7 +155,9 @@ public class ModPerfil implements Initializable {
             avatarField.setImage(new Image(file.toURI().toString()));
             avatarField.resize(50, 50);
             usuario.setAvatar(new Image(file.toURI().toString()));
+            controllerLoged.setUsuario(usuario);
         }
+        
     }
 
     @FXML
@@ -311,4 +322,15 @@ public class ModPerfil implements Initializable {
         fallos = f;
     }
     
+    void setStage(Stage aux){
+        stageActual = aux;
+        stageActual.setOnCloseRequest(e -> {
+            controllerLoged.closeProblemas();
+            controllerLoged.setUsuario(usuario);
+        });
+    }
+    
+    void setController(MapaLoged contr) {
+        controllerLoged = contr;
+    }
 }

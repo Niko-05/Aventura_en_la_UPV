@@ -11,12 +11,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox id="Vbox_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="Vbox_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Resultados">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="600.0">
          <children>
-            <Button id="atras" mnemonicParsing="false" text="Atrás">
+            <Button id="atras" mnemonicParsing="false" onAction="#backAction" text="Atrás">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -52,12 +51,12 @@
             <Insets bottom="10.0" left="10.0" top="5.0" />
          </VBox.margin>
       </HBox>
-      <TableView prefHeight="325.0" prefWidth="600.0">
+      <TableView fx:id="tableView" prefHeight="325.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="196.79998779296875" text="Fecha" />
-          <TableColumn prefWidth="141.60003662109375" text="Aciertos" />
-            <TableColumn prefWidth="121.60003662109375" text="Fallos" />
-            <TableColumn prefWidth="135.2000732421875" text="Intentos" />
+          <TableColumn fx:id="fechaColum" prefWidth="196.79998779296875" text="Fecha" />
+          <TableColumn fx:id="aciertosColum" prefWidth="141.60003662109375" text="Aciertos" />
+            <TableColumn fx:id="fallosColum" prefWidth="121.60003662109375" text="Fallos" />
+            <TableColumn fx:id="intentosColum" prefWidth="135.2000732421875" text="Intentos" />
         </columns>
       </TableView>
    </children>

@@ -49,3 +49,12 @@ imageview con hover y mensaje de requisitos contraseña
 
 action event para cerrar la ventana
 coger las ventanas abieertas y cerrarlas
+
+
+
+
+cosas por hacer: -----
+Boton ver mapa y ver problema
+boton back problemas
+centrar los ejes de puntos
+crear sesiones y ajustar cerradas

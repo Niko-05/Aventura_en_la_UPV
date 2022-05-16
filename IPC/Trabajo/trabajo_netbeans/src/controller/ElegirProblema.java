@@ -50,7 +50,9 @@ public class ElegirProblema implements Initializable {
     private User usuario;
     private int aciertos;
     private int fallos;
-    
+
+    private MapaLoged controllerLoged;
+
     @FXML
     private ListView<String> problemasListView;
     @FXML
@@ -73,6 +75,8 @@ public class ElegirProblema implements Initializable {
     private HBox ventanaTop1;
     @FXML
     private HBox ventanaTop3;
+    private Stage stageActual;
+
 
     
     @Override
@@ -138,6 +142,7 @@ public class ElegirProblema implements Initializable {
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
         controladorTest.setRandomness(false,problemasListView.getSelectionModel().getSelectedIndex());
+        controladorTest.setController(controllerLoged);
         stage.setScene(scene);
         
         
@@ -147,21 +152,9 @@ public class ElegirProblema implements Initializable {
 
     @FXML
     private void backAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
-        stage.setTitle("Mapa");
-
-        MapaLoged controladorPrin = loader.getController();
-
-        stage.setScene(scene);
-        controladorPrin.setUsuario(usuario);
-        controladorPrin.setResultados(aciertos, fallos);
+        ((Stage) problemasListView.getScene().getWindow()).close();
+        controllerLoged.closeProblemas();
+        
     }
     
     
@@ -172,5 +165,17 @@ public class ElegirProblema implements Initializable {
     void setResultados(int a, int f){
         aciertos = a;
         fallos = f;
+    }
+    
+    void setController(MapaLoged contr) {
+        controllerLoged = contr;
+    }
+    
+    void setStage(Stage aux){
+        stageActual = aux;
+        
+        stageActual.setOnCloseRequest(e -> {
+            controllerLoged.closeProblemas();
+        });
     }
 }

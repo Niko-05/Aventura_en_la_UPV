@@ -26,6 +26,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.Navegacion;
 import model.Session;
 import model.User;
@@ -52,9 +53,9 @@ public class Resultados implements Initializable {
     
     private User usuario;
     private ObservableValue<LocalDate> dia;
-    @FXML
-    private DatePicker controlFecha;
     private List<Session> listaFinal;
+    private Stage stageActual;
+    private MapaLoged controllerLoged;
 
     /**
      * Initializes the controller class.
@@ -62,10 +63,10 @@ public class Resultados implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        try {
-            usuario = Navegacion.getSingletonNavegacion().loginUser("prueba", "123456aA!");
-        } catch (NavegacionDAOException ex) {
-        }
+//        try {
+//            usuario = Navegacion.getSingletonNavegacion().loginUser("prueba", "123456aA!");
+//        } catch (NavegacionDAOException ex) {
+//        }
       
 //        controlFecha.valueProperty().addListener((obsV, oldV, newV) -> {
 //            listaFinal = new ArrayList<Session>();
@@ -93,8 +94,7 @@ public class Resultados implements Initializable {
         
         
         
-        datos = FXCollections.observableList(usuario.getSessions());
-        tableView.setItems(datos);
+        
         
         aciertosColum.setCellValueFactory(row->new SimpleIntegerProperty(row.getValue().getHits()).asObject());
         fallosColum.setCellValueFactory(row->new SimpleIntegerProperty(row.getValue().getFaults()).asObject());
@@ -104,9 +104,33 @@ public class Resultados implements Initializable {
 
     }    
 
+    
     @FXML
     private void backAction(ActionEvent event) {
+        ((Stage) tableView.getScene().getWindow()).close();
+        controllerLoged.closeProblemas();
     }
+    
+    void setStage(Stage aux){
+        stageActual = aux;
+        
+        stageActual = aux;
+        
+        stageActual.setOnCloseRequest(e -> {
+            controllerLoged.closeProblemas();
+        });
+    }
+    
+    void setController(MapaLoged contr){
+        controllerLoged = contr;
+    }
+    
+    void setUsuario(User user){
+        usuario = user;
+        datos = FXCollections.observableList(usuario.getSessions());
+        tableView.setItems(datos);
+    }
+
     
 }
 

@@ -88,6 +88,8 @@ public class Registrarse implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        System.out.println(ventanaPrincipal.getPrefHeight());
+        
         ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
             boxRegistarse.setPrefHeight((double) newV / 2);
         });
@@ -239,9 +241,12 @@ public class Registrarse implements Initializable {
             stage.setWidth(prevWidth);
             stage.setTitle("Mapa");
 
-            Principal controladorPrin = loader.getController();
+            MapaLoged controladorPrin = loader.getController();
 
+            stage.setResizable(true);
             stage.setScene(scene);
+            stage.setHeight(800);
+            stage.setWidth(1300);
             controladorPrin.setUsuario(usuario);
             new ConfRegistro().start();
         }
@@ -254,6 +259,8 @@ public class Registrarse implements Initializable {
         Scene scene = new Scene(root);
         stage.setTitle("Pestaña Inicial");
         stage.setScene(scene);
+        stage.setHeight(400);
+        stage.setWidth(300);
     }
 
     public void setAvatar(Image avatar) {

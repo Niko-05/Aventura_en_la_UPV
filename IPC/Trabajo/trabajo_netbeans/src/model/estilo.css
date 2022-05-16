@@ -170,12 +170,12 @@
     -fx-padding: 8px 10px;
 }
 
-.toggle-button:selected {
-	-fx-background-color: #F2CC8F;
-}
-
 .toggle-button:hover {
     -fx-background-color: #509a76;
+}
+
+.toggle-button:selected {
+	-fx-background-color: #F2CC8F;
 }
 
 .menu-button{

@@ -82,23 +82,24 @@
                   <Insets />
                </HBox.margin>
             </HBox>
-            <HBox fx:id="hBoxAbajo2" alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="255.0">
+            <HBox fx:id="hBoxAbajo2" alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="255.0" spacing="10.0">
                <children>
+                  <Button mnemonicParsing="false" onAction="#verMapaAction" text="Ver mapa" />
                   <Button fx:id="comprobarButton" mnemonicParsing="false" onAction="#comprobarAction" text="Comprobar">
                      <HBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="siguienteButton" mnemonicParsing="false" onAction="#siguienteAction" text="Siguiente">
                      <HBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
          </children>
          <padding>
-            <Insets left="30.0" right="30.0" />
+            <Insets left="20.0" right="20.0" />
          </padding>
       </HBox>
    </children>
