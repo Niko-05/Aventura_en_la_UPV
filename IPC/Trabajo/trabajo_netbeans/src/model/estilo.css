@@ -124,12 +124,31 @@
 	-fx-font: 10pt "Segoe UI";
 }
 
+#regla{
+    -fx-background-color: #aa74d6;
+    -fx-background-radius: 999px;
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+#regla:hover{
+    -fx-background-color: #6f13ba;
+}
+
+#regla:selected{
+    -fx-background-color: #f74ff2;
+}
+
 .color-picker{
     -fx-background-color: transparent;
+    -fx-background-radius: 999px;
 }
 
 .color-picker .label{
     -fx-text-fill: transparent;
+}
+
+.color-picker:hover{
+    -fx-background-color: #d0d2d6;
 }
 
 .list-view{
