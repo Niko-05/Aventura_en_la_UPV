@@ -136,7 +136,7 @@
                <children>
                   <HBox fx:id="hboxabajo3" alignment="CENTER" prefWidth="300.0">
                      <children>
-                        <ColorPicker fx:id="pickerColor" prefWidth="100.0">
+                        <ColorPicker fx:id="pickerColor" prefHeight="30.0" prefWidth="47.0">
                            <value>
                               <Color />
                            </value>
