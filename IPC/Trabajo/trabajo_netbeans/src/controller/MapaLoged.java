@@ -78,7 +78,8 @@ public class MapaLoged implements Initializable {
 
     private Group zoomGroup;
 
-    private ImageView transportador = new ImageView(new Image("/icons/transportador.png"));
+    @FXML
+    private ImageView transportador;
 
     @FXML
     private Slider zoom_slider;
@@ -120,6 +121,7 @@ public class MapaLoged implements Initializable {
     private Label fallosLab;
     @FXML
     private Button verProblemasButton;
+    private ContextMenu menuContext = new ContextMenu();
 
     /**
      * Initializes the controller class.
@@ -128,7 +130,7 @@ public class MapaLoged implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
 //        stageActual.setOnCloseRequest(e -> {
-//            System.out.println("hola");
+//            stage.close();
 //        });
         
         
@@ -167,87 +169,40 @@ public class MapaLoged implements Initializable {
         contentGroup.getChildren().add(zoomGroup);
         zoomGroup.getChildren().add(map_scrollpane.getContent());
         map_scrollpane.setContent(contentGroup);
-        zoomGroup.getChildren().add(transportador);
         zoom(0.15);
 
         transportador.setVisible(false);
         transportador.setX(1500);
         transportador.setY(1500);
-        transportador.setScaleX((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 2.5);
-        transportador.setScaleY((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 2.5);
         transportador.setOpacity(0.6);
-        zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
-            transportador.setScaleX((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 2.5);
-            transportador.setScaleY((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 2.5);
-        });
-
+        
+   
         transportador.setOnMousePressed(e -> {
             if (dibujando) {
-                mousePressed(e);
+//                mousePressed(e);
             } else {
+                
                 eliminarButton.setSelected(false);
                 colorButton.setSelected(false);
-                transportador.setX(e.getX() - 175);
-                transportador.setY(e.getY() - 180);
+
+                transportador.setTranslateX(e.getSceneX() - 200);
+                transportador.setTranslateY(e.getSceneY() - 260);
             }
         });
 
         transportador.setOnMouseDragged(e -> {
             if (!dibujando) {
                 map_scrollpane.setPannable(false);
-                transportador.setX(e.getX() - 175);
-                transportador.setY(e.getY() - 180);
+                
+                transportador.setTranslateX(e.getSceneX() - 200);
+                transportador.setTranslateY(e.getSceneY() - 260);
 
             } else {
-                mouseDragged(e);
+//                mouseDragged(e);
                 map_scrollpane.setPannable(true);
             }
-        });
-
-        transportador.setOnMouseReleased(e -> {
-            if (!dibujando) {
-                map_scrollpane.setPannable(true);
-
-            } else {
-                mouseReleased(e);
-            }
-        });
-
-//        cartaNautica.addMouseWhellListener(new MouseWheelListener() {
-//
-//            public void mouseWheelMoved(MouseWheelEvent e) {
-//                int notches = e.getWheelRotation();
-//                if (notches < 0) {
-//                    double sliderVal = zoom_slider.getValue();
-//                    zoom_slider.setValue(sliderVal += 0.05);
-//                } else {
-//                    double sliderVal = zoom_slider.getValue();
-//                    zoom_slider.setValue(sliderVal -= 0.05);
-//                }
-//
-//            }
-//        });
-//        botonesBox.getScene().widthProperty().addListener((obs, oldV, newV) -> {
-//            botonesRegion.setLayoutX(newV.doubleValue());
-//        });
-//        botonesRegion.widthProperty().
-//        botonesBox.widthProperty().bind
-        linePainting.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-            public void handle(ContextMenuEvent ae) {
-                System.out.println(".handle()");
-            }
-        });
-        linePainting.setOnContextMenuRequested(e -> {
-            ContextMenu menuContext = new ContextMenu();
-            MenuItem borrarItem = new MenuItem("eliminar");
-            menuContext.getItems().add(borrarItem);
-            borrarItem.setOnAction(ev -> {
-                zoomGroup.getChildren().remove((Node) e.getSource());
-                ev.consume();
-            });
-            menuContext.show(linePainting, e.getSceneX(), e.getSceneY());
-            e.consume();
-        });
+        }); 
+       
     }
 
     @FXML
@@ -381,7 +336,6 @@ public class MapaLoged implements Initializable {
             zoomGroup.getChildren().remove(0);
         }
         zoomGroup.getChildren().add(aux);
-        zoomGroup.getChildren().add(transportador);
         zoom(0.15);
 
     }
@@ -439,6 +393,7 @@ public class MapaLoged implements Initializable {
         controladorTest.setResultados(aciertos, fallos);
         controladorTest.setController(this);
         controladorTest.setStage(stage);
+        controladorTest.setStageMapa(stageActual);
         stage.show();
         stageOpen.set(true);
 
@@ -494,139 +449,22 @@ public class MapaLoged implements Initializable {
 
     @FXML
     private void mousePressed(MouseEvent event) {
-        if (crearPuntero) {
-
-            circlePainting = new Circle(1);
-            circlePainting.setCenterX(event.getX());
-            circlePainting.setCenterY(event.getY());
-            zoomGroup.getChildren().add(circlePainting);
-            circlePainting.setStrokeWidth(4);
-            circlePainting.setRadius((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 35);
-
-//            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
-//                circlePainting.setRadius((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 35);
-//            });
-            circlePainting.setOnContextMenuRequested(e -> contextMenu(e, "punto"));
-            circlePainting.setOnMousePressed(e -> {
-                clicked(e);
-                if (colorButton.isSelected()) {
-                    cambiarColor("punto");
-                }
-            });
-            circlePainting.setOnMouseDragged(e -> mouseDragged(e));
-            circlePainting.setOnMouseReleased(e -> mouseReleased(e));
-            crearPuntero = false;
-
-            zoomGroup.getChildren().remove(transportador);
-            zoomGroup.getChildren().add(transportador);
+        if (menuContext.isShowing()) {
+            menuContext.hide();
         }
-
-        if (crearLinea) {
-            linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
-            zoomGroup.getChildren().add(linePainting);
-            linePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
-
-//            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
-//                linePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
-//            });
-            linePainting.setOnContextMenuRequested(e -> contextMenu(e, "linea"));
-            linePainting.setOnMousePressed(e -> {
-                clicked(e);
-                if (colorButton.isSelected()) {
-                    cambiarColor("linea");
-                }
-            });
-            linePainting.setOnMouseDragged(e -> mouseDragged(e));
-            linePainting.setOnMouseReleased(e -> mouseReleased(e));
-
-            zoomGroup.getChildren().remove(transportador);
-            zoomGroup.getChildren().add(transportador);
+        if (eliminarButton.isSelected()) {
+            zoomGroup.getChildren().remove((Node) event.getSource());
+            event.consume();
         }
-
-        if (crearArco) {
-            circlePainting = new Circle(1);
-            circlePainting.setStroke(Color.RED);
-            circlePainting.setFill(Color.TRANSPARENT);
-            zoomGroup.getChildren().add(circlePainting);
-            circlePainting.setCenterX(event.getX());
-            circlePainting.setCenterY(event.getY());
-            circlePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
-            inicioXArc = event.getX();
-
-//            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
-//                circlePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
-//            });
-            circlePainting.setOnContextMenuRequested(e -> contextMenu(e, "circle"));
-            circlePainting.setOnMousePressed(e -> {
-                clicked(e);
-                if (colorButton.isSelected()) {
-                    cambiarColor("circle");
-                }
-            });
-            circlePainting.setOnMouseDragged(e -> mouseDragged(e));
-            circlePainting.setOnMouseReleased(e -> mouseReleased(e));
-
-            zoomGroup.getChildren().remove(transportador);
-            zoomGroup.getChildren().add(transportador);
-        }
-
-        if (crearTexto) {
-            TextField texto = new TextField();
-            texto.setLayoutX(event.getX());
-            texto.setLayoutY(event.getY());
-//            texto.requestFocus();
-            texto.setPrefWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 800);
-            texto.setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");
-            zoomGroup.getChildren().add(texto);
-            texto.promptTextProperty().set("Rellenar");
-
-            texto.focusedProperty().addListener((obs, oldV, newV) -> {
-                if (!newV) {
-                    zoomGroup.getChildren().remove(texto);
-                }
-
-            });
-
-//            texto.requestFocus();
-            texto.setOnAction(e -> {
-                Text textoT = new Text(texto.getText());
-                textoT.setX(texto.getLayoutX());
-                textoT.setY(texto.getLayoutY());
-
-                zoomGroup.getChildren().add(textoT);
-                textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 80 + ";");
-                zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
-                    textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 80 + ";");
-                });
-                zoomGroup.getChildren().remove(texto);
-
-//                textoT.setOnContextMenuRequested(e -> {});
-//                textoT.setOnMousePressed(e -> clicked(e));
-//                textoT.setOnMouseDragged(e -> mouseDragged(e));
-//                textoT.setOnMouseReleased(e -> mouseReleased(e));
-                e.consume();
-            });
-
-            zoomGroup.getChildren().remove(transportador);
-            zoomGroup.getChildren().add(transportador);
-
-        }
-    }
-
-    @FXML
-    private void mouseDragged(MouseEvent event) {
-        if (crearLinea) {
-            linePainting.setEndX(event.getX());
-            linePainting.setEndY(event.getY());
+        if (colorButton.isSelected()) {
+            cambiarColor(event.getSource());
             event.consume();
         }
 
-        if (crearArco) {
-            double radio = Math.abs(event.getX() - inicioXArc);
-            circlePainting.setRadius(radio);
-            event.consume();
-
-        }
+        if (crearPuntero) crearPuntero(event);
+        if (crearLinea) crearLinea(event);
+        if (crearArco) crearArco(event);
+        if (crearTexto) crearTexto(event);
     }
 
     @FXML
@@ -655,21 +493,36 @@ public class MapaLoged implements Initializable {
         dibujando = false;
     }
 
-    private void contextMenu(ContextMenuEvent e, String item) {
-        ContextMenu menuContext = new ContextMenu();
+    @FXML
+    private void mouseDragged(MouseEvent event) {
+        if (crearLinea) {
+            linePainting.setEndX(event.getX());
+            linePainting.setEndY(event.getY());
+            event.consume();
+        }
+
+        if (crearArco) {
+            double radio = Math.abs(event.getX() - inicioXArc);
+            circlePainting.setRadius(radio);
+            event.consume();
+        }
+    }
+
+    private void contextMenu(ContextMenuEvent e) {
+        menuContext = new ContextMenu();
         MenuItem borrarItem = new MenuItem("Eliminar");
         MenuItem cambioColor = new MenuItem("Cambiar color");
         menuContext.getItems().add(borrarItem);
         menuContext.getItems().add(cambioColor);
-        if ("punto".equals(item)) {
+        if (e.getSource() instanceof Circle && !((Circle)e.getSource()).getFill().equals(Color.TRANSPARENT)) {
             MenuItem ejesPunto = new MenuItem("Mostrar ejes");
             menuContext.getItems().add(ejesPunto
             );
             ejesPunto.setOnAction(ev -> {
-                linePainting = new Line(e.getX(), 0, e.getX(), 5500);
-                zoomGroup.getChildren().add(linePainting);
-                linePainting.setStrokeWidth(4);
-
+            linePainting = new Line(((Circle)e.getSource()).getCenterX(), 0, e.getX(), 5500);
+            zoomGroup.getChildren().add(linePainting);
+            linePainting.setStrokeWidth(4);
+            
 //            linePainting.setOnContextMenuRequested(e -> contextMenu(e,"linea"));
 //            linePainting.setOnMousePressed(e -> {
 //                clicked(e);
@@ -679,11 +532,12 @@ public class MapaLoged implements Initializable {
 //            });
 //            linePainting.setOnMouseDragged(e -> mouseDragged(e));
 //            linePainting.setOnMouseReleased(e -> mouseReleased(e));
-                linePainting = new Line(0, e.getY(), 8800, e.getY());
-                zoomGroup.getChildren().add(linePainting);
-                linePainting.setStrokeWidth(4);
-                ev.consume();
-            });
+            
+            linePainting = new Line(0, e.getY(), 8800, e.getY());
+            zoomGroup.getChildren().add(linePainting);
+            linePainting.setStrokeWidth(4);
+            ev.consume();
+        });
         }
 
         borrarItem.setOnAction(ev -> {
@@ -691,42 +545,20 @@ public class MapaLoged implements Initializable {
             ev.consume();
         });
         cambioColor.setOnAction(ev -> {
-            cambiarColor(item);
+            cambiarColor(e.getSource());
         });
 
         menuContext.show(map_scrollpane, e.getScreenX(), e.getScreenY());
+//        menuContext.autoHideProperty().set(true);
+        menuContext.setHideOnEscape(true);
+        menuContext.setAutoHide(true);
+        menuContext.focusedProperty().addListener((obs, oldV, newV) -> {
+             menuContext.hide();
+        });
 
         e.consume();
     }
 
-    private void clicked(MouseEvent e) {
-        if (eliminarButton.isSelected()) {
-            zoomGroup.getChildren().remove((Node) e.getSource());
-            e.consume();
-        }
-
-        mousePressed(e);
-    }
-
-    private void cambiarColor(String item) {
-        switch (item) {
-            case "circle":
-                circlePainting.setStroke(pickerColor.getValue());
-                colorButton.setSelected(false);
-                break;
-            case "linea":
-                linePainting.setStroke(pickerColor.getValue());
-                colorButton.setSelected(false);
-                break;
-            case "punto":
-                circlePainting.setFill(pickerColor.getValue());
-                colorButton.setSelected(false);
-                break;
-            case "texto":
-                break;
-        }
-
-    }
 
     private void zoom(double scaleValue) {
         //===================================================
@@ -761,18 +593,135 @@ public class MapaLoged implements Initializable {
     private void verProblemasAction(ActionEvent event) {
         stage.requestFocus();
     }
-    
-    void setStage(Stage aux){
+
+    void setStage(Stage aux) {
         stageActual = aux;
-        
-        if (stageOpen.getValue()) {
-            stageActual.setOnCloseRequest(e -> {
+
+        stageActual.setOnCloseRequest(e -> {
+            if (stageOpen.get()) {
                 stage.close();
-            });
-        }
+            }
+        });
+
     }
 
     void closeProblemas(){
         stageOpen.set(false);
+    }
+    
+    private void cambiarColor(Object e) {
+        if (e instanceof Circle) {
+            circlePainting.setFill(Color.TRANSPARENT);
+            if (((Circle) e).getFill().equals(Color.TRANSPARENT)) {
+                ((Circle) e).setStroke(pickerColor.getValue());
+                colorButton.setSelected(false);
+
+            } else {
+                ((Circle) e).setFill(pickerColor.getValue());
+                colorButton.setSelected(false);
+            }
+            
+        }
+        
+        if (e instanceof Line) {
+            ((Circle) e).setStroke(pickerColor.getValue());
+            colorButton.setSelected(false);
+        }
+        
+        if (e instanceof Text) {
+            System.out.println(pickerColor.getValue().toString().substring(0).toUpperCase());
+            ((Text) e).setStyle("-fx-text-fill: " + pickerColor.getValue().toString().substring(2,8) + ";");
+        }
+    
+    }
+    
+    private void crearPuntero(MouseEvent event){
+        circlePainting = new Circle(1);
+            circlePainting.setCenterX(event.getX());
+            circlePainting.setCenterY(event.getY());
+            zoomGroup.getChildren().add(circlePainting);
+            circlePainting.setStrokeWidth(4);
+            circlePainting.setRadius(25);
+
+
+            circlePainting.setOnContextMenuRequested(this::contextMenu);
+            linePainting.setOnMousePressed(this::mousePressed);
+            circlePainting.setOnMouseDragged(this::mouseDragged);
+            circlePainting.setOnMouseReleased(this::mouseReleased);
+            crearPuntero = false;
+    }
+    
+    private void crearArco(MouseEvent event){
+        circlePainting = new Circle(1);
+            circlePainting.setStroke(Color.RED);
+            circlePainting.setFill(Color.TRANSPARENT);
+            zoomGroup.getChildren().add(circlePainting);
+            circlePainting.setCenterX(event.getX());
+            circlePainting.setCenterY(event.getY());
+            circlePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
+            inicioXArc = event.getX();
+            
+//            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
+//                circlePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
+//            });
+
+            circlePainting.setOnContextMenuRequested(this::contextMenu);
+            circlePainting.setOnMousePressed(this::mousePressed);
+            circlePainting.setOnMouseDragged(this::mouseDragged);
+            circlePainting.setOnMouseReleased(this::mouseReleased);
+
+    }
+ 
+    private void crearLinea(MouseEvent event) {
+
+        linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+        zoomGroup.getChildren().add(linePainting);
+        linePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
+
+        linePainting.setOnContextMenuRequested(this::contextMenu);
+        linePainting.setOnMousePressed(this::mousePressed);
+        linePainting.setOnMouseDragged(this::mouseDragged);
+        linePainting.setOnMouseReleased(this::mouseReleased);
+    }
+   
+    private void crearTexto(MouseEvent event) {
+        TextField texto = new TextField();
+        texto.setLayoutX(event.getX());
+        texto.setLayoutY(event.getY());
+//            texto.requestFocus();
+        texto.setPrefWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 800);
+        texto.setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");
+        zoomGroup.getChildren().add(texto);
+        texto.promptTextProperty().set("Rellenar");
+
+        texto.focusedProperty().addListener((obs, oldV, newV) -> {
+            if (!newV) {
+                zoomGroup.getChildren().remove(texto);
+            }
+
+        });
+
+//            texto.requestFocus();
+        texto.setOnAction(e -> {
+            Text textoT = new Text(texto.getText());
+            textoT.setX(texto.getLayoutX());
+            textoT.setY(texto.getLayoutY());
+
+            zoomGroup.getChildren().add(textoT);
+            textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 80 + ";");
+            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
+                textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 80 + ";");
+            });
+            zoomGroup.getChildren().remove(texto);
+
+            textoT.setOnContextMenuRequested(this::contextMenu);
+            textoT.setOnMousePressed(this::mousePressed);
+            textoT.setOnMouseDragged(this::mouseDragged);
+            textoT.setOnMouseReleased(this::mouseReleased);
+            e.consume();
+        });
+
+        zoomGroup.getChildren().remove(transportador);
+        zoomGroup.getChildren().add(transportador);
     }
 }

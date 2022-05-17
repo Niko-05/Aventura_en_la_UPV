@@ -258,6 +258,7 @@ public class ModPerfil implements Initializable {
 
 
         DatePicker pickerDate = new DatePicker();
+        pickerDate.setEditable(false);
         
         pickerDate.setDayCellFactory((DatePicker picker) -> {
             return new DateCell() {

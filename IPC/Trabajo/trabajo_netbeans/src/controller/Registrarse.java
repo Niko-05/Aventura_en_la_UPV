@@ -6,6 +6,7 @@
 package controller;
 
 import DBAccess.NavegacionDAOException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -28,12 +29,14 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -52,6 +55,10 @@ public class Registrarse implements Initializable {
     private BooleanProperty validEmail;
     private BooleanProperty validname;
     private BooleanProperty validage;
+    
+    private FileChooser selector = new FileChooser();
+    
+    Tooltip t;
 
     @FXML
     private TextField correoField;
@@ -80,6 +87,15 @@ public class Registrarse implements Initializable {
     private VBox boxRegistarse;
     @FXML
     private HBox ventanaPrincipal;
+    @FXML
+    private ImageView usuarioCondiciones;
+    @FXML
+    private ImageView correoCondiciones;
+    @FXML
+    private ImageView contraseñaCondiciones;
+    @FXML
+    private ImageView nacimientoCondiciones;
+    private Stage stageMapa;
 
     /**
      * Initializes the controller class.
@@ -88,7 +104,25 @@ public class Registrarse implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        System.out.println(ventanaPrincipal.getPrefHeight());
+        fechaField.setEditable(false);
+        
+        
+
+        t = new Tooltip("El usuario requiere entre 6 y 15 caracteres o dígitos si espacios");
+        Tooltip.install(usuarioCondiciones, t);
+        
+        t = new Tooltip("El correo electrónico requiere un formato válido");
+        Tooltip.install(correoCondiciones, t);
+        
+        
+        t = new Tooltip("Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&*()-+=)");
+        Tooltip.install(contraseñaCondiciones, t);
+        
+        t = new Tooltip("El usuario tiene que ser mayor de 16 años");
+        Tooltip.install(nacimientoCondiciones, t);
+        
+        
+//        System.out.println(ventanaPrincipal.getPrefHeight());
         
         ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
             boxRegistarse.setPrefHeight((double) newV / 2);
@@ -142,6 +176,7 @@ public class Registrarse implements Initializable {
         nombreField.focusedProperty().addListener((observable, oldV, newV) -> {
             if (!newV) {
                 if (!User.checkNickName(nombreField.getText())) {
+                    errNomLab.setText("El usuario no cumple los requisitos");
                     errNomLab.setVisible(true);
                     validname.setValue(Boolean.FALSE);
                 } else {
@@ -218,7 +253,7 @@ public class Registrarse implements Initializable {
         }
         //Prueba nombre no existente
         if (Navegacion.getSingletonNavegacion().exitsNickName(nombreField.getText())) {
-            errNomLab.setText("nombre ya existente");
+            errNomLab.setText("Usuario ya registrado");
             errNomLab.setVisible(true);
         }
         // Prueba fecha
@@ -232,21 +267,21 @@ public class Registrarse implements Initializable {
 
             usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            double prevWidth = stage.getWidth();
-            double prevHeight = stage.getHeight();
-            stage.setHeight(prevHeight);
-            stage.setWidth(prevWidth);
-            stage.setTitle("Mapa");
-
-            MapaLoged controladorPrin = loader.getController();
-
-            stage.setResizable(true);
-            stage.setScene(scene);
-            stage.setHeight(800);
-            stage.setWidth(1300);
+                Parent root = loader.load();
+//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stageMapa.setTitle("Mapa");
+                stageMapa.setResizable(true);
+                
+                MapaLoged controladorPrin = loader.getController();
+                ((Stage)nombreField.getScene().getWindow()).close();
+//                controladorPrin.setUsuario(usuario);
+ 
+                stageMapa.setScene(scene);
+                controladorPrin.setUsuario(usuario);
+                controladorPrin.setStage(stageMapa);
+                stageMapa.setHeight(800);
+                stageMapa.setWidth(1300);
             controladorPrin.setUsuario(usuario);
             new ConfRegistro().start();
         }
@@ -268,33 +303,44 @@ public class Registrarse implements Initializable {
     }
 
     @FXML
-    private void avatarDefaultAction(ActionEvent event) {
+    private void avatarDefaultAction(ActionEvent event) throws NavegacionDAOException {
+        avatarField.setImage(new Image("/icons/default.png"));
     }
 
     @FXML
-    private void avatar1Action(ActionEvent event) {
+    private void avatar1Action(ActionEvent event) throws NavegacionDAOException {
+
+        avatarField.setImage(new Image("/icons/avatar1.png"));
     }
 
     @FXML
-    private void avatar2Action(ActionEvent event) {
+    private void avatar2Action(ActionEvent event) throws NavegacionDAOException {
+        avatarField.setImage(new Image("/icons/avatar2.png"));
     }
 
     @FXML
-    private void avatar3Action(ActionEvent event) {
+    private void avatar3Action(ActionEvent event) throws NavegacionDAOException {
+        avatarField.setImage(new Image("/icons/avatar3.png"));
     }
 
     @FXML
-    private void avatar4Action(ActionEvent event) {
+    private void avatar4Action(ActionEvent event) throws NavegacionDAOException {
+        avatarField.setImage(new Image("/icons/avatar4.png"));
     }
 
     @FXML
     private void avatarImportAction(ActionEvent event) {
+        selector.setTitle("Avatar Selector");
+        selector.setInitialDirectory(new File(System.getProperty("user.home")));
+        selector.getExtensionFilters().clear();
+        selector.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes ", "*.png","*.jpg","*.gif"));
+        File file = selector.showOpenDialog(null);
+        if(file != null){
+            avatarField.setImage(new Image(file.toURI().toString()));
+            avatarField.resize(50, 50);
+        }
     }
 
-    @FXML
-    private void infoContraAction(MouseEvent event) {
-    }
-    
     class ConfRegistro extends Thread {
         @Override
         public void run() {
@@ -310,5 +356,9 @@ public class Registrarse implements Initializable {
                 notificationBuilder.showInformation();
             });
         }
+    }
+    
+    void setController(Stage cnt){
+        stageMapa = cnt;
     }
 }

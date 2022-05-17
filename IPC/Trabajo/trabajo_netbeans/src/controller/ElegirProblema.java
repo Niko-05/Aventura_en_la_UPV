@@ -76,6 +76,7 @@ public class ElegirProblema implements Initializable {
     @FXML
     private HBox ventanaTop3;
     private Stage stageActual;
+    private Stage stageMapa;
 
 
     
@@ -129,11 +130,7 @@ public class ElegirProblema implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VentanaResponder.fxml"));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        double prevWidth = stage.getWidth();
-        double prevHeight = stage.getHeight();
-        stage.setHeight(prevHeight);
-        stage.setWidth(prevWidth);
+        Scene scene = new Scene(root);;
         stage.setTitle("Resolucion de problemas");
 
         VentanaResponder controladorTest = loader.getController();
@@ -143,6 +140,7 @@ public class ElegirProblema implements Initializable {
         controladorTest.setResultados(aciertos, fallos);
         controladorTest.setRandomness(false,problemasListView.getSelectionModel().getSelectedIndex());
         controladorTest.setController(controllerLoged);
+        controladorTest.setStage(stageMapa);
         stage.setScene(scene);
         
         
@@ -177,5 +175,9 @@ public class ElegirProblema implements Initializable {
         stageActual.setOnCloseRequest(e -> {
             controllerLoged.closeProblemas();
         });
+    }
+
+    void setStageMapa(Stage stageActual) {
+        stageMapa = stageActual;
     }
 }

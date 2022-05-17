@@ -25,7 +25,6 @@
                <HBox.margin>
                   <Insets bottom="4.0" left="4.0" top="4.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#registrarseAction" text="Registrarse" />
             <Region HBox.hgrow="ALWAYS" />
             <Label text="Zoom" />
             <Button id="mas" mnemonicParsing="false" onAction="#zoomOut" prefHeight="35.0" prefWidth="35.0" text="-" />
@@ -33,26 +32,41 @@
             <Button id="mas" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="35.0" prefWidth="35.0" text="+" />
          </children>
          <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets />
          </VBox.margin>
+         <padding>
+            <Insets left="10.0" right="10.0" top="5.0" />
+         </padding>
       </HBox>
-      <StackPane fx:id="stackPane">
+      <HBox>
          <children>
-            <ScrollPane fx:id="map_scrollpane" onMouseMoved="#getMousePosition" pannable="true">
-               <content>
-                  <Pane>
-                     <children>
-                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" layoutX="-80.0" layoutY="-45.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/carta_nautica.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </content>
-            </ScrollPane>
+            <StackPane fx:id="stackPane" alignment="TOP_LEFT">
+               <children>
+                  <ScrollPane fx:id="map_scrollpane" onMouseMoved="#getMousePosition" pannable="true">
+                     <content>
+                        <Pane>
+                           <children>
+                              <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" layoutX="-80.0" layoutY="-45.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/carta_nautica.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </content>
+                  </ScrollPane>
+                  <ImageView fx:id="transportador" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="200.0">
+                     <image>
+                        <Image url="@../icons/transportador.png" />
+                     </image>
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </ImageView>
+               </children>
+            </StackPane>
          </children>
-      </StackPane>
+      </HBox>
       <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="10.0" spacing="5.0">
          <children>
             <ToggleButton id="toggle" fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
@@ -151,7 +165,4 @@
          </padding>
       </HBox>
    </children>
-   <padding>
-      <Insets right="10.0" />
-   </padding>
 </VBox>

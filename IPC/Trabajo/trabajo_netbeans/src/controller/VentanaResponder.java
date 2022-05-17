@@ -128,7 +128,7 @@ public class VentanaResponder implements Initializable {
         ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
 
             hBoxPrincipal.setPrefHeight((double) newV);
-            vBoxEnunciado.setPrefHeight((double) newV / 2);
+//            vBoxEnunciado.setPrefHeight((double) newV / 2);
         });
 
         comprobarButton.setDisable(true);
@@ -235,6 +235,7 @@ public class VentanaResponder implements Initializable {
             controladorTest.setUsuario(usuario);
             controladorTest.setResultados(aciertos, fallos);
             controladorTest.setController(controllerLoged);
+            controladorTest.setStageMapa(stageMapa);
         }
 
     }
@@ -243,6 +244,7 @@ public class VentanaResponder implements Initializable {
 
         selectedProblem = (int) Math.floor(Math.random() * (max - min + 1) + min);
         preguntaField.setText(problemas.get(selectedProblem).getText());
+        tamaño(selectedProblem);
 
 //        selectedProblem = 0;
         List<Integer> list = new ArrayList(Arrays.asList(0, 1, 2, 3));
@@ -334,6 +336,7 @@ public class VentanaResponder implements Initializable {
     void setRandomness(boolean rdm, int prb) {
         random = rdm;
         selectedProblem = prb;
+        tamaño(selectedProblem);
 
         preguntaField.setText(problemas.get(selectedProblem).getText());
 
@@ -364,5 +367,37 @@ public class VentanaResponder implements Initializable {
     @FXML
     private void verMapaAction(ActionEvent event) {
         stageMapa.requestFocus();
+    }
+    
+    private void tamaño(int index){
+        switch (index) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 11:
+                ventanaPrincipal.setPrefHeight(600);
+                break;
+            case 4:
+            case 5:
+            case 8:
+            case 12:
+                ventanaPrincipal.setPrefHeight(320);
+                break;
+            case 6:
+            case 9:
+            case 13:
+            case 14:
+            case 16:
+            case 17:
+                ventanaPrincipal.setPrefHeight(330);
+                break;
+            case 7:
+            case 10:
+            case 15:
+                ventanaPrincipal.setPrefHeight(280);
+                break;
+
+        }
     }
 }

@@ -53,11 +53,14 @@
       </HBox>
       <TableView fx:id="tableView" prefHeight="325.0" prefWidth="600.0">
         <columns>
-          <TableColumn fx:id="fechaColum" prefWidth="196.79998779296875" text="Fecha" />
-          <TableColumn fx:id="aciertosColum" prefWidth="141.60003662109375" text="Aciertos" />
-            <TableColumn fx:id="fallosColum" prefWidth="121.60003662109375" text="Fallos" />
-            <TableColumn fx:id="intentosColum" prefWidth="135.2000732421875" text="Intentos" />
+          <TableColumn fx:id="fechaColum" prefWidth="200.0" text="Fecha" />
+          <TableColumn fx:id="aciertosColum" prefWidth="120.0" text="Aciertos" />
+            <TableColumn fx:id="fallosColum" prefWidth="120.0" text="Fallos" />
+            <TableColumn fx:id="intentosColum" prefWidth="120.0" text="Intentos" />
         </columns>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" />
+         </VBox.margin>
       </TableView>
    </children>
 </VBox>

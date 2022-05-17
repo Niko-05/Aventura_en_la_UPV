@@ -30,6 +30,8 @@ public class JavaFXMLApplication extends Application {
         stage.setScene(scene);
         stage.setTitle("Pestaña Inicial");
         stage.show();
+        stage.setHeight(800);
+        stage.setWidth(1300);
     }
 
     /**

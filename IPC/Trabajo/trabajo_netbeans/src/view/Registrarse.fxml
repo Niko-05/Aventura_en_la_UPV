@@ -39,7 +39,16 @@
                </VBox.margin>
                <children>
                   <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
-                  <TextField fx:id="nombreField" promptText="usuario" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <TextField fx:id="nombreField" prefWidth="300.0" promptText="usuario" />
+                        <ImageView fx:id="usuarioCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/pregunta.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                   <Label id="error" fx:id="errNomLab" text="Usuario ya registrado" />
                </children>
             </VBox>
@@ -49,8 +58,17 @@
                </VBox.margin>
                <children>
                   <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico" />
-                  <TextField fx:id="correoField" promptText="correo@example.com" />
-                  <Label id="error" fx:id="errCorreoLab" text="error correo" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <TextField fx:id="correoField" prefWidth="300.0" promptText="correo@example.com" />
+                        <ImageView fx:id="correoCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/pregunta.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label id="error" fx:id="errCorreoLab" text="Formato de correo no valido" />
                </children>
             </VBox>
             <VBox>
@@ -58,15 +76,15 @@
                   <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
                   <HBox alignment="CENTER_LEFT">
                      <children>
-                        <TextField fx:id="contraField" prefWidth="250.0" promptText="contraseña" />
-                        <ImageView fitHeight="20.0" fitWidth="20.0" onMouseMoved="#infoContraAction" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="contraField" prefWidth="300.0" promptText="contraseña" />
+                        <ImageView fx:id="contraseñaCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/eliminar.png" />
+                              <Image url="@../icons/pregunta.png" />
                            </image>
                         </ImageView>
                      </children>
                   </HBox>
-                  <Label id="error" fx:id="errConLab" text="Error" />
+                  <Label id="error" fx:id="errConLab" text="Contraseña no valida" />
                </children>
             </VBox>
             <VBox>
@@ -79,7 +97,16 @@
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <DatePicker fx:id="fechaField" promptText="dd-mm-aaaa" />
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <DatePicker fx:id="fechaField" promptText="dd-mm-aaaa" />
+                        <ImageView fx:id="nacimientoCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/pregunta.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
                   <Label id="error" fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
                      <font>
                         <Font name="Segoe UI" size="12.0" />
@@ -92,7 +119,7 @@
             <Insets />
          </HBox.margin>
          <padding>
-            <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            <Insets bottom="20.0" left="30.0" top="20.0" />
          </padding>
       </VBox>
       <VBox alignment="CENTER" spacing="20.0">

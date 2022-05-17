@@ -62,6 +62,7 @@ public class Inicial implements Initializable {
     private Button buttonAceptar;
     
     private User usuario;
+    private Stage stageMapa;
     /**
      * Initializes the controller class.
      */
@@ -99,19 +100,20 @@ public class Inicial implements Initializable {
                 //sleep(1000);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
                 Parent root = loader.load();
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
-                stage.setTitle("Mapa");
-                stage.setResizable(true);
-                
+                stageMapa.setTitle("Mapa");
+                stageMapa.setResizable(true);
+
                 MapaLoged controladorPrin = loader.getController();
+                ((Stage)nombreField.getScene().getWindow()).close();
 //                controladorPrin.setUsuario(usuario);
- 
-                stage.setScene(scene);
+
+                stageMapa.setScene(scene);
                 controladorPrin.setUsuario(usuario);
-                controladorPrin.setStage(stage);
-                stage.setHeight(800);
-                stage.setWidth(1300);
+                controladorPrin.setStage(stageMapa);
+                stageMapa.setHeight(800);
+                stageMapa.setWidth(1300);
 //                
             }
         }else {errNomLab.setVisible(true);}
@@ -136,58 +138,35 @@ public class Inicial implements Initializable {
         stage.setTitle("Pestaña registrarse");
         stage.setScene(scene);
         stage.setHeight(480);
-        stage.setWidth(500);
-    }
-
-    private void pruebas(ActionEvent event) {
+        stage.setWidth(520);
         
-//        Notifications notificationBuilder = Notifications.create()
-//                    .title("Confirmacion")
-//                    .text("Se ha registrado el usuario correctamente")
-//                    .graphic(null)
-//                    .hideAfter(Duration.seconds(5))
-//                    .position(Pos.BOTTOM_RIGHT);
-//
-//            Platform.runLater(() -> {
-//
-//                notificationBuilder.showInformation();
-//            });
-
-//        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-//        alerta.initStyle(StageStyle.DECORATED);
-//        alerta.setTitle("Confirmacion");
-//        alerta.setHeaderText("DNI: 652764243\nNombre: nfdsuhgiie");
-//        alerta.showAndWait();
-        
-        
-        System.out.print((int) Math.floor(Math.random()*(10-0+1)+0));
-                
-        
-//        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-//        alerta.initStyle(StageStyle.TRANSPARENT);
-//        alerta.setTitle("Confirmacion");
-//        alerta.setContentText("Se ha registrado el usuario correctamente");
-//        alerta.show();
+        Registrarse controladorPrin = loader.getController();
+        controladorPrin.setController(stageMapa);
     }
 
     @FXML
     private void backAction(ActionEvent event) throws IOException {
     
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setTitle("Mapa");
-        stage.setResizable(true);
-        stage.setScene(scene);
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
+//        Parent root = loader.load();
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        stage.setTitle("Mapa");
+//        stage.setResizable(true);
+//        stage.setScene(scene);
+//
+//        stage.setHeight(800);
+//        stage.setWidth(1300);
+//
+//        Mapa controladorPrin = loader.getController();
 
-        stage.setHeight(800);
-        stage.setWidth(1300);
-
-        Mapa controladorPrin = loader.getController();
+           ((Stage)nombreField.getScene().getWindow()).close();
 
     }
 
+    void setController(Stage cnt){
+        stageMapa = cnt;
+    }
     
 }
 
