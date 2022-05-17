@@ -321,9 +321,9 @@ public class VentanaResponder implements Initializable {
         
         stageActual = ((Stage) aciertosLabel.getScene().getWindow());
         
-        stageActual.setOnCloseRequest(e -> {
-            controllerLoged.closeProblemas();
-        });
+//        stageActual.setOnCloseRequest(e -> {
+//            controllerLoged.closeProblemas();
+//        });
     }
 
     void setRandomnes(boolean rdm) {
@@ -359,9 +359,6 @@ public class VentanaResponder implements Initializable {
 
     void setStage(Stage aux) {
         stageMapa = aux;
-
-        stageMapa = aux;
-
     }
 
     @FXML

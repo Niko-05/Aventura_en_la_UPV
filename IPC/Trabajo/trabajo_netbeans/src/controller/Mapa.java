@@ -394,17 +394,17 @@ public class Mapa implements Initializable {
 
     @FXML
     private void limpiarAction(ActionEvent event) {
-//            Notifications notificationBuilder = Notifications.create()
-//                    .title("Confirmación")
-//                    .text("Se ha registrado el usuario correctamente")
-//                    .graphic(null)
-//                    .hideAfter(Duration.seconds(5))
-//                    .position(Pos.BOTTOM_RIGHT);
-//
-//            Platform.runLater(() -> {
-//
-//                notificationBuilder.showInformation();
-//            });
+            Notifications notificationBuilder = Notifications.create()
+                    .title("Confirmación")
+                    .text("Se ha registrado el usuario correctamente")
+                    .graphic(null)
+                    .hideAfter(Duration.seconds(5))
+                    .position(Pos.BOTTOM_RIGHT);
+
+            Platform.runLater(() -> {
+
+                notificationBuilder.showInformation();
+            });
 
             
             Node aux = cartaNautica;
@@ -622,7 +622,7 @@ public class Mapa implements Initializable {
             menuContext.getItems().add(ejesPunto
             );
             ejesPunto.setOnAction(ev -> {
-            linePainting = new Line(e.getX(), 0, e.getX(), 5500);
+            linePainting = new Line(((Circle)e.getSource()).getCenterX(), 0, e.getX(), 5500);
             zoomGroup.getChildren().add(linePainting);
             linePainting.setStrokeWidth(4);
             
@@ -653,9 +653,11 @@ public class Mapa implements Initializable {
 
         menuContext.show(map_scrollpane, e.getScreenX(), e.getScreenY());
 //        menuContext.autoHideProperty().set(true);
-//        menuContext.focusedProperty().addListener((obs, oldV, newV) -> {
-//             menuContext.hide();
-//        });
+        menuContext.setHideOnEscape(true);
+        menuContext.setAutoHide(true);
+        menuContext.focusedProperty().addListener((obs, oldV, newV) -> {
+             menuContext.hide();
+        });
 
         e.consume();
     }

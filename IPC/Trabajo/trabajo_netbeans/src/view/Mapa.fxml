@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
@@ -35,19 +36,23 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </HBox>
-      <ScrollPane fx:id="map_scrollpane" onMouseMoved="#getMousePosition" pannable="true">
-         <content>
-            <Pane>
-               <children>
-                  <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" layoutX="-80.0" layoutY="-45.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/carta_nautica.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-         </content>
-      </ScrollPane>
+      <StackPane fx:id="stackPane">
+         <children>
+            <ScrollPane fx:id="map_scrollpane" onMouseMoved="#getMousePosition" pannable="true">
+               <content>
+                  <Pane>
+                     <children>
+                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" layoutX="-80.0" layoutY="-45.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/carta_nautica.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </content>
+            </ScrollPane>
+         </children>
+      </StackPane>
       <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="10.0" spacing="5.0">
          <children>
             <ToggleButton id="toggle" fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
