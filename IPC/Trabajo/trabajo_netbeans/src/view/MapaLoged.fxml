@@ -69,7 +69,7 @@
             <Button id="mas" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="35.0" prefWidth="35.0" text="+" />
          </children>
          <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
          </VBox.margin>
       </HBox>
       <ScrollPane fx:id="map_scrollpane" pannable="true">
@@ -89,7 +89,7 @@
          <children>
             <ToggleButton id="toggle" fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/punto-de-alfiler.png" />
                      </image>
@@ -98,7 +98,7 @@
             </ToggleButton>
             <ToggleButton id="toggle" fx:id="lineaButton" mnemonicParsing="false" onAction="#lineaAction">
                <graphic>
-                  <ImageView id="ferru" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="ferru" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/linea.png" />
                      </image>
@@ -107,7 +107,7 @@
             </ToggleButton>
             <ToggleButton id="toggle" fx:id="arcoButton" mnemonicParsing="false" onAction="#arcoButton">
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/linea%20curva.png" />
                      </image>
@@ -116,16 +116,16 @@
             </ToggleButton>
             <ToggleButton id="toggle" fx:id="escribirButton" mnemonicParsing="false" onAction="#escribirAction">
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/fuente.png" />
                      </image>
                   </ImageView>
                </graphic>
             </ToggleButton>
-            <ToggleButton id="toggle" fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
+            <ToggleButton id="regla" fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
                <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/gobernante.png" />
                      </image>
@@ -136,14 +136,14 @@
                <children>
                   <HBox fx:id="hboxabajo3" alignment="CENTER" prefWidth="300.0">
                      <children>
-                        <ColorPicker fx:id="pickerColor" prefWidth="100.0">
+                        <ColorPicker fx:id="pickerColor" prefHeight="30.0" prefWidth="47.0">
                            <value>
                               <Color />
                            </value>
                         </ColorPicker>
                         <ToggleButton id="toggle" fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/pintar.png" />
                                  </image>
@@ -152,7 +152,7 @@
                         </ToggleButton>
                         <ToggleButton id="toggle" fx:id="eliminarButton" mnemonicParsing="false" onAction="#eliminarAction">
                            <graphic>
-                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/eliminar.png" />
                                  </image>
