@@ -138,6 +138,12 @@
     -fx-background-color: #f74ff2;
 }
 
+.tooltip{
+    -fx-font: "Segoe UI";
+    -fx-text-fill: #F2CC8F;
+    -fx-background-color: #3D405B;
+}
+
 .color-picker{
     -fx-background-color: transparent;
     -fx-background-radius: 999px;
