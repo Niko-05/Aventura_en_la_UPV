@@ -304,6 +304,24 @@
 }
 
 .dialog-pane .button:hover{
-  -fx-background-color: #F2CC8F;
-	-fx-text-fill: #3D405B;
+    -fx-background-color: #F2CC8F;
+    -fx-text-fill: #3D405B;
  }
+
+.choice-box{
+    -fx-background-color: #F2CC8F;
+    -fx-background-radius: 999px;
+
+}
+
+.choice-box:hover{
+    -fx-background-color: #e3b56b;
+}
+
+.choice-box .context-menu{
+    -fx-background-color: #F4F1DE;
+}
+
+.choice-box .context-menu .label{
+    -fx-text-fill: #3D405B;
+}
