@@ -22,6 +22,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
@@ -32,6 +33,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -113,6 +115,9 @@ public class Mapa implements Initializable {
     @FXML
     private ImageView transportador;
     private ContextMenu menuContext = new ContextMenu();
+    private Tooltip t;
+    @FXML
+    private Button limpiarButton;
 
     
     
@@ -124,6 +129,30 @@ public class Mapa implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        t = new Tooltip("Dibujar un punto");
+        Tooltip.install(punteroButton, t);
+        
+        t = new Tooltip("Dibujar una linea");
+        Tooltip.install(lineaButton, t);
+        
+        t = new Tooltip("Dibujar un arco");
+        Tooltip.install(arcoButton, t);
+        
+        t = new Tooltip("Escribir un texto");
+        Tooltip.install(escribirButton, t);
+        
+        t = new Tooltip("Mostar / Ocultar regla");
+        Tooltip.install(reglaButton, t);
+        
+        t = new Tooltip("Cambiar color");
+        Tooltip.install(colorButton, t);
+        
+        t = new Tooltip("Elimitar objeto");
+        Tooltip.install(eliminarButton, t);
+        
+        t = new Tooltip("Elegir color");
+        Tooltip.install(pickerColor, t);
         
         ToggleGroup tGroup = new ToggleGroup();
         punteroButton.setToggleGroup(tGroup);
@@ -411,8 +440,8 @@ public class Mapa implements Initializable {
     @FXML
     private void mouseDragged(MouseEvent event) {
         if (crearLinea) {
-            linePainting.setEndX(event.getX());
-            linePainting.setEndY(event.getY());
+            linePainting.setEndX(event.getX()-80);
+            linePainting.setEndY(event.getY()-45);
         event.consume();
         }
         
@@ -454,32 +483,35 @@ public class Mapa implements Initializable {
         menuContext = new ContextMenu();
         MenuItem borrarItem = new MenuItem("Eliminar");
         MenuItem cambioColor = new MenuItem("Cambiar color");
+        MenuItem cambioTamaño = new MenuItem("Ajustar tamaño");
         menuContext.getItems().add(borrarItem);
         menuContext.getItems().add(cambioColor);
-        if (e.getSource() instanceof Circle && !((Circle)e.getSource()).getFill().equals(Color.TRANSPARENT)) {
+        menuContext.getItems().add(cambioTamaño);
+        if (e.getSource() instanceof Circle && !((Circle) e.getSource()).getFill().equals(Color.TRANSPARENT)) {
             MenuItem ejesPunto = new MenuItem("Mostrar ejes");
             menuContext.getItems().add(ejesPunto
             );
             ejesPunto.setOnAction(ev -> {
-            linePainting = new Line(((Circle)e.getSource()).getCenterX(), 0, e.getX(), 5500);
-            zoomGroup.getChildren().add(linePainting);
-            linePainting.setStrokeWidth(4);
-            
-//            linePainting.setOnContextMenuRequested(e -> contextMenu(e,"linea"));
-//            linePainting.setOnMousePressed(e -> {
-//                clicked(e);
-//                if (colorButton.isSelected()) {
-//                    cambiarColor("linea");
-//                }
-//            });
-//            linePainting.setOnMouseDragged(e -> mouseDragged(e));
-//            linePainting.setOnMouseReleased(e -> mouseReleased(e));
-            
-            linePainting = new Line(0, e.getY(), 8800, e.getY());
-            zoomGroup.getChildren().add(linePainting);
-            linePainting.setStrokeWidth(4);
-            ev.consume();
-        });
+                linePainting = new Line(((Circle) e.getSource()).getCenterX(), 0, ((Circle) e.getSource()).getCenterX(), 5500);
+                zoomGroup.getChildren().add(linePainting);
+                linePainting.setStrokeWidth(4);
+
+                linePainting.setOnContextMenuRequested(this::contextMenu);
+                linePainting.setOnMousePressed(this::mousePressed);
+                linePainting.setOnMouseDragged(this::mouseDragged);
+                linePainting.setOnMouseReleased(this::mouseReleased);
+
+                linePainting = new Line(0, ((Circle) e.getSource()).getCenterY(), 8800, ((Circle) e.getSource()).getCenterY());
+                zoomGroup.getChildren().add(linePainting);
+                
+                linePainting.setOnContextMenuRequested(this::contextMenu);
+                linePainting.setOnMousePressed(this::mousePressed);
+                linePainting.setOnMouseDragged(this::mouseDragged);
+                linePainting.setOnMouseReleased(this::mouseReleased);
+                
+                linePainting.setStrokeWidth(4);
+                ev.consume();
+            });
         }
 
         borrarItem.setOnAction(ev -> {
@@ -488,6 +520,9 @@ public class Mapa implements Initializable {
         });
         cambioColor.setOnAction(ev -> {
             cambiarColor(e.getSource());
+        });
+        cambioTamaño.setOnAction(ev -> {
+            cambiarTamaño(e.getSource());
         });
 
         menuContext.show(map_scrollpane, e.getScreenX(), e.getScreenY());
@@ -502,7 +537,6 @@ public class Mapa implements Initializable {
     
     private void cambiarColor(Object e) {
         if (e instanceof Circle) {
-            circlePainting.setFill(Color.TRANSPARENT);
             if (((Circle) e).getFill().equals(Color.TRANSPARENT)) {
                 ((Circle) e).setStroke(pickerColor.getValue());
                 colorButton.setSelected(false);
@@ -515,7 +549,7 @@ public class Mapa implements Initializable {
         }
         
         if (e instanceof Line) {
-            ((Circle) e).setStroke(pickerColor.getValue());
+            ((Line) e).setStroke(pickerColor.getValue());
             colorButton.setSelected(false);
         }
         
@@ -523,20 +557,55 @@ public class Mapa implements Initializable {
 //            System.out.println(toRgbString(pickerColor.getValue()));
 //            ((Text) e).setStyle("-fx-text-fill: " + toRgbString(pickerColor.getValue()) + ";");
 //        }
+//        
+//        if (e instanceof Text) {
+//            System.out.println(toRgbString(pickerColor.getValue()));
+//            ((Text) e).setStyle("-fx-text-fill: #" + pickerColor.getValue().toString().substring(2,8) + ";");
+//        }
+    
+    }
+    
+        private void cambiarTamaño(Object e) {
+        if (e instanceof Circle) {
+            if (((Circle) e).getFill().equals(Color.TRANSPARENT)) {
+                ((Circle) e).setStrokeWidth(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7));
+                colorButton.setSelected(false);
+
+            } else {
+                ((Circle) e).setRadius(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 12));
+                colorButton.setSelected(false);
+            }
+            
+        }
+        
+        if (e instanceof Line) {
+            ((Line) e).setStrokeWidth(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7));
+            colorButton.setSelected(false);
+        }
+        
+        if (e instanceof Text) {
+            ((Text) e).setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");
+            colorButton.setSelected(false);
+        }
+//        
+//        if (e instanceof Text) {
+//            System.out.println(toRgbString(pickerColor.getValue()));
+//            ((Text) e).setStyle("-fx-text-fill: #" + pickerColor.getValue().toString().substring(2,8) + ";");
+//        }
     
     }
     
     private void crearPuntero(MouseEvent event){
         circlePainting = new Circle(1);
-            circlePainting.setCenterX(event.getX());
-            circlePainting.setCenterY(event.getY());
+            circlePainting.setCenterX(event.getX()-80);
+            circlePainting.setCenterY(event.getY()-45);
             zoomGroup.getChildren().add(circlePainting);
             circlePainting.setStrokeWidth(4);
-            circlePainting.setRadius(25);
+            circlePainting.setRadius(18);
 
 
             circlePainting.setOnContextMenuRequested(this::contextMenu);
-            linePainting.setOnMousePressed(this::mousePressed);
+            circlePainting.setOnMousePressed(this::mousePressed);
             circlePainting.setOnMouseDragged(this::mouseDragged);
             circlePainting.setOnMouseReleased(this::mouseReleased);
             crearPuntero = false;
@@ -547,8 +616,8 @@ public class Mapa implements Initializable {
             circlePainting.setStroke(Color.RED);
             circlePainting.setFill(Color.TRANSPARENT);
             zoomGroup.getChildren().add(circlePainting);
-            circlePainting.setCenterX(event.getX());
-            circlePainting.setCenterY(event.getY());
+            circlePainting.setCenterX(event.getX()-80);
+            circlePainting.setCenterY(event.getY()-45);
             circlePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
             inicioXArc = event.getX();
             
@@ -565,7 +634,7 @@ public class Mapa implements Initializable {
  
     private void crearLinea(MouseEvent event) {
 
-        linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
+        linePainting = new Line(event.getX()-80, event.getY()-45, event.getX()-80, event.getY()-45);
         zoomGroup.getChildren().add(linePainting);
         linePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
 
@@ -577,8 +646,8 @@ public class Mapa implements Initializable {
    
     private void crearTexto(MouseEvent event) {
         TextField texto = new TextField();
-        texto.setLayoutX(event.getX());
-        texto.setLayoutY(event.getY());
+        texto.setLayoutX(event.getX()-80);
+        texto.setLayoutY(event.getY()-45);
 //            texto.requestFocus();
         texto.setPrefWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 800);
         texto.setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");

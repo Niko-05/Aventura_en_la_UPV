@@ -11,59 +11,28 @@ Login:
 - opcion cerrar sesion
 - clase contraseña (constructor, metodo equals,)
 
-- almacenar resultados en txt - ¿codificar? ¿clase almacen datos?
-
-Realizacion de problemas
-	- boton carta estelar
-	- opcion pregunta aleatoria y respuestas en orden aleatorio
-	- opcion lista de problemas
-
 
 codigo ---------
+//contraseña en modPerfil visible?
 
-
-mejor spam de errores o error al aceptar
-que es un correo valido 
-correos repetidos no se comprueban
-modificar perfil mejor popup o sustituir
-estrellitas en contraseña
-darle al enter para iniciar sesion
 
 tienen que salir todos los problemas al menos 1 vez antes de empezar a repetirse?
 se considera sesion durante todo el tiempo que el usuario este conectado?
+que se considera correo valido?
 
-seleccionar elemento para eleminarlo o cambiar color
-mensajito al posarse en un boton
-eliminar submenu muy alejado
-al crear varios objetos no reconoce al primero
-coger el controller de la ventana anterior (ir cerrando pestañas)
-mejor varias pestañas o una sola?
-listview de items
 mandar datepicker a fecha valida
-regla con imageview e ir haciendolo invisible?
-contraseña en modPerfil visible?
-imageview con hover y mensaje de requisitos contraseña
-
-
-
-
-action event para cerrar la ventana
-coger las ventanas abieertas y cerrarlas
-
+texto cambiar color
+escalado de windows
+passwordfields y mostrar contraseñas
 
 
 
 cosas por hacer: -----
 boton back problemas
-centrar los ejes de puntos
+centrar los ejes de puntosw
 crear sesione
 hover informacion
 ajustar errores
-ajustar control datepicker
-passwordfields y mostrar contraseñas
 spacing password editar usuario
 alertas editar "correcta edicion"
 listeners grosor lineas
-recolor items
-cerrar contextmenus
-eventos de textfields
