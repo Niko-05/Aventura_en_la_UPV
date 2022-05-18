@@ -172,6 +172,8 @@ public class MapaLoged implements Initializable {
         eliminarButton.setToggleGroup(tGroup);
         colorButton.setToggleGroup(tGroup);
 
+        
+            
         ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
             botonesBox.setSpacing((double) newV / 25);
             hboxClear.setPrefWidth((double) newV);
@@ -180,6 +182,7 @@ public class MapaLoged implements Initializable {
             map_scrollpane.setPrefWidth((double) newV);
         });
 
+        
         ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
             map_scrollpane.setPrefHeight((double) newV);
         });

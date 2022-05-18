@@ -119,8 +119,8 @@ public class VentanaResponder implements Initializable {
 
         ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
 
-            hBoxAbajo1.setPrefWidth((double) newV / 2);
-            hBoxAbajo2.setPrefWidth((double) newV / 2);
+            hBoxAbajo1.setPrefWidth((double) newV / 2 - 100);
+            hBoxAbajo2.setPrefWidth((double) newV / 2 + 100);
 
             hBoxPrincipal.setPrefWidth((double) newV);
         });
