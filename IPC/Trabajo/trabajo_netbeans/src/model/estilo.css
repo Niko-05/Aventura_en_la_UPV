@@ -162,12 +162,19 @@
 
 }*/
 .list-cell{
-    -fx-border-color: #81B29A;
+    -fx-border-color: #3D405B;
     -fx-font: 12pt "Segoe UI";
 	-fx-text-fill: #E07A5F;
     -fx-background-color: #F4F1DE;
 }
 
+.list-cell:hover{
+    -fx-background-color: #F2CC8F;
+}
+
+.list-cell:selected{
+    -fx-background-color: #b5b34a;
+}
 
 
 .table-view{
