@@ -280,8 +280,6 @@ public class Registrarse implements Initializable {
                 stageMapa.setScene(scene);
                 controladorPrin.setUsuario(usuario);
                 controladorPrin.setStage(stageMapa);
-                stageMapa.setHeight(800);
-                stageMapa.setWidth(1300);
             controladorPrin.setUsuario(usuario);
             new ConfRegistro().start();
         }

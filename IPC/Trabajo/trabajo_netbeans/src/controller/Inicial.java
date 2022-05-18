@@ -112,8 +112,6 @@ public class Inicial implements Initializable {
                 stageMapa.setScene(scene);
                 controladorPrin.setUsuario(usuario);
                 controladorPrin.setStage(stageMapa);
-                stageMapa.setHeight(800);
-                stageMapa.setWidth(1300);
 //                
             }
         }else {errNomLab.setVisible(true);}
