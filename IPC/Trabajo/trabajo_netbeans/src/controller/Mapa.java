@@ -22,6 +22,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
@@ -32,6 +33,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -113,6 +115,9 @@ public class Mapa implements Initializable {
     @FXML
     private ImageView transportador;
     private ContextMenu menuContext = new ContextMenu();
+    private Tooltip t;
+    @FXML
+    private Button limpiarButton;
 
     
     
@@ -124,6 +129,30 @@ public class Mapa implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        t = new Tooltip("Dibujar un punto");
+        Tooltip.install(punteroButton, t);
+        
+        t = new Tooltip("Dibujar una linea");
+        Tooltip.install(lineaButton, t);
+        
+        t = new Tooltip("Dibujar un arco");
+        Tooltip.install(arcoButton, t);
+        
+        t = new Tooltip("Escribir un texto");
+        Tooltip.install(escribirButton, t);
+        
+        t = new Tooltip("Mostar / Ocultar regla");
+        Tooltip.install(reglaButton, t);
+        
+        t = new Tooltip("Cambiar color");
+        Tooltip.install(colorButton, t);
+        
+        t = new Tooltip("Elimitar objeto");
+        Tooltip.install(eliminarButton, t);
+        
+        t = new Tooltip("Elegir color");
+        Tooltip.install(pickerColor, t);
         
         ToggleGroup tGroup = new ToggleGroup();
         punteroButton.setToggleGroup(tGroup);
