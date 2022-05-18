@@ -163,12 +163,11 @@
 }*/
 .list-cell{
     -fx-border-color: #81B29A;
-}
-
-.list-cell .label{
     -fx-font: 14pt "Segoe UI";
 	-fx-text-fill: #E07A5F;
 }
+
+
 
 .table-view{
 	-fx-background-color: #F2CC8F;
