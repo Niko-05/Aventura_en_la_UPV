@@ -28,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -68,7 +69,6 @@ public class Registrarse implements Initializable {
     private TextField nombreField;
     @FXML
     private Label errNomLab;
-    @FXML
     private TextField contraField;
     @FXML
     private Label errConLab;
@@ -96,6 +96,8 @@ public class Registrarse implements Initializable {
     @FXML
     private ImageView nacimientoCondiciones;
     private Stage stageMapa;
+    @FXML
+    private PasswordField contraseñaField;
 
     /**
      * Initializes the controller class.
@@ -111,7 +113,7 @@ public class Registrarse implements Initializable {
         t = new Tooltip("El usuario requiere entre 6 y 15 caracteres o dígitos si espacios");
         Tooltip.install(usuarioCondiciones, t);
         
-        t = new Tooltip("El correo electrónico requiere un formato válido");
+        t = new Tooltip("El correo electrónico requiere un formato válido (correo@example.com)");
         Tooltip.install(correoCondiciones, t);
         
         
@@ -280,6 +282,7 @@ public class Registrarse implements Initializable {
                 stageMapa.setScene(scene);
                 controladorPrin.setUsuario(usuario);
                 controladorPrin.setStage(stageMapa);
+
             controladorPrin.setUsuario(usuario);
             new ConfRegistro().start();
         }

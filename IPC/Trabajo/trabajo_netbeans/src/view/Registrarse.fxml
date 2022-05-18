@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -82,7 +83,7 @@
                   <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
                   <HBox alignment="CENTER_LEFT">
                      <children>
-                        <TextField fx:id="contraField" prefWidth="300.0" promptText="contraseña" />
+                        <PasswordField fx:id="contraseñaField" prefWidth="300.0" promptText="Contraseña" />
                         <ImageView fx:id="contraseñaCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/pregunta.png" />

@@ -5,10 +5,15 @@
  */
 package controller;
 
+import DBAccess.NavegacionDAOException;
 import java.io.IOException;
 import static java.lang.Boolean.FALSE;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import static javafx.beans.binding.Bindings.not;
 import javafx.beans.property.BooleanProperty;
@@ -23,7 +28,10 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -47,6 +55,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import model.Session;
 import model.User;
 
 /**
@@ -124,12 +134,17 @@ public class MapaLoged implements Initializable {
     private Button verProblemasButton;
     private ContextMenu menuContext = new ContextMenu();
     private Tooltip t;
+    @FXML
+    private ChoiceBox<Integer> grosorChoice;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        grosorChoice.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+        grosorChoice.getSelectionModel().select(9);
         
         
         t = new Tooltip("Dibujar un punto");
@@ -156,6 +171,9 @@ public class MapaLoged implements Initializable {
         t = new Tooltip("Elegir color");
         Tooltip.install(pickerColor, t);
         
+        t = new Tooltip("Elegir grosor");
+        Tooltip.install(grosorChoice, t);
+        
 //        stageActual.setOnCloseRequest(e -> {
 //            stage.close();
 //        });
@@ -174,6 +192,7 @@ public class MapaLoged implements Initializable {
 
         
             
+//        stageActual.widthProperty().
         ventanaPrincipal.widthProperty().addListener((obs, oldV, newV) -> {
             botonesBox.setSpacing((double) newV / 25);
             hboxClear.setPrefWidth((double) newV);
@@ -361,13 +380,20 @@ public class MapaLoged implements Initializable {
 
     @FXML
     private void limpiarAction(ActionEvent event) {
-        Node aux = cartaNautica;
-        while (zoomGroup.getChildren().size() > 0) {
-            zoomGroup.getChildren().remove(0);
-        }
-        zoomGroup.getChildren().add(aux);
-        zoom(0.15);
-
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+        alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        Optional<ButtonType> result = alerta.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Node aux = cartaNautica;
+            while (zoomGroup.getChildren().size() > 0) {
+                zoomGroup.getChildren().remove(0);
+            }
+            zoomGroup.getChildren().add(aux);
+            zoom(0.15);
+        }   
     }
 
     @FXML
@@ -390,11 +416,12 @@ public class MapaLoged implements Initializable {
     }
 
     @FXML
-    private void cerrarSesionAction(ActionEvent event) throws IOException {
+    private void cerrarSesionAction(ActionEvent event) throws IOException, NavegacionDAOException {
 
         if (stageOpen.get()) {
             stage.close();
         }
+        usuario.addSession(new Session(LocalDateTime.now(),aciertos,fallos));
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
         Parent root = loader.load();
@@ -450,8 +477,6 @@ public class MapaLoged implements Initializable {
         controladorTest.setStage(stageActual);
         stage.show();
         stageOpen.set(true);
-//        controladorTest.prueba();
-//        controladorTest.prueba2;
 
     }
 
@@ -580,6 +605,9 @@ public class MapaLoged implements Initializable {
         cambioColor.setOnAction(ev -> {
             cambiarColor(e.getSource());
         });
+        cambioTamaño.setOnAction(ev -> {
+            cambiarTamaño(e.getSource());
+        });
 
         menuContext.show(map_scrollpane, e.getScreenX(), e.getScreenY());
 //        menuContext.autoHideProperty().set(true);
@@ -632,6 +660,11 @@ public class MapaLoged implements Initializable {
 
         stageActual.setOnCloseRequest(e -> {
             if (stageOpen.get()) {
+                if(aciertos > 0 || fallos > 0){
+                    try {
+                        usuario.addSession(new Session(LocalDateTime.now(),aciertos,fallos));
+                    } catch (NavegacionDAOException ex) {}
+                }
                 stage.close();
             }
         });
@@ -671,23 +704,23 @@ public class MapaLoged implements Initializable {
     private void cambiarTamaño(Object e) {
         if (e instanceof Circle) {
             if (((Circle) e).getFill().equals(Color.TRANSPARENT)) {
-                ((Circle) e).setStrokeWidth(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7));
+                ((Circle) e).setStrokeWidth(grosorChoice.getValue());
                 colorButton.setSelected(false);
 
             } else {
-                ((Circle) e).setRadius(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 12));
+                ((Circle) e).setRadius(grosorChoice.getValue() * 2);
                 colorButton.setSelected(false);
             }
             
         }
         
         if (e instanceof Line) {
-            ((Line) e).setStrokeWidth(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7));
+            ((Line) e).setStrokeWidth(grosorChoice.getValue());
             colorButton.setSelected(false);
         }
         
         if (e instanceof Text) {
-            ((Text) e).setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");
+            ((Text) e).setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");
             colorButton.setSelected(false);
         }
 //        
@@ -703,7 +736,7 @@ public class MapaLoged implements Initializable {
             circlePainting.setCenterX(event.getX()-80);
             circlePainting.setCenterY(event.getY()-45);
             zoomGroup.getChildren().add(circlePainting);
-            circlePainting.setStrokeWidth(4);
+            circlePainting.setStrokeWidth(grosorChoice.getValue() * 2);
             circlePainting.setRadius(25);
 
 
@@ -721,7 +754,7 @@ public class MapaLoged implements Initializable {
             zoomGroup.getChildren().add(circlePainting);
             circlePainting.setCenterX(event.getX()-80);
             circlePainting.setCenterY(event.getY()-45);
-            circlePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
+            circlePainting.setStrokeWidth(grosorChoice.getValue());
             inicioXArc = event.getX();
             
 //            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
@@ -739,7 +772,7 @@ public class MapaLoged implements Initializable {
 
         linePainting = new Line(event.getX()-80, event.getY()-45, event.getX()-80, event.getY()-45);
         zoomGroup.getChildren().add(linePainting);
-        linePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
+        linePainting.setStrokeWidth(grosorChoice.getValue());
 
         linePainting.setOnContextMenuRequested(this::contextMenu);
         linePainting.setOnMousePressed(this::mousePressed);
@@ -753,7 +786,7 @@ public class MapaLoged implements Initializable {
         texto.setLayoutY(event.getY()-45);
 //            texto.requestFocus();
         texto.setPrefWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 800);
-        texto.setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");
+        texto.setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");
         zoomGroup.getChildren().add(texto);
         texto.promptTextProperty().set("Rellenar");
 
@@ -771,10 +804,7 @@ public class MapaLoged implements Initializable {
             textoT.setY(texto.getLayoutY());
 
             zoomGroup.getChildren().add(textoT);
-            textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 80 + ";");
-            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
-                textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 80 + ";");
-            });
+            textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + 60 + ";");
             zoomGroup.getChildren().remove(texto);
 
             textoT.setOnContextMenuRequested(this::contextMenu);

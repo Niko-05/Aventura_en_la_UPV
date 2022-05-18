@@ -223,11 +223,13 @@ public class VentanaResponder implements Initializable {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
-            double prevWidth = stage.getWidth();
-            double prevHeight = stage.getHeight();
-            stage.setHeight(prevHeight);
-            stage.setWidth(prevWidth);
+//            double prevWidth = stage.getWidth();
+//            double prevHeight = stage.getHeight();
+//            stage.setHeight(prevHeight);
+//            stage.setWidth(prevWidth);
             stage.setTitle("Elegir problemas");
+//            stage.setResizable(true);
+            ((Stage) aciertosLabel.getScene().getWindow()).setHeight(500);
 
             ElegirProblema controladorTest = loader.getController();
 
@@ -370,19 +372,22 @@ public class VentanaResponder implements Initializable {
     }
     
     private void tamaño(int index){
+        System.out.print(index + " | ");
         switch (index) {
             case 0:
             case 1:
             case 2:
             case 3:
             case 11:
-                ventanaPrincipal.setPrefHeight(600);
+                ((Stage) aciertosLabel.getScene().getWindow()).setHeight(500);
+//                ventanaPrincipal.setPrefHeight(450);
                 break;
             case 4:
             case 5:
             case 8:
             case 12:
-                ventanaPrincipal.setPrefHeight(320);
+                ((Stage) aciertosLabel.getScene().getWindow()).setHeight(340);
+//                ventanaPrincipal.setPrefHeight(320);
                 break;
             case 6:
             case 9:
@@ -390,12 +395,14 @@ public class VentanaResponder implements Initializable {
             case 14:
             case 16:
             case 17:
-                ventanaPrincipal.setPrefHeight(330);
+                ((Stage) aciertosLabel.getScene().getWindow()).setHeight(370);
+//                ventanaPrincipal.setPrefHeight(330);
                 break;
             case 7:
             case 10:
             case 15:
-                ventanaPrincipal.setPrefHeight(280);
+                ((Stage) aciertosLabel.getScene().getWindow()).setHeight(320);
+//                ventanaPrincipal.setPrefHeight(280);
                 break;
 
         }

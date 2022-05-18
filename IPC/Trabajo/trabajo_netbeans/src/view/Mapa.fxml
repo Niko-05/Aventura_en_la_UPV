@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -118,6 +119,7 @@
                <children>
                   <HBox fx:id="hboxabajo3" alignment="CENTER" prefWidth="300.0">
                      <children>
+                        <ChoiceBox fx:id="grosorChoice" prefWidth="50.0" />
                         <ColorPicker fx:id="pickerColor" prefHeight="30.0" prefWidth="51.0">
                            <value>
                               <Color />

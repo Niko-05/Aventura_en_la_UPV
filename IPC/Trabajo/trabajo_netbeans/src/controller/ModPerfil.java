@@ -34,6 +34,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -59,9 +60,11 @@ public class ModPerfil implements Initializable {
     private int fallos;
     private int aciertos;
     private FileChooser selector = new FileChooser();
+    private Tooltip t;
+    private String passCode = "*******************";
     private static final String ERRCOINCIDENCIA = "Las contraseñas no coinciden";
     private static final String ERRACTUAL = "La contraseña actual no coincide";
-    private static final String ERRNUEVA = "Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&*()-+=)";
+    private static final String ERRNUEVA = "Contraseña no valida";
     
     @FXML
     private ImageView avatarField;
@@ -81,12 +84,30 @@ public class ModPerfil implements Initializable {
     private Label nacimientoLab;
     private Stage stageActual;
     private MapaLoged controllerLoged;
+    @FXML
+    private ImageView correoCondiciones;
+    @FXML
+    private ImageView contraseñaCondiciones;
+    @FXML
+    private ImageView nacimientoCondiciones;
+
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        t = new Tooltip("El correo electrónico requiere un formato válido (correo@example.com)");
+        Tooltip.install(correoCondiciones, t);
+        
+        
+        t = new Tooltip("Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&*()-+=)");
+        Tooltip.install(contraseñaCondiciones, t);
+        
+        t = new Tooltip("El usuario tiene que ser mayor de 16 años");
+        Tooltip.install(nacimientoCondiciones, t);
+        
 //        try {
 //            usuario = Navegacion.getSingletonNavegacion().loginUser("prueba", "123456aA!");
 //        } catch (NavegacionDAOException ex) {
@@ -171,12 +192,23 @@ public class ModPerfil implements Initializable {
         TextField input = textInput.getEditor();
 
         if (result.isPresent() && input.getText().trim().length() > 0) {
+
+            
             if (User.checkEmail(input.getText())) {
-                usuario.setEmail(input.getText());
-                correoLab.setText(input.getText());
+                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.initStyle(StageStyle.UTILITY);
+                alerta.setTitle("Confirmacion");
+                alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+                alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+                Optional<ButtonType> result2 = alerta.showAndWait();
+                if (result2.isPresent() && result2.get() == ButtonType.OK) {
+                    usuario.setEmail(input.getText());
+                    correoLab.setText(input.getText());
+                }
             } else {
                 errCorreoLab.setVisible(true);
             }
+
         }
     }
 
@@ -235,17 +267,27 @@ public class ModPerfil implements Initializable {
 
         Optional<String> result = dialog.showAndWait();
         
+        if (result.isPresent()) {
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.initStyle(StageStyle.UTILITY);
+            alerta.setTitle("Confirmacion");
+            alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+            alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+            Optional<ButtonType> result2 = alerta.showAndWait();
+            if (result2.isPresent() && result2.get() == ButtonType.OK) {
+                if (User.checkPassword(result.get())) {
+                    contraseñaLab.setText(result.get());
+                    usuario.setPassword(result.get());
+                } else {
+                    errContraseñaLab.setText(ERRNUEVA);
+                    errContraseñaLab.setVisible(true);
+                }
 
-        if (result.isPresent() && result != null) {
-            if (User.checkPassword(result.get())) {
-                contraseñaLab.setText(result.get());
-                usuario.setPassword(result.get());
-            } else {
-                errContraseñaLab.setText(ERRNUEVA);
-                errContraseñaLab.setVisible(true);
             }
-            
+
         }
+        
+        
         
     }
 
@@ -296,20 +338,28 @@ public class ModPerfil implements Initializable {
 
         Optional<LocalDate> result = dialog.showAndWait();
         
-
         if (result.isPresent()) {
-            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-            nacimientoLab.setText(result.get().format(formatters));
-            usuario.setBirthdate(result.get());
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.initStyle(StageStyle.UTILITY);
+            alerta.setTitle("Confirmacion");
+            alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+            alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+            Optional<ButtonType> result2 = alerta.showAndWait();
+            if (result2.isPresent() && result2.get() == ButtonType.OK) {
+                DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+                nacimientoLab.setText(result.get().format(formatters));
+                usuario.setBirthdate(result.get());
+            }
+
         }
     }
-    
+
      void setUsuario(User user){
         usuario = user;
         
         usuarioLab.setText(usuario.getNickName());
         avatarField.setImage(usuario.getAvatar());
-        contraseñaLab.setText(usuario.getPassword());
+        contraseñaLab.setText(passCode.substring(20 - usuario.getPassword().length()));
         correoLab.setText(usuario.getEmail());
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
         nacimientoLab.setText(usuario.getBirthdate().format(formatters));

@@ -132,17 +132,18 @@ public class ElegirProblema implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);;
         stage.setTitle("Resolucion de problemas");
+//        stage.setResizable(false);
 
         VentanaResponder controladorTest = loader.getController();
 
         
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
-        controladorTest.setRandomness(false,problemasListView.getSelectionModel().getSelectedIndex());
         controladorTest.setController(controllerLoged);
         controladorTest.setStage(stageMapa);
-        stage.setScene(scene);
         
+        stage.setScene(scene);
+        controladorTest.setRandomness(false,problemasListView.getSelectionModel().getSelectedIndex());
         
         
 //        problemasListView.getSelectionModel().getSelectedIndex();

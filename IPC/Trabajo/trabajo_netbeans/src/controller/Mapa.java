@@ -9,8 +9,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,7 +24,10 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ListView;
@@ -49,6 +54,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javax.security.auth.callback.TextOutputCallback;
 import org.controlsfx.control.Notifications;
@@ -118,6 +124,8 @@ public class Mapa implements Initializable {
     private Tooltip t;
     @FXML
     private Button limpiarButton;
+    @FXML
+    private ChoiceBox<Integer> grosorChoice;
 
     
     
@@ -129,6 +137,9 @@ public class Mapa implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        grosorChoice.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+        grosorChoice.getSelectionModel().select(9);
         
         t = new Tooltip("Dibujar un punto");
         Tooltip.install(punteroButton, t);
@@ -153,6 +164,9 @@ public class Mapa implements Initializable {
         
         t = new Tooltip("Elegir color");
         Tooltip.install(pickerColor, t);
+        
+        t = new Tooltip("Elegir grosor");
+        Tooltip.install(grosorChoice, t);
         
         ToggleGroup tGroup = new ToggleGroup();
         punteroButton.setToggleGroup(tGroup);
@@ -383,13 +397,20 @@ public class Mapa implements Initializable {
 //                notificationBuilder.showInformation();
 //            });
 
-            
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+        alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        Optional<ButtonType> result = alerta.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             Node aux = cartaNautica;
-            while(zoomGroup.getChildren().size() > 0){ zoomGroup.getChildren().remove(0); }
+            while (zoomGroup.getChildren().size() > 0) {
+                zoomGroup.getChildren().remove(0);
+            }
             zoomGroup.getChildren().add(aux);
-//            zoomGroup.getChildren().add(transportador);
             zoom(0.15);
-        
+        }   
     }
 
     
@@ -568,23 +589,23 @@ public class Mapa implements Initializable {
         private void cambiarTamaño(Object e) {
         if (e instanceof Circle) {
             if (((Circle) e).getFill().equals(Color.TRANSPARENT)) {
-                ((Circle) e).setStrokeWidth(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7));
+                ((Circle) e).setStrokeWidth(grosorChoice.getValue());
                 colorButton.setSelected(false);
 
             } else {
-                ((Circle) e).setRadius(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 12));
+                ((Circle) e).setRadius(grosorChoice.getValue() * 2);
                 colorButton.setSelected(false);
             }
             
         }
         
         if (e instanceof Line) {
-            ((Line) e).setStrokeWidth(((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7));
+            ((Line) e).setStrokeWidth(grosorChoice.getValue());
             colorButton.setSelected(false);
         }
         
         if (e instanceof Text) {
-            ((Text) e).setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");
+            ((Text) e).setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");
             colorButton.setSelected(false);
         }
 //        
@@ -600,8 +621,7 @@ public class Mapa implements Initializable {
             circlePainting.setCenterX(event.getX()-80);
             circlePainting.setCenterY(event.getY()-45);
             zoomGroup.getChildren().add(circlePainting);
-            circlePainting.setStrokeWidth(4);
-            circlePainting.setRadius(18);
+            circlePainting.setRadius(grosorChoice.getValue() * 2);
 
 
             circlePainting.setOnContextMenuRequested(this::contextMenu);
@@ -618,7 +638,7 @@ public class Mapa implements Initializable {
             zoomGroup.getChildren().add(circlePainting);
             circlePainting.setCenterX(event.getX()-80);
             circlePainting.setCenterY(event.getY()-45);
-            circlePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
+            circlePainting.setStrokeWidth(grosorChoice.getValue());
             inicioXArc = event.getX();
             
 //            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
@@ -636,7 +656,7 @@ public class Mapa implements Initializable {
 
         linePainting = new Line(event.getX()-80, event.getY()-45, event.getX()-80, event.getY()-45);
         zoomGroup.getChildren().add(linePainting);
-        linePainting.setStrokeWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.15)) * 7);
+        linePainting.setStrokeWidth(grosorChoice.getValue());
 
         linePainting.setOnContextMenuRequested(this::contextMenu);
         linePainting.setOnMousePressed(this::mousePressed);
@@ -650,7 +670,7 @@ public class Mapa implements Initializable {
         texto.setLayoutY(event.getY()-45);
 //            texto.requestFocus();
         texto.setPrefWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 800);
-        texto.setStyle("-fx-font-size:" + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 70 + ";");
+        texto.setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");
         zoomGroup.getChildren().add(texto);
         texto.promptTextProperty().set("Rellenar");
 
