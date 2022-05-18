@@ -162,9 +162,9 @@
 
 }*/
 .list-cell{
-    -fx-border-color: #3D405B;
+    -fx-border-color: #81B29A;
     -fx-font: 12pt "Segoe UI";
-	-fx-text-fill: #E07A5F;
+	-fx-text-fill: #3D405B;
     -fx-background-color: #F4F1DE;
 }
 
@@ -173,7 +173,7 @@
 }
 
 .list-cell:selected{
-    -fx-background-color: #b5b34a;
+    -fx-background-color: #e3b56b;
 }
 
 
