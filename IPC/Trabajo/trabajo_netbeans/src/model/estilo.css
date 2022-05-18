@@ -139,7 +139,7 @@
 }
 
 .tooltip{
-    -fx-font: "Segoe UI";
+
     -fx-text-fill: #F2CC8F;
     -fx-background-color: #3D405B;
 }
@@ -157,12 +157,16 @@
     -fx-background-color: #d0d2d6;
 }
 
-.list-view{
+/*.list-view .header{
 	-fx-background-color: #81B29A;
 
+}*/
+.list-cell{
+    -fx-border-color: #81B29A;
 }
-.list-item{
-	-fx-font: 14pt "Segoe UI";
+
+.list-cell .label{
+    -fx-font: 14pt "Segoe UI";
 	-fx-text-fill: #E07A5F;
 }
 
