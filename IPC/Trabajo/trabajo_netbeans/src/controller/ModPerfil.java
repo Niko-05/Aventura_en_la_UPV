@@ -129,40 +129,79 @@ public class ModPerfil implements Initializable {
         controllerLoged.setUsuario(usuario);
     }
     
-    
     @FXML
     private void avatarDefaultAction(ActionEvent event) throws NavegacionDAOException {
-        usuario.setAvatar(new Image("/icons/default.png"));
-        avatarField.setImage(new Image("/icons/default.png"));
-        controllerLoged.setUsuario(usuario);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("¿Quiere cambiar su avatar a: Avatar Default?");
+        alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        Optional<ButtonType> result2 = alerta.showAndWait();
+        if (result2.isPresent() && result2.get() == ButtonType.OK) {
+            usuario.setAvatar(new Image("/icons/default.png"));
+            avatarField.setImage(new Image("/icons/default.png"));
+            controllerLoged.setUsuario(usuario);
+        }
     }
 
     @FXML
     private void avatar1Action(ActionEvent event) throws NavegacionDAOException {
-        usuario.setAvatar(new Image("/icons/avatar1.png"));
-        avatarField.setImage(new Image("/icons/avatar1.png"));
-        controllerLoged.setUsuario(usuario);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("¿Quiere cambiar su avatar a: Avatar 1?");
+        alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        Optional<ButtonType> result2 = alerta.showAndWait();
+        if (result2.isPresent() && result2.get() == ButtonType.OK) {
+            usuario.setAvatar(new Image("/icons/avatar1.png"));
+            avatarField.setImage(new Image("/icons/avatar1.png"));
+            controllerLoged.setUsuario(usuario);
+        }
     }
 
     @FXML
     private void avatar2Action(ActionEvent event) throws NavegacionDAOException {
-        usuario.setAvatar(new Image("/icons/avatar2.png"));
-        avatarField.setImage(new Image("/icons/avatar2.png"));
-        controllerLoged.setUsuario(usuario);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("¿Quiere cambiar su avatar a: Avatar 2?");
+        alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        Optional<ButtonType> result2 = alerta.showAndWait();
+        if (result2.isPresent() && result2.get() == ButtonType.OK) {
+            usuario.setAvatar(new Image("/icons/avatar2.png"));
+            avatarField.setImage(new Image("/icons/avatar2.png"));
+            controllerLoged.setUsuario(usuario);
+        }
     }
 
     @FXML
     private void avatar3Action(ActionEvent event) throws NavegacionDAOException {
-        usuario.setAvatar(new Image("/icons/avatar3.png"));
-        avatarField.setImage(new Image("/icons/avatar3.png"));
-        controllerLoged.setUsuario(usuario);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("¿Quiere cambiar su avatar a: Avatar 3?");
+        alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        Optional<ButtonType> result2 = alerta.showAndWait();
+        if (result2.isPresent() && result2.get() == ButtonType.OK) {
+            usuario.setAvatar(new Image("/icons/avatar3.png"));
+            avatarField.setImage(new Image("/icons/avatar3.png"));
+            controllerLoged.setUsuario(usuario);
+        }
     }
 
     @FXML
     private void avatar4Action(ActionEvent event) throws NavegacionDAOException {
-        usuario.setAvatar(new Image("/icons/avatar4.png"));
-        avatarField.setImage(new Image("/icons/avatar4.png"));
-        controllerLoged.setUsuario(usuario);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.initStyle(StageStyle.UTILITY);
+        alerta.setTitle("Confirmacion");
+        alerta.setHeaderText("¿Quiere cambiar su avatar a: Avatar 4?");
+        alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+        Optional<ButtonType> result2 = alerta.showAndWait();
+        if (result2.isPresent() && result2.get() == ButtonType.OK) {
+            usuario.setAvatar(new Image("/icons/avatar4.png"));
+            avatarField.setImage(new Image("/icons/avatar4.png"));
+            controllerLoged.setUsuario(usuario);
+        }
     }
 
     @FXML
@@ -170,15 +209,23 @@ public class ModPerfil implements Initializable {
         selector.setTitle("Avatar Selector");
         selector.setInitialDirectory(new File(System.getProperty("user.home")));
         selector.getExtensionFilters().clear();
-        selector.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes ", "*.png","*.jpg","*.gif"));
+        selector.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes ", "*.png", "*.jpg", "*.gif"));
         File file = selector.showOpenDialog(null);
-        if(file != null){
-            avatarField.setImage(new Image(file.toURI().toString()));
-            avatarField.resize(50, 50);
-            usuario.setAvatar(new Image(file.toURI().toString()));
-            controllerLoged.setUsuario(usuario);
+        if (file != null) {
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.initStyle(StageStyle.UTILITY);
+            alerta.setTitle("Confirmacion");
+            alerta.setHeaderText("¿Quiere cambiar su avatar a la imagen importada?");
+            alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
+            Optional<ButtonType> result2 = alerta.showAndWait();
+            if (result2.isPresent() && result2.get() == ButtonType.OK) {
+                avatarField.setImage(new Image(file.toURI().toString()));
+                avatarField.resize(50, 50);
+                usuario.setAvatar(new Image(file.toURI().toString()));
+                controllerLoged.setUsuario(usuario);
+            }
         }
-        
+
     }
 
     @FXML
@@ -198,7 +245,7 @@ public class ModPerfil implements Initializable {
                 Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
                 alerta.initStyle(StageStyle.UTILITY);
                 alerta.setTitle("Confirmacion");
-                alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+                alerta.setHeaderText("¿Seguro que quiere cambiar el correo?");
                 alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
                 Optional<ButtonType> result2 = alerta.showAndWait();
                 if (result2.isPresent() && result2.get() == ButtonType.OK) {
@@ -271,7 +318,7 @@ public class ModPerfil implements Initializable {
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
             alerta.initStyle(StageStyle.UTILITY);
             alerta.setTitle("Confirmacion");
-            alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+            alerta.setHeaderText("¿Seguro que quiere cambiar la contraseña?");
             alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
             Optional<ButtonType> result2 = alerta.showAndWait();
             if (result2.isPresent() && result2.get() == ButtonType.OK) {
@@ -342,7 +389,7 @@ public class ModPerfil implements Initializable {
             Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
             alerta.initStyle(StageStyle.UTILITY);
             alerta.setTitle("Confirmacion");
-            alerta.setHeaderText("¿Quiere borrar todos los elementos del mapa?");
+            alerta.setHeaderText("¿Seguro quiere cambiar la fecha de nacimiento?");
             alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
             Optional<ButtonType> result2 = alerta.showAndWait();
             if (result2.isPresent() && result2.get() == ButtonType.OK) {

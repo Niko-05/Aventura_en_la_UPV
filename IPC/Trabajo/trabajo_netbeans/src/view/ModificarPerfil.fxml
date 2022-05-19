@@ -41,7 +41,7 @@
                               <Label id="labelmod" prefWidth="135.0" text="Usuario" />
                               <MenuButton id="menumodificador" alignment="CENTER" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Cambiar Avatar" textAlignment="CENTER">
                                 <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#avatarDefaultAction">
+                                    <MenuItem mnemonicParsing="false" onAction="#avatarDefaultAction" text="Avatar Default">
                                        <graphic>
                                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -50,7 +50,7 @@
                                           </ImageView>
                                        </graphic>
                                     </MenuItem>
-                                  <MenuItem mnemonicParsing="false" onAction="#avatar1Action">
+                                  <MenuItem mnemonicParsing="false" onAction="#avatar1Action" text="Avatar 1">
                                        <graphic>
                                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -59,7 +59,7 @@
                                           </ImageView>
                                        </graphic>
                                     </MenuItem>
-                                  <MenuItem mnemonicParsing="false" onAction="#avatar2Action">
+                                  <MenuItem mnemonicParsing="false" onAction="#avatar2Action" text="Avatar 2">
                                        <graphic>
                                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -68,7 +68,7 @@
                                           </ImageView>
                                        </graphic>
                                     </MenuItem>
-                                    <MenuItem mnemonicParsing="false" onAction="#avatar3Action">
+                                    <MenuItem mnemonicParsing="false" onAction="#avatar3Action" text="Avatar 3">
                                        <graphic>
                                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -77,7 +77,7 @@
                                           </ImageView>
                                        </graphic>
                                     </MenuItem>
-                                    <MenuItem mnemonicParsing="false" onAction="#avatar4Action">
+                                    <MenuItem mnemonicParsing="false" onAction="#avatar4Action" text="Avatar 4">
                                        <graphic>
                                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -100,7 +100,7 @@
                            </children>
                         </HBox>
                         <Label fx:id="usuarioLab" prefWidth="200.0" text="Usuario" />
-                        <Label fx:id="errNomLab" text="error nombre" />
+                        <Label fx:id="errNomLab" text="error nombre" visible="false" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />

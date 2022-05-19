@@ -70,8 +70,8 @@ public class Inicial implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         
-        nombreField.setText("prueba");
-        contraField.setText("123456aA!");
+//        nombreField.setText("prueba");
+//        contraField.setText("123456aA!");
         // TODO
         errNomLab.setVisible(false);
         errConLab.setVisible(false);
