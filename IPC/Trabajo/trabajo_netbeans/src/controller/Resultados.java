@@ -9,6 +9,7 @@ import DBAccess.NavegacionDAOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -26,6 +27,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Navegacion;
 import model.Session;
@@ -56,6 +58,8 @@ public class Resultados implements Initializable {
     private List<Session> listaFinal;
     private Stage stageActual;
     private MapaLoged controllerLoged;
+    @FXML
+    private VBox ventanaPrincipal;
 
     /**
      * Initializes the controller class.
@@ -90,6 +94,12 @@ public class Resultados implements Initializable {
 //            
 //            
 //        });
+
+
+
+        ventanaPrincipal.heightProperty().addListener((obs,oldV,newV) -> {
+            tableView.setPrefHeight((double) newV);
+        });
         
         
         
@@ -100,7 +110,7 @@ public class Resultados implements Initializable {
         fallosColum.setCellValueFactory(row->new SimpleIntegerProperty(row.getValue().getFaults()).asObject());
         intentosColum.setCellValueFactory(row->new SimpleIntegerProperty(row.getValue().getFaults()+row.getValue().getHits()).asObject());
 //        System.err.println(datos.get(1).getLocalDate().toString());
-        fechaColum.setCellValueFactory(row-> new ReadOnlyStringWrapper(row.getValue().getLocalDate().toString()));
+        fechaColum.setCellValueFactory(row-> new ReadOnlyStringWrapper(row.getValue().getLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
 
     }    
 

@@ -70,7 +70,6 @@ public class Mapa implements Initializable {
     private boolean crearPuntero;
     private boolean crearArco;
     private boolean crearTexto;
-    private boolean dibujando;
 
     private double mousePosX;
     private double mousePosY;
@@ -122,8 +121,6 @@ public class Mapa implements Initializable {
     private ImageView transportador;
     private ContextMenu menuContext = new ContextMenu();
     private Tooltip t;
-    @FXML
-    private Button limpiarButton;
     @FXML
     private ChoiceBox<Integer> grosorChoice;
 
@@ -214,29 +211,15 @@ public class Mapa implements Initializable {
         
    
         transportador.setOnMousePressed(e -> {
-            if (dibujando) {
-//                mousePressed(e);
-            } else {
-                
                 eliminarButton.setSelected(false);
                 colorButton.setSelected(false);
-
                 transportador.setTranslateX(e.getSceneX() - 200);
                 transportador.setTranslateY(e.getSceneY() - 260);
-            }
         });
 
         transportador.setOnMouseDragged(e -> {
-            if (!dibujando) {
-                map_scrollpane.setPannable(false);
-                
                 transportador.setTranslateX(e.getSceneX() - 200);
                 transportador.setTranslateY(e.getSceneY() - 260);
-
-            } else {
-//                mouseDragged(e);
-                map_scrollpane.setPannable(true);
-            }
         }); 
 
     }    
@@ -274,7 +257,6 @@ public class Mapa implements Initializable {
 
     @FXML
     private void punteroAction(ActionEvent event) {
-        dibujando = true;
         
         crearLinea = false;
         crearArco = false;
@@ -284,7 +266,6 @@ public class Mapa implements Initializable {
             crearPuntero = true;
             map_scrollpane.setPannable(false);
         } else {
-            dibujando = false;
             crearPuntero = false;
             map_scrollpane.setPannable(true);
             map_scrollpane.requestFocus();
@@ -294,7 +275,6 @@ public class Mapa implements Initializable {
 
     @FXML
     private void lineaAction(ActionEvent event) {
-        dibujando = true;
         
         crearPuntero = false;
         crearArco = false;
@@ -304,7 +284,6 @@ public class Mapa implements Initializable {
             crearLinea = true;
             map_scrollpane.setPannable(false);
         } else {
-            dibujando = false;
             crearLinea = false;
             map_scrollpane.setPannable(true);
             map_scrollpane.requestFocus();
@@ -313,8 +292,7 @@ public class Mapa implements Initializable {
     
     @FXML
     private void arcoButton(ActionEvent event) {
-        dibujando = true;
-        
+
         crearPuntero = false;
         crearLinea = false;
         crearTexto = false;
@@ -323,7 +301,6 @@ public class Mapa implements Initializable {
             crearArco = true;
             map_scrollpane.setPannable(false);
         } else {
-            dibujando = false;
             crearArco = false;
             map_scrollpane.setPannable(true);
             map_scrollpane.requestFocus();
@@ -334,7 +311,6 @@ public class Mapa implements Initializable {
 
     @FXML
     private void escribirAction(ActionEvent event) {
-        dibujando = true;
         
         crearPuntero = false;
         crearLinea = false;
@@ -344,7 +320,6 @@ public class Mapa implements Initializable {
             crearTexto = true;
             map_scrollpane.setPannable(false);
         } else {
-            dibujando = false;
             crearTexto = false;
             map_scrollpane.setPannable(true);
             map_scrollpane.requestFocus();
@@ -369,7 +344,6 @@ public class Mapa implements Initializable {
         crearTexto = false;
         crearPuntero = false;
         
-        if(!colorButton.isSelected()) dibujando = false;
     }
 
     @FXML
@@ -380,7 +354,6 @@ public class Mapa implements Initializable {
         crearTexto = false;
         crearPuntero = false;
         
-        if(!eliminarButton.isSelected()) dibujando = false;
     }
 
     @FXML
@@ -404,11 +377,11 @@ public class Mapa implements Initializable {
         alerta.getDialogPane().getStylesheets().add(getClass().getResource("/model/estilo.css").toExternalForm());
         Optional<ButtonType> result = alerta.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            Node aux = cartaNautica;
-            while (zoomGroup.getChildren().size() > 0) {
-                zoomGroup.getChildren().remove(0);
-            }
-            zoomGroup.getChildren().add(aux);
+//            Node aux = map_scrollpane.getContent();
+            while(zoomGroup.getChildren().size() > 1) { zoomGroup.getChildren().remove(1); }
+            
+//            zoomGroup.getChildren().clear();
+//            zoomGroup.getChildren().add(aux);
             zoom(0.15);
         }   
     }
@@ -438,15 +411,18 @@ public class Mapa implements Initializable {
 
     @FXML
     private void mousePressed(MouseEvent event) {
+        
         if (menuContext.isShowing()) {
             menuContext.hide();
         }
         
-        if (eliminarButton.isSelected()) {
+        if (eliminarButton.isSelected()  && !(event.getSource() instanceof ImageView)) {
             zoomGroup.getChildren().remove((Node) event.getSource());
+            eliminarButton.setSelected(false);
             event.consume();
         }
-        if (colorButton.isSelected()) {
+        
+        if (colorButton.isSelected() && !(event.getSource() instanceof ImageView)) {
             cambiarColor(event.getSource());
             event.consume();
         }
@@ -496,7 +472,6 @@ public class Mapa implements Initializable {
         arcoButton.setSelected(false);
         escribirButton.setSelected(false);
         map_scrollpane.setPannable(true);
-        dibujando = false;
 
     }
 
@@ -571,18 +546,13 @@ public class Mapa implements Initializable {
         
         if (e instanceof Line) {
             ((Line) e).setStroke(pickerColor.getValue());
-            colorButton.setSelected(false);
+            
         }
         
-//        if (e instanceof Text) {
-//            System.out.println(toRgbString(pickerColor.getValue()));
-//            ((Text) e).setStyle("-fx-text-fill: " + toRgbString(pickerColor.getValue()) + ";");
-//        }
-//        
-//        if (e instanceof Text) {
-//            System.out.println(toRgbString(pickerColor.getValue()));
-//            ((Text) e).setStyle("-fx-text-fill: #" + pickerColor.getValue().toString().substring(2,8) + ";");
-//        }
+        if (e instanceof Text) {
+            ((Text) e).setFill(pickerColor.getValue());
+            colorButton.setSelected(false);
+        }
     
     }
     
@@ -701,17 +671,5 @@ public class Mapa implements Initializable {
             textoT.setOnMouseReleased(this::mouseReleased);
             e.consume();
         });
-    }
-
-    private String toRgbString(Color c) {
-        return "rgb("
-                + to255Int(c.getRed())
-                + "," + to255Int(c.getGreen())
-                + "," + to255Int(c.getBlue())
-                + ")";
-    }
-    
-    private int to255Int(double d) {
-        return (int) (d * 255);
     }
 }

@@ -69,6 +69,7 @@ public class Registrarse implements Initializable {
     private TextField nombreField;
     @FXML
     private Label errNomLab;
+    @FXML
     private TextField contraField;
     @FXML
     private Label errConLab;
@@ -96,8 +97,6 @@ public class Registrarse implements Initializable {
     @FXML
     private ImageView nacimientoCondiciones;
     private Stage stageMapa;
-    @FXML
-    private PasswordField contraseñaField;
 
     /**
      * Initializes the controller class.
@@ -268,22 +267,23 @@ public class Registrarse implements Initializable {
             Navegacion.getSingletonNavegacion().registerUser(nombreField.getText(), contraField.getText(), contraField.getText(), avatarField.getImage(), fechaField.getValue());
 
             usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
+            stageMapa.close();
+            //sleep(1000);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
-                Parent root = loader.load();
-//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stageMapa.setTitle("Mapa");
-                stageMapa.setResizable(true);
-                
-                MapaLoged controladorPrin = loader.getController();
-                ((Stage)nombreField.getScene().getWindow()).close();
-//                controladorPrin.setUsuario(usuario);
- 
-                stageMapa.setScene(scene);
-                controladorPrin.setUsuario(usuario);
-                controladorPrin.setStage(stageMapa);
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("Mapa");
+            stage.setResizable(true);
 
+            MapaLoged controladorPrin = loader.getController();
+            ((Stage) nombreField.getScene().getWindow()).close();
+//                controladorPrin.setUsuario(usuario);
+
+            stage.setScene(scene);
+            stage.show();
             controladorPrin.setUsuario(usuario);
+            controladorPrin.setStage(stage);
             new ConfRegistro().start();
         }
     }

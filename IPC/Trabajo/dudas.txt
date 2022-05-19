@@ -29,10 +29,6 @@ passwordfields y mostrar contraseñas
 
 cosas por hacer: -----
 boton back problemas
-centrar los ejes de puntosw
-crear sesione
-hover informacion
-ajustar errores
 spacing password editar usuario
 alertas editar "correcta edicion"
 listeners grosor lineas

@@ -106,6 +106,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
+            <Region prefWidth="50.0" />
             <ToggleButton id="regla" fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -148,7 +149,7 @@
                         <Insets />
                      </HBox.margin>
                   </HBox>
-                  <Button id="limpiar_carta" fx:id="limpiarButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" stylesheets="@../model/estilo.css" text="Limpiar Carta" textAlignment="JUSTIFY">
+                  <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" stylesheets="@../model/estilo.css" text="Limpiar Carta" textAlignment="JUSTIFY">
                      <HBox.margin>
                         <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                      </HBox.margin>

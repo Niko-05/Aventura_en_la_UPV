@@ -55,7 +55,7 @@
       </HBox>
       <HBox fx:id="ventanaAbajo" alignment="CENTER">
          <children>
-            <Button fx:id="seleccionarButton" mnemonicParsing="false" onAction="#seleccionarAction" text="Seleccionar Problema" />
+            <Button fx:id="seleccionarButton" defaultButton="true" mnemonicParsing="false" onAction="#seleccionarAction" text="Seleccionar Problema" />
          </children>
          <VBox.margin>
             <Insets />

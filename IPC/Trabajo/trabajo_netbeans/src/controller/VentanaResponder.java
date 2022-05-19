@@ -219,9 +219,10 @@ public class VentanaResponder implements Initializable {
 //            prueba1.set(prueba1.get() + 1 );
         } else {
 
+            ((Stage)comprobarButton.getScene().getWindow()).close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = new Stage();
             Scene scene = new Scene(root);
 //            double prevWidth = stage.getWidth();
 //            double prevHeight = stage.getHeight();
@@ -234,6 +235,7 @@ public class VentanaResponder implements Initializable {
             ElegirProblema controladorTest = loader.getController();
 
             stage.setScene(scene);
+            stage.show();
             controladorTest.setUsuario(usuario);
             controladorTest.setResultados(aciertos, fallos);
             controladorTest.setController(controllerLoged);
@@ -363,7 +365,10 @@ public class VentanaResponder implements Initializable {
     }
 
     void setStage(Stage aux) {
-        stageMapa = aux;
+        stageActual = aux;
+        stageActual.setOnCloseRequest(e -> {
+            controllerLoged.closeProblemas();
+        });
     }
 
     @FXML

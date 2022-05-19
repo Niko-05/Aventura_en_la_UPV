@@ -96,22 +96,24 @@ public class Inicial implements Initializable {
             errConLab.setVisible(true);
             } else {
 //                loged = true;
+                stageMapa.close();
                 usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
                 //sleep(1000);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
                 Parent root = loader.load();
-//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Stage stage = new Stage();
                 Scene scene = new Scene(root);
-                stageMapa.setTitle("Mapa");
-                stageMapa.setResizable(true);
+                stage.setTitle("Mapa");
+                stage.setResizable(true);
 
                 MapaLoged controladorPrin = loader.getController();
                 ((Stage)nombreField.getScene().getWindow()).close();
 //                controladorPrin.setUsuario(usuario);
 
-                stageMapa.setScene(scene);
+                stage.setScene(scene);
+                stage.show();
                 controladorPrin.setUsuario(usuario);
-                controladorPrin.setStage(stageMapa);
+                controladorPrin.setStage(stage);
 //                
             }
         }else {errNomLab.setVisible(true);}

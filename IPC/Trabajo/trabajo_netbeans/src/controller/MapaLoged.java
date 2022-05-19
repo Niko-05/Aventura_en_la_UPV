@@ -226,30 +226,17 @@ public class MapaLoged implements Initializable {
         transportador.setOpacity(0.6);
         
    
-        transportador.setOnMousePressed(e -> {
-            if (dibujando) {
-//                mousePressed(e);
-            } else {
-                
+        transportador.setOnMousePressed(e -> {   
                 eliminarButton.setSelected(false);
                 colorButton.setSelected(false);
 
                 transportador.setTranslateX(e.getSceneX() - 200);
                 transportador.setTranslateY(e.getSceneY() - 260);
-            }
         });
 
         transportador.setOnMouseDragged(e -> {
-            if (!dibujando) {
-                map_scrollpane.setPannable(false);
-                
                 transportador.setTranslateX(e.getSceneX() - 200);
                 transportador.setTranslateY(e.getSceneY() - 260);
-
-            } else {
-//                mouseDragged(e);
-                map_scrollpane.setPannable(true);
-            }
         }); 
        
     }
@@ -373,9 +360,7 @@ public class MapaLoged implements Initializable {
         crearTexto = false;
         crearPuntero = false;
 
-        if (!eliminarButton.isSelected()) {
-            dibujando = false;
-        }
+
     }
 
     @FXML
@@ -507,11 +492,12 @@ public class MapaLoged implements Initializable {
         if (menuContext.isShowing()) {
             menuContext.hide();
         }
-        if (eliminarButton.isSelected()) {
+        if (eliminarButton.isSelected() && !(event.getSource() instanceof ImageView)) {
             zoomGroup.getChildren().remove((Node) event.getSource());
+            eliminarButton.setSelected(false);
             event.consume();
         }
-        if (colorButton.isSelected()) {
+        if (colorButton.isSelected() && !(event.getSource() instanceof ImageView)) {
             cambiarColor(event.getSource());
             event.consume();
         }
@@ -723,11 +709,6 @@ public class MapaLoged implements Initializable {
             ((Text) e).setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");
             colorButton.setSelected(false);
         }
-//        
-//        if (e instanceof Text) {
-//            System.out.println(toRgbString(pickerColor.getValue()));
-//            ((Text) e).setStyle("-fx-text-fill: #" + pickerColor.getValue().toString().substring(2,8) + ";");
-//        }
     
     }
     
@@ -813,8 +794,5 @@ public class MapaLoged implements Initializable {
             textoT.setOnMouseReleased(this::mouseReleased);
             e.consume();
         });
-
-        zoomGroup.getChildren().remove(transportador);
-        zoomGroup.getChildren().add(transportador);
     }
 }

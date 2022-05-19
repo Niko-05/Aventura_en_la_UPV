@@ -125,11 +125,10 @@ public class ElegirProblema implements Initializable {
 
     @FXML
     private void seleccionarAction(ActionEvent event) throws IOException{
-        
-        
+        ((Stage)seleccionarButton.getScene().getWindow()).close();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VentanaResponder.fxml"));
         Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = new Stage();
         Scene scene = new Scene(root);;
         stage.setTitle("Resolucion de problemas");
 //        stage.setResizable(false);
@@ -140,9 +139,10 @@ public class ElegirProblema implements Initializable {
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
         controladorTest.setController(controllerLoged);
-        controladorTest.setStage(stageMapa);
+        controladorTest.setStage(stage);
         
         stage.setScene(scene);
+        stage.show();
         controladorTest.setRandomness(false,problemasListView.getSelectionModel().getSelectedIndex());
         
         

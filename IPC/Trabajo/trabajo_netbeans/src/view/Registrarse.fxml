@@ -83,7 +83,7 @@
                   <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
                   <HBox alignment="CENTER_LEFT">
                      <children>
-                        <PasswordField fx:id="contraseñaField" prefWidth="300.0" promptText="Contraseña" />
+                        <PasswordField fx:id="contraField" prefWidth="300.0" promptText="Contraseña" />
                         <ImageView fx:id="contraseñaCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/pregunta.png" />

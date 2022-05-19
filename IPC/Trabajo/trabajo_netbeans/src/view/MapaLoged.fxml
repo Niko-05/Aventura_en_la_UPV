@@ -13,7 +13,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -78,15 +77,11 @@
          <children>
             <ScrollPane fx:id="map_scrollpane" pannable="true">
                <content>
-                  <Pane>
-                     <children>
-                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" layoutX="-80.0" layoutY="-45.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/carta_nautica.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
+                  <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/carta_nautica.jpg" />
+                     </image>
+                  </ImageView>
                </content>
             </ScrollPane>
             <ImageView fx:id="transportador" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="200.0">
@@ -134,6 +129,7 @@
                   </ImageView>
                </graphic>
             </ToggleButton>
+            <Region prefWidth="50.0" />
             <ToggleButton id="regla" fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
