@@ -35,6 +35,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -96,7 +97,7 @@ public class Inicial implements Initializable {
             errConLab.setVisible(true);
             } else {
 //                loged = true;
-                stageMapa.close();
+                
                 usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
                 //sleep(1000);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
@@ -111,9 +112,12 @@ public class Inicial implements Initializable {
 //                controladorPrin.setUsuario(usuario);
 
                 stage.setScene(scene);
+                stageMapa.close();
                 stage.show();
                 controladorPrin.setUsuario(usuario);
                 controladorPrin.setStage(stage);
+                stage.setHeight(Screen.getPrimary().getBounds().getHeight() - 250);
+                stage.setWidth(Screen.getPrimary().getBounds().getWidth() - 600);
 //                
             }
         }else {errNomLab.setVisible(true);}

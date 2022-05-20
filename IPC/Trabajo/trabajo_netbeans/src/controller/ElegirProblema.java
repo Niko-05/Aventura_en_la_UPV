@@ -135,12 +135,12 @@ public class ElegirProblema implements Initializable {
 
         VentanaResponder controladorTest = loader.getController();
 
-        
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
-        controladorTest.setController(controllerLoged);
         controladorTest.setStage(stage);
-        
+        controladorTest.setController(controllerLoged);
+        controladorTest.setStageMapa(stageMapa);
+
         stage.setScene(scene);
         stage.show();
         controladorTest.setRandomness(false,problemasListView.getSelectionModel().getSelectedIndex());
@@ -168,6 +168,7 @@ public class ElegirProblema implements Initializable {
     
     void setController(MapaLoged contr) {
         controllerLoged = contr;
+        
     }
     
     void setStage(Stage aux){

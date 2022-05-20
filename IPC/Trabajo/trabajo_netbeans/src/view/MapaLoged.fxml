@@ -13,13 +13,14 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="Vbox_principal" fx:id="ventanaPrincipal" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapaLoged">
+<VBox id="Vbox_principal" fx:id="ventanaPrincipal" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapaLoged">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -77,11 +78,15 @@
          <children>
             <ScrollPane fx:id="map_scrollpane" pannable="true">
                <content>
-                  <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/carta_nautica.jpg" />
-                     </image>
-                  </ImageView>
+                  <Pane>
+                     <children>
+                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/carta_nautica.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </content>
             </ScrollPane>
             <ImageView fx:id="transportador" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="200.0">
@@ -146,7 +151,7 @@
                         <ChoiceBox fx:id="grosorChoice" prefWidth="50.0" />
                         <ColorPicker fx:id="pickerColor" prefHeight="30.0" prefWidth="47.0">
                            <value>
-                              <Color />
+                              <Color red="1.0" />
                            </value>
                         </ColorPicker>
                         <ToggleButton id="toggle" fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">

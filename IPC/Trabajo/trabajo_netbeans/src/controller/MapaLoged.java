@@ -65,6 +65,7 @@ import model.User;
  * @author marci
  */
 public class MapaLoged implements Initializable {
+    
 
     private int aciertos;
     private int fallos;
@@ -142,6 +143,8 @@ public class MapaLoged implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
         
         grosorChoice.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
         grosorChoice.getSelectionModel().select(9);
@@ -406,7 +409,11 @@ public class MapaLoged implements Initializable {
         if (stageOpen.get()) {
             stage.close();
         }
-        usuario.addSession(new Session(LocalDateTime.now(),aciertos,fallos));
+
+        if (aciertos > 0 || fallos > 0) {
+            usuario.addSession(new Session(LocalDateTime.now(), aciertos, fallos));
+        }
+
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
         Parent root = loader.load();
@@ -446,13 +453,13 @@ public class MapaLoged implements Initializable {
         if (stageOpen.get()) {
             stage.close();
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ventanaResponder.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Responder.fxml"));
         Parent root = loader.load();
         stage = new Stage();
         Scene scene = new Scene(root);
         stage.setTitle("Resolucion de problemas");
 
-        VentanaResponder controladorTest = loader.getController();
+        Responder controladorTest = loader.getController();
 
         stage.setScene(scene);
         controladorTest.setUsuario(usuario);
@@ -460,6 +467,7 @@ public class MapaLoged implements Initializable {
         controladorTest.setRandomnes(true);
         controladorTest.setController(this);
         controladorTest.setStage(stageActual);
+        controladorTest.setStageMapa(stageActual);
         stage.show();
         stageOpen.set(true);
 
@@ -635,6 +643,11 @@ public class MapaLoged implements Initializable {
         fallosLab.setText(Integer.toString(fallos));
 
     }
+    
+    void setStageProblemas(Stage str) {
+        stage = str;
+
+    }
 
     @FXML
     private void verProblemasAction(ActionEvent event) {
@@ -654,6 +667,8 @@ public class MapaLoged implements Initializable {
                 stage.close();
             }
         });
+        
+        stageActual.setHeight(stageActual.getHeight()/2);
 
     }
 
@@ -718,6 +733,7 @@ public class MapaLoged implements Initializable {
             circlePainting.setCenterY(event.getY()-45);
             zoomGroup.getChildren().add(circlePainting);
             circlePainting.setStrokeWidth(grosorChoice.getValue() * 2);
+            circlePainting.setStroke(pickerColor.getValue());
             circlePainting.setRadius(25);
 
 
@@ -730,7 +746,7 @@ public class MapaLoged implements Initializable {
     
     private void crearArco(MouseEvent event){
         circlePainting = new Circle(1);
-            circlePainting.setStroke(Color.RED);
+            circlePainting.setStroke(pickerColor.getValue());
             circlePainting.setFill(Color.TRANSPARENT);
             zoomGroup.getChildren().add(circlePainting);
             circlePainting.setCenterX(event.getX()-80);
@@ -754,6 +770,7 @@ public class MapaLoged implements Initializable {
         linePainting = new Line(event.getX()-80, event.getY()-45, event.getX()-80, event.getY()-45);
         zoomGroup.getChildren().add(linePainting);
         linePainting.setStrokeWidth(grosorChoice.getValue());
+        linePainting.setStroke(pickerColor.getValue());
 
         linePainting.setOnContextMenuRequested(this::contextMenu);
         linePainting.setOnMousePressed(this::mousePressed);
@@ -785,7 +802,8 @@ public class MapaLoged implements Initializable {
             textoT.setY(texto.getLayoutY());
 
             zoomGroup.getChildren().add(textoT);
-            textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + 60 + ";");
+            textoT.setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");
+            textoT.setFill(pickerColor.getValue());
             zoomGroup.getChildren().remove(texto);
 
             textoT.setOnContextMenuRequested(this::contextMenu);

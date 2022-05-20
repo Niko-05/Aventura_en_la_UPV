@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -30,8 +31,8 @@ public class JavaFXMLApplication extends Application {
         stage.setScene(scene);
         stage.setTitle("Pestaña Inicial");
         stage.show();
-        stage.setHeight(800);
-        stage.setWidth(1300);
+        stage.setHeight(Screen.getPrimary().getBounds().getHeight() - 250);
+        stage.setWidth(Screen.getPrimary().getBounds().getWidth()- 600);
     }
 
     /**

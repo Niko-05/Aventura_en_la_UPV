@@ -590,6 +590,7 @@ public class Mapa implements Initializable {
         circlePainting = new Circle(1);
             circlePainting.setCenterX(event.getX()-80);
             circlePainting.setCenterY(event.getY()-45);
+            circlePainting.setFill(pickerColor.getValue());
             zoomGroup.getChildren().add(circlePainting);
             circlePainting.setRadius(grosorChoice.getValue() * 2);
 
@@ -603,7 +604,7 @@ public class Mapa implements Initializable {
     
     private void crearArco(MouseEvent event){
         circlePainting = new Circle(1);
-            circlePainting.setStroke(Color.RED);
+            circlePainting.setStroke(pickerColor.getValue());
             circlePainting.setFill(Color.TRANSPARENT);
             zoomGroup.getChildren().add(circlePainting);
             circlePainting.setCenterX(event.getX()-80);
@@ -627,6 +628,7 @@ public class Mapa implements Initializable {
         linePainting = new Line(event.getX()-80, event.getY()-45, event.getX()-80, event.getY()-45);
         zoomGroup.getChildren().add(linePainting);
         linePainting.setStrokeWidth(grosorChoice.getValue());
+        linePainting.setStroke(pickerColor.getValue());
 
         linePainting.setOnContextMenuRequested(this::contextMenu);
         linePainting.setOnMousePressed(this::mousePressed);
@@ -658,11 +660,8 @@ public class Mapa implements Initializable {
             textoT.setY(texto.getLayoutY());
 
             zoomGroup.getChildren().add(textoT);
-            textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: 60;");
-//            textoT.setStyle("-fx-text-fill: RED;");
-//            zoom_slider.valueProperty().addListener((obs, oldV, newV) -> {
-//                textoT.setStyle("-fx-font-family: Gafata; -fx-font-size: " + (zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 80 + ";");
-//            });
+            textoT.setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");
+            textoT.setFill(pickerColor.getValue());
             zoomGroup.getChildren().remove(texto);
 
             textoT.setOnContextMenuRequested(this::contextMenu);

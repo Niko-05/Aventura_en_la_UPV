@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -45,6 +46,8 @@ public class Resultados implements Initializable {
     @FXML
     private TableColumn<Session, String> fechaColum;
     @FXML
+    private TableColumn<Session, String> horaColum;
+    @FXML
     private TableColumn<Session, Integer> aciertosColum;
     @FXML
     private TableColumn<Session, Integer> fallosColum;
@@ -55,11 +58,15 @@ public class Resultados implements Initializable {
     
     private User usuario;
     private ObservableValue<LocalDate> dia;
-    private List<Session> listaFinal;
+    private ArrayList<Session> listaFinal;
+    private ArrayList<Session> listaFinal1 = new ArrayList<Session>();
     private Stage stageActual;
     private MapaLoged controllerLoged;
     @FXML
     private VBox ventanaPrincipal;
+    @FXML
+    private DatePicker controlFecha;
+    
 
     /**
      * Initializes the controller class.
@@ -67,52 +74,47 @@ public class Resultados implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+     
 //        try {
 //            usuario = Navegacion.getSingletonNavegacion().loginUser("prueba", "123456aA!");
+//            
+//            
 //        } catch (NavegacionDAOException ex) {
 //        }
       
-//        controlFecha.valueProperty().addListener((obsV, oldV, newV) -> {
-//            listaFinal = new ArrayList<Session>();
-//            System.err.println("prueba");
-//            for (int i = 0; i < usuario.getSessions().size(); i++) {
-//                if (0 >= controlFecha.getValue().compareTo(usuario.getSessions().get(i).getLocalDate())) {
-//                    listaFinal.add(usuario.getSessions().get(i));
-//                    System.err.println("prueba3");
-//                }
-//            }
-//            if (listaFinal != null) {
-//                datos = FXCollections.observableList(listaFinal);
-//                System.err.println("prueba2");
-//                
-//                aciertosColum.setCellValueFactory(row -> new SimpleIntegerProperty(row.getValue().getHits()).asObject());
-//                fallosColum.setCellValueFactory(row -> new SimpleIntegerProperty(row.getValue().getFaults()).asObject());
-//                intentosColum.setCellValueFactory(row -> new SimpleIntegerProperty(row.getValue().getFaults() + row.getValue().getHits()).asObject());
-////        System.err.println(datos.get(1).getLocalDate().toString());
-//                fechaColum.setCellValueFactory(row -> new ReadOnlyStringWrapper(row.getValue().getLocalDate().toString()));
-//            }
-//            
-//            
-//        });
+        controlFecha.valueProperty().addListener((obsV, oldV, newV) -> {
+            if (controlFecha.getValue() != null) {
+                listaFinal = new ArrayList<Session>();
+//                System.out.println("prueba");
+                for (int i = 0; i < listaFinal1.size(); i++) {
+                    if (0 >= controlFecha.getValue().compareTo(usuario.getSessions().get(i).getLocalDate())) {
+                        listaFinal.add(usuario.getSessions().get(i));
+//                        System.out.println("prueba3");
+                    }
+                }
+                if (listaFinal.size() > 0) {
+                    datos = FXCollections.observableList(listaFinal);
+                    tableView.setItems(datos);
+//                    System.out.println("prueba2");
+                }
+            }
+        });
 
 
 
         ventanaPrincipal.heightProperty().addListener((obs,oldV,newV) -> {
             tableView.setPrefHeight((double) newV);
         });
-        
-        
-        
-        
-        
+          
         
         aciertosColum.setCellValueFactory(row->new SimpleIntegerProperty(row.getValue().getHits()).asObject());
         fallosColum.setCellValueFactory(row->new SimpleIntegerProperty(row.getValue().getFaults()).asObject());
-        intentosColum.setCellValueFactory(row->new SimpleIntegerProperty(row.getValue().getFaults()+row.getValue().getHits()).asObject());
-//        System.err.println(datos.get(1).getLocalDate().toString());
-        fechaColum.setCellValueFactory(row-> new ReadOnlyStringWrapper(row.getValue().getLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
+        intentosColum.setCellValueFactory(row -> new SimpleIntegerProperty(row.getValue().getFaults() + row.getValue().getHits()).asObject());
+        fechaColum.setCellValueFactory(row -> new ReadOnlyStringWrapper(row.getValue().getLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/uuuu"))));
+        horaColum.setCellValueFactory(row -> new ReadOnlyStringWrapper(row.getValue().getTimeStamp().format(DateTimeFormatter.ofPattern("HH:mm:ss"))));
+        
 
-    }    
+    }
 
     
     @FXML
@@ -135,12 +137,23 @@ public class Resultados implements Initializable {
         controllerLoged = contr;
     }
     
-    void setUsuario(User user){
+    void setUsuario(User user) {
         usuario = user;
-        datos = FXCollections.observableList(usuario.getSessions());
+        for (int i = 0; i < usuario.getSessions().size(); i++) {
+            listaFinal1.add(usuario.getSessions().get(i));
+        }
+
+        datos = FXCollections.observableList(listaFinal1);
         tableView.setItems(datos);
     }
 
-    
+    @FXML
+    private void limpiarAction(ActionEvent event) {
+        controlFecha.setValue(null);
+        datos = FXCollections.observableList(listaFinal1);
+        tableView.setItems(datos);
+    }
+
+
 }
 

@@ -18,7 +18,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="Vbox_principal" fx:id="ventanaPrincipal" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Mapa">
+<VBox id="Vbox_principal" fx:id="ventanaPrincipal" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Mapa">
    <children>
       <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
@@ -123,7 +123,7 @@
                         <ChoiceBox fx:id="grosorChoice" prefWidth="50.0" />
                         <ColorPicker fx:id="pickerColor" prefHeight="30.0" prefWidth="51.0">
                            <value>
-                              <Color />
+                              <Color red="1.0" />
                            </value>
                         </ColorPicker>
                         <ToggleButton id="toggle" fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">

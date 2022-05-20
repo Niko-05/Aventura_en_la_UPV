@@ -39,6 +39,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Navegacion;
@@ -264,7 +265,7 @@ public class Registrarse implements Initializable {
 
         //crea usuario
         if (validPassword.getValue() && validname.getValue() && validEmail.getValue() && (fechaField.getValue() != null)) {
-            Navegacion.getSingletonNavegacion().registerUser(nombreField.getText(), contraField.getText(), contraField.getText(), avatarField.getImage(), fechaField.getValue());
+            Navegacion.getSingletonNavegacion().registerUser(nombreField.getText(), correoField.getText(), contraField.getText(), avatarField.getImage(), fechaField.getValue());
 
             usuario = Navegacion.getSingletonNavegacion().loginUser(nombreField.getText(), contraField.getText());
             stageMapa.close();
@@ -285,6 +286,8 @@ public class Registrarse implements Initializable {
             controladorPrin.setUsuario(usuario);
             controladorPrin.setStage(stage);
             new ConfRegistro().start();
+            stage.setHeight(Screen.getPrimary().getBounds().getHeight() - 250);
+            stage.setWidth(Screen.getPrimary().getBounds().getWidth() - 600);
         }
     }
 

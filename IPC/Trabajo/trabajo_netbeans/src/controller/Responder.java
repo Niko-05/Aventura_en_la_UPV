@@ -50,7 +50,7 @@ import org.sqlite.date.FastDateFormat;
  *
  * @author marci
  */
-public class VentanaResponder implements Initializable {
+public class Responder implements Initializable {
 
     @FXML
     private RadioButton Respuesta_0;

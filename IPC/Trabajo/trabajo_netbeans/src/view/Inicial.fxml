@@ -43,7 +43,7 @@
                </VBox.margin>
             </Text>
             <TextField fx:id="nombreField" promptText="Nombre" />
-            <Label id="error" fx:id="errNomLab" text="error nombre">
+            <Label id="error" fx:id="errNomLab" text="Usuario no registrado">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
@@ -57,7 +57,7 @@
                </VBox.margin>
             </Text>
             <PasswordField fx:id="contraField" promptText="Contraseña" />
-            <Label id="error" fx:id="errConLab" text="error contraseña" />
+            <Label id="error" fx:id="errConLab" text="Contraseña incorrecta" />
          </children>
          <opaqueInsets>
             <Insets />
