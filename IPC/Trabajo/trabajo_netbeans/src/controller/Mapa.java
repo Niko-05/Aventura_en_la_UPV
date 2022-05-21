@@ -57,6 +57,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javax.security.auth.callback.TextOutputCallback;
+import model.User;
 import org.controlsfx.control.Notifications;
 
 /**
@@ -358,6 +359,8 @@ public class Mapa implements Initializable {
 
     @FXML
     private void limpiarAction(ActionEvent event) {
+        
+//        if(!User.checkNickName("123456aA*")){
 //            Notifications notificationBuilder = Notifications.create()
 //                    .title("Confirmación")
 //                    .text("Se ha registrado el usuario correctamente")
@@ -369,6 +372,9 @@ public class Mapa implements Initializable {
 //
 //                notificationBuilder.showInformation();
 //            });
+//        
+//        }
+            
 
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.initStyle(StageStyle.UTILITY);

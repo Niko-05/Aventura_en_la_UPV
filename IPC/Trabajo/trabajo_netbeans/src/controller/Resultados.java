@@ -41,7 +41,7 @@ import model.User;
  */
 public class Resultados implements Initializable {
     
-    private ObservableList<Session> datos = null;
+    
 
     @FXML
     private TableColumn<Session, String> fechaColum;
@@ -55,6 +55,10 @@ public class Resultados implements Initializable {
     private TableColumn<Session, Integer> intentosColum;
     @FXML
     private TableView<Session> tableView;
+    @FXML
+    private VBox ventanaPrincipal;
+    @FXML
+    private DatePicker controlFecha;
     
     private User usuario;
     private ObservableValue<LocalDate> dia;
@@ -62,10 +66,8 @@ public class Resultados implements Initializable {
     private ArrayList<Session> listaFinal1 = new ArrayList<Session>();
     private Stage stageActual;
     private MapaLoged controllerLoged;
-    @FXML
-    private VBox ventanaPrincipal;
-    @FXML
-    private DatePicker controlFecha;
+    
+    private ObservableList<Session> datos = null;
     
 
     /**

@@ -117,7 +117,7 @@ public class Registrarse implements Initializable {
         Tooltip.install(correoCondiciones, t);
         
         
-        t = new Tooltip("Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&*()-+=)");
+        t = new Tooltip("Se requieren entre 8 y 20 caracteres, al menos una letra en mayúsculas y una minúscula, algún dígito y algún carácter especial (!@#$%&()-+=)");
         Tooltip.install(contraseñaCondiciones, t);
         
         t = new Tooltip("El usuario tiene que ser mayor de 16 años");
@@ -250,6 +250,7 @@ public class Registrarse implements Initializable {
         }
         //Prueba nombre
         if (!User.checkNickName(nombreField.getText())) {
+            errNomLab.setText("El usuario no cumple los requisitos");
             errNomLab.setVisible(true);
             validname.setValue(Boolean.FALSE);
         }

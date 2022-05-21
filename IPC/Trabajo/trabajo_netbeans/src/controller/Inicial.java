@@ -150,19 +150,6 @@ public class Inicial implements Initializable {
 
     @FXML
     private void backAction(ActionEvent event) throws IOException {
-    
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Mapa.fxml"));
-//        Parent root = loader.load();
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        Scene scene = new Scene(root);
-//        stage.setTitle("Mapa");
-//        stage.setResizable(true);
-//        stage.setScene(scene);
-//
-//        stage.setHeight(800);
-//        stage.setWidth(1300);
-//
-//        Mapa controladorPrin = loader.getController();
 
            ((Stage)nombreField.getScene().getWindow()).close();
 
