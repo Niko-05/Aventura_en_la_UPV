@@ -325,3 +325,44 @@
 .choice-box .context-menu .label{
     -fx-text-fill: #3D405B;
 }
+
+.date-picker-popup .month-year-pane{
+    -fx-background-color: #F4F1DE;
+}
+
+.date-picker-popup * .spinner .button{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+}
+
+.date-picker-popup * .spinner .button:hover{
+    -fx-background-color: #F2CC8F;
+    -fx-background-radius: 999px;
+}
+
+.date-picker-popup * .spinner .left-arrow,
+.date-picker-popup * .spinner .right-arrow{
+    -fx-background-color: #3D405B;
+}
+
+.date-picker-popup * .day-cell{
+    -fx-border-color: #81B29A;
+    -fx-background-color: #F4F1DE;
+    -fx-text-fill: #3D405B;
+}
+
+.date-picker-popup * .day-cell:hover{
+    -fx-background-color: #F2CC8F;
+    -fx-text-fill: #3D405B;
+}
+
+.date-picker-popup * .day-cell:selected{
+    -fx-background-color: #e3b56b;
+    -fx-text-fill: #3D405B;
+}
+
+.date-picker-popup * .week-number-cell{
+    -fx-border-color: #3D405B;
+    -fx-background-color: #3D405B;
+    -fx-text-fill: #F2CC8F;
+}
