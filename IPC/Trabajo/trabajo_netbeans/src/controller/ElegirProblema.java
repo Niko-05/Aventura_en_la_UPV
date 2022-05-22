@@ -37,7 +37,12 @@ import model.User;
 /**
  * FXML Controller class
  *
- * @author marci
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class ElegirProblema implements Initializable {
     
@@ -126,14 +131,14 @@ public class ElegirProblema implements Initializable {
     @FXML
     private void seleccionarAction(ActionEvent event) throws IOException{
         ((Stage)seleccionarButton.getScene().getWindow()).close();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VentanaResponder.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Responder.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root);;
         stage.setTitle("Resolucion de problemas");
 //        stage.setResizable(false);
 
-        VentanaResponder controladorTest = loader.getController();
+        Responder controladorTest = loader.getController();
 
         controladorTest.setUsuario(usuario);
         controladorTest.setResultados(aciertos, fallos);
@@ -142,6 +147,7 @@ public class ElegirProblema implements Initializable {
         controladorTest.setStageMapa(stageMapa);
 
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
         controladorTest.setRandomness(false,problemasListView.getSelectionModel().getSelectedIndex());
         

@@ -49,7 +49,12 @@ import org.controlsfx.control.Notifications;
 /**
  * FXML Controller class
  *
- * @author marci
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class Registrarse implements Initializable {
 
@@ -354,7 +359,7 @@ public class Registrarse implements Initializable {
                     .text("Se ha registrado el usuario correctamente")
                     .graphic(null)
                     .hideAfter(Duration.seconds(5))
-                    .position(Pos.BOTTOM_LEFT);
+                    .position(Pos.BOTTOM_RIGHT);
 
             Platform.runLater(() -> {
 

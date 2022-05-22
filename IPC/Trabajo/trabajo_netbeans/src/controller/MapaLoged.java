@@ -62,7 +62,12 @@ import model.User;
 /**
  * FXML Controller class
  *
- * @author marci
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class MapaLoged implements Initializable {
     
@@ -89,10 +94,11 @@ public class MapaLoged implements Initializable {
     private double inicioXArc;
 
     private Group zoomGroup;
+    private ContextMenu menuContext = new ContextMenu();
+    private Tooltip t;
 
     @FXML
     private ImageView transportador;
-
     @FXML
     private Slider zoom_slider;
     @FXML
@@ -133,10 +139,10 @@ public class MapaLoged implements Initializable {
     private Label fallosLab;
     @FXML
     private Button verProblemasButton;
-    private ContextMenu menuContext = new ContextMenu();
-    private Tooltip t;
     @FXML
     private ChoiceBox<Integer> grosorChoice;
+    @FXML
+    private HBox boxArriba;
 
     /**
      * Initializes the controller class.
@@ -146,8 +152,24 @@ public class MapaLoged implements Initializable {
         
         
         
+        
+        
         grosorChoice.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
         grosorChoice.getSelectionModel().select(9);
+        
+//        ((Stage)grosorChoice.getScene().getWindow()).setOnCloseRequest(e -> {
+//            System.out.println("se cierra");
+//            if (stageOpen.get()) {
+//                stage.close();
+//            }
+//            if (aciertos > 0 || fallos > 0) {
+//                System.out.println("");
+//                try {
+//                    usuario.addSession(new Session(LocalDateTime.now(), aciertos, fallos));
+//                } catch (NavegacionDAOException ex) {
+//                }
+//            }
+//        });
         
         
         t = new Tooltip("Dibujar un punto");
@@ -203,8 +225,8 @@ public class MapaLoged implements Initializable {
             hboxabajo3.setSpacing((double) newV / 25);
             map_scrollpane.setPrefWidth((double) newV);
         });
-
-        
+        hboxClear.setPrefHeight(10);
+        boxArriba.setPrefHeight(10);
         ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
             map_scrollpane.setPrefHeight((double) newV);
         });
@@ -379,6 +401,8 @@ public class MapaLoged implements Initializable {
             while (zoomGroup.getChildren().size() > 0) {
                 zoomGroup.getChildren().remove(0);
             }
+            transportador.setTranslateX(500);
+            transportador.setTranslateY(200);
             zoomGroup.getChildren().add(aux);
             zoom(0.15);
         }   
@@ -395,6 +419,7 @@ public class MapaLoged implements Initializable {
         ModPerfil controladorModPerfil = loader.getController();
 
         stage.setScene(scene);
+        stage.setResizable(false);
         controladorModPerfil.setUsuario(usuario);
         controladorModPerfil.setResultados(aciertos, fallos);
         controladorModPerfil.setController(this);
@@ -468,6 +493,7 @@ public class MapaLoged implements Initializable {
         controladorTest.setController(this);
         controladorTest.setStage(stageActual);
         controladorTest.setStageMapa(stageActual);
+        stage.setResizable(false);
         stage.show();
         stageOpen.set(true);
 
@@ -482,7 +508,7 @@ public class MapaLoged implements Initializable {
         Parent root = loader.load();
         stage = new Stage();
         Scene scene = new Scene(root);
-        stage.setTitle("Elegir problemas");
+        stage.setTitle("Resultados");
 
         Resultados controladorResultados = loader.getController();
         
@@ -656,20 +682,18 @@ public class MapaLoged implements Initializable {
 
     void setStage(Stage aux) {
         stageActual = aux;
-
+        
         stageActual.setOnCloseRequest(e -> {
             if (stageOpen.get()) {
-                if(aciertos > 0 || fallos > 0){
-                    try {
-                        usuario.addSession(new Session(LocalDateTime.now(),aciertos,fallos));
-                    } catch (NavegacionDAOException ex) {}
-                }
                 stage.close();
             }
+            if (aciertos > 0 || fallos > 0) {
+                try {
+                    usuario.addSession(new Session(LocalDateTime.now(), aciertos, fallos));
+                } catch (NavegacionDAOException ex) {
+                }
+            }
         });
-        
-        stageActual.setHeight(stageActual.getHeight()/2);
-
     }
 
     void closeProblemas(){
@@ -729,12 +753,11 @@ public class MapaLoged implements Initializable {
     
     private void crearPuntero(MouseEvent event){
         circlePainting = new Circle(1);
-            circlePainting.setCenterX(event.getX()-80);
-            circlePainting.setCenterY(event.getY()-45);
+            circlePainting.setCenterX(event.getX());
+            circlePainting.setCenterY(event.getY());
             zoomGroup.getChildren().add(circlePainting);
-            circlePainting.setStrokeWidth(grosorChoice.getValue() * 2);
-            circlePainting.setStroke(pickerColor.getValue());
-            circlePainting.setRadius(25);
+            circlePainting.setFill(pickerColor.getValue());
+            circlePainting.setRadius(grosorChoice.getValue() * 2);
 
 
             circlePainting.setOnContextMenuRequested(this::contextMenu);
@@ -749,8 +772,8 @@ public class MapaLoged implements Initializable {
             circlePainting.setStroke(pickerColor.getValue());
             circlePainting.setFill(Color.TRANSPARENT);
             zoomGroup.getChildren().add(circlePainting);
-            circlePainting.setCenterX(event.getX()-80);
-            circlePainting.setCenterY(event.getY()-45);
+            circlePainting.setCenterX(event.getX());
+            circlePainting.setCenterY(event.getY());
             circlePainting.setStrokeWidth(grosorChoice.getValue());
             inicioXArc = event.getX();
             
@@ -767,7 +790,7 @@ public class MapaLoged implements Initializable {
  
     private void crearLinea(MouseEvent event) {
 
-        linePainting = new Line(event.getX()-80, event.getY()-45, event.getX()-80, event.getY()-45);
+        linePainting = new Line(event.getX(), event.getY(), event.getX(), event.getY());
         zoomGroup.getChildren().add(linePainting);
         linePainting.setStrokeWidth(grosorChoice.getValue());
         linePainting.setStroke(pickerColor.getValue());
@@ -780,8 +803,8 @@ public class MapaLoged implements Initializable {
    
     private void crearTexto(MouseEvent event) {
         TextField texto = new TextField();
-        texto.setLayoutX(event.getX()-80);
-        texto.setLayoutY(event.getY()-45);
+        texto.setLayoutX(event.getX());
+        texto.setLayoutY(event.getY());
 //            texto.requestFocus();
         texto.setPrefWidth((zoom_slider.getMax() - (zoom_slider.getValue() - 0.1)) * 800);
         texto.setStyle("-fx-font-size:" + grosorChoice.getValue() * 10 + ";");

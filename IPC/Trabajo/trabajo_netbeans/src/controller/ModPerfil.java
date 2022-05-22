@@ -46,13 +46,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import model.Navegacion;
 import model.User;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
  *
- * @author marci
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class ModPerfil implements Initializable {
     
@@ -230,6 +237,7 @@ public class ModPerfil implements Initializable {
 
     @FXML
     private void modCorreoAction(ActionEvent event) throws NavegacionDAOException {
+        errCorreoLab.setVisible(false);
         TextInputDialog textInput = new TextInputDialog();
         textInput.setTitle("Modifica");
         textInput.setHeaderText("Introduce el nuevo correo");
@@ -261,6 +269,7 @@ public class ModPerfil implements Initializable {
 
     @FXML
     private void modContraseñaAction(ActionEvent event) throws NavegacionDAOException {
+        errContraseñaLab.setVisible(false);
         
         errContraseñaLab.setVisible(false);
         
@@ -323,8 +332,15 @@ public class ModPerfil implements Initializable {
             Optional<ButtonType> result2 = alerta.showAndWait();
             if (result2.isPresent() && result2.get() == ButtonType.OK) {
                 if (User.checkPassword(result.get())) {
-                    contraseñaLab.setText(result.get());
+                    contraseñaLab.setText(passCode.substring(20 - result.get().length()));
                     usuario.setPassword(result.get());
+                    Notifications notificationBuilder = Notifications.create()
+                            .title("Confirmación")
+                            .text("Se ha registrado el usuario correctamente")
+                            .graphic(null)
+                            .hideAfter(Duration.seconds(5))
+                            .position(Pos.BOTTOM_RIGHT);
+                        notificationBuilder.showInformation();
                 } else {
                     errContraseñaLab.setText(ERRNUEVA);
                     errContraseñaLab.setVisible(true);
@@ -424,6 +440,7 @@ public class ModPerfil implements Initializable {
         stageActual = aux;
         stageActual.setOnCloseRequest(e -> {
             controllerLoged.closeProblemas();
+            stageActual.setResizable(true);
             controllerLoged.setUsuario(usuario);
         });
     }

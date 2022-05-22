@@ -28,6 +28,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Navegacion;
@@ -37,7 +38,12 @@ import model.User;
 /**
  * FXML Controller class
  *
- * @author marci
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class Resultados implements Initializable {
     
@@ -68,6 +74,14 @@ public class Resultados implements Initializable {
     private MapaLoged controllerLoged;
     
     private ObservableList<Session> datos = null;
+    @FXML
+    private HBox boxP;
+    @FXML
+    private HBox box1;
+    @FXML
+    private VBox box2;
+    @FXML
+    private HBox box3;
     
 
     /**
@@ -75,6 +89,12 @@ public class Resultados implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        ventanaPrincipal.widthProperty().addListener((obs,oldV,newV) -> {
+            box1.setPrefWidth((double) newV / 3);
+            box2.setPrefWidth((double) newV / 3);
+            box3.setPrefWidth((double) newV / 3);
+        });
         
      
 //        try {
@@ -94,11 +114,9 @@ public class Resultados implements Initializable {
 //                        System.out.println("prueba3");
                     }
                 }
-                if (listaFinal.size() > 0) {
                     datos = FXCollections.observableList(listaFinal);
                     tableView.setItems(datos);
 //                    System.out.println("prueba2");
-                }
             }
         });
 

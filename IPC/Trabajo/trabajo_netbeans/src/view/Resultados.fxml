@@ -13,42 +13,42 @@
 
 <VBox id="Vbox_principal" fx:id="ventanaPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Resultados">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="600.0">
+      <HBox fx:id="boxP" alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="600.0">
          <children>
-            <Button id="atras" mnemonicParsing="false" onAction="#backAction" text="Atrás">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/boton%20atras.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="352.0">
+            <HBox fx:id="box1" alignment="CENTER_LEFT">
                <children>
-                  <VBox prefHeight="62.0" prefWidth="179.0">
-                     <children>
-                        <Label text="Elegir fecha para filtrar">
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Label>
-                        <DatePicker fx:id="controlFecha" editable="false" prefHeight="28.0" prefWidth="178.0" />
-                     </children>
-                     <HBox.margin>
-                        <Insets left="50.0" right="30.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
+                  <Button id="atras" mnemonicParsing="false" onAction="#backAction" prefWidth="130.0" text="Atrás">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/boton%20atras.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="139.0">
+            <VBox fx:id="box2" alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#limpiarAction" text="Limpiar filtro" />
+                  <Label text="Elegir fecha para filtrar">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <DatePicker fx:id="controlFecha" editable="false" prefHeight="28.0" prefWidth="178.0" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <HBox fx:id="box3" alignment="CENTER_RIGHT">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#limpiarAction" prefWidth="130.0" text="Limpiar filtro" />
                </children>
             </HBox>
          </children>
          <VBox.margin>
-            <Insets bottom="10.0" left="10.0" top="5.0" />
+            <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
          </VBox.margin>
       </HBox>
       <TableView fx:id="tableView" editable="true" prefHeight="325.0" prefWidth="600.0">

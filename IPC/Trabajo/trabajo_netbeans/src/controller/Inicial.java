@@ -46,7 +46,12 @@ import org.controlsfx.control.Notifications;
 /**
  * FXML Controller class
  *
- * @author usuario
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class Inicial implements Initializable {
     

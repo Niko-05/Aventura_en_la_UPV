@@ -48,7 +48,12 @@ import org.sqlite.date.FastDateFormat;
 /**
  * FXML Controller class
  *
- * @author marci
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class Responder implements Initializable {
 
@@ -154,43 +159,6 @@ public class Responder implements Initializable {
         // TODO
     }
 
-    private void backAction(ActionEvent event) throws IOException {
-        if (random) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MapaLoged.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            double prevWidth = stage.getWidth();
-            double prevHeight = stage.getHeight();
-            stage.setHeight(prevHeight);
-            stage.setWidth(prevWidth);
-            stage.setTitle("Mapa");
-
-            MapaLoged controladorPrin = loader.getController();
-//                controladorPrin.setUsuario(usuario);
-
-            stage.setScene(scene);
-            controladorPrin.setUsuario(usuario);
-            controladorPrin.setResultados(aciertos, fallos);
-        } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ElegirProblema.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            double prevWidth = stage.getWidth();
-            double prevHeight = stage.getHeight();
-            stage.setHeight(prevHeight);
-            stage.setWidth(prevWidth);
-            stage.setTitle("Elegir problemas");
-
-            ElegirProblema controladorTest = loader.getController();
-
-            stage.setScene(scene);
-            controladorTest.setUsuario(usuario);
-            controladorTest.setResultados(aciertos, fallos);
-
-        }
-    }
 
     @FXML
     private void siguienteAction(ActionEvent event) throws IOException {
@@ -236,6 +204,7 @@ public class Responder implements Initializable {
 
             stage.setScene(scene);
             stage.show();
+            controllerLoged.setStageProblemas(stage);
             controladorTest.setUsuario(usuario);
             controladorTest.setResultados(aciertos, fallos);
             controladorTest.setController(controllerLoged);
@@ -368,7 +337,9 @@ public class Responder implements Initializable {
     void setStage(Stage aux) {
         stageActual = aux;
         stageActual.setOnCloseRequest(e -> {
+            System.out.println("controller.Responder.setStage()");
             controllerLoged.closeProblemas();
+            stageActual.setResizable(true);
         });
         
     }
@@ -376,6 +347,7 @@ public class Responder implements Initializable {
     
     void setStageMapa(Stage aux) {
         stageMapa = aux;
+        controllerLoged.setStage(stageMapa);
     }
     @FXML
     private void verMapaAction(ActionEvent event) {
@@ -405,7 +377,7 @@ public class Responder implements Initializable {
             case 14:
             case 16:
             case 17:
-                ((Stage) aciertosLabel.getScene().getWindow()).setHeight(370);
+                ((Stage) aciertosLabel.getScene().getWindow()).setHeight(390);
 //                ventanaPrincipal.setPrefHeight(330);
                 break;
             case 7:

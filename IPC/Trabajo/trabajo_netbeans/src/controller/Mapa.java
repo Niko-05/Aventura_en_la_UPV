@@ -63,7 +63,12 @@ import org.controlsfx.control.Notifications;
 /**
  * FXML Controller class
  *
- * @author marci
+ * 22/05/2022
+ * @author:
+ * Marcial Carreras Arencibia
+ * Nicolas montoliu zarza
+ * Vicente Morell Amat
+ * 
  */
 public class Mapa implements Initializable {
     
@@ -183,6 +188,8 @@ public class Mapa implements Initializable {
             hboxabajo3.setSpacing((double) newV / 25);
             map_scrollpane.setPrefWidth((double) newV);
         });
+        
+        hboxClear.setPrefHeight(10);
         
         ventanaPrincipal.heightProperty().addListener((obs, oldV, newV) -> {
             map_scrollpane.setPrefHeight((double) newV);
@@ -385,20 +392,14 @@ public class Mapa implements Initializable {
         if (result.isPresent() && result.get() == ButtonType.OK) {
 //            Node aux = map_scrollpane.getContent();
             while(zoomGroup.getChildren().size() > 1) { zoomGroup.getChildren().remove(1); }
-            
+            transportador.setTranslateX(500);
+            transportador.setTranslateY(200);
 //            zoomGroup.getChildren().clear();
 //            zoomGroup.getChildren().add(aux);
             zoom(0.15);
         }   
     }
 
-    
-
-    @FXML
-    private void getMousePosition(MouseEvent event) {
-        mousePosX = event.getScreenX();
-        mousePosY = event.getScreenY();
-    }
     
      private void zoom(double scaleValue) {
         //===================================================

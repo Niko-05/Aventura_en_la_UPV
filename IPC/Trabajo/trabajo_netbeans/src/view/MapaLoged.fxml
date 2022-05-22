@@ -22,7 +22,7 @@
 
 <VBox id="Vbox_principal" fx:id="ventanaPrincipal" prefHeight="700.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapaLoged">
    <children>
-      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
+      <HBox fx:id="boxArriba" alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
          <children>
             <MenuButton fx:id="usuarioButton" mnemonicParsing="false" prefHeight="50.0" text="Nombre Usuario" textFill="#f2cc8f">
                <items>
@@ -30,7 +30,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#cerrarSesionAction" text="Cerrar sesión" />
                </items>
                <graphic>
-                  <ImageView fx:id="imgUsuario" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                  <ImageView fx:id="imgUsuario" fitHeight="29.0" fitWidth="29.0" pickOnBounds="true">
                      <image>
                         <Image url="@../icons/default.png" />
                      </image>
@@ -71,36 +71,43 @@
             <Button id="mas" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="35.0" prefWidth="35.0" text="+" />
          </children>
          <VBox.margin>
-            <Insets bottom="3.0" left="13.0" right="13.0" top="3.0" />
+            <Insets />
          </VBox.margin>
+         <padding>
+            <Insets bottom="5.0" left="30.0" right="40.0" top="5.0" />
+         </padding>
       </HBox>
-      <StackPane alignment="TOP_LEFT">
+      <HBox>
          <children>
-            <ScrollPane fx:id="map_scrollpane" pannable="true">
-               <content>
-                  <Pane>
-                     <children>
-                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/carta_nautica.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </content>
-            </ScrollPane>
-            <ImageView fx:id="transportador" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="200.0">
-               <image>
-                  <Image url="@../icons/transportador.png" />
-               </image>
-            </ImageView>
+            <StackPane alignment="TOP_LEFT">
+               <children>
+                  <ScrollPane fx:id="map_scrollpane" pannable="true">
+                     <content>
+                        <Pane>
+                           <children>
+                              <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/carta_nautica.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </content>
+                  </ScrollPane>
+                  <ImageView fx:id="transportador" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="200.0">
+                     <image>
+                        <Image url="@../icons/transportador.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
          </children>
-      </StackPane>
+      </HBox>
       <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="10.0" spacing="5.0">
          <children>
             <ToggleButton id="toggle" fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/punto-de-alfiler.png" />
                      </image>
@@ -109,7 +116,7 @@
             </ToggleButton>
             <ToggleButton id="toggle" fx:id="lineaButton" mnemonicParsing="false" onAction="#lineaAction">
                <graphic>
-                  <ImageView id="ferru" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="ferru" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/linea.png" />
                      </image>
@@ -118,7 +125,7 @@
             </ToggleButton>
             <ToggleButton id="toggle" fx:id="arcoButton" mnemonicParsing="false" onAction="#arcoButton">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/linea%20curva.png" />
                      </image>
@@ -127,7 +134,7 @@
             </ToggleButton>
             <ToggleButton id="toggle" fx:id="escribirButton" mnemonicParsing="false" onAction="#escribirAction">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/fuente.png" />
                      </image>
@@ -137,7 +144,7 @@
             <Region prefWidth="50.0" />
             <ToggleButton id="regla" fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/gobernante.png" />
                      </image>
@@ -156,7 +163,7 @@
                         </ColorPicker>
                         <ToggleButton id="toggle" fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">
                            <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/pintar.png" />
                                  </image>
@@ -165,7 +172,7 @@
                         </ToggleButton>
                         <ToggleButton id="toggle" fx:id="eliminarButton" mnemonicParsing="false" onAction="#eliminarAction">
                            <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/eliminar.png" />
                                  </image>
@@ -187,12 +194,12 @@
                   </Button>
                </children>
                <padding>
-                  <Insets right="50.0" />
+                  <Insets right="40.0" />
                </padding>
             </HBox>
          </children>
          <padding>
-            <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+            <Insets bottom="5.0" left="30.0" top="5.0" />
          </padding>
       </HBox>
    </children>
