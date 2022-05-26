@@ -83,7 +83,8 @@ public class Ordenacion {
      * @param i  Extremo inferior del intervalo a ordenar
      * @param f  Extremo superior del intervalo a ordenar
      */
-    private static <T extends Comparable<T>> void mergeSort1(T[] v, int i, int f) {
+    private static <T extends Comparable<T>> void mergeSort1(T[] v, 
+                                                             int i, int f) {
         if (i < f) {
             int m = (i + f) / 2;
             mergeSort1(v, i, m);
@@ -101,7 +102,8 @@ public class Ordenacion {
      * @param f  Extremo superior del intervalo a mezclar
     */
     @SuppressWarnings("unchecked")
-    private static <T extends Comparable<T>> void merge1(T[] v,int i, int f, int m) {
+    private static <T extends Comparable<T>> void merge1(T[] v, 
+                                                         int i, int f, int m) {
         int a = i, b = m + 1, k = 0;
         T[] aux = (T[]) new Comparable[f - i + 1];
         while (a <= m && b <= f) {
@@ -122,8 +124,11 @@ public class Ordenacion {
      * @param v  Sus elementos deben implementar la interfaz Comparable
      */
     public static <T extends Comparable<T>> void mergeSort2(T[] v) {
-        T[] aux = mergeSort2(v, 0, v.length - 1);
-        System.arraycopy(aux, 0, v, 0, v.length);
+        /*COMPLETAR*/
+        T[] aux = mergeSort2(v,0,v.length-1);
+        for(int i= 0; i < v.length; i++){
+            v[i] = aux[i];
+        }
     }
     
     /**
@@ -135,23 +140,22 @@ public class Ordenacion {
      * @param f  Extremo superior del intervalo a ordenar
      * @return T[], el array resultante de ordenacion de v[i, f]
      */
-    @SuppressWarnings("unchecked")
-    private static <T extends Comparable<T>> T[] mergeSort2(T[] v, int i, int f) {
-        T[] res;
-        if (i + 1 == f) {
-            if (v[i].compareTo(v[f]) < 0)
-                res = (T[]) new Comparable[] {v[i], v[f]};
-            else
-                res = (T[]) new Comparable[] {v[f], v[i]};
-        } else if (i == f) {
-            res = (T[]) new Comparable[] {v[i]};
-        } else {
-            int m = (i + f) / 2;
-            T[] v1 = mergeSort2(v, i, m);
-            T[] v2 = mergeSort2(v, m + 1, f);
-            res = merge2(v1, v2);
+    private static <T extends Comparable<T>> T[] mergeSort2(T[] v,
+                                                             int i, int f) {
+        /*COMPLETAR*/
+        if (f - i == 1 ){
+            if (v[i].compareTo(v[f]) > 0){
+                return (T[]) new Comparable[]{v[f],v[i]};
+            }else{
+                return (T[]) new Comparable[]{v[i],v[f]};
+            }
+        } else if (i < f) {
+            int m = (f + i)/2;
+            T[] v1 = mergeSort2(v,i, m);
+            T[] v2 = mergeSort2(v,m+1,f);
+            return merge2(v1,v2);
         }
-        return res;
+        return (T[]) new Comparable[]{v[i]};
     }        
     
     /**
@@ -163,14 +167,25 @@ public class Ordenacion {
      */
     @SuppressWarnings("unchecked")
     private static <T extends Comparable<T>> T[] merge2(T[] v1, T[] v2) {
+        /*COMPLETAR*/
+        int a = 0;
+        int b = 0;
+        int k = 0; 
         T[] aux = (T[]) new Comparable[v1.length + v2.length];
-        int a = 0, b = 0, k = 0;
-        while (a <= v1.length - 1 && b <= v2.length - 1) {
-            if (v1[a].compareTo(v2[b]) < 0){aux[k++] = v1[a++];}
-            else                           {aux[k++] = v2[b++];}
+        while (a < v1.length && b < v2.length) {
+            if (v1[a].compareTo(v2[b]) < 0) { 
+                aux[k++] = v1[a++]; 
+            }
+            else { 
+                aux[k++] = v2[b++]; 
+            }
         }
-        while (a <= v1.length - 1) {aux[k++] = v1[a++];}
-        while (b <= v2.length - 1) {aux[k++] = v2[b++];}
+        while (a < v1.length) { 
+            aux[k++] = v1[a++]; 
+        }
+        while (b < v2.length) { 
+            aux[k++] = v2[b++];
+        }
         return aux;
     }
     

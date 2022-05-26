@@ -29,7 +29,7 @@ public class TablaHash<C, V> implements Map<C, V> {
     /** El valor (boolean) que indica si una Tabla Hash realiza 
      *  Rehashing cuando su factor de carga supera FC_ESTANDAR
      */
-    public static final boolean REHASHING = true; // en Parte 1 vale false;
+    public static final boolean REHASHING = false; // en Parte 1 vale false;
     
     // UN array de Listas Con PI de EntradaHash<C, V> elArray:
     // - elArray[h] representa una cubeta, o lista de    
@@ -50,12 +50,25 @@ public class TablaHash<C, V> implements Map<C, V> {
     private int numRH;
     
     
+    private ListaConPI<C> clavesColisionadas(){
+        ListaConPI<C> res = new LEGListaConPI<C>();;
+        for (int i = 0; i < elArray.length; i++){
+            for(elArray[i].inicio(); !elArray[i].esFin(); elArray[i].siguiente()){
+                if(elArray[i].talla() == 2){
+                    res.insertar(elArray[i].recuperar().clave);
+                }    
+            }
+        }
+        return res;
+    } 
+    
     // UN metodo indiceHash que representa la funcion de 
     // Dispersion de la Tabla
     //**SIN ESTE METODO NO SE TIENE UNA TABLA HASH, SOLO UN ARRAY**
     // Devuelve el indice Hash de la Clave c de una Entrada, 
     // i.e. la posicion de la cubeta en la que la que se ubica  
     // la Entrada de Clave c
+    
     protected int indiceHash(C c) {
         int indiceHash = c.hashCode() % elArray.length;
         if (indiceHash < 0) { indiceHash += elArray.length; }
@@ -88,13 +101,6 @@ public class TablaHash<C, V> implements Map<C, V> {
             if (n % i == 0) return false; // n NO es primo
         return true; // n SI es primo
     }    
-    
-    /** Devuelve el factor de carga (real) de una Tabla Hash,   
-     *  lo que equivale a la longitud media de sus cubetas en  
-     *  una implemetacion Enlazada de la Tabla */
-    public final double factorCarga() { 
-        return (double) talla / elArray.length; 
-    }
     
     /** Comprueba si una Tabla Hash esta vacia,  
      *  i.e. si tiene 0 Entradas */
@@ -189,15 +195,14 @@ public class TablaHash<C, V> implements Map<C, V> {
     //
     @SuppressWarnings("unchecked")
     protected final void rehashing() {
-        ListaConPI<EntradaHash<C, V>>[] aux = elArray;
+        /* COMPLETAR */
+        ListaConPI<EntradaHash<C,V>>[] aux = elArray;
         elArray = new LEGListaConPI[siguientePrimo(elArray.length * 2)];
-
         for (int i = 0; i < elArray.length; i++)
             elArray[i] = new LEGListaConPI<>();
-
-        for (int i = 0; i < aux.length; i++) {
-            for(aux[i].inicio(); !aux[i].esFin(); aux[i].siguiente()) {
-                EntradaHash<C, V> elemento = aux[i].recuperar();
+        for(ListaConPI<EntradaHash<C,V>> lista: aux){
+            for (lista.inicio(); !lista.esFin(); lista.siguiente()){
+                EntradaHash<C,V> elemento = lista.recuperar();
                 elArray[indiceHash(elemento.clave)].insertar(new EntradaHash<>(elemento.clave, elemento.valor));
             }
         }
@@ -211,6 +216,13 @@ public class TablaHash<C, V> implements Map<C, V> {
             for (elArray[i].inicio(); !elArray[i].esFin(); elArray[i].siguiente()) 
                  l.insertar( elArray[i].recuperar().clave); 
         return l;
+    }
+    
+    /** Devuelve el factor de carga (real) de una Tabla Hash,   
+     *  lo que equivale a la longitud media de sus cubetas en  
+     *  una implemetacion Enlazada de la Tabla */
+    public final double factorCarga() { 
+        return (double) talla / elArray.length; 
     }
     
     /** Devuelve un String con las Entradas de una Tabla Hash
@@ -231,12 +243,13 @@ public class TablaHash<C, V> implements Map<C, V> {
     /** Devuelve la desviacion tipica de las longitudes de las 
      *  cubetas de una Tabla Hash Enlazada */
     public final double desviacionTipica() {
-        double factorCarga = factorCarga();
-        double res = 0.0;
-        for (ListaConPI lista : elArray) {
-            res += Math.pow(lista.talla() - factorCarga, 2);
+        /* COMPLETAR */
+        double media = factorCarga();
+        double suma = 0.0;                                    
+        for (ListaConPI<EntradaHash<C,V>> cubeta: elArray){
+            suma += (cubeta.talla() - media) * (cubeta.talla() - media);
         }
-        return Math.sqrt(res / elArray.length);
+        return Math.sqrt(suma/elArray.length);
     }
     
     /** Devuelve el coste promedio de localizar
@@ -247,17 +260,11 @@ public class TablaHash<C, V> implements Map<C, V> {
      */
     public final double costeMLocalizar() {
         /* COMPLETAR */
-        double res = 0.0;
-        //for(ListaConPI<EntradaHash<C,V>> cub: elArray){
-        //    res += (cub.talla()-1 * (cub.talla()-2))/2;}
-        //return res/talla;
-        for(int i=0; i<elArray.length;i++){
-            
-            for(int j=0; j<elArray[i].talla();j++){
-                res +=j;
-            }
+        double res =0.0; 
+        for(ListaConPI<EntradaHash<C,V>> cubeta: elArray){
+            res += (cubeta.talla() * (cubeta.talla()-1))/2;
         }
-        return res/talla; 
+        return res/talla;
     }
 
     /** Devuelve un String con el histograma de ocupacion 
@@ -285,5 +292,18 @@ public class TablaHash<C, V> implements Map<C, V> {
             res += i + "\t" + histo[i] + "\n";
         }        
         return res;        
+    }
+    
+    // metodo main a incluir en la clase TablaHash para el test del metodo clavesColisionadas
+    public static void main(String[] args) {
+        TablaHash<Integer,Integer> tabla = new TablaHash(8);
+        for(int i=0;i<20;i++){
+            tabla.insertar(i,i);
+        }
+        ListaConPI<Integer> colisionadas = tabla.clavesColisionadas();
+        StringBuilder str = new StringBuilder();
+        for (colisionadas.inicio(); !colisionadas.esFin(); colisionadas.siguiente())
+            str.append(colisionadas.recuperar()+" ");
+        System.out.println("Claves colisionadas: "+str.toString());
     }
 }
