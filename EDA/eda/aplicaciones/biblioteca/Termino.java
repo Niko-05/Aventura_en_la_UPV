@@ -58,23 +58,14 @@ public class Termino {
      */
     public int hashCode() { 
         int res = this.valorHash;
-        if (res != 0) {return res;}
-    
-        int n = this.termino.length();
-        int pow = this.baseHashCode;
-        int counter = 0;
+        if (res != 0) { return res; }
         
-        for(int i = 0; i < n - 1; i++){
-            counter = (n - (i + 1));
-            pow = 1;
-            while(counter != 0){
-                pow *= this.baseHashCode;
-                counter--;
-            }
-            res += this.termino.charAt(i) * pow;
-        }        
-        res += this.termino.charAt(n - 1);
-        
+        // COMPLETAR: calcular el valor de res para this.termino en this.baseHashCode
+        // de forma EFICIENTE, i.e. usando la regla de Horner
+        for (int i = 0; i< this.termino.length(); i++){
+            res = this.baseHashCode * res + this.termino.charAt(i);
+        } 
+        /* FIN COMPLETAR */
         
         this.valorHash = res;
         return res;
@@ -85,9 +76,9 @@ public class Termino {
      *  cuando los valores Hash de uno y otro Termino son iguales
      */
     public boolean equals(Object otro) {
-        Termino otroT = (Termino) otro;
-        if(this.valorHash == otroT.valorHash){
-            return this.termino.equals(otroT.termino);
+        /* COMPLETAR */
+        if (otro instanceof Termino && ((Termino)otro).valorHash == this.valorHash){
+            return ((Termino)otro).termino.equals(this.termino);
         }
         return false;
     }

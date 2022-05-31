@@ -28,25 +28,16 @@ public class ApuestaPrimitiva {
      *                 (true) o no (false).           
      */
     public ApuestaPrimitiva(boolean ordenada) {
+        /* COMPLETAR */
         if(ordenada){
-            combinacion = new LEGListaConPIOrdenada();
-        } else {
-            combinacion = new LEGListaConPI();
+            combinacion = new LEGListaConPIOrdenada<NumeroPrimitiva>();
         }
-        NumeroPrimitiva n;
-        boolean repeated;
-        while( combinacion.talla() < 6 ){
-            repeated = false;
-            n = new NumeroPrimitiva();
-            combinacion.inicio();
-            while(!combinacion.esFin()){
-                if(combinacion.recuperar().compareTo(n) == 0){
-                    repeated = true;
-                    break;
-                }
-                combinacion.siguiente();
-            }
-            if(!repeated){
+        else{
+            combinacion = new LEGListaConPI<NumeroPrimitiva>();
+        }
+        while(combinacion.talla() != 6){
+            NumeroPrimitiva n = new NumeroPrimitiva();
+            if(posicionDe(n) == -1) {
                 combinacion.insertar(n);
             }
         }
@@ -64,14 +55,14 @@ public class ApuestaPrimitiva {
      *          o -1 en caso contrario
      */
     protected int posicionDe(NumeroPrimitiva n) {
-        int position = 0;
+        /* COMPLETAR */
         combinacion.inicio();
-        while(!combinacion.esFin()){
-            if(combinacion.recuperar().compareTo(n) == 0){
-                return position;
-            } else {
+        for(int i = 0; !combinacion.esFin() && i < 6; i++){
+            if(combinacion.recuperar().equals(n)){
+                return i;
+            }
+            else{
                 combinacion.siguiente();
-                position++;
             }
         }
         return -1;
@@ -84,12 +75,21 @@ public class ApuestaPrimitiva {
      * @return el String con la ApuestaPrimitiva en el formato texto dado. 
      */
     public String toString() {
-        String string = "";
+
+        /* COMPLETAR */
+        String textoFinal = "";
         combinacion.inicio();
+        NumeroPrimitiva numeroP = new NumeroPrimitiva();
+        numeroP = combinacion.recuperar();
+        textoFinal = textoFinal + (numeroP.toString());
+        combinacion.siguiente();
         while(!combinacion.esFin()){
-            string += (combinacion.recuperar().toString() + ", ");
+            numeroP = combinacion.recuperar();
+            textoFinal = textoFinal + (", " + numeroP.toString());
             combinacion.siguiente();
         }
-        return string.substring(0, string.length()-1);
+        //NumeroPrimitiva imprimir = combinacion.recuperar();
+        //resultado += ", " + imprimir.toString();
+        return textoFinal;
     }
 }

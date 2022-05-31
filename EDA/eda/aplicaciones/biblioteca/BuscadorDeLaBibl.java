@@ -200,16 +200,21 @@ public class BuscadorDeLaBibl {
      *  de la BD, o null si no existe ninguno.
      */
     public ListaConPI<Termino> hapax() {
-        ListaConPI<Termino> t = index.claves();
-        ListaConPI<Termino> res = new LEGListaConPI<>();
-        t.inicio();
-        while(!t.esFin()){
-            if(index.recuperar(t.recuperar()).talla() == 1){
-                res.insertar(t.recuperar());
-            }
-            t.siguiente();
+        /* COMPLETAR */
+        ListaConPI<Termino> res = new LEGListaConPI();
+        ListaConPI<Termino> c = index.claves(); 
+        ListaConPI<BuscadorDeLaBibl.Posting> valor;
+        for(c.inicio(); !c.esFin(); c.siguiente()){
+            Termino clave = c.recuperar();
+            valor = index.recuperar(clave);
+            if (valor.talla() == 1){
+                res.insertar(clave);
+            } 
         }
-        if(res.esVacia()){return null;}
-        return res;
+        if (res.talla() == 0) {
+            return null;
+        }else{
+            return res;
+        }
     }
 }    
