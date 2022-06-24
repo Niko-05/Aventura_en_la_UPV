@@ -1,0 +1,327 @@
+#border_pane{
+    -fx-background-color: #F4F1DE;
+}
+
+#Vbox_principal{
+    -fx-background-color: #F4F1DE;
+}
+
+#border-pane{
+    -fx-background-color: #F4F1DE;
+}
+
+#mas{
+    -fx-background-color: #3D405B;
+    -fx-text-fill: #F2CC8F;
+    -fx-font:bold 12pt "Segoe UI";
+    -fx-line-height: 24px;
+}
+
+#mas:hover{
+	-fx-background-color: #F2CC8F;
+	-fx-text-fill: #3D405B;
+}
+
+#limpiar_carta{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #3D405B;
+    -fx-font: bold 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#limpiar_carta:hover{
+	-fx-background-color: #AE3F21;
+	-fx-text-fill: #F2CC8F;
+}
+
+#ferru{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 14pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#atras{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 14pt "Segoe UI";
+}
+
+#atras:hover{
+	-fx-background-color: #AE3F21;
+	-fx-text-fill: #F2CC8F;
+}
+
+#registrarse{
+    -fx-background-color: #3D405B;
+    -fx-background-radius: 997px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#registrarse:hover{
+	-fx-background-color: #F2CC8F;
+	-fx-text-fill: #3D405B;
+}
+
+#modificador{
+  -fx-background-color: #3D405B;
+  -fx-background-radius: 999px;
+  -fx-text-fill: #F2CC8F;
+  -fx-font: 10pt "Segoe UI";
+}
+
+#modificador:hover{
+	-fx-background-color: #F2CC8F;
+	-fx-text-fill: #3D405B;
+}
+
+#menumodificador{
+    -fx-background-radius: 999px;
+    -fx-background-color: #81B29A;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 12pt "Segoe UI";
+}
+
+#menumodificador:hover{
+	-fx-background-color: #F2CC8F;
+	-fx-text-fill: #81B29A;
+}
+
+#labelmod{
+    -fx-font: bold 16pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+#enunciado{
+    -fx-font: 13pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+#cerrar_sesion{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #3D405B;
+    -fx-font: bold 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#cerrar_sesion:hover{
+	-fx-background-color: #3D405B;
+	-fx-text-fill: #E07A5F;
+}
+
+#error{
+	-fx-text-fill: #E07A5F;
+	-fx-font: 10pt "Segoe UI";
+}
+
+#regla{
+    -fx-background-color: #aa74d6;
+    -fx-background-radius: 999px;
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+#regla:hover{
+    -fx-background-color: #6f13ba;
+}
+
+#regla:selected{
+    -fx-background-color: #f74ff2;
+}
+
+.tooltip{
+
+    -fx-text-fill: #F2CC8F;
+    -fx-background-color: #3D405B;
+}
+
+.color-picker{
+    -fx-background-color: transparent;
+    -fx-background-radius: 999px;
+}
+
+.color-picker .label{
+    -fx-text-fill: transparent;
+}
+
+.color-picker:hover{
+    -fx-background-color: #d0d2d6;
+}
+
+/*.list-view .header{
+	-fx-background-color: #81B29A;
+
+}*/
+.list-cell{
+    -fx-border-color: #81B29A;
+    -fx-font: 12pt "Segoe UI";
+	-fx-text-fill: #3D405B;
+    -fx-background-color: #F4F1DE;
+}
+
+.list-cell:hover{
+    -fx-background-color: #F2CC8F;
+}
+
+.list-cell:selected{
+    -fx-background-color: #e3b56b;
+}
+
+
+.table-view{
+	-fx-background-color: #F2CC8F;
+	-fx-font: 14pt "Segoe UI";
+
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: #3D405B;
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header .label{
+    -fx-text-fill: #F2CC8F;
+}
+
+.table-column{
+	-fx-border-color: #81B29A;
+	-fx-font: 14pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+.text-field{
+	-fx-font: 10pt "Segoe UI";
+}
+
+.toggle-button{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 14pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #509a76;
+}
+
+.toggle-button:selected {
+	-fx-background-color: #F2CC8F;
+}
+
+.menu-button{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-line-height: 24px;
+}
+
+.menu-button:hover{
+    -fx-background-color: #509a76;
+}
+
+.menu-button .label{
+    -fx-text-fill: #3D405B;
+    -fx-font: bold 12pt "Segoe UI";
+}
+
+.menu-button .label:hover{
+    -fx-text-fill: #3D405B;
+}
+
+.menu-button .context-menu{
+    -fx-background-color: #F4F1DE;
+}
+
+.menu-button .context-menu .label{
+    -fx-text-fill: #3D405B;
+}
+
+.menu-item:hover{
+    -fx-background-color: #F2CC8F;
+}
+/*modena.css*/
+
+
+.button{
+  -fx-background-color: #3D405B;
+  -fx-background-radius: 999px;
+  -fx-text-fill: #F2CC8F;
+  -fx-font: 14pt "Segoe UI";
+  -fx-line-height: 24px;
+  -fx-padding: 8px 10px;
+
+}
+
+.button:hover{
+	-fx-background-color: #F2CC8F;
+	-fx-text-fill: #3D405B;
+}
+
+.radio-button{
+    -fx-font: 12pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+
+.label{
+    -fx-font: 12pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+.dialog-pane{
+  -fx-background-color: #F4F1DE;
+
+}
+.dialog-pane:header .header-panel{
+    -fx-background-color: #F4F1DE;
+}
+
+.dialog-pane:header .header-panel .label{
+    -fx-font: 14pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+.dialog-pane .button{
+    -fx-background-color: #3D405B;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 12pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+.dialog-pane .button:hover{
+    -fx-background-color: #F2CC8F;
+    -fx-text-fill: #3D405B;
+ }
+
+.choice-box{
+    -fx-background-color: #F2CC8F;
+    -fx-background-radius: 999px;
+
+}
+
+.choice-box:hover{
+    -fx-background-color: #e3b56b;
+}
+
+.choice-box .context-menu{
+    -fx-background-color: #F4F1DE;
+}
+
+.choice-box .context-menu .label{
+    -fx-text-fill: #3D405B;
+}

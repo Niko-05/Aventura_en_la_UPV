@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox id="Vbox_principal" fx:id="ventanaPrincipal" prefHeight="800.0" prefWidth="1300.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MapaLoged">
+   <children>
+      <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="5.0" VBox.vgrow="NEVER">
+         <children>
+            <MenuButton fx:id="usuarioButton" mnemonicParsing="false" prefHeight="50.0" text="Nombre Usuario" textFill="#f2cc8f">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#modPerfilAction" text="Modificar Perfil" />
+                  <MenuItem mnemonicParsing="false" onAction="#cerrarSesionAction" text="Cerrar sesión" />
+               </items>
+               <graphic>
+                  <ImageView fx:id="imgUsuario" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../icons/default.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuButton>
+            <MenuButton mnemonicParsing="false" prefHeight="50.0" text="Problemas" textFill="#f2cc8f">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#probListAction" text="Lista de problemas" />
+                  <MenuItem mnemonicParsing="false" onAction="#probAleatorioAction" text="Problemas aleatorios" />
+                  <MenuItem mnemonicParsing="false" onAction="#resultadosAction" text="Ver resultados" />
+               </items>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </MenuButton>
+            <VBox>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Label text="Aciertos:" />
+                        <Label fx:id="aciertosLab" text="0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Label text="Fallos:" />
+                        <Label fx:id="fallosLab" text="0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button fx:id="verProblemasButton" mnemonicParsing="false" onAction="#verProblemasAction" text="Ver problemas" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Zoom" />
+            <Button id="mas" mnemonicParsing="false" onAction="#zoomOut" prefHeight="35.0" prefWidth="35.0" text="-" />
+            <Slider fx:id="zoom_slider" max="6000.0" min="800.0" prefHeight="14.0" prefWidth="400.0" HBox.hgrow="SOMETIMES" />
+            <Button id="mas" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#zoomIn" prefHeight="35.0" prefWidth="35.0" text="+" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="3.0" left="13.0" right="13.0" top="3.0" />
+         </VBox.margin>
+      </HBox>
+      <StackPane alignment="TOP_LEFT">
+         <children>
+            <ScrollPane fx:id="map_scrollpane" pannable="true">
+               <content>
+                  <Pane>
+                     <children>
+                        <ImageView fx:id="cartaNautica" fitHeight="5760.0" fitWidth="8960.0" layoutX="-80.0" layoutY="-45.0" onMouseDragged="#mouseDragged" onMousePressed="#mousePressed" onMouseReleased="#mouseReleased" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/carta_nautica.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </content>
+            </ScrollPane>
+            <ImageView fx:id="transportador" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="200.0">
+               <image>
+                  <Image url="@../icons/transportador.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <HBox fx:id="botonesBox" alignment="CENTER_LEFT" prefHeight="10.0" spacing="5.0">
+         <children>
+            <ToggleButton id="toggle" fx:id="punteroButton" mnemonicParsing="false" onAction="#punteroAction">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/punto-de-alfiler.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton id="toggle" fx:id="lineaButton" mnemonicParsing="false" onAction="#lineaAction">
+               <graphic>
+                  <ImageView id="ferru" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/linea.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton id="toggle" fx:id="arcoButton" mnemonicParsing="false" onAction="#arcoButton">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/linea%20curva.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton id="toggle" fx:id="escribirButton" mnemonicParsing="false" onAction="#escribirAction">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/fuente.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <ToggleButton id="regla" fx:id="reglaButton" mnemonicParsing="false" onAction="#reglaAction">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/gobernante.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </ToggleButton>
+            <HBox fx:id="hboxClear" alignment="CENTER_RIGHT" prefWidth="500.0">
+               <children>
+                  <HBox fx:id="hboxabajo3" alignment="CENTER" prefWidth="300.0">
+                     <children>
+                        <ChoiceBox fx:id="grosorChoice" prefWidth="50.0" />
+                        <ColorPicker fx:id="pickerColor" prefHeight="30.0" prefWidth="47.0">
+                           <value>
+                              <Color />
+                           </value>
+                        </ColorPicker>
+                        <ToggleButton id="toggle" fx:id="colorButton" mnemonicParsing="false" onAction="#colorAction">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/pintar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <ToggleButton id="toggle" fx:id="eliminarButton" mnemonicParsing="false" onAction="#eliminarAction">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/eliminar.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </HBox>
+                  <Button id="limpiar_carta" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#limpiarAction" stylesheets="@../model/estilo.css" text="Limpiar Carta" textAlignment="JUSTIFY">
+                     <HBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets right="50.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

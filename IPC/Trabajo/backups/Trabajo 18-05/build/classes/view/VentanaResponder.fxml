@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox id="Vbox_principal" fx:id="ventanaPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="300.0" prefHeight="500.0" prefWidth="700.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.VentanaResponder">
+   <children>
+      <VBox fx:id="hBoxPrincipal" spacing="30.0">
+         <children>
+            <VBox fx:id="vBoxEnunciado" alignment="CENTER_LEFT">
+               <children>
+                  <Label id="enunciado" fx:id="preguntaField" alignment="TOP_LEFT" text="Enunciado del problema" textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="123.0" prefWidth="490.0">
+               <children>
+                  <RadioButton fx:id="Respuesta_0" mnemonicParsing="false" text="Respuesta 1">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="Respuesta_1" mnemonicParsing="false" text="Respuesta 2">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="Respuesta_2" mnemonicParsing="false" text="Respuesta 3">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="Respuesta_3" mnemonicParsing="false" text="Respuesta 4">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </RadioButton>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="40.0" right="40.0" />
+         </padding>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </VBox>
+      <HBox alignment="BOTTOM_CENTER">
+         <children>
+            <HBox fx:id="hBoxAbajo1" alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="230.0">
+               <children>
+                  <Label id="certos" text="Aciertos:">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label id="certos" fx:id="aciertosLabel" text="0">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="2.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label id="certos" text="Fallos:">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="10.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label id="certos" fx:id="fallosLabel" text="0">
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="2.0" right="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </HBox>
+            <HBox fx:id="hBoxAbajo2" alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="255.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#verMapaAction" text="Ver mapa" />
+                  <Button fx:id="comprobarButton" mnemonicParsing="false" onAction="#comprobarAction" text="Comprobar">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="siguienteButton" mnemonicParsing="false" onAction="#siguienteAction" text="Siguiente">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

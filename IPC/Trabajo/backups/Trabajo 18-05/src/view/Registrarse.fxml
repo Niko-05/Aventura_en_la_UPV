@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox id="Vbox_principal" fx:id="ventanaPrincipal" prefHeight="400.0" prefWidth="500.0" stylesheets="@../model/estilo.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Registrarse">
+   <children>
+      <VBox prefWidth="300.0" spacing="10.0">
+         <children>
+            <Button id="atras" mnemonicParsing="false" onAction="#buttonBack" text="Atras">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/boton%20atras.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Button>
+            <VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <TextField fx:id="nombreField" prefWidth="300.0" promptText="usuario" />
+                        <ImageView fx:id="usuarioCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/pregunta.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label id="error" fx:id="errNomLab" text="Usuario ya registrado" />
+               </children>
+            </VBox>
+            <VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo electrónico" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <TextField fx:id="correoField" prefWidth="300.0" promptText="correo@example.com" />
+                        <ImageView fx:id="correoCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/pregunta.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label id="error" fx:id="errCorreoLab" text="Formato de correo no valido" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <PasswordField fx:id="contraseñaField" prefWidth="300.0" promptText="Contraseña" />
+                        <ImageView fx:id="contraseñaCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/pregunta.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label id="error" fx:id="errConLab" text="Contraseña no valida" />
+               </children>
+            </VBox>
+            <VBox>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Text id="labelmod" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacimiento">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <DatePicker fx:id="fechaField" promptText="dd-mm-aaaa" />
+                        <ImageView fx:id="nacimientoCondiciones" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/pregunta.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <Label id="error" fx:id="errFechaLab" text="Introduzca fecha de nacimiento">
+                     <font>
+                        <Font name="Segoe UI" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="20.0" left="30.0" top="20.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER" spacing="20.0">
+         <children>
+            <ImageView fx:id="avatarField" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../icons/default.png" />
+               </image>
+            </ImageView>
+            <MenuButton id="menumodificador" alignment="CENTER" mnemonicParsing="false" stylesheets="@../model/estilo.css" text="Cambiar Avatar" textAlignment="CENTER">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#avatarDefaultAction">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/default.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#avatar1Action">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/avatar1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#avatar2Action">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/avatar2.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#avatar3Action">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/avatar3.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#avatar4Action">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/avatar4.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#avatarImportAction" text="Importar">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/subir.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+               </items>
+            </MenuButton>
+            <VBox fx:id="boxRegistarse" alignment="BOTTOM_RIGHT">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <children>
+                  <Button fx:id="buttonAceptar" alignment="CENTER" contentDisplay="CENTER" maxWidth="116.0" mnemonicParsing="false" onAction="#buttAceptarAction" prefHeight="39.0" prefWidth="116.0" text="Registrarse" />
+               </children>
+            </VBox>
+         </children>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets left="10.0" right="30.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>

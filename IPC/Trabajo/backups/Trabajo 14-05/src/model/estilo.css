@@ -1,0 +1,162 @@
+#border_pane{
+    -fx-background-color: #F4F1DE;
+}
+
+#Vbox_principal{
+    -fx-background-color: #F4F1DE;
+}
+
+#border-pane{
+    -fx-background-color: #F4F1DE;
+}
+
+#mas{
+    -fx-background-color: #3D405B;
+    -fx-text-fill: #F2CC8F;
+    -fx-font:bold 12pt "Segoe UI";
+    -fx-line-height: 24px;
+}
+
+#limpiar_carta{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #3D405B;
+    -fx-font: bold 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#ferru{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 14pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#atras{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 14pt "Segoe UI";
+    /*-fx-line-height: 24px;*/
+    /*-fx-padding: 8px 10px;*/
+}
+
+#registrarse{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 997px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+#modificador{
+  -fx-background-color: #3D405B;
+  -fx-background-radius: 999px;
+  -fx-text-fill: #F2CC8F;
+  -fx-font: 10pt "Segoe UI";
+  /*-fx-line-height: 24px;*/
+  /*-fx-padding: 8px 24px;*/
+
+}
+
+#menumodificador{
+    -fx-background-radius: 999px;
+    -fx-background-color: #81B29A;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 12pt "Segoe UI";
+
+}
+
+#labelmod{
+    -fx-font: bold 16pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+
+.menu-button{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: bold 12pt "Segoe UI";
+    -fx-line-height: 24px;
+    /*-fx-padding: 8px 10px;*/
+
+    -fx-background-radius: 999px;
+}
+
+/*.toggle-button{
+    -fx-background-color: #81B29A;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: bold 12pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}*/
+
+.button{
+  -fx-background-color: #3D405B;
+  -fx-background-radius: 999px;
+  -fx-text-fill: #F2CC8F;
+  -fx-font: 14pt "Segoe UI";
+  -fx-line-height: 24px;
+  -fx-padding: 8px 10px;
+
+}
+
+
+.radio-button{
+    -fx-font: 12pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+
+.label{
+    -fx-font: 14pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+#enunciado{
+    -fx-font: 13pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+#cerrar_sesion{
+    -fx-background-color: #E07A5F;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #3D405B;
+    -fx-font: bold 10pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+.dialog-pane{
+  -fx-background-color: #F4F1DE;
+
+}
+.dialog-pane:header .header-panel{
+    -fx-background-color: #F4F1DE;
+}
+
+.dialog-pane:header .header-panel .label{
+    -fx-font: 14pt "Segoe UI";
+    -fx-text-fill: #3D405B;
+}
+
+.dialog-pane .button{
+    -fx-background-color: #3D405B;
+    -fx-background-radius: 999px;
+    -fx-text-fill: #F2CC8F;
+    -fx-font: 12pt "Segoe UI";
+    -fx-line-height: 24px;
+    -fx-padding: 8px 10px;
+}
+
+.dialog-pane .button:hover{     
+  -fx-background-color:white;
+  -fx-text-fill:black;
+  -fx-font-weight:bold; 
+ }
